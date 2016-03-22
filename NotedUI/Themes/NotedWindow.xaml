@@ -1,0 +1,116 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
+                    xmlns:local="clr-namespace:NotedUI.Themes"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Styles/IconButton.xaml" />
+        <ResourceDictionary Source="../Styles/Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type local:NotedWindow}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome x:Name="Chrome"
+                              CaptionHeight="6"
+                              CornerRadius="0"
+                              GlassFrameThickness="0"
+                              ResizeBorderThickness="3" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <!--  Template  -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NotedWindow}">
+
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <AdornerDecorator>
+                            <Grid>
+
+                                <!--  Main Window Content  -->
+                                <ContentPresenter Margin="0" />
+
+                                <!--  This is the title bar with buttons  -->
+                                <Grid Height="30"
+                                      VerticalAlignment="Top"
+                                      IsHitTestVisible="True">
+
+                                    <StackPanel HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Orientation="Horizontal">
+                                        <StackPanel.Resources>
+                                            <Style BasedOn="{StaticResource IconButton}"
+                                                   TargetType="Button">
+                                                <Setter Property="Width"
+                                                        Value="50" />
+                                                <Setter Property="Height"
+                                                        Value="30" />
+                                                <Setter Property="ab:ButtonBehaviors.IconSize"
+                                                        Value="12" />
+                                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                                        Value="True" />
+                                                <Setter Property="Foreground"
+                                                        Value="{StaticResource AccentLightBrush}" />
+                                            </Style>
+                                        </StackPanel.Resources>
+
+                                        <Button Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                                Padding="0,8,0,0"
+                                                ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}" />
+
+                                        <Button x:Name="buttonMax"
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                                ab:ButtonBehaviors.Icon="{StaticResource MaximizeIcon}" />
+
+                                        <Button x:Name="buttonRestore"
+                                                Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
+                                                Visibility="Collapsed"
+                                                ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}" />
+
+                                        <Button Background="{StaticResource RedAccentBrush}"
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                                ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}" />
+
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                        </AdornerDecorator>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="buttonMax"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                            <Setter TargetName="buttonRestore"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!--  Triggers  -->
+        <Style.Triggers>
+
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="BorderThickness"
+                        Value="8" />
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
