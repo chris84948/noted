@@ -93,6 +93,11 @@
                                     Value="0.3" />
                         </Trigger>
 
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource AccentLightDisabledBrush}" />
+                        </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

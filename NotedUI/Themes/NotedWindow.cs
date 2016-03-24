@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace NotedUI.Themes
@@ -32,7 +34,7 @@ namespace NotedUI.Themes
 
             this.MouseDoubleClick += (s, e) =>
             {
-                if (e.ChangedButton == MouseButton.Left)
+                if (e.ChangedButton == MouseButton.Left && e.GetPosition(this).Y < 60 && !IsMouseOverAControl())
                 {
                     if (WindowState == WindowState.Maximized)
                         WindowState = WindowState.Normal;
@@ -40,6 +42,15 @@ namespace NotedUI.Themes
                         WindowState = WindowState.Maximized;
                 }
             };
+        }
+
+        private bool IsMouseOverAControl()
+        {
+            var type = (Mouse.DirectlyOver as UIElement).GetType();
+            if (type == typeof(Button) || type == typeof(ToggleButton))
+                return true;
+
+            return false;
         }
 
         private void OnCanMinimizeWindow(object sender, CanExecuteRoutedEventArgs e)
