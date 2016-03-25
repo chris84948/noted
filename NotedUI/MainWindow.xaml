@@ -16,7 +16,7 @@
                    
                    mc:Ignorable="d">
 
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
 
         <ei:DataTrigger Binding="{Binding ElementName=buttonFormat,
                                           Path=IsChecked}"
@@ -25,7 +25,7 @@
                 <ei:ControlStoryboardAction.Storyboard>
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                                       Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
+                                                       Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
                                                   Value="0" />
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3"
@@ -36,7 +36,7 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                                       Storyboard.TargetProperty="(StackPanel.Visibility)">
+                                                       Storyboard.TargetProperty="(FrameworkElement.Visibility)">
                             <DiscreteObjectKeyFrame KeyTime="0"
                                                     Value="{x:Static Visibility.Visible}" />
                         </ObjectAnimationUsingKeyFrames>
@@ -52,7 +52,7 @@
                 <ei:ControlStoryboardAction.Storyboard>
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                                       Storyboard.TargetProperty="(StackPanel.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
+                                                       Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
                                                   Value="35" />
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3"
@@ -63,7 +63,7 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                                       Storyboard.TargetProperty="(StackPanel.Visibility)">
+                                                       Storyboard.TargetProperty="(FrameworkElement.Visibility)">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.3"
                                                     Value="{x:Static Visibility.Hidden}" />
                         </ObjectAnimationUsingKeyFrames>
@@ -71,7 +71,7 @@
                 </ei:ControlStoryboardAction.Storyboard>
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -158,7 +158,34 @@
                     ab:ButtonBehaviors.Text="SETTINGS" />
         </StackPanel>
 
-        <ui:FormatMenu x:Name="FormatMenu" />
+        <ui:FormatMenu x:Name="FormatMenu"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Height="35"
+                       VerticalAlignment="Bottom"
+                       BoldCommand="{Binding Formatting.BoldCommand}"
+                       BulletPointCommand="{Binding Formatting.BulletPointCommand}"
+                       CodeCommand="{Binding Formatting.CodeCommand}"
+                       Header1Command="{Binding Formatting.Header1Command}"
+                       Header2Command="{Binding Formatting.Header2Command}"
+                       Header3Command="{Binding Formatting.Header3Command}"
+                       Header4Command="{Binding Formatting.Header4Command}"
+                       Header5Command="{Binding Formatting.Header5Command}"
+                       Header6Command="{Binding Formatting.Header6Command}"
+                       HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
+                       ImageCommand="{Binding Formatting.ImageCommand}"
+                       ItalicCommand="{Binding Formatting.ItalicCommand}"
+                       LinkCommand="{Binding Formatting.LinkCommand}"
+                       ListCommand="{Binding Formatting.ListCommand}"
+                       QuotesCommand="{Binding Formatting.QuotesCommand}"
+                       StrikethroughCommand="{Binding Formatting.StrikethroughCommand}"
+                       Visibility="Hidden">
+            <ui:FormatMenu.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform />
+                </TransformGroup>
+            </ui:FormatMenu.RenderTransform>
+        </ui:FormatMenu>
 
         <Grid Grid.Row="1"
               Grid.Column="0"

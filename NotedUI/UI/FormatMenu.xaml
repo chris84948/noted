@@ -7,17 +7,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
-    <StackPanel Grid.Row="0"
-                Grid.Column="1"
-                Height="35"
-                VerticalAlignment="Bottom"
-                Background="{StaticResource AccentBrush}"
+    <StackPanel Background="{StaticResource AccentBrush}"
                 Orientation="Horizontal">
-        <StackPanel.RenderTransform>
-            <TransformGroup>
-                <TranslateTransform />
-            </TransformGroup>
-        </StackPanel.RenderTransform>
 
         <StackPanel.Resources>
             <Style x:Key="Icon"
@@ -120,11 +111,13 @@
                 Click="Image_Click"
                 Style="{StaticResource Icon}"
                 ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}" />
-        <Button Style="{StaticResource Icon}"
+        <Button x:Name="Link"
+                Click="Link_Click"
+                Style="{StaticResource Icon}"
                 ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}" />
         <Grid>
-            <Button x:Name="Link"
-                    Click="Link_Click"
+            <Button x:Name="HorizontalLine"
+                    Click="HorizontalLine_Click"
                     Style="{StaticResource Text}" />
             <Rectangle Width="16"
                        Height="2"
