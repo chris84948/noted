@@ -25,6 +25,8 @@
                                             FalseValue="Hidden"
                                             TrueValue="Visible" />
 
+            <conv:InvertValueConverter x:Key="InvertValueConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

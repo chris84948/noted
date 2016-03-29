@@ -1,25 +1,25 @@
-﻿<theme:NotedWindow x:Class="NotedUI.MainWindow"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
-                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:local="clr-namespace:NotedUI"
-                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                   xmlns:theme="clr-namespace:NotedUI.Themes"
-                   xmlns:ui="clr-namespace:NotedUI.UI"
-                   Width="1280"
-                   Height="720"
-                   Background="{StaticResource BackgroundBrush}"
-                   BorderBrush="{StaticResource AccentBrush}"
-                   
-                   mc:Ignorable="d">
+﻿<controls:NotedWindow x:Class="NotedUI.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
+                      xmlns:controls="clr-namespace:NotedUI.Controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:NotedUI"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:ui="clr-namespace:NotedUI.UI"
+                      Width="1280"
+                      Height="720"
+                      Background="{StaticResource BackgroundBrush}"
+                      BorderBrush="{StaticResource AccentBrush}"
+                      
+                      mc:Ignorable="d">
 
     <i:Interaction.Triggers>
 
-        <ei:DataTrigger Binding="{Binding ElementName=buttonFormat,
-                                          Path=IsChecked}"
+        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+                                          Path=ShowFormatMenu}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -45,8 +45,8 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding ElementName=buttonFormat,
-                                          Path=IsChecked}"
+        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+                                          Path=ShowFormatMenu}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -83,80 +83,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    Panel.ZIndex="1"
-                    Background="{StaticResource AccentBrush}"
-                    Orientation="Horizontal">
-            <StackPanel.Resources>
-                <Style BasedOn="{StaticResource IconTextButton}"
-                       TargetType="Button">
-                    <Setter Property="Foreground"
-                            Value="{StaticResource AccentLightBrush}" />
-                    <Setter Property="FontFamily"
-                            Value="Montserrat" />
-                    <Setter Property="VerticalAlignment"
-                            Value="Stretch" />
-                    <Setter Property="Width"
-                            Value="70" />
-                    <Setter Property="FontSize"
-                            Value="12" />
-                    <Setter Property="ab:ButtonBehaviors.IconSize"
-                            Value="22" />
-                </Style>
-
-                <Style BasedOn="{StaticResource IconTextToggleButton}"
-                       TargetType="ToggleButton">
-                    <Setter Property="Foreground"
-                            Value="{StaticResource AccentLightBrush}" />
-                    <Setter Property="FontFamily"
-                            Value="Montserrat" />
-                    <Setter Property="VerticalAlignment"
-                            Value="Stretch" />
-                    <Setter Property="Width"
-                            Value="70" />
-                    <Setter Property="FontSize"
-                            Value="12" />
-                    <Setter Property="ab:ButtonBehaviors.IconSize"
-                            Value="22" />
-                </Style>
-            </StackPanel.Resources>
-
-            <Button Width="140"
-                    VerticalAlignment="Stretch"
-                    FontFamily="Montserrat"
-                    FontSize="26"
-                    Foreground="{StaticResource AccentLightBrush}"
-                    Style="{StaticResource TextButton}"
-                    ab:ButtonBehaviors.Text="Noted" />
-
-            <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
-                          ab:ButtonBehaviors.Text="SEARCH" />
-
-            <Button ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
-                    ab:ButtonBehaviors.Text="ADD" />
-
-            <Button ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                    ab:ButtonBehaviors.Text="DELETE" />
-
-            <Button ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}"
-                    ab:ButtonBehaviors.Text="GROUP" />
-
-            <Button ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}"
-                    ab:ButtonBehaviors.Text="EXPORT" />
-
-            <ToggleButton x:Name="buttonFormat"
-                          Margin="70,0,0,0"
-                          ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}"
-                          ab:ButtonBehaviors.Text="FORMAT" />
-
-            <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
-                          ab:ButtonBehaviors.Text="PREVIEW" />
-
-            <Button Margin="70,0,0,0"
-                    ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
-                    ab:ButtonBehaviors.Text="SETTINGS" />
-        </StackPanel>
+        <ui:MainMenu x:Name="MainMenu"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="2"
+                     Panel.ZIndex="1"
+                     Background="{StaticResource AccentBrush}" />
 
         <ui:FormatMenu x:Name="FormatMenu"
                        Grid.Row="0"
@@ -193,4 +124,4 @@
 
     </Grid>
 
-</theme:NotedWindow>
+</controls:NotedWindow>

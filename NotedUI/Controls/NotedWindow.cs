@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace NotedUI.Themes
+namespace NotedUI.Controls
 {
     public class NotedWindow : Window
     {

@@ -90,7 +90,7 @@
                                     Value="0" />
                             <Setter TargetName="PressedRect"
                                     Property="Opacity"
-                                    Value="0.3" />
+                                    Value="0.5" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">

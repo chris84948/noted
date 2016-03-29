@@ -5,6 +5,7 @@
     <Color x:Key="Accent">#FF0064C1</Color>
     <Color x:Key="AccentLight">#FFC3D5E6</Color>
     <Color x:Key="AccentLightDisabled">#FF5894CC</Color>
+    <Color x:Key="AccentDark">#FF003261</Color>
     <Color x:Key="RedAccent">#FFFF5E5E</Color>
     <Color x:Key="Background">#FFF8F8F8</Color>
 
@@ -16,6 +17,10 @@
     <SolidColorBrush x:Key="AccentLightBrush"
                      options:Freeze="true"
                      Color="{StaticResource AccentLight}" />
+
+    <SolidColorBrush x:Key="AccentDarkBrush"
+                     options:Freeze="true"
+                     Color="{StaticResource AccentDark}" />
 
     <SolidColorBrush x:Key="AccentLightDisabledBrush"
                      options:Freeze="true"
