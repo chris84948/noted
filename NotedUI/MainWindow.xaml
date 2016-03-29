@@ -122,6 +122,77 @@
               Grid.Column="0"
               Background="{StaticResource AccentLightBrush}" />
 
+
+        <!--<ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="lvNotes">
+                <i:Interaction.Behaviors>
+                    <ab:ScrollBubbleEvent />
+                </i:Interaction.Behaviors>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander VerticalAlignment="Top"
+                                  Header="{Binding Name}"
+                                  Style="{StaticResource AccordionExpander}">
+
+                            <ListBox ItemsSource="{Binding Notes}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Label Content="{Binding Title}" />
+                                            <Label Content="{Binding LastModified}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>-->
+
+        <ListView x:Name="lvNotes2"
+                  Grid.Row="1">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="GroupItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GroupItem">
+                                        <Expander VerticalAlignment="Top"
+                                                  Header="{Binding Name}"
+                                                  IsExpanded="False">
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10,4"
+                                Orientation="Vertical">
+                        <Label Content="{Binding Title}"
+                               FontSize="15"
+                               Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                    Path=Foreground}"
+                               Padding="0" />
+                        <Label Content="{Binding LastModified}"
+                               FontSize="11"
+                               Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                    Path=Foreground}"
+                               Padding="0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 
 </controls:NotedWindow>

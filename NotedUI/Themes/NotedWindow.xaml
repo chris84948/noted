@@ -21,7 +21,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderThickness"
-                Value="1" />
+                Value="0" />
         <!--  Template  -->
         <Setter Property="Template">
             <Setter.Value>

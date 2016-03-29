@@ -10,9 +10,11 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/Storyboards.xaml" />
+                <ResourceDictionary Source="Styles/Expander.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/IconButton.xaml" />
                 <ResourceDictionary Source="Styles/IconTextButton.xaml" />
+                <ResourceDictionary Source="Styles/ListView.xaml" />
                 <ResourceDictionary Source="Styles/TextButton.xaml" />
                 <ResourceDictionary Source="Styles/Theme.xaml" />
             </ResourceDictionary.MergedDictionaries>
