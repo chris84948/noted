@@ -80,7 +80,8 @@
                 Style="{StaticResource TextButton}"
                 ab:ButtonBehaviors.Text="Noted" />
 
-        <ToggleButton IsChecked="{Binding ShowSearch}"
+        <ToggleButton IsChecked="{Binding ShowSearch,
+                                          ElementName=Me}"
                       ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
                       ab:ButtonBehaviors.Text="SEARCH" />
 

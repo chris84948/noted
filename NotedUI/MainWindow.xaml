@@ -16,8 +16,80 @@
                       
                       mc:Ignorable="d">
 
+    <controls:NotedWindow.Resources>
+
+        <!--<CollectionViewSource x:Key="cvs" x:Name="cvs">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>-->
+
+    </controls:NotedWindow.Resources>
+
     <i:Interaction.Triggers>
 
+        <!--  Show / Hide Search Box Animations  -->
+        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+                                          Path=ShowSearch}"
+                        Value="True">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchBox"
+                                                       Storyboard.TargetProperty="(TextBox.RenderTransform).(TranslateTransform.Y)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="35">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchGrid"
+                                                       Storyboard.TargetProperty="(Grid.LayoutTransform).(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+                                          Path=ShowSearch}"
+                        Value="False">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchBox"
+                                                       Storyboard.TargetProperty="(TextBox.RenderTransform).(TranslateTransform.Y)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchGrid"
+                                                       Storyboard.TargetProperty="(Grid.LayoutTransform).(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+        <!--  Show / Hide Format Menu Buttons  -->
         <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
                                           Path=ShowFormatMenu}"
                         Value="True">
@@ -120,78 +192,77 @@
 
         <Grid Grid.Row="1"
               Grid.Column="0"
-              Background="{StaticResource AccentLightBrush}" />
+              Background="{StaticResource AccentLightBrush}">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--<ScrollViewer Grid.Row="1"
-                      VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="lvNotes">
-                <i:Interaction.Behaviors>
-                    <ab:ScrollBubbleEvent />
-                </i:Interaction.Behaviors>
+            <Grid x:Name="SearchGrid"
+                  Grid.Row="0"
+                  Height="35">
+                <Grid.LayoutTransform>
+                    <ScaleTransform ScaleY="0" />
+                </Grid.LayoutTransform>
+            </Grid>
 
-                <ItemsControl.ItemTemplate>
+            <ListView x:Name="lvNotes2"
+                      Grid.Row="1">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="GroupItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="GroupItem">
+                                            <Expander VerticalAlignment="Top"
+                                                      Header="{Binding Name}"
+                                                      IsExpanded="False">
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Expander VerticalAlignment="Top"
-                                  Header="{Binding Name}"
-                                  Style="{StaticResource AccordionExpander}">
-
-                            <ListBox ItemsSource="{Binding Notes}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <Label Content="{Binding Title}" />
-                                            <Label Content="{Binding LastModified}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Expander>
+                        <StackPanel Margin="10,4,6,5"
+                                    Orientation="Vertical">
+                            <Label Content="{Binding Title}"
+                                   FontSize="16"
+                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                        Path=Foreground}"
+                                   Padding="0" />
+                            <Label Content="{Binding LastModified}"
+                                   FontSize="11"
+                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                        Path=Foreground}"
+                                   Padding="0" />
+                        </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>-->
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
 
-        <ListView x:Name="lvNotes2"
-                  Grid.Row="1">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="GroupItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="GroupItem">
-                                        <Expander VerticalAlignment="Top"
-                                                  Header="{Binding Name}"
-                                                  IsExpanded="False">
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView.GroupStyle>
-
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="10,4"
-                                Orientation="Vertical">
-                        <Label Content="{Binding Title}"
-                               FontSize="15"
-                               Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                    Path=Foreground}"
-                               Padding="0" />
-                        <Label Content="{Binding LastModified}"
-                               FontSize="11"
-                               Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                    Path=Foreground}"
-                               Padding="0" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <TextBox x:Name="SearchBox"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Height="35"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Bottom"
+                 FontFamily="Montserrat"
+                 FontSize="14"
+                 RenderTransformOrigin="0.5,0"
+                 Style="{StaticResource TextBoxIcon}">
+            <TextBox.RenderTransform>
+                <TranslateTransform />
+            </TextBox.RenderTransform>
+        </TextBox>
 
     </Grid>
 

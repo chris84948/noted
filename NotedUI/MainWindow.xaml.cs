@@ -25,40 +25,6 @@ namespace NotedUI
         {
             InitializeComponent();
 
-            //List<Group> items = new List<Group>()
-            //{
-            //    new Group()
-            //    {
-            //        Name = "GROUP 1",
-            //        Notes = new List<Note>()
-            //        {
-            //            new Note() { Title = "Note 1", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 2", LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(1)) },
-            //            new Note() { Title = "Note 3", LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(34)) },
-            //        }
-            //    },
-            //    new Group()
-            //    {
-            //        Name = "GROUP 2",
-            //        Notes = new List<Note>()
-            //        {
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 4", LastModified = DateTime.Now },
-            //            new Note() { Title = "Note 5", LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(14)) },
-            //            new Note() { Title = "Note 6", LastModified = DateTime.Now.Subtract(TimeSpan.FromHours(7)) },
-            //        }
-            //    }
-            //};
-
-            //lvNotes.ItemsSource = items;
-
             List<Note> notes = new List<Note>()
             {
                 new Note() { Group = "GROUP 1", Title = "Note 1", LastModified = DateTime.Now },
@@ -70,9 +36,11 @@ namespace NotedUI
             };
 
             lvNotes2.ItemsSource = notes;
-
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvNotes2.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
+            groupDescription.GroupNames.Add("GROUP 1");
+            groupDescription.GroupNames.Add("GROUP 2");
+            groupDescription.GroupNames.Add("GROUP 3");
             view.GroupDescriptions.Add(groupDescription);
         }
     }

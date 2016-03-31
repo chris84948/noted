@@ -52,7 +52,7 @@
                                        Opacity="0" />
 
                             <Label Margin="{TemplateBinding Padding}"
-                                   
+                                   x:Name="content"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"
                                    HorizontalContentAlignment="Center"
@@ -73,6 +73,7 @@
 
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Foreground"
+                                    TargetName="content"
                                     Value="White" />
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"

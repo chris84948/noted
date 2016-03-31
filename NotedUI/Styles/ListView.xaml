@@ -72,27 +72,35 @@
                     <Border x:Name="Bd"
                             Background="Transparent"
                             BorderThickness="0"
-                            Padding="{TemplateBinding Padding}"
+                            Padding="0"
                             SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="content"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          TextElement.FontFamily="{TemplateBinding FontFamily}" />
+                        <Grid>
+                            <Rectangle x:Name="MouseOverRect"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="White"
+                                       Opacity="0" />
+
+                            <ContentPresenter x:Name="content"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              TextElement.FontFamily="{TemplateBinding FontFamily}" />
+                        </Grid>
                     </Border>
 
                     <ControlTemplate.Triggers>
 
-                        <!--<Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd"
-                                    Property="Background"
-                                    Value="{DynamicResource SFListBackgroundBrushHighlight}" />
-                        </Trigger>-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0.3" />
+                        </Trigger>
 
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Bd"
                                     Property="Background"
-                                    Value="{DynamicResource AccentBrush}" />
+                                    Value="{DynamicResource AccentDarkBrush}" />
                             <Setter Property="Foreground"
                                     Value="White" />
                         </Trigger>
