@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NotedUI.UI
+namespace NotedUI.UI.Components
 {
     /// <summary>
     /// Interaction logic for FormatMenu.xaml

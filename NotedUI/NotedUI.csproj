@@ -72,12 +72,21 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Controls\NotedWindow.cs" />
     <Compile Include="Converters\InvertValueConverter.cs" />
-    <Compile Include="UI\FormatMenu.xaml.cs">
+    <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\FormatCommands.cs" />
-    <Compile Include="UI\MainMenu.xaml.cs">
+    <Compile Include="UI\Components\FormatCommands.cs" />
+    <Compile Include="UI\Components\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Screens\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Screens\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Screens\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -128,11 +137,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\FormatMenu.xaml">
+    <Page Include="UI\Components\FormatMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainMenu.xaml">
+    <Page Include="UI\Components\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Screens\Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Screens\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Screens\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,4 @@
-﻿using NotedUI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NotedUI
+namespace NotedUI.UI.Screens
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class MainWindow : NotedWindow
+    public partial class Settings : UserControl
     {
-        public MainWindow()
+        public Settings()
         {
             InitializeComponent();
         }

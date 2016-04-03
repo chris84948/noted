@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace NotedUI.UI
+namespace NotedUI.UI.Components
 {
     public class FormatCommands : MVVMBase
     {
