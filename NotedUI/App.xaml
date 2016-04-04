@@ -30,6 +30,8 @@
 
             <conv:InvertValueConverter x:Key="InvertValueConverter" />
 
+            <conv:ToLowerConverter x:Key="ToLowerConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

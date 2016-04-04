@@ -9,11 +9,11 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
-             Width="1280"
-             Height="720"
+             x:Name="me"
              Background="{StaticResource BackgroundBrush}"
              BorderBrush="{StaticResource AccentBrush}"
-             
+             d:DesignHeight="720"
+             d:DesignWidth="1280"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -29,12 +29,13 @@
     <i:Interaction.Triggers>
 
         <!--  Show / Hide Search Box Animations  -->
-        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+        <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
                                           Path=ShowSearch}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard>
+                    <Storyboard x:Name="storyboardShowSearch"
+                                Completed="storyboardShowSearch_Completed">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchBox"
                                                        Storyboard.TargetProperty="(TextBox.RenderTransform).(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
@@ -59,7 +60,7 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
+        <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
                                           Path=ShowSearch}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -100,10 +101,10 @@
                                                        Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
                                                   Value="0" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="35">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <SineEase EasingMode="EaseIn" />
+                                    <PowerEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -127,16 +128,16 @@
                                                        Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
                                                   Value="35" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <SineEase EasingMode="EaseIn" />
+                                    <PowerEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
                                                        Storyboard.TargetProperty="(FrameworkElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.3"
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.4"
                                                     Value="{x:Static Visibility.Hidden}" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
@@ -192,7 +193,7 @@
 
         <Grid Grid.Row="1"
               Grid.Column="0"
-              Background="{StaticResource AccentLightBrush}">
+              Background="{StaticResource ListViewPanelBackground}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -231,14 +232,18 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="10,4,6,5"
+                        <StackPanel Margin="25,8"
                                     Orientation="Vertical">
-                            <Label Content="{Binding Title}"
-                                   FontSize="16"
+                            <Label Margin="0,0,0,2"
+                                   Content="{Binding Title,
+                                                     Converter={StaticResource ToLowerConverter}}"
+                                   FontSize="14"
                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
                                                         Path=Foreground}"
                                    Padding="0" />
-                            <Label Content="{Binding LastModified}"
+                            <Label Margin="0,0,0,2"
+                                   Content="{Binding LastModified,
+                                                     Converter={StaticResource ToLowerConverter}}"
                                    FontSize="11"
                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
                                                         Path=Foreground}"
@@ -255,6 +260,7 @@
                  Height="35"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Bottom"
+                 Background="{StaticResource ListViewPanelBackground}"
                  FontFamily="Montserrat"
                  FontSize="14"
                  RenderTransformOrigin="0.5,0"

@@ -73,6 +73,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Controls\NotedWindow.cs" />
     <Compile Include="Converters\InvertValueConverter.cs" />
+    <Compile Include="Converters\ToLowerConverter.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>
     </Compile>

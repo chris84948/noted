@@ -25,6 +25,8 @@
                     Value="40" />
             <Setter Property="HorizontalAlignment"
                     Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left" />
             <Setter Property="Padding"
                     Value="20,5" />
             <Setter Property="FontSize"
@@ -52,7 +54,7 @@
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="ab:ButtonBehaviors.IconSize"
-                        Value="22" />
+                        Value="18" />
             </Style>
 
             <Style BasedOn="{StaticResource IconTextToggleButton}"
@@ -68,17 +70,17 @@
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="ab:ButtonBehaviors.IconSize"
-                        Value="22" />
+                        Value="18" />
             </Style>
         </StackPanel.Resources>
 
         <Button Width="140"
                 VerticalAlignment="Stretch"
                 FontFamily="Montserrat"
-                FontSize="26"
+                FontSize="30"
                 Foreground="{StaticResource AccentLightBrush}"
                 Style="{StaticResource TextButton}"
-                ab:ButtonBehaviors.Text="Noted" />
+                ab:ButtonBehaviors.Text="noted" />
 
         <ToggleButton IsChecked="{Binding ShowSearch,
                                           ElementName=Me}"
@@ -87,11 +89,11 @@
 
         <Button x:Name="buttonAdd"
                 ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
-                ab:ButtonBehaviors.IconSize="18"
+                ab:ButtonBehaviors.IconSize="16"
                 ab:ButtonBehaviors.Text="ADD" />
 
         <Button ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                ab:ButtonBehaviors.IconSize="18"
+                ab:ButtonBehaviors.IconSize="16"
                 ab:ButtonBehaviors.Text="DELETE" />
 
         <ToggleButton x:Name="buttonFolder"

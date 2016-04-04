@@ -3,9 +3,7 @@
 
     <Style TargetType="{x:Type ListView}">
         <Setter Property="Background"
-                Value="{DynamicResource AccentLightBrush}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource AccentBrush}" />
+                Value="Transparent" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
@@ -64,7 +62,7 @@
         <Setter Property="FontFamily"
                 Value="Montserrat" />
         <Setter Property="Foreground"
-                Value="{StaticResource AccentBrush}" />
+                Value="{StaticResource ListViewTextColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -92,17 +90,17 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MouseOverRect"
-                                    Property="Opacity"
-                                    Value="0.3" />
+                            <Setter TargetName="Bd"
+                                    Property="Background"
+                                    Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Bd"
                                     Property="Background"
-                                    Value="{DynamicResource AccentDarkBrush}" />
+                                    Value="{StaticResource ListViewBackgroundSelectedBrush}" />
                             <Setter Property="Foreground"
-                                    Value="White" />
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>

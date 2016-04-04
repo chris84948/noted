@@ -14,7 +14,7 @@
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome x:Name="Chrome"
-                              CaptionHeight="6"
+                              CaptionHeight="0"
                               CornerRadius="0"
                               GlassFrameThickness="0"
                               ResizeBorderThickness="3" />
@@ -75,7 +75,7 @@
                                                 Visibility="Collapsed"
                                                 ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}" />
 
-                                        <Button Background="{StaticResource RedAccentBrush}"
+                                        <Button Background="{StaticResource CloseButtonBrush}"
                                                 Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
                                                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}" />
 
@@ -109,6 +109,14 @@
             <Trigger Property="WindowState" Value="Maximized">
                 <Setter Property="BorderThickness"
                         Value="8" />
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome                               CaptionHeight="6"
+                              CornerRadius="0"
+                              GlassFrameThickness="0"
+                              ResizeBorderThickness="3" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
 
         </Style.Triggers>

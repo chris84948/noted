@@ -22,8 +22,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
 
                     <Grid x:Name="grid"
-                          Margin="0"
-                          Background="{DynamicResource AccentBrush}"
+                          Background="Transparent"
                           SnapsToDevicePixels="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -39,22 +38,23 @@
 
                         <ContentPresenter x:Name="header"
                                           Grid.Column="0"
-                                          Margin="10,0,0,0"
+                                          Margin="25,12,0,12"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"
                                           RecognizesAccessKey="True"
                                           SnapsToDevicePixels="True"
                                           TextElement.FontFamily="{TemplateBinding FontFamily}"
-                                          TextElement.FontSize="{TemplateBinding FontSize}"
-                                          TextElement.Foreground="{DynamicResource AccentLightBrush}" />
+                                          TextElement.FontSize="16"
+                                          TextElement.Foreground="{StaticResource ListViewTextColorBrush}" />
 
                         <Path x:Name="pathChevron"
                               Grid.Column="1"
-                              Height="12"
-                              Margin="10,10"
+                              Height="9"
+                              Margin="0,0,25,0"
                               HorizontalAlignment="Right"
+                              VerticalAlignment="Center"
                               Data="F1 M 37.8516,39.5833L 52.1016,24.9375L 52.1016,35.2292L 37.8516,50.2708L 23.6016,35.2292L 23.6016,24.9375L 37.8516,39.5833 Z "
-                              Fill="{DynamicResource AccentLightBrush}"
+                              Fill="{StaticResource ListViewTextColorBrush}"
                               RenderTransformOrigin="0.5,0.5"
                               Stretch="Uniform">
                             <Path.RenderTransform>
@@ -66,6 +66,12 @@
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
+
+                        <Rectangle Grid.ColumnSpan="2"
+                                   Height="1"
+                                   Margin="16,0"
+                                   VerticalAlignment="Bottom"
+                                   Fill="{StaticResource ListViewDividerColorBrush}" />
                     </Grid>
                     <ControlTemplate.Triggers>
 
@@ -108,15 +114,18 @@
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background"
+                                    TargetName="grid"
+                                    Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="header"
                                     Property="TextElement.Foreground"
-                                    Value="White" />
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                             <Setter TargetName="pathChevron"
                                     Property="Fill"
-                                    Value="White" />
-                            <Setter TargetName="MouseOverRect"
-                                    Property="Opacity"
-                                    Value="0.3" />
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>

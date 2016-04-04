@@ -42,6 +42,12 @@ namespace NotedUI.UI.Screens
             groupDescription.GroupNames.Add("GROUP 3");
             view.GroupDescriptions.Add(groupDescription);
         }
+
+        private void storyboardShowSearch_Completed(object sender, EventArgs e)
+        {
+            SearchBox.Focus();
+            SearchBox.SelectAll();
+        }
     }
 
     public class Group

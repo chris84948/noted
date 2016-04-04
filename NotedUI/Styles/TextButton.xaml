@@ -51,12 +51,13 @@
                                        Fill="White"
                                        Opacity="0" />
 
-                            <Label Margin="{TemplateBinding Padding}"
-                                   x:Name="content"
+                            <Label x:Name="content"
+                                   Margin="{TemplateBinding Padding}"
+                                   
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"
-                                   HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                    Content="{Binding Path=(ab:ButtonBehaviors.Text),
                                                      RelativeSource={RelativeSource TemplatedParent}}"
                                    FontFamily="{TemplateBinding FontFamily}"
@@ -72,8 +73,8 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground"
-                                    TargetName="content"
+                            <Setter TargetName="content"
+                                    Property="Foreground"
                                     Value="White" />
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
