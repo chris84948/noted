@@ -58,7 +58,7 @@
                                                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
                                                         Value="True" />
                                                 <Setter Property="Foreground"
-                                                        Value="{StaticResource AccentLightBrush}" />
+                                                        Value="{StaticResource ButtonForegroundBrush}" />
                                             </Style>
                                         </StackPanel.Resources>
 
@@ -111,10 +111,10 @@
                         Value="8" />
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
-                        <WindowChrome                               CaptionHeight="6"
-                              CornerRadius="0"
-                              GlassFrameThickness="0"
-                              ResizeBorderThickness="3" />
+                        <WindowChrome CaptionHeight="6"
+                                      CornerRadius="0"
+                                      GlassFrameThickness="0"
+                                      ResizeBorderThickness="3" />
                     </Setter.Value>
                 </Setter>
             </Trigger>

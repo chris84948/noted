@@ -12,7 +12,7 @@
     <Style x:Key="TextBoxIcon"
            TargetType="{x:Type TextBox}">
         <Setter Property="Background"
-                Value="{DynamicResource BackgroundBrush}" />
+                Value="{DynamicResource NoteBackgroundBrush}" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource TextBox.Static.Border}" />
         <Setter Property="Foreground"

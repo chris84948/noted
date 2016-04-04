@@ -10,7 +10,9 @@
     <Style x:Key="ExpanderDownHeaderStyle"
            TargetType="{x:Type ToggleButton}">
         <Setter Property="FontFamily"
-                Value="Montserrat" />
+                Value="{StaticResource ListViewHeaderFont}" />
+        <Setter Property="FontWeight"
+                Value="{StaticResource ListViewHeaderFontWeight}" />
         <Setter Property="FontSize"
                 Value="16" />
         <Setter Property="BorderThickness"
@@ -45,6 +47,7 @@
                                           SnapsToDevicePixels="True"
                                           TextElement.FontFamily="{TemplateBinding FontFamily}"
                                           TextElement.FontSize="16"
+                                          TextElement.FontWeight="SemiBold"
                                           TextElement.Foreground="{StaticResource ListViewTextColorBrush}" />
 
                         <Path x:Name="pathChevron"
@@ -114,8 +117,8 @@
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background"
-                                    TargetName="grid"
+                            <Setter TargetName="grid"
+                                    Property="Background"
                                     Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 

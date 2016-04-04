@@ -29,6 +29,10 @@
                 Value="Center" />
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
         <Setter Property="Padding"
                 Value="0" />
         <Setter Property="Template">
@@ -129,7 +133,7 @@
 
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground"
-                                    Value="{StaticResource AccentLightDisabledBrush}" />
+                                    Value="{StaticResource ButtonForegroundDisabledBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
@@ -151,6 +155,10 @@
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
         <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
                 Value="0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -259,7 +267,7 @@
 
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground"
-                                    Value="{StaticResource AccentLightDisabledBrush}" />
+                                    Value="{StaticResource ButtonForegroundDisabledBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>

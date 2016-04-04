@@ -16,7 +16,7 @@
                BasedOn="{StaticResource TextButton}"
                TargetType="Button">
             <Setter Property="Foreground"
-                    Value="{StaticResource AccentLightBrush}" />
+                    Value="{StaticResource ButtonForegroundBrush}" />
             <Setter Property="FontFamily"
                     Value="Montserrat" />
             <Setter Property="VerticalAlignment"
@@ -38,15 +38,17 @@
     <StackPanel Grid.Row="0"
                 Grid.ColumnSpan="2"
                 Panel.ZIndex="1"
-                Background="{StaticResource AccentBrush}"
+                Background="{StaticResource AppTopBannerBrush}"
                 Orientation="Horizontal">
         <StackPanel.Resources>
             <Style BasedOn="{StaticResource IconTextButton}"
                    TargetType="Button">
                 <Setter Property="Foreground"
-                        Value="{StaticResource AccentLightBrush}" />
+                        Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily"
-                        Value="Montserrat" />
+                        Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight"
+                        Value="{StaticResource TitleFontWeight}" />
                 <Setter Property="VerticalAlignment"
                         Value="Stretch" />
                 <Setter Property="Width"
@@ -60,9 +62,11 @@
             <Style BasedOn="{StaticResource IconTextToggleButton}"
                    TargetType="ToggleButton">
                 <Setter Property="Foreground"
-                        Value="{StaticResource AccentLightBrush}" />
+                        Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily"
-                        Value="Montserrat" />
+                        Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight"
+                        Value="{StaticResource TitleFontWeight}" />
                 <Setter Property="VerticalAlignment"
                         Value="Stretch" />
                 <Setter Property="Width"
@@ -76,9 +80,11 @@
 
         <Button Width="140"
                 VerticalAlignment="Stretch"
-                FontFamily="Montserrat"
-                FontSize="30"
-                Foreground="{StaticResource AccentLightBrush}"
+                FontFamily="{StaticResource TitleFont}"
+                FontSize="40"
+                FontWeight="{StaticResource TitleFontWeight}"
+                Foreground="{StaticResource ButtonForegroundBrush}"
+                Padding="0,4,2,0"
                 Style="{StaticResource TextButton}"
                 ab:ButtonBehaviors.Text="noted" />
 
@@ -111,7 +117,7 @@
                PlacementTarget="{Binding ElementName=buttonFolder}"
                StaysOpen="False">
 
-            <StackPanel Background="{StaticResource AccentDarkBrush}"
+            <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
                 <Button x:Name="buttonAddFolder"
                         Click="buttonAddFolder_Click"
@@ -139,7 +145,7 @@
                PlacementTarget="{Binding ElementName=buttonExport}"
                StaysOpen="False">
 
-            <StackPanel Background="{StaticResource AccentDarkBrush}"
+            <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
                 <Button x:Name="buttonExportHTML"
                         Click="buttonExportHTML_Click"

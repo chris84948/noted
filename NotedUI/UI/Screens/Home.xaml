@@ -10,8 +10,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
              x:Name="me"
-             Background="{StaticResource BackgroundBrush}"
-             BorderBrush="{StaticResource AccentBrush}"
+             Background="{StaticResource NoteBackgroundBrush}"
+             BorderBrush="{StaticResource AppTopBannerBrush}"
              d:DesignHeight="720"
              d:DesignWidth="1280"
              mc:Ignorable="d">
@@ -160,7 +160,7 @@
                              Grid.Row="0"
                              Grid.ColumnSpan="2"
                              Panel.ZIndex="1"
-                             Background="{StaticResource AccentBrush}" />
+                             Background="{StaticResource AppTopBannerBrush}" />
 
         <components:FormatMenu x:Name="FormatMenu"
                                Grid.Row="0"

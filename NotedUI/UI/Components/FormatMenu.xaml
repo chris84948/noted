@@ -7,7 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
-    <StackPanel Background="{StaticResource AccentBrush}"
+    <StackPanel Background="{StaticResource AppTopBannerBrush}"
                 Orientation="Horizontal">
 
         <StackPanel.Resources>
@@ -15,13 +15,17 @@
                    BasedOn="{StaticResource IconButton}"
                    TargetType="Button">
                 <Setter Property="Foreground"
-                        Value="{StaticResource AccentLightBrush}" />
+                        Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily"
-                        Value="Montserrat" />
+                        Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight"
+                        Value="{StaticResource TitleFontWeight}" />
                 <Setter Property="VerticalAlignment"
                         Value="Stretch" />
                 <Setter Property="Width"
                         Value="35" />
+                <Setter Property="ToolTipService.Placement"
+                        Value="Bottom" />
                 <Setter Property="ab:ButtonBehaviors.IconSize"
                         Value="13" />
             </Style>
@@ -30,13 +34,15 @@
                    BasedOn="{StaticResource TextButton}"
                    TargetType="Button">
                 <Setter Property="Foreground"
-                        Value="{StaticResource AccentLightBrush}" />
+                        Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily"
                         Value="Montserrat" />
                 <Setter Property="VerticalAlignment"
                         Value="Stretch" />
                 <Setter Property="Width"
                         Value="35" />
+                <Setter Property="ToolTipService.Placement"
+                        Value="Bottom" />
                 <Setter Property="FontSize"
                         Value="14" />
             </Style>
@@ -45,47 +51,56 @@
         <Button x:Name="Header1"
                 Click="Header1_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 1"
                 ab:ButtonBehaviors.Text="H1" />
         <Button x:Name="Header2"
                 Click="Header2_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 2"
                 ab:ButtonBehaviors.Text="H2" />
         <Button x:Name="Header3"
                 Click="Header3_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 3"
                 ab:ButtonBehaviors.Text="H3" />
         <Button x:Name="Header4"
                 Click="Header4_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 4"
                 ab:ButtonBehaviors.Text="H4" />
         <Button x:Name="Header5"
                 Click="Header5_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 5"
                 ab:ButtonBehaviors.Text="H5" />
         <Button x:Name="Header6"
                 Click="Header6_Click"
                 Style="{StaticResource Text}"
+                ToolTip="HEADER 6"
                 ab:ButtonBehaviors.Text="H6" />
         <Button x:Name="Bold"
                 Click="Bold_Click"
                 FontWeight="Bold"
                 Style="{StaticResource Text}"
+                ToolTip="BOLD"
                 ab:ButtonBehaviors.Text="B" />
         <Button x:Name="Italic"
                 Click="Italic_Click"
                 FontStyle="Italic"
                 Style="{StaticResource Text}"
+                ToolTip="ITALIC"
                 ab:ButtonBehaviors.Text="I" />
         <Grid>
             <Button x:Name="Strikethrough"
                     Click="Strikethrough_Click"
                     Style="{StaticResource Text}"
+                    ToolTip="STRIKETHROUGH"
                     ab:ButtonBehaviors.Text="S" />
             <Rectangle Width="10"
                        Height="1"
                        Margin="0,1,0,0"
                        HorizontalAlignment="Center"
-                       Fill="{StaticResource AccentLightBrush}"
+                       Fill="{StaticResource ButtonForegroundBrush}"
                        Stretch="Fill" />
         </Grid>
         <Button x:Name="Quote"
@@ -93,37 +108,44 @@
                 FontSize="20"
                 Padding="0,4,0,0"
                 Style="{StaticResource Text}"
+                ToolTip="QUOTATION"
                 ab:ButtonBehaviors.Text="&quot;&quot;" />
         <Button x:Name="Code"
                 Click="Code_Click"
                 Style="{StaticResource Icon}"
+                ToolTip="CODE BLOCK"
                 ab:ButtonBehaviors.Icon="{StaticResource CodeIcon}"
                 ab:ButtonBehaviors.IconSize="14" />
         <Button x:Name="BulletPoint"
                 Click="BulletPoint_Click"
                 Style="{StaticResource Icon}"
+                ToolTip="BULLETPOINTS"
                 ab:ButtonBehaviors.Icon="{StaticResource BulletIcon}" />
         <Button x:Name="List"
                 Click="List_Click"
                 Style="{StaticResource Icon}"
+                ToolTip="NUMBERED LIST"
                 ab:ButtonBehaviors.Icon="{StaticResource ListIcon}" />
         <Button x:Name="Image"
                 Click="Image_Click"
                 Style="{StaticResource Icon}"
+                ToolTip="IMAGE"
                 ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}" />
         <Button x:Name="Link"
                 Click="Link_Click"
                 Style="{StaticResource Icon}"
+                ToolTip="LINK"
                 ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}" />
         <Grid>
             <Button x:Name="HorizontalLine"
                     Click="HorizontalLine_Click"
-                    Style="{StaticResource Text}" />
+                    Style="{StaticResource Text}"
+                    ToolTip="HORIZONTAL DIVIDER" />
             <Rectangle Width="16"
                        Height="2"
                        Margin="0,1,0,0"
                        HorizontalAlignment="Center"
-                       Fill="{StaticResource AccentLightBrush}"
+                       Fill="{StaticResource ButtonForegroundBrush}"
                        Stretch="Fill" />
         </Grid>
 

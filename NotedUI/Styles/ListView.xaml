@@ -59,8 +59,6 @@
                 Value="Stretch" />
         <Setter Property="VerticalContentAlignment"
                 Value="Stretch" />
-        <Setter Property="FontFamily"
-                Value="Montserrat" />
         <Setter Property="Foreground"
                 Value="{StaticResource ListViewTextColorBrush}" />
         <Setter Property="Template">
@@ -83,7 +81,8 @@
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              TextElement.FontFamily="{TemplateBinding FontFamily}" />
+                                              TextElement.FontFamily="{StaticResource ListViewContentFont}"
+                                              TextElement.FontWeight="{StaticResource ListViewContentFontWeight}" />
                         </Grid>
                     </Border>
 
@@ -99,6 +98,9 @@
                             <Setter TargetName="Bd"
                                     Property="Background"
                                     Value="{StaticResource ListViewBackgroundSelectedBrush}" />
+                            <Setter TargetName="content"
+                                    Property="TextElement.FontWeight"
+                                    Value="SemiBold" />
                             <Setter Property="Foreground"
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>

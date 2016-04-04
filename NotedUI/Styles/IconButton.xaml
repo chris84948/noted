@@ -29,6 +29,10 @@
                 Value="Transparent" />
         <Setter Property="Foreground"
                 Value="LightGray" />
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Center" />
         <Setter Property="VerticalContentAlignment"
@@ -111,7 +115,7 @@
 
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground"
-                                    Value="{StaticResource AccentLightDisabledBrush}" />
+                                    Value="{StaticResource ButtonForegroundDisabledBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>

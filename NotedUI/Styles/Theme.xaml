@@ -2,39 +2,30 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    <Color x:Key="Accent">#FF0064C1</Color>
-    <Color x:Key="AccentLight">#FFC3D5E6</Color>
-    <Color x:Key="AccentLightDisabled">#FF5894CC</Color>
-    <Color x:Key="AccentDark">#FF003261</Color>
-    <Color x:Key="RedAccent"></Color>
-    <Color x:Key="Background">#FFF8F8F8</Color>
 
-
-
-    <SolidColorBrush x:Key="AccentBrush"
+    <SolidColorBrush x:Key="AppTopBannerBrush"
                      options:Freeze="true"
-                     Color="{StaticResource Accent}" />
+                     Color="#FF0064C1" />
 
-    <SolidColorBrush x:Key="AccentLightBrush"
+    <SolidColorBrush x:Key="ButtonForegroundBrush"
                      options:Freeze="true"
-                     Color="{StaticResource AccentLight}" />
+                     Color="#FFC3D5E6" />
 
-    <SolidColorBrush x:Key="AccentDarkBrush"
+    <SolidColorBrush x:Key="ButtonForegroundDisabledBrush"
                      options:Freeze="true"
-                     Color="{StaticResource AccentDark}" />
-
-    <SolidColorBrush x:Key="AccentLightDisabledBrush"
-                     options:Freeze="true"
-                     Color="{StaticResource AccentLightDisabled}" />
+                     Color="#FF5894CC" />
 
     <SolidColorBrush x:Key="CloseButtonBrush"
                      options:Freeze="true"
                      Color="#FFFF5E5E" />
 
-    <SolidColorBrush x:Key="BackgroundBrush"
+    <SolidColorBrush x:Key="NoteBackgroundBrush"
                      options:Freeze="true"
-                     Color="{StaticResource Background}" />
+                     Color="#FFF8F8F8" />
 
+    <SolidColorBrush x:Key="ButtonPopupBrush"
+                     options:Freeze="true"
+                     Color="#FF004687" />
 
     <SolidColorBrush x:Key="ListViewTextColorBrush"
                      options:Freeze="true"
