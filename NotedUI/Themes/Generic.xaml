@@ -1,9 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:NotedUI.Themes">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Themes/NotedWindow.xaml" />
+        <ResourceDictionary Source="Themes/SlideContentControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
