@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace NotedUI.UI.Components
+namespace NotedUI.UI.ViewModels
 {
     public class FormatCommands : MVVMBase
     {
@@ -26,7 +26,7 @@ namespace NotedUI.UI.Components
         public ICommand ListCommand { get { return new RelayCommand<TextBox>(ListExec, CanListExec); } }
         public ICommand ImageCommand { get { return new RelayCommand<TextBox>(ImageExec, CanImageExec); } }
         public ICommand LinkCommand { get { return new RelayCommand<TextBox>(LinkExec, CanLinkExec); } }
-        public ICommand HorizontalRuleCommand { get { return new RelayCommand<TextBox>(HorizontalRuleExec, CanHorizontalRuleExec); } }
+        public ICommand HorizontalLineCommand { get { return new RelayCommand<TextBox>(HorizontalLineExec, CanHorizontalLineExec); } }
 
         public bool CanHeader1Exec(TextBox contentTextBox)
         {
@@ -35,7 +35,7 @@ namespace NotedUI.UI.Components
 
         public void Header1Exec(TextBox contentTextBox)
         {
-
+            
         }
 
         public bool CanHeader2Exec(TextBox contentTextBox)
@@ -178,12 +178,12 @@ namespace NotedUI.UI.Components
 
         }
 
-        public bool CanHorizontalRuleExec(TextBox contentTextBox)
+        public bool CanHorizontalLineExec(TextBox contentTextBox)
         {
             return true;
         }
 
-        public void HorizontalRuleExec(TextBox contentTextBox)
+        public void HorizontalLineExec(TextBox contentTextBox)
         {
 
         }

@@ -12,6 +12,7 @@
              x:Name="me"
              Background="{StaticResource NoteBackgroundBrush}"
              BorderBrush="{StaticResource AppTopBannerBrush}"
+             Loaded="me_Loaded"
              d:DesignHeight="720"
              d:DesignWidth="1280"
              mc:Ignorable="d">
@@ -160,7 +161,15 @@
                              Grid.Row="0"
                              Grid.ColumnSpan="2"
                              Panel.ZIndex="1"
-                             Background="{StaticResource AppTopBannerBrush}" />
+                             AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
+                             AllNotes="{Binding AllNotes}"
+                             Background="{StaticResource AppTopBannerBrush}"
+                             DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
+                             ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
+                             ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
+                             FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
+                             FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
+                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
         <components:FormatMenu x:Name="FormatMenu"
                                Grid.Row="0"
@@ -208,8 +217,9 @@
                 </Grid.LayoutTransform>
             </Grid>
 
-            <ListView x:Name="lvNotes2"
-                      Grid.Row="1">
+            <ListView x:Name="lvNotes"
+                      Grid.Row="1"
+                      ItemsSource="{Binding AllNotes}">
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>

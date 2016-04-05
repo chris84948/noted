@@ -94,11 +94,14 @@
                       ab:ButtonBehaviors.Text="SEARCH" />
 
         <Button x:Name="buttonAdd"
+                Click="buttonAdd_Click"
                 ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
                 ab:ButtonBehaviors.IconSize="16"
                 ab:ButtonBehaviors.Text="ADD" />
 
-        <Button ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
+        <Button x:Name="buttonDelete"
+                Click="buttonDelete_Click"
+                ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                 ab:ButtonBehaviors.IconSize="16"
                 ab:ButtonBehaviors.Text="DELETE" />
 
@@ -115,7 +118,8 @@
                                 Path=IsChecked}"
                Placement="Bottom"
                PlacementTarget="{Binding ElementName=buttonFolder}"
-               StaysOpen="False">
+               StaysOpen="False"
+               VerticalOffset="-1">
 
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
@@ -143,7 +147,8 @@
                                 Path=IsChecked}"
                Placement="Bottom"
                PlacementTarget="{Binding ElementName=buttonExport}"
-               StaysOpen="False">
+               StaysOpen="False"
+               VerticalOffset="-1">
 
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
@@ -170,11 +175,11 @@
                       ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
                       ab:ButtonBehaviors.Text="PREVIEW" />
 
-        <ToggleButton Margin="70,0,0,0"
-                      IsChecked="{Binding ShowSettings,
-                                          ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
-                      ab:ButtonBehaviors.Text="SETTINGS" />
+        <Button x:Name="buttonShowSettings"
+                Margin="70,0,0,0"
+                Click="buttonShowSettings_Click"
+                ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
+                ab:ButtonBehaviors.Text="SETTINGS" />
     </StackPanel>
 
 </UserControl>

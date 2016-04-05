@@ -44,11 +44,6 @@
                             BorderThickness="0"
                             SnapsToDevicePixels="true">
                         <Grid>
-                            <Rectangle x:Name="PressedRect"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch"
-                                       Fill="Black"
-                                       Opacity="0" />
                             <Rectangle x:Name="MouseOverRect"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
@@ -115,9 +110,6 @@
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
                                     Value="0.3" />
-                            <Setter TargetName="PressedRect"
-                                    Property="Opacity"
-                                    Value="0" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
@@ -126,9 +118,8 @@
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
                                     Value="0" />
-                            <Setter TargetName="PressedRect"
-                                    Property="Opacity"
-                                    Value="0.5" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
@@ -169,11 +160,6 @@
                             BorderThickness="0"
                             SnapsToDevicePixels="true">
                         <Grid>
-                            <Rectangle x:Name="PressedRect"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch"
-                                       Fill="Black"
-                                       Opacity="0" />
                             <Rectangle x:Name="MouseOverRect"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
@@ -240,9 +226,6 @@
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
                                     Value="0.3" />
-                            <Setter TargetName="PressedRect"
-                                    Property="Opacity"
-                                    Value="0" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
@@ -251,18 +234,16 @@
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
                                     Value="0" />
-                            <Setter TargetName="PressedRect"
-                                    Property="Opacity"
-                                    Value="0.3" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="MouseOverRect"
                                     Property="Opacity"
                                     Value="0" />
-                            <Setter TargetName="PressedRect"
-                                    Property="Opacity"
-                                    Value="0.5" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">

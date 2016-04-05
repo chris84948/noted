@@ -74,10 +74,11 @@
     <Compile Include="Controls\NotedWindow.cs" />
     <Compile Include="Converters\InvertValueConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Components\FormatCommands.cs" />
+    <Compile Include="UI\ViewModels\FormatCommands.cs" />
     <Compile Include="UI\Components\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -87,9 +88,11 @@
     <Compile Include="UI\Screens\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ViewModels\HomeViewModel.cs" />
     <Compile Include="UI\Screens\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ViewModels\MainCommands.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceDictionaries\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\Storyboards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

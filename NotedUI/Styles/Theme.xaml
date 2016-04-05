@@ -25,7 +25,7 @@
 
     <SolidColorBrush x:Key="ButtonPopupBrush"
                      options:Freeze="true"
-                     Color="#FF004687" />
+                     Color="#FF003261" />
 
     <SolidColorBrush x:Key="ListViewTextColorBrush"
                      options:Freeze="true"

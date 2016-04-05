@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NotedUI.UI.Screens;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,6 +23,18 @@ namespace NotedUI.UI.Components
     /// </summary>
     public partial class MainMenu : UserControl
     {
+        public static readonly DependencyProperty AllNotesProperty =
+            DependencyProperty.Register("AllNotes",
+                                        typeof(ObservableCollection<Note>),
+                                        typeof(MainMenu),
+                                        new FrameworkPropertyMetadata(null));
+
+        public ObservableCollection<Note> AllNotes
+        {
+            get { return (ObservableCollection<Note>)GetValue(AllNotesProperty); }
+            set { SetValue(AllNotesProperty, value); }
+        }
+
         public static readonly DependencyProperty ShowSearchProperty =
             DependencyProperty.Register("ShowSearch",
                                         typeof(bool),
@@ -41,13 +55,6 @@ namespace NotedUI.UI.Components
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         public bool ShowFormatMenu { get { return (bool)GetValue(ShowFormatMenuProperty); } set { SetValue(ShowFormatMenuProperty, value); } }
-
-        public static readonly DependencyProperty ShowSettingsProperty =
-            DependencyProperty.Register("ShowSettings",
-                                        typeof(bool),
-                                        typeof(MainMenu),
-                                        new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public bool ShowSettings { get { return (bool)GetValue(ShowSettingsProperty); } set { SetValue(ShowSettingsProperty, value); } }
 
         public static readonly DependencyProperty AddNoteCommandProperty =
             DependencyProperty.Register("AddNoteCommand",
@@ -127,6 +134,19 @@ namespace NotedUI.UI.Components
             set { SetValue(ExportPDFCommandProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowSettingsCommandProperty =
+            DependencyProperty.Register("ShowSettingsCommand",
+                                        typeof(ICommand),
+                                        typeof(MainMenu),
+                                        new PropertyMetadata((ICommand)null));
+
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand ShowSettingsCommand
+        {
+            get { return (ICommand)GetValue(ShowSettingsCommandProperty); }
+            set { SetValue(ShowSettingsCommandProperty, value); }
+        }
+
 
         public MainMenu()
         {
@@ -135,31 +155,41 @@ namespace NotedUI.UI.Components
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddNoteCommand?.Execute(null);
+            AddNoteCommand?.Execute(AllNotes);
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteNoteCommand?.Execute(AllNotes);
         }
 
         private void buttonAddFolder_Click(object sender, RoutedEventArgs e)
         {
             popupFolder.IsOpen = false;
-            FolderAddCommand?.Execute(null);
+            FolderAddCommand?.Execute(AllNotes);
         }
 
         private void buttonDeleteFolder_Click(object sender, RoutedEventArgs e)
         {
             popupFolder.IsOpen = false;
-            FolderDeleteCommand?.Execute(null);
+            FolderDeleteCommand?.Execute(AllNotes);
         }
 
         private void buttonExportHTML_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;
-            ExportHTMLCommand?.Execute(null);
+            ExportHTMLCommand?.Execute(AllNotes);
         }
 
         private void buttonExportPDF_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;
-            ExportPDFCommand?.Execute(null);
+            ExportPDFCommand?.Execute(AllNotes);
+        }
+
+        private void buttonShowSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSettingsCommand?.Execute(AllNotes);
         }
     }
 }

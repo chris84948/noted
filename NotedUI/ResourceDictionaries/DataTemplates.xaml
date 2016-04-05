@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:comp="clr-namespace:NotedUI.UI.Components"
+                    xmlns:screen="clr-namespace:NotedUI.UI.Screens"
+                    xmlns:vm="clr-namespace:NotedUI.UI.ViewModels">
+
+    <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+        <screen:Home />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:FormatCommands}">
+        <comp:FormatMenu />
+    </DataTemplate>
+
+</ResourceDictionary>

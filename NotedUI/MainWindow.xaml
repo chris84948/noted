@@ -13,6 +13,10 @@
                       Height="720"
                       mc:Ignorable="d">
 
-    <screens:Home />
+    <controls:NotedWindow.DataContext>
+        <local:MainWindowViewModel />
+    </controls:NotedWindow.DataContext>
+
+    <ContentControl Content="{Binding CurrentViewModel}" />
 
 </controls:NotedWindow>

@@ -71,6 +71,40 @@
                             Padding="0"
                             SnapsToDevicePixels="true">
                         <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="LayoutStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="AfterLoaded"
+                                                          GeneratedDuration="0:0:0.5"
+                                                          To="BeforeUnloaded">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.5"
+                                                                 Storyboard.TargetName="Bd"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0" />
+                                            </Storyboard>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="BeforeLoaded">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0"
+                                                             Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="AfterLoaded">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.5"
+                                                             Storyboard.TargetName="Bd"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="BeforeUnloaded" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
                             <Rectangle x:Name="MouseOverRect"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"

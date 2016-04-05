@@ -23,30 +23,22 @@ namespace NotedUI.UI.Screens
         public Home()
         {
             InitializeComponent();
-
-            List<Note> notes = new List<Note>()
-            {
-                new Note() { Group = "GROUP 1", Title = "Note 1", LastModified = DateTime.Now },
-                new Note() { Group = "GROUP 1", Title = "Note 2", LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(1)) },
-                new Note() { Group = "GROUP 2", Title = "Note 3", LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(34)) },
-                new Note() { Group = "GROUP 2", Title = "Note 4", LastModified = DateTime.Now },
-                new Note() { Group = "GROUP 2", Title = "Note 5", LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(14)) },
-                new Note() { Group = "GROUP 2", Title = "Note 6", LastModified = DateTime.Now.Subtract(TimeSpan.FromHours(7)) }
-            };
-
-            lvNotes2.ItemsSource = notes;
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvNotes2.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
-            groupDescription.GroupNames.Add("GROUP 1");
-            groupDescription.GroupNames.Add("GROUP 2");
-            groupDescription.GroupNames.Add("GROUP 3");
-            view.GroupDescriptions.Add(groupDescription);
         }
 
         private void storyboardShowSearch_Completed(object sender, EventArgs e)
         {
             SearchBox.Focus();
             SearchBox.SelectAll();
+        }
+
+        private void me_Loaded(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvNotes.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
+            groupDescription.GroupNames.Add("GROUP 1");
+            groupDescription.GroupNames.Add("GROUP 2");
+            groupDescription.GroupNames.Add("GROUP 3");
+            view.GroupDescriptions.Add(groupDescription);
         }
     }
 
