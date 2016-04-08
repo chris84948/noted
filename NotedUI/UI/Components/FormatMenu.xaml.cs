@@ -249,82 +249,98 @@ namespace NotedUI.UI.Components
 
         private void Header1_Click(object sender, RoutedEventArgs e)
         {
-            Header1Command?.Execute(TextBox);
+            if (Header1Command?.CanExecute(TextBox) == true)
+                Header1Command?.Execute(TextBox);
         }
 
         private void Header2_Click(object sender, RoutedEventArgs e)
         {
-            Header2Command?.Execute(TextBox);
+            if (Header2Command?.CanExecute(TextBox) == true)
+                Header2Command?.Execute(TextBox);
         }
 
         private void Header3_Click(object sender, RoutedEventArgs e)
         {
-            Header3Command?.Execute(TextBox);
+            if (Header3Command?.CanExecute(TextBox) == true)
+                Header3Command?.Execute(TextBox);
         }
 
         private void Header4_Click(object sender, RoutedEventArgs e)
         {
-            Header4Command?.Execute(TextBox);
+            if (Header4Command?.CanExecute(TextBox) == true)
+                Header4Command?.Execute(TextBox);
         }
 
         private void Header5_Click(object sender, RoutedEventArgs e)
         {
-            Header5Command?.Execute(TextBox);
+            if (Header5Command?.CanExecute(TextBox) == true)
+                Header5Command?.Execute(TextBox);
         }
 
         private void Header6_Click(object sender, RoutedEventArgs e)
         {
-            Header6Command?.Execute(TextBox);
+            if (Header6Command?.CanExecute(TextBox) == true)
+                Header6Command?.Execute(TextBox);
         }
 
         private void Bold_Click(object sender, RoutedEventArgs e)
         {
-            BoldCommand?.Execute(TextBox);
+            if (BoldCommand?.CanExecute(TextBox) == true)
+                BoldCommand?.Execute(TextBox);
         }
 
         private void Italic_Click(object sender, RoutedEventArgs e)
         {
-            ItalicCommand?.Execute(TextBox);
+            if (ItalicCommand?.CanExecute(TextBox) == true)
+                ItalicCommand?.Execute(TextBox);
         }
 
         private void Strikethrough_Click(object sender, RoutedEventArgs e)
         {
-            StrikethroughCommand?.Execute(TextBox);
+            if (StrikethroughCommand?.CanExecute(TextBox) == true)
+                StrikethroughCommand?.Execute(TextBox);
         }
 
         private void Quote_Click(object sender, RoutedEventArgs e)
         {
-            QuotesCommand?.Execute(TextBox);
+            if (QuotesCommand?.CanExecute(TextBox) == true)
+                QuotesCommand?.Execute(TextBox);
         }
 
         private void Code_Click(object sender, RoutedEventArgs e)
         {
-            CodeCommand?.Execute(TextBox);
+            if (CodeCommand?.CanExecute(TextBox) == true)
+                CodeCommand?.Execute(TextBox);
         }
 
         private void BulletPoint_Click(object sender, RoutedEventArgs e)
         {
-            BulletPointCommand?.Execute(TextBox);
+            if (BulletPointCommand?.CanExecute(TextBox) == true)
+                BulletPointCommand?.Execute(TextBox);
         }
 
         private void List_Click(object sender, RoutedEventArgs e)
         {
-            ListCommand?.Execute(TextBox);
+            if (ListCommand?.CanExecute(TextBox) == true)
+                ListCommand?.Execute(TextBox);
         }
 
         private void Image_Click(object sender, RoutedEventArgs e)
         {
-            ImageCommand?.Execute(TextBox);
+            if (ImageCommand?.CanExecute(TextBox) == true)
+                ImageCommand?.Execute(TextBox);
         }
 
         private void Link_Click(object sender, RoutedEventArgs e)
         {
+            if (LinkCommand?.CanExecute(TextBox) == true)
             LinkCommand?.Execute(TextBox);
         }
 
         private void HorizontalLine_Click(object sender, RoutedEventArgs e)
         {
-            HorizontalLineCommand?.Execute(TextBox);
+            if (HorizontalLineCommand?.CanExecute(TextBox) == true)
+                HorizontalLineCommand?.Execute(TextBox);
         }
     }
 }

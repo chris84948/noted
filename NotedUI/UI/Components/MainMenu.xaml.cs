@@ -167,41 +167,54 @@ namespace NotedUI.UI.Components
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddNoteCommand?.Execute(AllNotes);
+            if (AddNoteCommand?.CanExecute(AllNotes) == true)
+                AddNoteCommand?.Execute(AllNotes);
         }
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            DeleteNoteCommand?.Execute(new ListData(AllNotes, SelectedNote));
+            var data = new ListData(AllNotes, SelectedNote);
+
+            if (DeleteNoteCommand?.CanExecute(data) == true)
+                DeleteNoteCommand?.Execute(data);
         }
 
         private void buttonAddFolder_Click(object sender, RoutedEventArgs e)
         {
             popupFolder.IsOpen = false;
-            FolderAddCommand?.Execute(AllNotes);
+
+            if (FolderAddCommand?.CanExecute(AllNotes) == true)
+                FolderAddCommand?.Execute(AllNotes);
         }
 
         private void buttonDeleteFolder_Click(object sender, RoutedEventArgs e)
         {
             popupFolder.IsOpen = false;
-            FolderDeleteCommand?.Execute(AllNotes);
+
+            if (FolderDeleteCommand?.CanExecute(AllNotes) == true)
+                FolderDeleteCommand?.Execute(AllNotes);
         }
 
         private void buttonExportHTML_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;
-            ExportHTMLCommand?.Execute(AllNotes);
+
+            if (ExportHTMLCommand?.CanExecute(AllNotes) == true)
+                ExportHTMLCommand?.Execute(AllNotes);
         }
 
         private void buttonExportPDF_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;
-            ExportPDFCommand?.Execute(AllNotes);
+
+            if (ExportPDFCommand?.CanExecute(AllNotes) == true)
+                ExportPDFCommand?.Execute(AllNotes);
         }
 
         private void buttonShowSettings_Click(object sender, RoutedEventArgs e)
         {
-            ShowSettingsCommand?.Execute(AllNotes);
+            if (ShowSettingsCommand?.CanExecute(AllNotes) == true)
+                ShowSettingsCommand?.Execute(AllNotes);
         }
     }
 }

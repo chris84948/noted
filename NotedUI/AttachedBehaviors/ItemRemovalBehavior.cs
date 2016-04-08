@@ -72,7 +72,7 @@ namespace NotedUI.AttachedBehaviors
             if ((e.NewValue as bool?) != true)
                 return;
 
-            var element = d as FrameworkElement;
+            var element = d as ListViewItem;
             if (element == null)
                 throw new InvalidOperationException(
                     "MarkedForRemoval can only be set on a FrameworkElement");
@@ -88,6 +88,10 @@ namespace NotedUI.AttachedBehaviors
                     "MarkedForRemoval requires Stoyboard to be set too");
 
             var listView = FindUpVisualTree<ListView>(element);
+            var grid = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(element, 0), 0) as Grid;
+            grid.Width = listView.ActualWidth;
+            grid.HorizontalAlignment = HorizontalAlignment.Center;
+            grid.VerticalAlignment = VerticalAlignment.Center;
 
             if (sb.IsSealed || sb.IsFrozen)
                 sb = sb.Clone();

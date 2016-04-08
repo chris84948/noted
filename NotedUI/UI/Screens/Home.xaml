@@ -244,10 +244,8 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="{Binding Path=ActualWidth,
-                                              RelativeSource={RelativeSource AncestorType=ListView}}"
-                              Margin="4,2"
-                              HorizontalAlignment="Center"
+                        <Grid Margin="4,2"
+                              HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               Background="{Binding Path=Background,
                                                    RelativeSource={RelativeSource AncestorType=ListViewItem}}">
