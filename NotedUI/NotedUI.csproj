@@ -68,6 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedBehaviors\ItemRemovalBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
     <Compile Include="Controls\SlideContentControl.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

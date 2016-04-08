@@ -89,7 +89,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="180">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
@@ -107,7 +107,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="360">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
@@ -199,7 +199,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="1">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
@@ -226,7 +226,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="0">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
@@ -261,7 +261,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="1">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
@@ -279,7 +279,7 @@
                                             <EasingDoubleKeyFrame KeyTime="{StaticResource AnimationTime}"
                                                                   Value="0">
                                                 <EasingDoubleKeyFrame.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut" />
+                                                    <SineEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>

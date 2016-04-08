@@ -42,7 +42,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="35">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -52,7 +52,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -72,7 +72,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -82,7 +82,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -105,7 +105,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="35">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -132,7 +132,7 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                                   Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
-                                    <PowerEase EasingMode="EaseOut" />
+                                    <SineEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
@@ -164,11 +164,13 @@
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
                              AllNotes="{Binding AllNotes}"
                              Background="{StaticResource AppTopBannerBrush}"
-                             DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
+                             DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
                              ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
                              FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
                              FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
+                             SelectedNote="{Binding ElementName=lvNotes,
+                                                    Path=SelectedItem}"
                              ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
         <components:FormatMenu x:Name="FormatMenu"
@@ -242,25 +244,43 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="25,8"
-                                    Orientation="Vertical">
-                            <Label Margin="0,0,0,2"
-                                   Content="{Binding Title,
-                                                     Converter={StaticResource ToLowerConverter}}"
-                                   FontSize="14"
-                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                        Path=Foreground}"
-                                   Padding="0" />
-                            <Label Margin="0,0,0,2"
-                                   Content="{Binding LastModified,
-                                                     Converter={StaticResource ToLowerConverter}}"
-                                   FontSize="11"
-                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                        Path=Foreground}"
-                                   Padding="0" />
-                        </StackPanel>
+                        <Grid Width="{Binding Path=ActualWidth,
+                                              RelativeSource={RelativeSource AncestorType=ListView}}"
+                              Margin="4,2"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Stretch"
+                              Background="{Binding Path=Background,
+                                                   RelativeSource={RelativeSource AncestorType=ListViewItem}}">
+
+                            <StackPanel Margin="21,8,21,6"
+                                        HorizontalAlignment="Stretch"
+                                        Orientation="Vertical">
+                                <Label Margin="0,0,0,2"
+                                       Content="{Binding Title,
+                                                         Converter={StaticResource ToLowerConverter}}"
+                                       FontSize="14"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                            Path=Foreground}"
+                                       Padding="0" />
+                                <Label Margin="0,0,0,2"
+                                       Content="{Binding LastModified,
+                                                         Converter={StaticResource ToLowerConverter}}"
+                                       FontSize="11"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                                            Path=Foreground}"
+                                       Padding="0" />
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
+                           TargetType="ListViewItem">
+                        <Setter Property="ab:ItemRemovalBehavior.IsMarkedForRemoval"
+                                Value="{Binding IsMarkedForRemoval}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
 

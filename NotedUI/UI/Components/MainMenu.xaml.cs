@@ -35,6 +35,18 @@ namespace NotedUI.UI.Components
             set { SetValue(AllNotesProperty, value); }
         }
 
+        public static readonly DependencyProperty SelectedNoteProperty =
+            DependencyProperty.Register("SelectedNote",
+                                        typeof(Note),
+                                        typeof(MainMenu),
+                                        new FrameworkPropertyMetadata(null));
+
+        public Note SelectedNote
+        {
+            get { return (Note)GetValue(SelectedNoteProperty); }
+            set { SetValue(SelectedNoteProperty, value); }
+        }
+
         public static readonly DependencyProperty ShowSearchProperty =
             DependencyProperty.Register("ShowSearch",
                                         typeof(bool),
@@ -160,7 +172,7 @@ namespace NotedUI.UI.Components
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            DeleteNoteCommand?.Execute(AllNotes);
+            DeleteNoteCommand?.Execute(new ListData(AllNotes, SelectedNote));
         }
 
         private void buttonAddFolder_Click(object sender, RoutedEventArgs e)
