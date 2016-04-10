@@ -1,16 +1,12 @@
 ﻿using JustMVVM;
 using NotedUI.UI.Screens;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
 {
-    class MainCommands : MVVMBase
+    public class MainCommands : MVVMBase
     {
         public ICommand AddNoteCommand { get { return new RelayCommand<ObservableCollection<Note>>(AddNoteExec, CanAddNoteExec); } }
         public ICommand PrepareToDeleteCommand { get { return new RelayCommand<ListData>(PrepareToDeleteExec, CanPrepareToDelete); } }
@@ -19,7 +15,7 @@ namespace NotedUI.UI.ViewModels
         public ICommand FolderDeleteCommand { get { return new RelayCommand<ObservableCollection<Note>>(FolderDeleteExec, CanFolderDeleteExec); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand<ObservableCollection<Note>>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<ObservableCollection<Note>>(ExportPDFExec, CanExportPDFExec); } }
-        public ICommand ShowSettingsCommand { get { return new RelayCommand<ObservableCollection<Note>>(ShowSettingsExec, CanShowSettingsExec); } }
+        public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
 
         public bool CanAddNoteExec(ObservableCollection<Note> allNotes)
         {
@@ -91,14 +87,15 @@ namespace NotedUI.UI.ViewModels
 
         }
 
-        public bool CanShowSettingsExec(ObservableCollection<Note> allNotes)
+        public bool CanShowSettingsExec(HomeViewModel homeVM)
         {
             return true;
         }
 
-        public void ShowSettingsExec(ObservableCollection<Note> allNotes)
+        public void ShowSettingsExec(HomeViewModel homeVM)
         {
-
+            var settings = new SettingsViewModel(homeVM);
+            homeVM.InvokeChangeScreen(settings);
         }
     }
 }

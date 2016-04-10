@@ -1,20 +1,10 @@
 ﻿using NotedUI.UI.Screens;
-using System;
-using System.Collections.Generic;
+using NotedUI.UI.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NotedUI.UI.Components
 {
@@ -46,6 +36,19 @@ namespace NotedUI.UI.Components
             get { return (Note)GetValue(SelectedNoteProperty); }
             set { SetValue(SelectedNoteProperty, value); }
         }
+
+        public static readonly DependencyProperty HomeViewModelProperty =
+            DependencyProperty.Register("HomeViewModel",
+                                        typeof(HomeViewModel),
+                                        typeof(MainMenu),
+                                        new FrameworkPropertyMetadata(null));
+
+        public HomeViewModel HomeViewModel
+        {
+            get { return (HomeViewModel)GetValue(HomeViewModelProperty); }
+            set { SetValue(HomeViewModelProperty, value); }
+        }
+
 
         public static readonly DependencyProperty ShowSearchProperty =
             DependencyProperty.Register("ShowSearch",
@@ -213,8 +216,8 @@ namespace NotedUI.UI.Components
 
         private void buttonShowSettings_Click(object sender, RoutedEventArgs e)
         {
-            if (ShowSettingsCommand?.CanExecute(AllNotes) == true)
-                ShowSettingsCommand?.Execute(AllNotes);
+            if (ShowSettingsCommand?.CanExecute(HomeViewModel) == true)
+                ShowSettingsCommand?.Execute(HomeViewModel);
         }
     }
 }

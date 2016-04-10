@@ -5,6 +5,7 @@
              xmlns:components="clr-namespace:NotedUI.UI.Components"
              xmlns:controls="clr-namespace:NotedUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:drag="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -66,7 +67,7 @@
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard>
+                    <Storyboard x:Name="storyboardHideSearch">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchBox"
                                                        Storyboard.TargetProperty="(TextBox.RenderTransform).(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.4"
@@ -97,7 +98,7 @@
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard>
+                    <Storyboard x:Name="storyboardShowFormatting">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
                                                        Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
@@ -124,7 +125,7 @@
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard>
+                    <Storyboard x:Name="storyboardHideFormatting">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
                                                        Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
                             <EasingDoubleKeyFrame KeyTime="0"
@@ -149,17 +150,19 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+
         <components:MainMenu x:Name="MainMenu"
                              Grid.Row="0"
-                             Grid.ColumnSpan="2"
+                             Grid.ColumnSpan="3"
                              Panel.ZIndex="1"
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
                              AllNotes="{Binding AllNotes}"
@@ -169,13 +172,15 @@
                              ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
                              FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
                              FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
+                             HomeViewModel="{Binding }"
                              SelectedNote="{Binding ElementName=lvNotes,
                                                     Path=SelectedItem}"
                              ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
+
         <components:FormatMenu x:Name="FormatMenu"
                                Grid.Row="0"
-                               Grid.Column="1"
+                               Grid.Column="2"
                                Height="35"
                                VerticalAlignment="Bottom"
                                BoldCommand="{Binding Formatting.BoldCommand}"
@@ -202,8 +207,12 @@
             </components:FormatMenu.RenderTransform>
         </components:FormatMenu>
 
+
+        <!--  ListView / Search  -->
         <Grid Grid.Row="1"
               Grid.Column="0"
+              MinWidth="5"
+              HorizontalAlignment="Stretch"
               Background="{StaticResource ListViewPanelBackground}">
 
             <Grid.RowDefinitions>
@@ -221,7 +230,10 @@
 
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
-                      ItemsSource="{Binding AllNotes}">
+                      ItemsSource="{Binding AllNotes}"
+                      drag:DragDrop.IsDragSource="True"
+                      drag:DragDrop.IsDropTarget="True"
+                      drag:DragDrop.UseDefaultDragAdorner="True">
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
@@ -297,6 +309,17 @@
                 <TranslateTransform />
             </TextBox.RenderTransform>
         </TextBox>
+
+
+        <GridSplitter Grid.Row="1"
+                      Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource ListViewBackgroundSelectedBrush}" />
+
+
+
 
     </Grid>
 

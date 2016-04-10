@@ -2,32 +2,66 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:NotedUI.ResourceDictionaries">
 
-    <Storyboard x:Key="storyboardShowFormatMenu">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                       Storyboard.TargetProperty="(StackPanel.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-            <EasingDoubleKeyFrame KeyTime="0"
-                                  Value="0" />
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5"
-                                  Value="1">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <SineEase EasingMode="EaseIn" />
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <Storyboard x:Key="storyboardHideFormatMenu">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
-                                       Storyboard.TargetProperty="(StackPanel.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-            <EasingDoubleKeyFrame KeyTime="1"
-                                  Value="0" />
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+    <Storyboard x:Key="storyboardHideSearch"
+                x:Name="storyboardHideSearch">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchBox"
+                                       Storyboard.TargetProperty="(TextBox.RenderTransform).(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
                                   Value="0">
                 <EasingDoubleKeyFrame.EasingFunction>
-                    <SineEase EasingMode="EaseIn" />
+                    <SineEase EasingMode="EaseOut" />
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SearchGrid"
+                                       Storyboard.TargetProperty="(Grid.LayoutTransform).(ScaleTransform.ScaleY)">
+            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                  Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 
+    <Storyboard x:Key="storyboardShowFormatting"
+                x:Name="storyboardShowFormatting">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
+                                       Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="0"
+                                  Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                  Value="35">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
+                                       Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="0"
+                                    Value="{x:Static Visibility.Visible}" />
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="storyboardHideFormatting"
+                x:Name="storyboardHideFormatting">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
+                                       Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="0"
+                                  Value="35" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                  Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FormatMenu"
+                                       Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="0:0:0.4"
+                                    Value="{x:Static Visibility.Hidden}" />
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
 </ResourceDictionary>

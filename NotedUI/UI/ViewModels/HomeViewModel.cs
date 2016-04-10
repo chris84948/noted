@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JustMVVM;
 using System.Collections.ObjectModel;
 using NotedUI.UI.Screens;
+using NotedUI.Controls;
 
 namespace NotedUI.UI.ViewModels
 {
-    class HomeViewModel : MVVMBase
+    public class HomeViewModel : MVVMBase, IScreen
     {
+        public event Action<IScreen, eTransitionType> ChangeScreen;
+
         public FormatCommands Formatting { get; set; }
         public MainCommands MainCommands { get; set; }
 
         private ObservableCollection<Note> _allNotes;
-        public ObservableCollection<Note> AllNotes
+                public ObservableCollection<Note> AllNotes
         {
             get { return _allNotes; }
             set
@@ -39,6 +38,11 @@ namespace NotedUI.UI.ViewModels
                 new Note() { Group = "GROUP 2", Title = "Note 5", LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(14)) },
                 new Note() { Group = "GROUP 2", Title = "Note 6", LastModified = DateTime.Now.Subtract(TimeSpan.FromHours(7)) }
             };
+        }
+
+        public void InvokeChangeScreen(IScreen screen)
+        {
+            ChangeScreen?.Invoke(screen, eTransitionType.SlideInFromLeft);
         }
     }
 }

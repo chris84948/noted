@@ -1,11 +1,37 @@
 ﻿<UserControl x:Class="NotedUI.UI.Screens.Settings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NotedUI.UI.Screens"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             Background="{StaticResource ListViewPanelBackground}"
+             d:DesignHeight="720"
+             d:DesignWidth="1280"
              mc:Ignorable="d">
-    <Grid />
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Background="{StaticResource AppTopBannerBrush}">
+
+            <Button Width="140"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Command="{Binding CloseCommand}"
+                    FontFamily="{StaticResource TitleFont}"
+                    FontSize="40"
+                    FontWeight="{StaticResource TitleFontWeight}"
+                    Foreground="{StaticResource ButtonForegroundBrush}"
+                    Padding="0,4,2,0"
+                    Style="{StaticResource TextButton}"
+                    ab:ButtonBehaviors.Text="noted" />
+
+        </Grid>
+
+    </Grid>
 </UserControl>

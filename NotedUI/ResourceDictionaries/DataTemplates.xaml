@@ -12,4 +12,8 @@
         <comp:FormatMenu />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+        <screen:Settings />
+    </DataTemplate>
+
 </ResourceDictionary>

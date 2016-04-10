@@ -9,14 +9,18 @@
                       xmlns:local="clr-namespace:NotedUI"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:screens="clr-namespace:NotedUI.UI.Screens"
+                      xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
                       Width="1280"
                       Height="720"
                       mc:Ignorable="d">
 
     <controls:NotedWindow.DataContext>
-        <local:MainWindowViewModel />
+        <vm:MainWindowViewModel />
     </controls:NotedWindow.DataContext>
 
-    <ContentControl Content="{Binding CurrentViewModel}" />
+    <controls:TransitionPresenter HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Content="{Binding CurrentViewModel}"
+                                  Transition="{Binding Transition}" />
 
 </controls:NotedWindow>
