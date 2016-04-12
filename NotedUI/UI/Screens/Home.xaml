@@ -263,7 +263,8 @@
                         <Setter Property="ab:ItemRemovalBehavior.IsMarkedForRemoval"
                                 Value="{Binding IsMarkedForRemoval}" />
                         <Setter Property="ab:NoteSyncBehavior.SyncState"
-                                Value="{Binding State}" />
+                                Value="{Binding State,
+                                                Mode=TwoWay}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>

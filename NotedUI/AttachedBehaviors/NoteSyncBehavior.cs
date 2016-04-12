@@ -171,11 +171,12 @@ namespace NotedUI.AttachedBehaviors
         {
             var scaleXAnim = new DoubleAnimationUsingKeyFrames()
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(201)),
                 KeyFrames = new DoubleKeyFrameCollection()
                 {
                     new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
-                    new EasingDoubleKeyFrame(0, KeyTime.FromPercent(1)) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } }
+                    new EasingDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(200))) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } },
+                    new SplineDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(201)))
                 }
             };
             Storyboard.SetTargetName(scaleXAnim, "IconSync");
@@ -184,11 +185,12 @@ namespace NotedUI.AttachedBehaviors
 
             var scaleYAnim = new DoubleAnimationUsingKeyFrames()
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(201)),
                 KeyFrames = new DoubleKeyFrameCollection()
                 {
                     new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
-                    new EasingDoubleKeyFrame(0, KeyTime.FromPercent(1)) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } }
+                    new EasingDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(200))) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } },
+                    new SplineDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(201)))
                 }
             };
             Storyboard.SetTargetName(scaleYAnim, "IconSync");
@@ -249,7 +251,7 @@ namespace NotedUI.AttachedBehaviors
 
             var fadeAnim = new DoubleAnimationUsingKeyFrames()
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(2500)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(3000)),
                 KeyFrames = new DoubleKeyFrameCollection()
                 {
                     new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
