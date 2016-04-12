@@ -254,7 +254,7 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
 
-                <ListView.ItemTemplate>
+                <!--<ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="4,2"
                               HorizontalAlignment="Stretch"
@@ -282,7 +282,7 @@
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>-->
 
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type ListViewItem}}"

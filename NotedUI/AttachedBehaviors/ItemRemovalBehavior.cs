@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace NotedUI.AttachedBehaviors
 {
-    internal class ItemRemovalBehavior
+    public class ItemRemovalBehavior
     {
         public static readonly DependencyProperty StoryboardProperty =
             DependencyProperty.RegisterAttached(
