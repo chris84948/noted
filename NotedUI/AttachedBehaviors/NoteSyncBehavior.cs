@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
 namespace NotedUI.AttachedBehaviors
@@ -15,7 +16,7 @@ namespace NotedUI.AttachedBehaviors
             DependencyProperty.RegisterAttached("SyncState",
                                                 typeof(eNoteState),
                                                 typeof(NoteSyncBehavior),
-                                                new PropertyMetadata(eNoteState.Normal, new PropertyChangedCallback(SyncStateChanged)));
+                                                new UIPropertyMetadata(eNoteState.Normal, SyncStateChanged));
 
         public static eNoteState GetSyncState(DependencyObject obj)
         {
@@ -29,131 +30,243 @@ namespace NotedUI.AttachedBehaviors
 
         private static void SyncStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FrameworkElement NoteSync = (FrameworkElement)d;
+            ListViewItem item = d as ListViewItem;
             eNoteState oldState = (eNoteState)e.OldValue;
             eNoteState newState = (eNoteState)e.NewValue;
 
             if (oldState == eNoteState.Normal && newState == eNoteState.Changed)
             {
-                var sb = GetChangedStoryboard(d);
+                var sb = GetOutOfSyncStoryboard();
 
-                Storyboard.SetTarget(sb, d);
-                sb.Begin();
+                sb.Begin(item, item.Template);
             }
             else if (oldState == eNoteState.Changed && newState == eNoteState.Syncing)
             {
-                var sb = GetStartSyncingStoryboard(d);
-
-                if (sb.IsSealed || sb.IsFrozen)
-                    sb = sb.Clone();
+                var sb = GetStartSyncStoryboard();
 
                 sb.Completed += (_, __) =>
                 {
-                    RunSyncingStoryboard(d);
+                    RunSyncingStoryboard(d, item);
                 };
+
+                sb.Begin(item, item.Template);
             }
         }
 
-        private static void RunSyncingStoryboard(DependencyObject d)
+        private static void RunSyncingStoryboard(DependencyObject d, ListViewItem item)
         {
-            var sb = GetSyncingStoryboard(d);
-
-            if (sb.IsSealed || sb.IsFrozen)
-                sb = sb.Clone();
+            var sb = GetSyncingStoryboard();
 
             sb.Completed += (_, __) =>
             {
                 var state = GetSyncState(d);
 
                 if (state == eNoteState.Syncing)
-                    RunSyncingStoryboard(d);
+                    RunSyncingStoryboard(d, item);
 
                 else if (state == eNoteState.SyncComplete)
-                    RunSyncCompleteStoryboard(d);
+                    RunSyncCompleteStoryboard(d, item);
             };
 
-            Storyboard.SetTarget(sb, d);
-            sb.Begin();
+            sb.Begin(item, item.Template);
         }
 
-        private static void RunSyncCompleteStoryboard(DependencyObject d)
+        private static void RunSyncCompleteStoryboard(DependencyObject d, ListViewItem item)
         {
-            var sb = GetSyncCompleteStoryboard(d);
-
-            if (sb.IsSealed || sb.IsFrozen)
-                sb = sb.Clone();
+            var sb = GetSyncCompleteStoryboard();
 
             sb.Completed += (_, __) =>
             {
                 SetSyncState(d, eNoteState.Normal);
             };
 
-            Storyboard.SetTarget(sb, d);
-            sb.Begin();
+            sb.Begin(item, item.Template);
         }
 
-        public static readonly DependencyProperty ChangedStoryboardProperty =
-            DependencyProperty.RegisterAttached("ChangedStoryboard",
-                                                typeof(Storyboard),
-                                                typeof(NoteSyncBehavior),
-                                                new PropertyMetadata(null));
-
-        public static Storyboard GetChangedStoryboard(DependencyObject obj)
+        public static Storyboard GetOutOfSyncStoryboard()
         {
-            return (Storyboard)obj.GetValue(ChangedStoryboardProperty);
+            var visAnim = new ObjectAnimationUsingKeyFrames()
+            {
+                KeyFrames = new ObjectKeyFrameCollection()
+                {
+                    new DiscreteObjectKeyFrame(Visibility.Visible, KeyTime.FromPercent(0))
+                }
+            };
+            Storyboard.SetTargetName(visAnim, "IconSync");
+            Storyboard.SetTargetProperty(visAnim, new PropertyPath("(UIElement.Visibility)"));
+
+            var scaleXAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(400)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new EasingDoubleKeyFrame(1, KeyTime.FromPercent(1)) { EasingFunction = new BackEase() { Amplitude = 0.8, EasingMode = EasingMode.EaseOut } }
+                }
+            };
+            Storyboard.SetTargetName(scaleXAnim, "IconSync");
+            Storyboard.SetTargetProperty(scaleXAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"));
+
+            var scaleYAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(400)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new EasingDoubleKeyFrame(1, KeyTime.FromPercent(1)) { EasingFunction = new BackEase() { Amplitude = 0.8, EasingMode = EasingMode.EaseOut } }
+                }
+            };
+            Storyboard.SetTargetName(scaleYAnim, "IconSync");
+            Storyboard.SetTargetProperty(scaleYAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"));
+
+            return new Storyboard()
+            {
+                Children = new TimelineCollection() { visAnim, scaleXAnim, scaleYAnim }
+            };
         }
 
-        public static void SetChangedStoryboard(DependencyObject obj, Storyboard value)
+        public static Storyboard GetStartSyncStoryboard()
         {
-            obj.SetValue(ChangedStoryboardProperty, value);
+            var rotateAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(2000)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new SplineDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(400))),
+                    new EasingDoubleKeyFrame(-360, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(1400))) { EasingFunction = new PowerEase() { EasingMode = EasingMode.EaseIn } },
+                    new SplineDoubleKeyFrame(-720, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(2000))),
+                }
+            };
+            Storyboard.SetTargetName(rotateAnim, "IconSync");
+            Storyboard.SetTargetProperty(rotateAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)"));
+
+            return new Storyboard()
+            {
+                Children = new TimelineCollection() { rotateAnim }
+            };
         }
 
-        public static readonly DependencyProperty StartSyncingStoryboardProperty =
-            DependencyProperty.RegisterAttached("StartSyncingStoryboard",
-                                                typeof(Storyboard),
-                                                typeof(NoteSyncBehavior),
-                                                new PropertyMetadata(null));
-
-        public static Storyboard GetStartSyncingStoryboard(DependencyObject obj)
+        public static Storyboard GetSyncingStoryboard()
         {
-            return (Storyboard)obj.GetValue(StartSyncingStoryboardProperty);
+            var rotateAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new SplineDoubleKeyFrame(-180, KeyTime.FromPercent(1))
+                }
+            };
+            Storyboard.SetTargetName(rotateAnim, "IconSync");
+            Storyboard.SetTargetProperty(rotateAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)"));
+
+            return new Storyboard()
+            {
+                Children = new TimelineCollection() { rotateAnim }
+            };
         }
 
-        public static void SetStartSyncingStoryboard(DependencyObject obj, Storyboard value)
+        public static Storyboard GetSyncCompleteStoryboard()
         {
-            obj.SetValue(StartSyncingStoryboardProperty, value);
-        }
+            var scaleXAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
+                    new EasingDoubleKeyFrame(0, KeyTime.FromPercent(1)) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } }
+                }
+            };
+            Storyboard.SetTargetName(scaleXAnim, "IconSync");
+            Storyboard.SetTargetProperty(scaleXAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"));
 
-        public static readonly DependencyProperty SyncingStoryboardProperty =
-            DependencyProperty.RegisterAttached("SyncingStoryboard",
-                                                typeof(Storyboard),
-                                                typeof(NoteSyncBehavior),
-                                                new PropertyMetadata(null));
 
-        public static Storyboard GetSyncingStoryboard(DependencyObject obj)
-        {
-            return (Storyboard)obj.GetValue(SyncingStoryboardProperty);
-        }
+            var scaleYAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
+                    new EasingDoubleKeyFrame(0, KeyTime.FromPercent(1)) { EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn } }
+                }
+            };
+            Storyboard.SetTargetName(scaleYAnim, "IconSync");
+            Storyboard.SetTargetProperty(scaleYAnim, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"));
 
-        public static void SetSyncingStoryboard(DependencyObject obj, Storyboard value)
-        {
-            obj.SetValue(SyncingStoryboardProperty, value);
-        }
 
-        public static readonly DependencyProperty SyncCompleteStoryboardProperty =
-            DependencyProperty.RegisterAttached("SyncCompleteStoryboard",
-                                                typeof(Storyboard),
-                                                typeof(NoteSyncBehavior),
-                                                new PropertyMetadata(null));
+            var visSyncIconAnim = new ObjectAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                KeyFrames = new ObjectKeyFrameCollection()
+                {
+                    new DiscreteObjectKeyFrame(Visibility.Hidden, KeyTime.FromPercent(1))
+                }
+            };
+            Storyboard.SetTargetName(visSyncIconAnim, "IconSync");
+            Storyboard.SetTargetProperty(visSyncIconAnim, new PropertyPath("(UIElement.Visibility)"));
 
-        public static Storyboard GetSyncCompleteStoryboard(DependencyObject obj)
-        {
-            return (Storyboard)obj.GetValue(SyncCompleteStoryboardProperty);
-        }
 
-        public static void SetSyncCompleteStoryboard(DependencyObject obj, Storyboard value)
-        {
-            obj.SetValue(SyncCompleteStoryboardProperty, value);
+            var visSyncCompleteIconAnim = new ObjectAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                KeyFrames = new ObjectKeyFrameCollection()
+                {
+                    new DiscreteObjectKeyFrame(Visibility.Visible, KeyTime.FromPercent(1))
+                }
+            };
+            Storyboard.SetTargetName(visSyncCompleteIconAnim, "IconSyncComplete");
+            Storyboard.SetTargetProperty(visSyncCompleteIconAnim, new PropertyPath("(UIElement.Visibility)"));
+
+
+            var blackstopAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(750)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new SplineDoubleKeyFrame(0.33, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(350))),
+                    new EasingDoubleKeyFrame(1, KeyTime.FromPercent(1)) { EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut } }
+                }
+            };
+            Storyboard.SetTargetName(blackstopAnim, "BlackStop");
+            Storyboard.SetTargetProperty(blackstopAnim, new PropertyPath("Offset"));
+
+
+            var transparentstopAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(750)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
+                    new SplineDoubleKeyFrame(0.33, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(350))),
+                    new EasingDoubleKeyFrame(1, KeyTime.FromPercent(1)) { EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut } }
+                }
+            };
+            Storyboard.SetTargetName(transparentstopAnim, "TransparentStop");
+            Storyboard.SetTargetProperty(transparentstopAnim, new PropertyPath("Offset"));
+
+
+            var fadeAnim = new DoubleAnimationUsingKeyFrames()
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(2500)),
+                KeyFrames = new DoubleKeyFrameCollection()
+                {
+                    new SplineDoubleKeyFrame(1, KeyTime.FromPercent(0)),
+                    new SplineDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(1500))),
+                    new SplineDoubleKeyFrame(0, KeyTime.FromPercent(1)),
+                }
+            };
+            Storyboard.SetTargetName(fadeAnim, "IconSyncComplete");
+            Storyboard.SetTargetProperty(fadeAnim, new PropertyPath("Opacity"));
+
+            return new Storyboard()
+            {
+                Children = new TimelineCollection()
+                {
+                    scaleXAnim, scaleYAnim, visSyncIconAnim, visSyncCompleteIconAnim, blackstopAnim, transparentstopAnim, fadeAnim
+                }
+            };
         }
     }
 }

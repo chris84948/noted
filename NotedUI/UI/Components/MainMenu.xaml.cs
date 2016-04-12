@@ -1,4 +1,5 @@
-﻿using NotedUI.UI.Screens;
+﻿using NotedUI.Models;
+using NotedUI.UI.Screens;
 using NotedUI.UI.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,25 +16,25 @@ namespace NotedUI.UI.Components
     {
         public static readonly DependencyProperty AllNotesProperty =
             DependencyProperty.Register("AllNotes",
-                                        typeof(ObservableCollection<Note>),
+                                        typeof(ObservableCollection<NoteViewModel>),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(null));
 
-        public ObservableCollection<Note> AllNotes
+        public ObservableCollection<NoteViewModel> AllNotes
         {
-            get { return (ObservableCollection<Note>)GetValue(AllNotesProperty); }
+            get { return (ObservableCollection<NoteViewModel>)GetValue(AllNotesProperty); }
             set { SetValue(AllNotesProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedNoteProperty =
             DependencyProperty.Register("SelectedNote",
-                                        typeof(Note),
+                                        typeof(NoteViewModel),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(null));
 
-        public Note SelectedNote
+        public NoteViewModel SelectedNote
         {
-            get { return (Note)GetValue(SelectedNoteProperty); }
+            get { return (NoteViewModel)GetValue(SelectedNoteProperty); }
             set { SetValue(SelectedNoteProperty, value); }
         }
 

@@ -25,41 +25,9 @@ namespace NotedUI.UI.Screens
         private void me_Loaded(object sender, RoutedEventArgs e)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvNotes.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
-            groupDescription.GroupNames.Add("GROUP 1");
-            groupDescription.GroupNames.Add("GROUP 2");
-            groupDescription.GroupNames.Add("GROUP 3");
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Folder");
+            //groupDescription.GroupNames.Add("GROUP 3");
             view.GroupDescriptions.Add(groupDescription);
-        }
-    }
-
-    public class Note : JustMVVM.MVVMBase
-    {
-        public string Group { get; set; }
-        public string Title { get; set; }
-        public DateTime LastModified { get; set; }
-
-        private bool _isMarkedForRemoval;
-        public bool IsMarkedForRemoval
-        {
-            get { return _isMarkedForRemoval; }
-            set
-            {
-                _isMarkedForRemoval = value;
-                OnPropertyChanged();
-            }
-        }
-    }
-
-    public class ListData
-    {
-        public ObservableCollection<Note> AllNotes { get; set; }
-        public Note SelectedNote { get; set; }
-
-        public ListData(ObservableCollection<Note> allNotes, Note selectedNote)
-        {
-            AllNotes = allNotes;
-            SelectedNote = selectedNote;
         }
     }
 }

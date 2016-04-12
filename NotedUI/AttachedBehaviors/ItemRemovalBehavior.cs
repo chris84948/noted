@@ -1,4 +1,6 @@
-﻿using NotedUI.UI.Screens;
+﻿using NotedUI.Models;
+using NotedUI.UI.Screens;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -95,8 +97,8 @@ namespace NotedUI.AttachedBehaviors
             Storyboard.SetTarget(sb, d);
             sb.Completed += (_, __) =>
             {
-                var data = new ListData((ObservableCollection<Note>)listView.ItemsSource, 
-                                        (Note)element.DataContext);
+                var data = new ListData((ObservableCollection<NoteViewModel>)listView.ItemsSource, 
+                                        (NoteViewModel)element.DataContext);
                 
                 if (!performRemoval.CanExecute(data))
                     return;

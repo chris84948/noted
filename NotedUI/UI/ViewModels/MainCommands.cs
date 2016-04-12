@@ -1,4 +1,5 @@
 ﻿using JustMVVM;
+using NotedUI.Models;
 using NotedUI.UI.Screens;
 using System;
 using System.Collections.ObjectModel;
@@ -8,23 +9,23 @@ namespace NotedUI.UI.ViewModels
 {
     public class MainCommands : MVVMBase
     {
-        public ICommand AddNoteCommand { get { return new RelayCommand<ObservableCollection<Note>>(AddNoteExec, CanAddNoteExec); } }
+        public ICommand AddNoteCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(AddNoteExec, CanAddNoteExec); } }
         public ICommand PrepareToDeleteCommand { get { return new RelayCommand<ListData>(PrepareToDeleteExec, CanPrepareToDelete); } }
         public ICommand DeleteNoteCommand { get { return new RelayCommand<ListData>(DeleteNoteExec, CanDeleteNoteExec); } }
-        public ICommand FolderAddCommand { get { return new RelayCommand<ObservableCollection<Note>>(FolderAddExec, CanFolderAddExec); } }
-        public ICommand FolderDeleteCommand { get { return new RelayCommand<ObservableCollection<Note>>(FolderDeleteExec, CanFolderDeleteExec); } }
-        public ICommand ExportHTMLCommand { get { return new RelayCommand<ObservableCollection<Note>>(ExportHTMLExec, CanExportHTMLExec); } }
-        public ICommand ExportPDFCommand { get { return new RelayCommand<ObservableCollection<Note>>(ExportPDFExec, CanExportPDFExec); } }
+        public ICommand FolderAddCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(FolderAddExec, CanFolderAddExec); } }
+        public ICommand FolderDeleteCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(FolderDeleteExec, CanFolderDeleteExec); } }
+        public ICommand ExportHTMLCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(ExportHTMLExec, CanExportHTMLExec); } }
+        public ICommand ExportPDFCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
 
-        public bool CanAddNoteExec(ObservableCollection<Note> allNotes)
+        public bool CanAddNoteExec(ObservableCollection<NoteViewModel> allNotes)
         {
             return true;
         }
 
-        public void AddNoteExec(ObservableCollection<Note> allNotes)
+        public void AddNoteExec(ObservableCollection<NoteViewModel> allNotes)
         {
-            allNotes.Add(new Note() { Group = "GROUP 1", Title = "Note 10", LastModified = DateTime.Now });
+            allNotes.Add(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
         }
 
         public bool CanPrepareToDelete(ListData data)
@@ -47,42 +48,42 @@ namespace NotedUI.UI.ViewModels
             data.AllNotes.Remove(data.SelectedNote);
         }
 
-        public bool CanFolderAddExec(ObservableCollection<Note> allNotes)
+        public bool CanFolderAddExec(ObservableCollection<NoteViewModel> allNotes)
         {
             return true;
         }
 
-        public void FolderAddExec(ObservableCollection<Note> allNotes)
+        public void FolderAddExec(ObservableCollection<NoteViewModel> allNotes)
         {
 
         }
 
-        public bool CanFolderDeleteExec(ObservableCollection<Note> allNotes)
-        {
-            return true;
-        }
-
-        public void FolderDeleteExec(ObservableCollection<Note> allNotes)
-        {
-
-        }
-
-        public bool CanExportHTMLExec(ObservableCollection<Note> allNotes)
+        public bool CanFolderDeleteExec(ObservableCollection<NoteViewModel> allNotes)
         {
             return true;
         }
 
-        public void ExportHTMLExec(ObservableCollection<Note> allNotes)
+        public void FolderDeleteExec(ObservableCollection<NoteViewModel> allNotes)
         {
 
         }
 
-        public bool CanExportPDFExec(ObservableCollection<Note> allNotes)
+        public bool CanExportHTMLExec(ObservableCollection<NoteViewModel> allNotes)
         {
             return true;
         }
 
-        public void ExportPDFExec(ObservableCollection<Note> allNotes)
+        public void ExportHTMLExec(ObservableCollection<NoteViewModel> allNotes)
+        {
+
+        }
+
+        public bool CanExportPDFExec(ObservableCollection<NoteViewModel> allNotes)
+        {
+            return true;
+        }
+
+        public void ExportPDFExec(ObservableCollection<NoteViewModel> allNotes)
         {
 
         }

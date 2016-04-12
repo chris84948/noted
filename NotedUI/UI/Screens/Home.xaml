@@ -9,7 +9,9 @@
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="clr-namespace:NotedUI.Models"
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="me"
              Background="{StaticResource NoteBackgroundBrush}"
              BorderBrush="{StaticResource AppTopBannerBrush}"
@@ -242,7 +244,8 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="GroupItem">
                                             <Expander VerticalAlignment="Top"
-                                                      Header="{Binding Name}"
+                                                      Header="{Binding Name,
+                                                                       Converter={StaticResource ToUpperConverter}}"
                                                       IsExpanded="False">
                                                 <ItemsPresenter />
                                             </Expander>
@@ -254,41 +257,13 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
 
-                <!--<ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="4,2"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              Background="{Binding Path=Background,
-                                                   RelativeSource={RelativeSource AncestorType=ListViewItem}}">
-
-                            <StackPanel Margin="21,8,21,6"
-                                        HorizontalAlignment="Stretch"
-                                        Orientation="Vertical">
-                                <Label Margin="0,0,0,2"
-                                       Content="{Binding Title,
-                                                         Converter={StaticResource ToLowerConverter}}"
-                                       FontSize="14"
-                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                            Path=Foreground}"
-                                       Padding="0" />
-                                <Label Margin="0,0,0,2"
-                                       Content="{Binding LastModified,
-                                                         Converter={StaticResource ToLowerConverter}}"
-                                       FontSize="11"
-                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},
-                                                            Path=Foreground}"
-                                       Padding="0" />
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>-->
-
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
                            TargetType="ListViewItem">
                         <Setter Property="ab:ItemRemovalBehavior.IsMarkedForRemoval"
                                 Value="{Binding IsMarkedForRemoval}" />
+                        <Setter Property="ab:NoteSyncBehavior.SyncState"
+                                Value="{Binding State}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
@@ -320,6 +295,16 @@
 
 
 
+        <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
+        <ComboBox Grid.Row="1"
+                  Grid.Column="2"
+                  Width="200"
+                  VerticalAlignment="Center"
+                  FontSize="25"
+                  ItemsSource="{Binding NoteStates}"
+                  SelectedItem="{Binding ElementName=lvNotes,
+                                         Mode=TwoWay,
+                                         Path=SelectedItem.State}" />
 
     </Grid>
 

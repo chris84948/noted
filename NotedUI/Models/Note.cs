@@ -9,6 +9,9 @@ namespace NotedUI.Models
         public string Content { get; set; }
         public string Folder { get; set; }
 
+        public Note()
+        { }
+
         public Note(string id,
                     DateTime? lastModified,
                     string content,

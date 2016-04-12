@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace NotedUI.UI.ViewModels
 {
-    class NoteViewModel : MVVMBase
+    public class NoteViewModel : MVVMBase
     {
-        private Note _note;
+        private Note _note = new Note();
 
         public string ID
         {
@@ -63,6 +63,17 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        private bool _isMarkedForRemoval;
+        public bool IsMarkedForRemoval
+        {
+            get { return _isMarkedForRemoval; }
+            set
+            {
+                _isMarkedForRemoval = value;
+                OnPropertyChanged();
+            }
+        }
+
         public NoteViewModel(string id,
                              DateTime? lastModified,
                              string content,
@@ -74,6 +85,7 @@ namespace NotedUI.UI.ViewModels
             Folder = folder;
 
             State = eNoteState.Normal;
+            IsMarkedForRemoval = false;
         }
     }
 }

@@ -36,6 +36,8 @@
 
             <conv:ToLowerConverter x:Key="ToLowerConverter" />
 
+            <conv:ToUpperConverter x:Key="ToUpperConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
