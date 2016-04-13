@@ -80,38 +80,38 @@
 
         <Button Width="140"
                 VerticalAlignment="Stretch"
+                Content="noted"
                 FontFamily="{StaticResource TitleFont}"
                 FontSize="40"
                 FontWeight="{StaticResource TitleFontWeight}"
                 Foreground="{StaticResource ButtonForegroundBrush}"
                 Padding="0,4,2,0"
-                Style="{StaticResource TextButton}"
-                ab:ButtonBehaviors.Text="noted" />
+                Style="{StaticResource TextButton}" />
 
-        <ToggleButton IsChecked="{Binding ShowSearch,
+        <ToggleButton Content="SEARCH"
+                      IsChecked="{Binding ShowSearch,
                                           ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
-                      ab:ButtonBehaviors.Text="SEARCH" />
+                      ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}" />
 
         <Button x:Name="buttonAdd"
                 Click="buttonAdd_Click"
+                Content="ADD"
                 ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
-                ab:ButtonBehaviors.IconSize="16"
-                ab:ButtonBehaviors.Text="ADD" />
+                ab:ButtonBehaviors.IconSize="16" />
 
         <Button x:Name="buttonDelete"
                 Click="buttonDelete_Click"
+                Content="DELETE"
                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                ab:ButtonBehaviors.IconSize="16"
-                ab:ButtonBehaviors.Text="DELETE" />
+                ab:ButtonBehaviors.IconSize="16" />
 
         <ToggleButton x:Name="buttonFolder"
+                      Content="GROUP"
                       IsHitTestVisible="{Binding ElementName=popupFolder,
                                                  Path=IsOpen,
                                                  Mode=OneWay,
                                                  Converter={StaticResource InvertValueConverter}}"
-                      ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}"
-                      ab:ButtonBehaviors.Text="GROUP" />
+                      ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}" />
 
         <Popup x:Name="popupFolder"
                IsOpen="{Binding ElementName=buttonFolder,
@@ -125,22 +125,22 @@
                         Orientation="Vertical">
                 <Button x:Name="buttonAddFolder"
                         Click="buttonAddFolder_Click"
-                        Style="{StaticResource PopupButtonStyle}"
-                        ab:ButtonBehaviors.Text="ADD" />
+                        Content="ADD"
+                        Style="{StaticResource PopupButtonStyle}" />
                 <Button x:Name="buttonDeleteFolder"
                         Click="buttonDeleteFolder_Click"
-                        Style="{StaticResource PopupButtonStyle}"
-                        ab:ButtonBehaviors.Text="DELETE" />
+                        Content="DELETE"
+                        Style="{StaticResource PopupButtonStyle}" />
             </StackPanel>
         </Popup>
 
         <ToggleButton x:Name="buttonExport"
+                      Content="EXPORT"
                       IsHitTestVisible="{Binding ElementName=popupExport,
                                                  Path=IsOpen,
                                                  Mode=OneWay,
                                                  Converter={StaticResource InvertValueConverter}}"
-                      ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}"
-                      ab:ButtonBehaviors.Text="EXPORT" />
+                      ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}" />
 
         <Popup x:Name="popupExport"
                IsOpen="{Binding ElementName=buttonExport,
@@ -154,32 +154,32 @@
                         Orientation="Vertical">
                 <Button x:Name="buttonExportHTML"
                         Click="buttonExportHTML_Click"
-                        Style="{StaticResource PopupButtonStyle}"
-                        ab:ButtonBehaviors.Text="TO HTML" />
+                        Content="TO HTML"
+                        Style="{StaticResource PopupButtonStyle}" />
                 <Button x:Name="buttonExportPDF"
                         Click="buttonExportPDF_Click"
-                        Style="{StaticResource PopupButtonStyle}"
-                        ab:ButtonBehaviors.Text="TO PDF" />
+                        Content="TO PDF"
+                        Style="{StaticResource PopupButtonStyle}" />
             </StackPanel>
         </Popup>
 
         <ToggleButton x:Name="buttonFormat"
                       Margin="70,0,0,0"
+                      Content="FORMAT"
                       IsChecked="{Binding ShowFormatMenu,
                                           ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}"
-                      ab:ButtonBehaviors.Text="FORMAT" />
+                      ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}" />
 
-        <ToggleButton IsChecked="{Binding ShowPreview,
+        <ToggleButton Content="PREVIEW"
+                      IsChecked="{Binding ShowPreview,
                                           ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
-                      ab:ButtonBehaviors.Text="PREVIEW" />
+                      ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}" />
 
         <Button x:Name="buttonShowSettings"
                 Margin="70,0,0,0"
                 Click="buttonShowSettings_Click"
-                ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
-                ab:ButtonBehaviors.Text="SETTINGS" />
+                Content="SETTINGS"
+                ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}" />
     </StackPanel>
 
 </UserControl>

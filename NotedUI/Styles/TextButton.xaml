@@ -57,8 +57,7 @@
                                    VerticalAlignment="Stretch"
                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                   Content="{Binding Path=(ab:ButtonBehaviors.Text),
-                                                     RelativeSource={RelativeSource TemplatedParent}}"
+                                   Content="{TemplateBinding Content}"
                                    FontFamily="{TemplateBinding FontFamily}"
                                    FontSize="{TemplateBinding FontSize}"
                                    FontStyle="{TemplateBinding FontStyle}"

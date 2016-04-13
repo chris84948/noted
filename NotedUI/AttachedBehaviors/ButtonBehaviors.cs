@@ -12,9 +12,6 @@ namespace NotedUI.AttachedBehaviors
             DependencyProperty.Register("IconSize", typeof(double), typeof(ButtonBehaviors),
                 new FrameworkPropertyMetadata(0.0));
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(ButtonBehaviors), new PropertyMetadata(""));
-
         public static Visual GetIcon(DependencyObject obj)
         {
             return (Visual)obj.GetValue(IconProperty);
@@ -33,16 +30,6 @@ namespace NotedUI.AttachedBehaviors
         public static void SetIconSize(DependencyObject obj, double value)
         {
             obj.SetValue(IconSizeProperty, value);
-        }
-
-        public static string GetText(DependencyObject obj)
-        {
-            return (string)obj.GetValue(TextProperty);
-        }
-
-        public static void SetText(DependencyObject obj, string value)
-        {
-            obj.SetValue(TextProperty, value);
         }
     }
 }

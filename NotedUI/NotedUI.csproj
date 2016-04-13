@@ -106,6 +106,10 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Page Include="Styles\SettingsButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
