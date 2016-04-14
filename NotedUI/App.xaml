@@ -10,7 +10,6 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/DataTemplates.xaml" />
-                <ResourceDictionary Source="ResourceDictionaries/Storyboards.xaml" />
                 <ResourceDictionary Source="Styles/Expander.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />

@@ -71,6 +71,7 @@
     <Compile Include="AttachedBehaviors\ItemRemovalBehavior.cs" />
     <Compile Include="AttachedBehaviors\NoteSyncBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
+    <Compile Include="AttachedBehaviors\TextBoxBehaviors.cs" />
     <Compile Include="Controls\SlideContentControl.cs" />
     <Compile Include="Controls\SlideTransition.cs" />
     <Compile Include="Controls\Transition.cs" />
@@ -106,6 +107,10 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Page Include="Styles\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\SettingsButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,10 +129,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceDictionaries\DataTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\Storyboards.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

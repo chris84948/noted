@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System;
 
 namespace NotedUI.UI.Components
 {
@@ -56,21 +57,48 @@ namespace NotedUI.UI.Components
                                         typeof(bool),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public bool ShowSearch { get { return (bool)GetValue(ShowSearchProperty); } set { SetValue(ShowSearchProperty, value); } }
+
+        public bool ShowSearch
+        {
+            get { return (bool)GetValue(ShowSearchProperty); }
+            set { SetValue(ShowSearchProperty, value); }
+        }
 
         public static readonly DependencyProperty ShowPreviewProperty =
             DependencyProperty.Register("ShowPreview",
                                         typeof(bool),
                                         typeof(MainMenu),
-                                        new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public bool ShowPreview { get { return (bool)GetValue(ShowPreviewProperty); } set { SetValue(ShowPreviewProperty, value); } }
+                                        new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(ShowPreviewChangedPropertyChanged)));
 
+        public bool ShowPreview
+        {
+            get { return (bool)GetValue(ShowPreviewProperty); }
+            set { SetValue(ShowPreviewProperty, value); }
+        }
+
+        public static readonly RoutedEvent ShowPreviewChangedEvent =
+            EventManager.RegisterRoutedEvent("ShowPreviewChanged",
+                                             RoutingStrategy.Bubble,
+                                             typeof(RoutedEventHandler),
+                                             typeof(MainMenu));
+
+        public event RoutedEventHandler ShowPreviewChanged
+        {
+            add { AddHandler(ShowPreviewChangedEvent, value); }
+            remove { RemoveHandler(ShowPreviewChangedEvent, value); }
+        }
+        
         public static readonly DependencyProperty ShowFormatMenuProperty =
             DependencyProperty.Register("ShowFormatMenu",
                                         typeof(bool),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public bool ShowFormatMenu { get { return (bool)GetValue(ShowFormatMenuProperty); } set { SetValue(ShowFormatMenuProperty, value); } }
+
+        public bool ShowFormatMenu
+        {
+            get { return (bool)GetValue(ShowFormatMenuProperty); }
+            set { SetValue(ShowFormatMenuProperty, value); }
+        }
 
         public static readonly DependencyProperty AddNoteCommandProperty =
             DependencyProperty.Register("AddNoteCommand",
@@ -167,6 +195,14 @@ namespace NotedUI.UI.Components
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        private static void ShowPreviewChangedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var me = d as MainMenu;
+
+            RoutedEventArgs args = new RoutedEventArgs(ShowPreviewChangedEvent);
+            me.RaiseEvent(args);
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)

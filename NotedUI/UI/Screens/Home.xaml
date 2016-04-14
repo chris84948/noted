@@ -22,11 +22,13 @@
 
     <UserControl.Resources>
 
-        <!--<CollectionViewSource x:Key="cvs" x:Name="cvs">
+        <CollectionViewSource x:Key="GroupedNotes"
+                              Source="{Binding AllNotes}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group" />
+                <PropertyGroupDescription x:Name="GroupDescription"
+                                          PropertyName="Folder" />
             </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>-->
+        </CollectionViewSource>
 
     </UserControl.Resources>
 
@@ -148,6 +150,7 @@
                 </ei:ControlStoryboardAction.Storyboard>
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
+
     </i:Interaction.Triggers>
 
     <Grid>
@@ -164,7 +167,7 @@
 
         <components:MainMenu x:Name="MainMenu"
                              Grid.Row="0"
-                             Grid.ColumnSpan="3"
+                             Grid.ColumnSpan="5"
                              Panel.ZIndex="1"
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
                              AllNotes="{Binding AllNotes}"
@@ -177,6 +180,7 @@
                              HomeViewModel="{Binding }"
                              SelectedNote="{Binding ElementName=lvNotes,
                                                     Path=SelectedItem}"
+                             ShowPreviewChanged="MainMenu_ShowPreviewChanged"
                              ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
 
@@ -232,7 +236,7 @@
 
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
-                      ItemsSource="{Binding AllNotes}"
+                      ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
                       drag:DragDrop.UseDefaultDragAdorner="True">
@@ -276,16 +280,17 @@
                  Height="35"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Bottom"
+                 HorizontalContentAlignment="Left"
                  Background="{StaticResource ListViewPanelBackground}"
                  FontFamily="Montserrat"
                  FontSize="14"
                  RenderTransformOrigin="0.5,0"
-                 Style="{StaticResource TextBoxIcon}">
+                 Style="{StaticResource TextBoxIcon}"
+                 ab:TextBoxBehaviors.Hint="Enter Search">
             <TextBox.RenderTransform>
                 <TranslateTransform />
             </TextBox.RenderTransform>
         </TextBox>
-
 
         <GridSplitter Grid.Row="1"
                       Grid.Column="1"
@@ -294,19 +299,42 @@
                       VerticalAlignment="Stretch"
                       Background="{StaticResource ListViewBackgroundSelectedBrush}" />
 
+        <Grid x:Name="gridNote"
+              Grid.Row="1"
+              Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition x:Name="tbMarkdownColumn"
+                                  Width="Auto" />
+            </Grid.ColumnDefinitions>
 
+            <Grid x:Name="tbNote"
+                  Grid.Column="0">
 
-        <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
-        <ComboBox Grid.Row="1"
+                <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
+                <ComboBox Width="200"
+                          VerticalAlignment="Center"
+                          FontSize="25"
+                          ItemsSource="{Binding NoteStates}"
+                          SelectedItem="{Binding ElementName=lvNotes,
+                                                 Mode=TwoWay,
+                                                 Path=SelectedItem.State}" />
+            </Grid>
+
+            <GridSplitter x:Name="gridSplitterMarkdown"
+                          Grid.Column="1"
+                          Width="5"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch"
+                          Background="{StaticResource ListViewBackgroundSelectedBrush}"
+                          Visibility="Collapsed" />
+
+            <Grid x:Name="tbMarkdown"
                   Grid.Column="2"
-                  Width="200"
-                  VerticalAlignment="Center"
-                  FontSize="25"
-                  ItemsSource="{Binding NoteStates}"
-                  SelectedItem="{Binding ElementName=lvNotes,
-                                         Mode=TwoWay,
-                                         Path=SelectedItem.State}" />
-
+                  HorizontalAlignment="Stretch"
+                  Background="LightGreen" />
+        </Grid>
     </Grid>
 
 </UserControl>

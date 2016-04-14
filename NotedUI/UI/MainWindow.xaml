@@ -10,6 +10,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:screens="clr-namespace:NotedUI.UI.Screens"
                       xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
+                      MinWidth="1024"
+                      MinHeight="600"
                       Width="1280"
                       Height="720"
                       mc:Ignorable="d">

@@ -9,6 +9,67 @@
     <SolidColorBrush x:Key="TextBox.Focus.Border"
                      Color="#FF569DE5" />
 
+    <Style x:Key="TextBoxCloseButton"
+           TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="{StaticResource ListViewTextColorBrush}" />
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="IsEnabled"
+                Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            SnapsToDevicePixels="true">
+                        <Grid>
+                            <Rectangle x:Name="IconRect"
+                                       Width="{Binding Path=(ab:ButtonBehaviors.IconSize),
+                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                       Height="{Binding Path=(ab:ButtonBehaviors.IconSize),
+                                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                       Margin="{TemplateBinding Padding}"
+                                       
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Fill="{TemplateBinding Foreground}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush x:Name="myVisual"
+                                                 Stretch="Uniform">
+                                        <VisualBrush.Visual>
+                                            <Canvas>
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  Content="{Binding Path=(ab:ButtonBehaviors.Icon),
+                                                                                    RelativeSource={RelativeSource TemplatedParent}}" />
+                                            </Canvas>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="TextBoxIcon"
            TargetType="{x:Type TextBox}">
         <Setter Property="Background"
@@ -19,10 +80,15 @@
                 Value="{DynamicResource ListViewTextSelectedColorBrush}" />
         <Setter Property="BorderThickness"
                 Value="0" />
+        <Setter Property="ab:TextBoxBehaviors.Text"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=Text}" />
         <Setter Property="KeyboardNavigation.TabNavigation"
                 Value="None" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Left" />
+        <Setter Property="ab:TextBoxBehaviors.TextBoxViewMargin"
+                Value="1 0 1 0" />
         <Setter Property="FocusVisualStyle"
                 Value="{x:Null}" />
         <Setter Property="AllowDrop"
@@ -34,6 +100,30 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
+                    <ControlTemplate.Resources>
+
+                        <Storyboard x:Key="HideHintStoryboard">
+                            <DoubleAnimation Duration="0:0:0.1"
+                                             Storyboard.TargetName="Hint"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+
+                        <Storyboard x:Key="ShowHintStoryboard">
+                            <DoubleAnimation Duration="0:0:0.1"
+                                             Storyboard.TargetName="Hint"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0.4">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
 
                     <Border x:Name="border"
                             Background="{TemplateBinding Background}"
@@ -42,39 +132,17 @@
                             SnapsToDevicePixels="True">
 
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Grid.Column="1"
-                                          Margin="0,0,6,1"
-                                          VerticalAlignment="Center"
-                                          VerticalContentAlignment="Center"
-                                          Focusable="false"
-                                          HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden" />
-
                             <Rectangle x:Name="IconRect"
-                                       Grid.Column="0"
                                        Width="16"
                                        Height="16"
                                        Margin="25,0,6,0"
-                                       HorizontalAlignment="Right"
+                                       HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        Fill="{StaticResource ListViewTextSelectedColorBrush}"
                                        IsHitTestVisible="False"
                                        RenderTransformOrigin="0.5,0.5"
                                        Visibility="Visible">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform />
-                                        <SkewTransform />
-                                        <RotateTransform />
-                                        <TranslateTransform />
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
+
                                 <Rectangle.OpacityMask>
                                     <VisualBrush x:Name="myVisual"
                                                  Stretch="Uniform">
@@ -89,6 +157,38 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
 
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="48,2,46,0"
+                                          VerticalAlignment="Center"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+
+                            <TextBlock x:Name="Hint"
+                                       Margin="48,2,46,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontStyle="Italic"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0.4"
+                                       Text="{Binding Path=(ab:TextBoxBehaviors.Hint),
+                                                      RelativeSource={RelativeSource TemplatedParent}}" />
+
+                            <Button x:Name="PART_CloseButton"
+                                    Grid.Column="1"
+                                    Margin="5,0,18,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Foreground="{StaticResource ListViewTextColorBrush}"
+                                    Padding="5"
+                                    Style="{StaticResource TextBoxCloseButton}"
+                                    ab:ButtonBehaviors.Icon="{StaticResource ClearIcon}"
+                                    ab:ButtonBehaviors.IconSize="14"
+                                    ab:TextBoxBehaviors.IsClearTextButtonBehaviorEnabled="True" />
+
                             <Rectangle Grid.ColumnSpan="2"
                                        Height="1"
                                        Margin="16,0"
@@ -99,6 +199,30 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="ab:TextBoxBehaviors.IsNullOrEmpty" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="HideHintStoryboard_BeginStoryboard"
+                                                 Storyboard="{StaticResource HideHintStoryboard}" />
+                            </Trigger.EnterActions>
+
+                            <Trigger.ExitActions>
+                                <BeginStoryboard x:Name="ShowHintStoryboard_BeginStoryboard"
+                                                 Storyboard="{StaticResource ShowHintStoryboard}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger SourceName="PART_CloseButton" Property="IsMouseOver" Value="true">
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                        </Trigger>
+
+                        <Trigger SourceName="PART_CloseButton" Property="IsPressed" Value="true">
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource AppTopBannerBrush}" />
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="border"
                                     Property="Opacity"
