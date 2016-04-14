@@ -10,19 +10,18 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:screens="clr-namespace:NotedUI.UI.Screens"
                       xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
-                      MinWidth="1024"
-                      MinHeight="600"
                       Width="1280"
                       Height="720"
+                      MinWidth="1024"
+                      MinHeight="600"
                       mc:Ignorable="d">
 
     <controls:NotedWindow.DataContext>
         <vm:MainWindowViewModel />
     </controls:NotedWindow.DataContext>
 
-    <controls:TransitionPresenter HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  Content="{Binding CurrentViewModel}"
-                                  Transition="{Binding Transition}" />
+    <ContentPresenter HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Content="{Binding CurrentViewModel}" />
 
 </controls:NotedWindow>

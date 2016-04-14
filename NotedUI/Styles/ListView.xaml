@@ -265,7 +265,7 @@
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
                                             <EasingDoubleKeyFrame KeyTime="0"
                                                                   Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5"
                                                                   Value="1">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
@@ -276,7 +276,7 @@
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0"
                                                                   Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
                                                                   Value="1">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />

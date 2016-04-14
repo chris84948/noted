@@ -63,7 +63,8 @@
         <StackPanel Background="{StaticResource ListViewBackgroundSelectedBrush}"
                     Orientation="Vertical">
 
-            <Button Command="{Binding CloseCommand}"
+            <Button x:Name="buttonClose"
+                    Click="buttonClose_Click"
                     Content="CLOSE SETTINGS"
                     ab:ButtonBehaviors.Icon="{StaticResource CloseSettingsIcon}"
                     ab:ButtonBehaviors.IconSize="16" />

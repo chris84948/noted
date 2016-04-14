@@ -38,6 +38,8 @@
 
             <conv:ToUpperConverter x:Key="ToUpperConverter" />
 
+            <conv:MarginConverter x:Key="MarginConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

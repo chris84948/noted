@@ -16,7 +16,6 @@ namespace NotedUI.UI.ViewModels
         public ICommand FolderDeleteCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(FolderDeleteExec, CanFolderDeleteExec); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<ObservableCollection<NoteViewModel>>(ExportPDFExec, CanExportPDFExec); } }
-        public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
 
         public bool CanAddNoteExec(ObservableCollection<NoteViewModel> allNotes)
         {
@@ -86,17 +85,6 @@ namespace NotedUI.UI.ViewModels
         public void ExportPDFExec(ObservableCollection<NoteViewModel> allNotes)
         {
 
-        }
-
-        public bool CanShowSettingsExec(HomeViewModel homeVM)
-        {
-            return true;
-        }
-
-        public void ShowSettingsExec(HomeViewModel homeVM)
-        {
-            var settings = new SettingsViewModel(homeVM);
-            homeVM.InvokeChangeScreen(settings);
         }
     }
 }
