@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -97,7 +98,7 @@ namespace NotedUI.AttachedBehaviors
             Storyboard.SetTarget(sb, d);
             sb.Completed += (_, __) =>
             {
-                var data = new ListData((ObservableCollection<NoteViewModel>)listView.ItemsSource, 
+                var data = new ListData((ObservableCollection<NoteViewModel>)(listView.ItemsSource as ListCollectionView).SourceCollection, 
                                         (NoteViewModel)element.DataContext);
                 
                 if (!performRemoval.CanExecute(data))

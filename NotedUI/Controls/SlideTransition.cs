@@ -57,7 +57,7 @@ namespace NotedUI.Controls
                 oldContent.RenderTransform = tt;
 
             DoubleAnimation da = new DoubleAnimation(EndPoint.X * transitionElement.ActualWidth, Duration);
-            da.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+            da.EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut };
             tt.BeginAnimation(TranslateTransform.XProperty, da);
 
             da.To = EndPoint.Y * transitionElement.ActualHeight;

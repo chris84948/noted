@@ -177,6 +177,7 @@ namespace NotedUI.Controls
         {
             _children.Clear();
             _children.Add(_currentHost);
+
             _currentHost.Visibility = Visibility.Visible;
             _previousHost.Visibility = Visibility.Visible;
             ((ContentPresenter)_previousHost.Child).Content = null;

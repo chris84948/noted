@@ -236,6 +236,7 @@
 
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
+                      MinWidth="200"
                       ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
@@ -301,7 +302,8 @@
 
         <Grid x:Name="gridNote"
               Grid.Row="1"
-              Grid.Column="2">
+              Grid.Column="2"
+              Panel.ZIndex="-1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -310,7 +312,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="tbNote"
-                  Grid.Column="0">
+                  Grid.Column="0"
+                  MinWidth="5">
 
                 <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
                 <ComboBox Width="200"
@@ -332,6 +335,7 @@
 
             <Grid x:Name="tbMarkdown"
                   Grid.Column="2"
+                  MinWidth="5"
                   HorizontalAlignment="Stretch"
                   Background="LightGreen" />
         </Grid>
