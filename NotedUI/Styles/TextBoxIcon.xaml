@@ -158,7 +158,6 @@
                             </Rectangle>
 
                             <ScrollViewer x:Name="PART_ContentHost"
-                                          MaxWidth="150"
                                           Margin="48,2,46,0"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"
