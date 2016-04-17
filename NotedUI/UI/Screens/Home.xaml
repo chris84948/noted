@@ -265,7 +265,7 @@
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
                                TargetType="ListViewItem">
-                            <Setter Property="ab:ItemRemovalBehavior.IsMarkedForRemoval"
+                            <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval"
                                     Value="{Binding IsMarkedForRemoval}" />
                             <Setter Property="ab:NoteSyncBehavior.SyncState"
                                     Value="{Binding State,

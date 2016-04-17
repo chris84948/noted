@@ -68,10 +68,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AttachedBehaviors\ItemRemovalBehavior.cs" />
+    <Compile Include="AttachedBehaviors\ListViewItemBehavior.cs" />
     <Compile Include="AttachedBehaviors\NoteSyncBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
     <Compile Include="AttachedBehaviors\TextBoxBehaviors.cs" />
+    <Compile Include="Controls\ControlExtensions.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Controls\SlideContentControl.cs" />
     <Compile Include="Controls\SlideTransition.cs" />

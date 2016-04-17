@@ -12,30 +12,31 @@ using System.Windows.Media.Animation;
 
 namespace NotedUI.AttachedBehaviors
 {
-    public class ItemRemovalBehavior
+    public class ListViewItemBehavior
     {
-        public static readonly DependencyProperty StoryboardProperty =
+        // Attached properties/events for removal animation
+        public static readonly DependencyProperty RemoveStoryboardProperty =
             DependencyProperty.RegisterAttached(
-                "Storyboard",
+                "RemoveStoryboard",
                 typeof(Storyboard),
-                typeof(ItemRemovalBehavior),
+                typeof(ListViewItemBehavior),
                 null);
 
-        public static Storyboard GetStoryboard(DependencyObject o)
+        public static Storyboard GetRemoveStoryboard(DependencyObject o)
         {
-            return o.GetValue(StoryboardProperty) as Storyboard;
+            return o.GetValue(RemoveStoryboardProperty) as Storyboard;
         }
 
-        public static void SetStoryboard(DependencyObject o, Storyboard value)
+        public static void SetRemoveStoryboard(DependencyObject o, Storyboard value)
         {
-            o.SetValue(StoryboardProperty, value);
+            o.SetValue(RemoveStoryboardProperty, value);
         }
 
         public static readonly DependencyProperty PerformRemovalProperty =
             DependencyProperty.RegisterAttached(
                 "PerformRemoval",
                 typeof(ICommand),
-                typeof(ItemRemovalBehavior),
+                typeof(ListViewItemBehavior),
                 null);
 
         public static ICommand GetPerformRemoval(DependencyObject o)
@@ -52,7 +53,7 @@ namespace NotedUI.AttachedBehaviors
             DependencyProperty.RegisterAttached(
                 "IsMarkedForRemoval",
                 typeof(bool),
-                typeof(ItemRemovalBehavior),
+                typeof(ListViewItemBehavior),
                 new UIPropertyMetadata(false, OnMarkedForRemovalChanged));
 
         public static bool GetIsMarkedForRemoval(DependencyObject o)
@@ -81,7 +82,7 @@ namespace NotedUI.AttachedBehaviors
                 throw new InvalidOperationException(
                     "MarkedForRemoval requires PerformRemoval to be set too");
 
-            var sb = GetStoryboard(d);
+            var sb = GetRemoveStoryboard(d);
             if (sb == null)
                 throw new InvalidOperationException(
                     "MarkedForRemoval requires Stoyboard to be set too");
@@ -120,6 +121,67 @@ namespace NotedUI.AttachedBehaviors
                 current = VisualTreeHelper.GetParent(current);
             }
             return current as T;
+        }
+
+
+        // Attached Properties/Events for Animating list view item on addition
+        public static readonly DependencyProperty AnimateOnAddProperty =
+            DependencyProperty.RegisterAttached("AnimateOnAdd",
+                                                typeof(bool),
+                                                typeof(ListViewItemBehavior),
+                                                new PropertyMetadata(false, new PropertyChangedCallback(AnimateOnAddChanged)));
+
+        public static bool GetAnimateOnAdd(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(AnimateOnAddProperty);
+        }
+
+        public static void SetAnimateOnAdd(DependencyObject obj, bool value)
+        {
+            obj.SetValue(AnimateOnAddProperty, value);
+        }
+
+        private static void AnimateOnAddChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            FrameworkElement listviewItem = (FrameworkElement)d;
+            
+            if ((bool)e.NewValue)
+            {
+                listviewItem.Loaded += (sender, args) =>
+                {
+                    ListViewItem item = sender as ListViewItem;
+                    NoteViewModel dataContext = (NoteViewModel)item.DataContext;
+
+                    if (dataContext.AnimateOnLoad)
+                    {
+                        // Clear this flag, so it only happens once then show the storyboard
+                        dataContext.AnimateOnLoad = false;
+
+                        var sb = GetAdditionStoryboard(d);
+                        if (sb.IsSealed || sb.IsFrozen)
+                            sb = sb.Clone();
+
+                        Storyboard.SetTarget(sb, d);
+                        sb.Begin();
+                    }
+                };
+            }
+        }
+
+        public static readonly DependencyProperty AdditionStoryboardProperty =
+            DependencyProperty.RegisterAttached("AdditionStoryboard",
+                                                typeof(Storyboard),
+                                                typeof(ListViewItemBehavior),
+                                                new PropertyMetadata(null));
+
+        public static Storyboard GetAdditionStoryboard(DependencyObject obj)
+        {
+            return (Storyboard)obj.GetValue(AdditionStoryboardProperty);
+        }
+
+        public static void SetAdditionStoryboard(DependencyObject obj, Storyboard value)
+        {
+            obj.SetValue(AdditionStoryboardProperty, value);
         }
     }
 }

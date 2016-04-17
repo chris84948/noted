@@ -24,7 +24,7 @@ namespace NotedUI.UI.ViewModels
 
         public void AddNoteExec(ObservableCollection<NoteViewModel> allNotes)
         {
-            allNotes.Add(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
+            allNotes.AddWithAnimation(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
         }
 
         public bool CanPrepareToDelete(ListData data)

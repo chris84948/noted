@@ -66,20 +66,22 @@
                 Value="Transparent" />
         <Setter Property="Foreground"
                 Value="{StaticResource ListViewTextColorBrush}" />
+        <Setter Property="ab:ListViewItemBehavior.AnimateOnAdd"
+                Value="True" />
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1"
-                                    ScaleY="0" />
+                                    ScaleY="1" />
                 </TransformGroup>
             </Setter.Value>
         </Setter>
         <Setter Property="FocusVisualStyle"
                 Value="{x:Null}" />
-        <Setter Property="ab:ItemRemovalBehavior.PerformRemoval"
+        <Setter Property="ab:ListViewItemBehavior.PerformRemoval"
                 Value="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                 Path=DataContext.MainCommands.DeleteNoteCommand}" />
-        <Setter Property="ab:ItemRemovalBehavior.Storyboard">
+        <Setter Property="ab:ListViewItemBehavior.RemoveStoryboard">
             <Setter.Value>
                 <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
@@ -119,6 +121,34 @@
                         <EasingColorKeyFrame KeyTime="0"
                                              Value="#FFFF5E5E" />
                     </ColorAnimationUsingKeyFrames>
+                </Storyboard>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ab:ListViewItemBehavior.AdditionStoryboard">
+            <Setter.Value>
+                <Storyboard>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                        <EasingDoubleKeyFrame KeyTime="0"
+                                              Value="0" />
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                              Value="1">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseOut" />
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame KeyTime="0"
+                                              Value="0" />
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                              Value="1">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseOut" />
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+
                 </Storyboard>
             </Setter.Value>
         </Setter>
@@ -252,42 +282,11 @@
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
-                        <Trigger Property="ab:ItemRemovalBehavior.IsMarkedForRemoval" Value="True">
+                        <Trigger Property="ab:ListViewItemBehavior.IsMarkedForRemoval" Value="True">
                             <Setter TargetName="Bd"
                                     Property="Background"
                                     Value="Transparent" />
                         </Trigger>
-
-                        <EventTrigger RoutedEvent="Loaded">
-                            <EventTrigger.Actions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="LayoutTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                            <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5"
-                                                                  Value="1">
-                                                <EasingDoubleKeyFrame.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut" />
-                                                </EasingDoubleKeyFrame.EasingFunction>
-                                            </EasingDoubleKeyFrame>
-                                        </DoubleAnimationUsingKeyFrames>
-
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
-                                                                  Value="1">
-                                                <EasingDoubleKeyFrame.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut" />
-                                                </EasingDoubleKeyFrame.EasingFunction>
-                                            </EasingDoubleKeyFrame>
-                                        </DoubleAnimationUsingKeyFrames>
-
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger.Actions>
-                        </EventTrigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

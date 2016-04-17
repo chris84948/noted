@@ -74,6 +74,8 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        public bool AnimateOnLoad { get; set; } = false;
+
         public NoteViewModel(string id,
                              DateTime? lastModified,
                              string content,
