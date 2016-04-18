@@ -20,18 +20,6 @@
              d:DesignWidth="1280"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-
-        <CollectionViewSource x:Key="GroupedNotes"
-                              Source="{Binding AllNotes}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription x:Name="GroupDescription"
-                                          PropertyName="Folder" />
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-
-    </UserControl.Resources>
-
     <i:Interaction.Triggers>
 
         <!--  Show / Hide Search Box Animations  -->
@@ -236,7 +224,7 @@
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
                       MinWidth="200"
-                      ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
+                      ItemsSource="{Binding AllNotes.View}"
                       drag:DragDrop.DropHandler="{Binding}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"

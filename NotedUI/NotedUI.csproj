@@ -88,6 +88,7 @@
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\ListData.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
     <Compile Include="UI\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>

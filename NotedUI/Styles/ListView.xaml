@@ -190,7 +190,7 @@
                                                 HorizontalAlignment="Stretch"
                                                 Orientation="Vertical">
                                         <Label Margin="0,0,0,2"
-                                               Content="{Binding DataContext.Content,
+                                               Content="{Binding DataContext.Title,
                                                                  RelativeSource={RelativeSource TemplatedParent}}"
                                                FontSize="14"
                                                Foreground="{TemplateBinding Foreground}"

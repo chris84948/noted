@@ -32,6 +32,11 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        public string Title
+        {
+            get { return _note.Content.Split('\n')[0]; }
+        }
+
         public string Content
         {
             get { return _note.Content; }

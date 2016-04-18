@@ -17,13 +17,13 @@ namespace NotedUI.UI.Components
     {
         public static readonly DependencyProperty AllNotesProperty =
             DependencyProperty.Register("AllNotes",
-                                        typeof(ObservableCollection<NoteViewModel>),
+                                        typeof(AllNotesViewModel),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(null));
 
-        public ObservableCollection<NoteViewModel> AllNotes
+        public AllNotesViewModel AllNotes
         {
-            get { return (ObservableCollection<NoteViewModel>)GetValue(AllNotesProperty); }
+            get { return (AllNotesViewModel)GetValue(AllNotesProperty); }
             set { SetValue(AllNotesProperty, value); }
         }
 
