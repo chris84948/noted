@@ -9,7 +9,6 @@ using System.Linq;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using System.ComponentModel;
-using System.Windows.Controls;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -77,11 +76,13 @@ namespace NotedUI.UI.ViewModels
             NoteViewModel targetItem = dropInfo.TargetItem as NoteViewModel;
 
             sourceItem.Folder = dropInfo.TargetGroup.Name.ToString();
-            OnPropertyChanged(() => AllNotes);
 
             // Changing group data at runtime isn't handled well: force a refresh on the collection view.
-            if (dropInfo.TargetCollection is ICollectionView)
-                ((ICollectionView)dropInfo.TargetCollection).Refresh();
+            if (dropInfo.TargetCollection is IEditableCollectionView)
+            {
+                ((IEditableCollectionView)dropInfo.TargetCollection).EditItem(sourceItem);
+                ((IEditableCollectionView)dropInfo.TargetCollection).CommitEdit();
+            }
         }
     }
 }

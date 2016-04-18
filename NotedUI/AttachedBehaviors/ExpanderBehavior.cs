@@ -53,6 +53,7 @@ namespace NotedUI.AttachedBehaviors
 
             expander.DragEnter += Expander_DragEnter;
             expander.DragLeave += Expander_DragLeave;
+            expander.Drop += Expander_DragLeave;
         }
 
         private static void Expander_DragEnter(object sender, DragEventArgs e)
