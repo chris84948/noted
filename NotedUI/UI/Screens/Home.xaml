@@ -237,6 +237,7 @@
                       Grid.Row="1"
                       MinWidth="200"
                       ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
+                      drag:DragDrop.DropHandler="{Binding}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
                       drag:DragDrop.UseDefaultDragAdorner="True">

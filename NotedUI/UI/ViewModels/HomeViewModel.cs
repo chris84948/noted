@@ -6,10 +6,14 @@ using NotedUI.Controls;
 using System.Collections.Generic;
 using NotedUI.Models;
 using System.Linq;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
+using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace NotedUI.UI.ViewModels
 {
-    public class HomeViewModel : MVVMBase, IScreen
+    public class HomeViewModel : MVVMBase, IScreen, IDropTarget
     {
         public event Action<IScreen, eTransitionType> ChangeScreen;
 
@@ -17,7 +21,7 @@ namespace NotedUI.UI.ViewModels
         public MainCommands MainCommands { get; set; }
 
         private ObservableCollection<NoteViewModel> _allNotes;
-                public ObservableCollection<NoteViewModel> AllNotes
+        public ObservableCollection<NoteViewModel> AllNotes
         {
             get { return _allNotes; }
             set
@@ -55,6 +59,29 @@ namespace NotedUI.UI.ViewModels
         public void InvokeChangeScreen(IScreen screen)
         {
             ChangeScreen?.Invoke(screen, eTransitionType.SlideInFromLeft);
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            NoteViewModel sourceItem = dropInfo.Data as NoteViewModel;
+
+            if (sourceItem != null && dropInfo.TargetGroup != null)
+            {
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+
+        void IDropTarget.Drop(IDropInfo dropInfo)
+        {
+            NoteViewModel sourceItem = dropInfo.Data as NoteViewModel;
+            NoteViewModel targetItem = dropInfo.TargetItem as NoteViewModel;
+
+            sourceItem.Folder = dropInfo.TargetGroup.Name.ToString();
+            OnPropertyChanged(() => AllNotes);
+
+            // Changing group data at runtime isn't handled well: force a refresh on the collection view.
+            if (dropInfo.TargetCollection is ICollectionView)
+                ((ICollectionView)dropInfo.TargetCollection).Refresh();
         }
     }
 }

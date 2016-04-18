@@ -145,43 +145,54 @@
                 Value="0" />
         <Setter Property="Padding"
                 Value="0" />
+        <Setter Property="ab:ExpanderBehavior.HighlightOnDrag"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
-                    <DockPanel>
-                        <ToggleButton x:Name="HeaderSite"
-                                      HorizontalContentAlignment="Stretch"
-                                      VerticalContentAlignment="Stretch"
-                                      Content="{TemplateBinding Header}"
-                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                      DockPanel.Dock="Top"
-                                      IsChecked="{Binding IsExpanded,
-                                                          Mode=TwoWay,
-                                                          RelativeSource={RelativeSource TemplatedParent}}"
-                                      Style="{StaticResource ExpanderDownHeaderStyle}" />
+                    <Grid>
+                        <DockPanel>
+                            <ToggleButton x:Name="HeaderSite"
+                                          HorizontalContentAlignment="Stretch"
+                                          VerticalContentAlignment="Stretch"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                          DockPanel.Dock="Top"
+                                          IsChecked="{Binding IsExpanded,
+                                                              Mode=TwoWay,
+                                                              RelativeSource={RelativeSource TemplatedParent}}"
+                                          Style="{StaticResource ExpanderDownHeaderStyle}" />
 
-                        <Border Background="Transparent"
-                                BorderThickness="0">
+                            <Border Background="Transparent"
+                                    BorderThickness="0">
 
-                            <ContentPresenter x:Name="ExpandSite"
-                                              HorizontalAlignment="Stretch"
-                                              VerticalAlignment="Stretch"
-                                              DockPanel.Dock="Bottom"
-                                              Focusable="false"
-                                              Opacity="0"
-                                              RenderTransformOrigin="0.5,0"
-                                              Visibility="Collapsed">
+                                <ContentPresenter x:Name="ExpandSite"
+                                                  HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Stretch"
+                                                  DockPanel.Dock="Bottom"
+                                                  Focusable="false"
+                                                  Opacity="0"
+                                                  RenderTransformOrigin="0.5,0"
+                                                  Visibility="Collapsed">
 
-                                <ContentPresenter.LayoutTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="1"
-                                                        ScaleY="0" />
-                                    </TransformGroup>
-                                </ContentPresenter.LayoutTransform>
-                            </ContentPresenter>
-                        </Border>
-                    </DockPanel>
+                                    <ContentPresenter.LayoutTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="1"
+                                                            ScaleY="0" />
+                                        </TransformGroup>
+                                    </ContentPresenter.LayoutTransform>
+                                </ContentPresenter>
+                            </Border>
+                        </DockPanel>
+
+                        <Grid x:Name="DragHighlight"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Background="#FF26FF52"
+                              IsHitTestVisible="False"
+                              Opacity="0" />
+                    </Grid>
 
                     <ControlTemplate.Triggers>
 
@@ -237,6 +248,48 @@
                                                 </DiscreteObjectKeyFrame.Value>
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="ab:ExpanderBehavior.ShowHighlight" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DragHighlight"
+                                                                       Storyboard.TargetProperty="(ContentPresenter.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                                                                  Value="0.3" />
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="DragHighlight"
+                                                                        Storyboard.TargetProperty="(Grid.IsHitTestVisible)">
+                                            <DiscreteBooleanKeyFrame KeyTime="0"
+                                                                     Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DragHighlight"
+                                                                       Storyboard.TargetProperty="(ContentPresenter.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.3" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                                                                  Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="DragHighlight"
+                                                                        Storyboard.TargetProperty="(Grid.IsHitTestVisible)">
+                                            <DiscreteBooleanKeyFrame KeyTime="0"
+                                                                     Value="False" />
+                                        </BooleanAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>

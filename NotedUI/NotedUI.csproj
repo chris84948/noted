@@ -68,6 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedBehaviors\ExpanderBehavior.cs" />
     <Compile Include="AttachedBehaviors\ListViewItemBehavior.cs" />
     <Compile Include="AttachedBehaviors\NoteSyncBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
