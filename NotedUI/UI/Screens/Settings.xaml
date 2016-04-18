@@ -64,7 +64,7 @@
                     Orientation="Vertical">
 
             <Button x:Name="buttonClose"
-                    Click="buttonClose_Click"
+                    Command="{Binding CloseCommand}"
                     Content="CLOSE SETTINGS"
                     ab:ButtonBehaviors.Icon="{StaticResource CloseSettingsIcon}"
                     ab:ButtonBehaviors.IconSize="16" />

@@ -17,9 +17,31 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        private Transition _transition;
+        public Transition Transition
+        {
+            get { return _transition; }
+            set
+            {
+                _transition = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainWindowViewModel()
         {
             CurrentViewModel = new HomeViewModel();
+            CurrentViewModel.ChangeScreen += CurrentViewModel_ChangeScreen;
+        }
+
+        private void CurrentViewModel_ChangeScreen(IScreen screen, eTransitionType transitionType)
+        {
+            CurrentViewModel.ChangeScreen -= CurrentViewModel_ChangeScreen;
+
+            Transition = TransitionSelector.Get(transitionType);
+            CurrentViewModel = screen;
+
+            CurrentViewModel.ChangeScreen += CurrentViewModel_ChangeScreen;
         }
     }
 }

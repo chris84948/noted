@@ -20,8 +20,9 @@
         <vm:MainWindowViewModel />
     </controls:NotedWindow.DataContext>
 
-    <ContentPresenter HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      Content="{Binding CurrentViewModel}" />
+    <controls:TransitionPresenter HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Content="{Binding CurrentViewModel}"
+                                  Transition="{Binding Transition}" />
 
 </controls:NotedWindow>

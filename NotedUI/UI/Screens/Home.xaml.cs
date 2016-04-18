@@ -133,20 +133,5 @@ namespace NotedUI.UI.Screens
 
             return sb;
         }
-
-
-        private void MainMenu_SettingsClicked(object sender, RoutedEventArgs e)
-        {
-            var marginAnim = new ThicknessAnimation(new Thickness(0), new Duration(TimeSpan.FromMilliseconds(500)));
-            marginAnim.EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut };
-            SettingsScreen.BeginAnimation(MarginProperty, marginAnim);
-        }
-
-        private void Settings_CloseClicked(object sender, RoutedEventArgs e)
-        {
-            var marginAnim = new ThicknessAnimation(new Thickness(-SettingsScreen.ActualWidth * 2, 0, 0, 0), new Duration(TimeSpan.FromMilliseconds(500)));
-            marginAnim.EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut };
-            SettingsScreen.BeginAnimation(MarginProperty, marginAnim);
-        }
     }
 }

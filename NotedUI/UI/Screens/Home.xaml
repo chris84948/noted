@@ -154,199 +154,188 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="4*" />
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <components:MainMenu x:Name="MainMenu"
+                             Grid.Row="0"
+                             Grid.ColumnSpan="5"
+                             Panel.ZIndex="1"
+                             AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
+                             AllNotes="{Binding AllNotes}"
+                             Background="{StaticResource AppTopBannerBrush}"
+                             DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
+                             ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
+                             ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
+                             FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
+                             FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
+                             HomeViewModel="{Binding }"
+                             SelectedNote="{Binding ElementName=lvNotes,
+                                                    Path=SelectedItem}"
+                             ShowPreviewChanged="MainMenu_ShowPreviewChanged"
+                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
+
+
+        <components:FormatMenu x:Name="FormatMenu"
+                               Grid.Row="0"
+                               Grid.Column="2"
+                               Height="35"
+                               VerticalAlignment="Bottom"
+                               BoldCommand="{Binding Formatting.BoldCommand}"
+                               BulletPointCommand="{Binding Formatting.BulletPointCommand}"
+                               CodeCommand="{Binding Formatting.CodeCommand}"
+                               Header1Command="{Binding Formatting.Header1Command}"
+                               Header2Command="{Binding Formatting.Header2Command}"
+                               Header3Command="{Binding Formatting.Header3Command}"
+                               Header4Command="{Binding Formatting.Header4Command}"
+                               Header5Command="{Binding Formatting.Header5Command}"
+                               Header6Command="{Binding Formatting.Header6Command}"
+                               HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
+                               ImageCommand="{Binding Formatting.ImageCommand}"
+                               ItalicCommand="{Binding Formatting.ItalicCommand}"
+                               LinkCommand="{Binding Formatting.LinkCommand}"
+                               ListCommand="{Binding Formatting.ListCommand}"
+                               QuotesCommand="{Binding Formatting.QuotesCommand}"
+                               StrikethroughCommand="{Binding Formatting.StrikethroughCommand}"
+                               Visibility="Hidden">
+            <components:FormatMenu.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform />
+                </TransformGroup>
+            </components:FormatMenu.RenderTransform>
+        </components:FormatMenu>
+
+
+        <!--  ListView / Search  -->
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              MinWidth="5"
+              Background="{StaticResource ListViewPanelBackground}">
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-
-            <components:MainMenu x:Name="MainMenu"
-                                 Grid.Row="0"
-                                 Grid.ColumnSpan="5"
-                                 Panel.ZIndex="1"
-                                 AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
-                                 AllNotes="{Binding AllNotes}"
-                                 Background="{StaticResource AppTopBannerBrush}"
-                                 DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
-                                 ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
-                                 ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
-                                 FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
-                                 FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
-                                 HomeViewModel="{Binding }"
-                                 SelectedNote="{Binding ElementName=lvNotes,
-                                                        Path=SelectedItem}"
-                                 SettingsClicked="MainMenu_SettingsClicked"
-                                 ShowPreviewChanged="MainMenu_ShowPreviewChanged" />
-
-
-            <components:FormatMenu x:Name="FormatMenu"
-                                   Grid.Row="0"
-                                   Grid.Column="2"
-                                   Height="35"
-                                   VerticalAlignment="Bottom"
-                                   BoldCommand="{Binding Formatting.BoldCommand}"
-                                   BulletPointCommand="{Binding Formatting.BulletPointCommand}"
-                                   CodeCommand="{Binding Formatting.CodeCommand}"
-                                   Header1Command="{Binding Formatting.Header1Command}"
-                                   Header2Command="{Binding Formatting.Header2Command}"
-                                   Header3Command="{Binding Formatting.Header3Command}"
-                                   Header4Command="{Binding Formatting.Header4Command}"
-                                   Header5Command="{Binding Formatting.Header5Command}"
-                                   Header6Command="{Binding Formatting.Header6Command}"
-                                   HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
-                                   ImageCommand="{Binding Formatting.ImageCommand}"
-                                   ItalicCommand="{Binding Formatting.ItalicCommand}"
-                                   LinkCommand="{Binding Formatting.LinkCommand}"
-                                   ListCommand="{Binding Formatting.ListCommand}"
-                                   QuotesCommand="{Binding Formatting.QuotesCommand}"
-                                   StrikethroughCommand="{Binding Formatting.StrikethroughCommand}"
-                                   Visibility="Hidden">
-                <components:FormatMenu.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform />
-                    </TransformGroup>
-                </components:FormatMenu.RenderTransform>
-            </components:FormatMenu>
-
-
-            <!--  ListView / Search  -->
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
-                  MinWidth="5"
-                  Background="{StaticResource ListViewPanelBackground}">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid x:Name="SearchGrid"
-                      Grid.Row="0"
-                      Height="35">
-                    <Grid.LayoutTransform>
-                        <ScaleTransform ScaleY="0" />
-                    </Grid.LayoutTransform>
-                </Grid>
-
-                <ListView x:Name="lvNotes"
-                          Grid.Row="1"
-                          MinWidth="200"
-                          ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
-                          drag:DragDrop.IsDragSource="True"
-                          drag:DragDrop.IsDropTarget="True"
-                          drag:DragDrop.UseDefaultDragAdorner="True">
-                    <ListView.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.ContainerStyle>
-                                <Style TargetType="GroupItem">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="GroupItem">
-                                                <Expander VerticalAlignment="Top"
-                                                          Header="{Binding Name,
-                                                                           Converter={StaticResource ToUpperConverter}}"
-                                                          IsExpanded="False">
-                                                    <ItemsPresenter />
-                                                </Expander>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </GroupStyle.ContainerStyle>
-                        </GroupStyle>
-                    </ListView.GroupStyle>
-
-                    <ListView.ItemContainerStyle>
-                        <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
-                               TargetType="ListViewItem">
-                            <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval"
-                                    Value="{Binding IsMarkedForRemoval}" />
-                            <Setter Property="ab:NoteSyncBehavior.SyncState"
-                                    Value="{Binding State,
-                                                    Mode=TwoWay}" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+            <Grid x:Name="SearchGrid"
+                  Grid.Row="0"
+                  Height="35">
+                <Grid.LayoutTransform>
+                    <ScaleTransform ScaleY="0" />
+                </Grid.LayoutTransform>
             </Grid>
 
-            <TextBox x:Name="SearchBox"
-                     Grid.Row="0"
-                     Grid.Column="0"
-                     Height="35"
-                     VerticalAlignment="Bottom"
-                     Background="{StaticResource ListViewPanelBackground}"
-                     FontFamily="Montserrat"
-                     FontSize="14"
-                     RenderTransformOrigin="0.5,0"
-                     Style="{StaticResource TextBoxIcon}"
-                     ab:TextBoxBehaviors.Hint="Enter Search">
-                <TextBox.RenderTransform>
-                    <TranslateTransform />
-                </TextBox.RenderTransform>
-            </TextBox>
+            <ListView x:Name="lvNotes"
+                      Grid.Row="1"
+                      MinWidth="200"
+                      ItemsSource="{Binding Source={StaticResource GroupedNotes}}"
+                      drag:DragDrop.IsDragSource="True"
+                      drag:DragDrop.IsDropTarget="True"
+                      drag:DragDrop.UseDefaultDragAdorner="True">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="GroupItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="GroupItem">
+                                            <Expander VerticalAlignment="Top"
+                                                      Header="{Binding Name,
+                                                                       Converter={StaticResource ToUpperConverter}}"
+                                                      IsExpanded="False">
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
 
-            <GridSplitter Grid.Row="1"
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
+                           TargetType="ListViewItem">
+                        <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval"
+                                Value="{Binding IsMarkedForRemoval}" />
+                        <Setter Property="ab:NoteSyncBehavior.SyncState"
+                                Value="{Binding State,
+                                                Mode=TwoWay}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+
+        <TextBox x:Name="SearchBox"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Height="35"
+                 VerticalAlignment="Bottom"
+                 Background="{StaticResource ListViewPanelBackground}"
+                 FontFamily="Montserrat"
+                 FontSize="14"
+                 RenderTransformOrigin="0.5,0"
+                 Style="{StaticResource TextBoxIcon}"
+                 ab:TextBoxBehaviors.Hint="Enter Search">
+            <TextBox.RenderTransform>
+                <TranslateTransform />
+            </TextBox.RenderTransform>
+        </TextBox>
+
+        <GridSplitter Grid.Row="1"
+                      Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource ListViewBackgroundSelectedBrush}" />
+
+        <Grid x:Name="gridNote"
+              Grid.Row="1"
+              Grid.Column="2"
+              Panel.ZIndex="-1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition x:Name="tbMarkdownColumn"
+                                  Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="tbNote"
+                  Grid.Column="0"
+                  MinWidth="5">
+
+                <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
+                <ComboBox Width="200"
+                          VerticalAlignment="Center"
+                          FontSize="25"
+                          ItemsSource="{Binding NoteStates}"
+                          SelectedItem="{Binding ElementName=lvNotes,
+                                                 Mode=TwoWay,
+                                                 Path=SelectedItem.State}" />
+            </Grid>
+
+            <GridSplitter x:Name="gridSplitterMarkdown"
                           Grid.Column="1"
                           Width="5"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Stretch"
-                          Background="{StaticResource ListViewBackgroundSelectedBrush}" />
+                          Background="{StaticResource ListViewBackgroundSelectedBrush}"
+                          Visibility="Collapsed" />
 
-            <Grid x:Name="gridNote"
-                  Grid.Row="1"
+            <Grid x:Name="tbMarkdown"
                   Grid.Column="2"
-                  Panel.ZIndex="-1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition x:Name="tbMarkdownColumn"
-                                      Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid x:Name="tbNote"
-                      Grid.Column="0"
-                      MinWidth="5">
-
-                    <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
-                    <ComboBox Width="200"
-                              VerticalAlignment="Center"
-                              FontSize="25"
-                              ItemsSource="{Binding NoteStates}"
-                              SelectedItem="{Binding ElementName=lvNotes,
-                                                     Mode=TwoWay,
-                                                     Path=SelectedItem.State}" />
-                </Grid>
-
-                <GridSplitter x:Name="gridSplitterMarkdown"
-                              Grid.Column="1"
-                              Width="5"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Stretch"
-                              Background="{StaticResource ListViewBackgroundSelectedBrush}"
-                              Visibility="Collapsed" />
-
-                <Grid x:Name="tbMarkdown"
-                      Grid.Column="2"
-                      MinWidth="5"
-                      HorizontalAlignment="Stretch"
-                      Background="LightGreen" />
-            </Grid>
+                  MinWidth="5"
+                  HorizontalAlignment="Stretch"
+                  Background="LightGreen" />
         </Grid>
-
-        <screens:Settings x:Name="SettingsScreen"
-                          Width="{Binding RelativeSource={RelativeSource AncestorType=Grid},
-                                          Path=ActualWidth}"
-                          Margin="{Binding Converter={StaticResource MarginConverter},
-                                           RelativeSource={RelativeSource AncestorType=Grid},
-                                           Path=ActualWidth}"
-                          
-                          CloseClicked="Settings_CloseClicked" />
     </Grid>
 
 </UserControl>

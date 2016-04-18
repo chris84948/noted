@@ -178,16 +178,17 @@ namespace NotedUI.UI.Components
             set { SetValue(ExportPDFCommandProperty, value); }
         }
 
-        public static readonly RoutedEvent SettingsClickedEvent =
-            EventManager.RegisterRoutedEvent("SettingsClicked",
-                                             RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler),
-                                             typeof(MainMenu));
+        public static readonly DependencyProperty ShowSettingsCommandProperty =
+            DependencyProperty.Register("ShowSettingsCommand",
+                                        typeof(ICommand),
+                                        typeof(MainMenu),
+                                        new PropertyMetadata((ICommand)null));
 
-        public event RoutedEventHandler SettingsClicked
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand ShowSettingsCommand
         {
-            add { AddHandler(SettingsClickedEvent, value); }
-            remove { RemoveHandler(SettingsClickedEvent, value); }
+            get { return (ICommand)GetValue(ShowSettingsCommandProperty); }
+            set { SetValue(ShowSettingsCommandProperty, value); }
         }
         
 
@@ -252,8 +253,8 @@ namespace NotedUI.UI.Components
 
         private void buttonShowSettings_Click(object sender, RoutedEventArgs e)
         {
-            RoutedEventArgs args = new RoutedEventArgs(SettingsClickedEvent);
-            RaiseEvent(args);
+            if (ShowSettingsCommand?.CanExecute(HomeViewModel) == true)
+                ShowSettingsCommand?.Execute(HomeViewModel);
         }
     }
 }
