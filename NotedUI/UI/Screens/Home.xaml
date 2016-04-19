@@ -239,7 +239,10 @@
                                             <Expander VerticalAlignment="Top"
                                                       Header="{Binding Name,
                                                                        Converter={StaticResource ToUpperConverter}}"
-                                                      IsExpanded="False">
+                                                      IsExpanded="False"
+                                                      ab:ExpanderBehavior.ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
+                                                                                              Path=DataContext.AllNotes.ExpandAllGroups,
+                                                                                              Mode=TwoWay}">
                                                 <ItemsPresenter />
                                             </Expander>
                                         </ControlTemplate>
@@ -273,6 +276,9 @@
                  FontSize="14"
                  RenderTransformOrigin="0.5,0"
                  Style="{StaticResource TextBoxIcon}"
+                 Text="{Binding AllNotes.Filter,
+                                Mode=TwoWay,
+                                UpdateSourceTrigger=PropertyChanged}"
                  ab:TextBoxBehaviors.Hint="Enter Search">
             <TextBox.RenderTransform>
                 <TranslateTransform />

@@ -190,5 +190,34 @@ namespace NotedUI.AttachedBehaviors
                 ((ComboBox)parent).SelectedItem = null;
             }
         }
+
+        public static readonly DependencyProperty DoubleClickSelectAllProperty =
+            DependencyProperty.RegisterAttached("DoubleClickSelectAll",
+                                                typeof(bool),
+                                                typeof(TextBoxBehaviors),
+                                                new PropertyMetadata(false, new PropertyChangedCallback(DoubleClickSelectAllChanged)));
+
+        public static bool GetDoubleClickSelectAll(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(DoubleClickSelectAllProperty);
+        }
+
+        public static void SetDoubleClickSelectAll(DependencyObject obj, bool value)
+        {
+            obj.SetValue(DoubleClickSelectAllProperty, value);
+        }
+
+        private static void DoubleClickSelectAllChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            TextBox tb = (TextBox)d;
+
+            if (!(bool)e.NewValue)
+                return;
+
+            tb.MouseDoubleClick += (sender, args) =>
+            {
+                tb.SelectAll();
+            };
+        }
     }
 }

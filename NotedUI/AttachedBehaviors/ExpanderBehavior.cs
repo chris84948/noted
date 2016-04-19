@@ -12,6 +12,36 @@ namespace NotedUI.AttachedBehaviors
 {
     public static class ExpanderBehavior
     {
+        public static readonly DependencyProperty ExpandNowProperty =
+            DependencyProperty.RegisterAttached("ExpandNow",
+                                                typeof(bool),
+                                                typeof(ExpanderBehavior),
+                                                new PropertyMetadata(false, new PropertyChangedCallback(ExpandNowChanged)));
+
+        public static bool GetExpandNow(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(ExpandNowProperty);
+        }
+
+        public static void SetExpandNow(DependencyObject obj, bool value)
+        {
+            obj.SetValue(ExpandNowProperty, value);
+        }
+
+        private static void ExpandNowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(bool)e.NewValue)
+                return;
+
+            Expander expander = (Expander)d;
+
+            if (!expander.IsExpanded)
+                expander.IsExpanded = true;
+
+            // Reset the value for next time
+            SetExpandNow(d, false);
+        }
+
         public static readonly DependencyProperty HighlightOnDragProperty =
             DependencyProperty.RegisterAttached("HighlightOnDrag",
                                                 typeof(bool),

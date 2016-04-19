@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace NotedUI.UI.ViewModels
@@ -14,11 +15,37 @@ namespace NotedUI.UI.ViewModels
     public class AllNotesViewModel : MVVMBase
     {
         private ObservableCollection<NoteViewModel> _notes;
+        private System.Timers.Timer filterTimer;
 
         private ICollectionView _view;
         public ICollectionView View
         {
             get { return _view; }
+        }
+
+        private string _filter;
+        public string Filter
+        {
+            get { return _filter; }
+            set
+            {
+                _filter = value;
+                OnPropertyChanged();
+
+                filterTimer.Stop();
+                filterTimer.Start();
+            }
+        }
+
+        private bool _expandAllGroups;
+        public bool ExpandAllGroups
+        {
+            get { return _expandAllGroups; }
+            set
+            {
+                _expandAllGroups = value;
+                OnPropertyChanged();
+            }
         }
 
         public AllNotesViewModel()
@@ -36,12 +63,32 @@ namespace NotedUI.UI.ViewModels
             _view = CollectionViewSource.GetDefaultView(_notes);
             _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
             _view.GroupDescriptions.Add(new PropertyGroupDescription("Folder"));
+            _view.Filter = NoteFilter;
 
             //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
             //groupDescription.GroupNames.Add("GROUP 1");
             //groupDescription.GroupNames.Add("GROUP 2");
             //groupDescription.GroupNames.Add("GROUP 3");
             //view.GroupDescriptions.Add(groupDescription);
+
+            filterTimer = new System.Timers.Timer(1000);
+            filterTimer.AutoReset = false;
+            filterTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
+            {
+                App.Current.Dispatcher.Invoke(() => _view.Refresh());
+                ExpandAllGroups = true;
+            };
+        }
+
+        private bool NoteFilter(object obj)
+        {
+            NoteViewModel note = obj as NoteViewModel;
+
+            if (String.IsNullOrEmpty(_filter))
+                return true;
+
+            else
+                return note.Content.ToUpper().Contains(_filter.ToUpper());
         }
     }
 

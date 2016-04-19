@@ -93,6 +93,8 @@
                 Value="{x:Null}" />
         <Setter Property="AllowDrop"
                 Value="true" />
+        <Setter Property="ab:TextBoxBehaviors.DoubleClickSelectAll"
+                Value="True" />
         <Setter Property="ScrollViewer.PanningMode"
                 Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled"
