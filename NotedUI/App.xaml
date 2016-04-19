@@ -40,6 +40,8 @@
 
             <conv:MarginConverter x:Key="MarginConverter" />
 
+            <conv:MarkdownConverter x:Key="MarkdownConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
