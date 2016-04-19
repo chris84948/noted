@@ -9,6 +9,7 @@ using System.Linq;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using System.ComponentModel;
+using System.IO;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -19,6 +20,19 @@ namespace NotedUI.UI.ViewModels
         public FormatCommands Formatting { get; set; }
         public MainCommands MainCommands { get; set; }
         public AllNotesViewModel AllNotes { get; set; }
+        public string CSSStyle { get; set; }
+
+        // TODO Don't think I'll need this once the list of notes comes in, but for now it works
+        private string _noteText;
+        public string NoteText
+        {
+            get { return _noteText; }
+            set
+            {
+                _noteText = value;
+                OnPropertyChanged();
+            }
+        }
 
         // TODO Delete this when done testing
         public IEnumerable<eNoteState> NoteStates
@@ -35,6 +49,7 @@ namespace NotedUI.UI.ViewModels
             Formatting = new FormatCommands();
             MainCommands = new MainCommands();
             AllNotes = new AllNotesViewModel();
+            CSSStyle = File.ReadAllText("CSS\\Github.css");
         }
 
         public void InvokeChangeScreen(IScreen screen)

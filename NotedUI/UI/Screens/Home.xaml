@@ -8,7 +8,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:drag="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:html="clr-namespace:TheArtOfDev.HtmlRenderer.WPF;assembly=HtmlRenderer.WPF"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="clr-namespace:NotedUI.Models"
@@ -167,7 +166,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
@@ -229,6 +228,7 @@
         <!--  ListView / Search  -->
         <Grid Grid.Row="1"
               Grid.Column="0"
+              Width="240"
               MinWidth="5"
               Background="{StaticResource ListViewPanelBackground}">
 
@@ -346,32 +346,43 @@
                                Grid.Column="0"
                                MinWidth="5"
                                Margin="10"
+                               Background="{StaticResource NoteBackgroundBrush}"
                                FontFamily="Consolas"
                                FontSize="13"
                                HorizontalScrollBarVisibility="Disabled"
                                ShowLineNumbers="False"
-                               SyntaxHighlighting="MarkDown"
-                               ab:AvalonEditBehaviour.BindToText="True" />
+                               SyntaxHighlighting="MarkDown">
+                <i:Interaction.Behaviors>
+                    <ab:AvalonEditBehaviour BindableText="{Binding Path=NoteText, UpdateSourceTrigger=PropertyChanged}" />
+                </i:Interaction.Behaviors>
+            </avalon:TextEditor>
 
-            <GridSplitter x:Name="gridSplitterMarkdown"
+            <!--<GridSplitter x:Name="gridSplitterMarkdown"
                           Grid.Row="1"
                           Grid.Column="1"
                           Width="5"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Stretch"
                           Background="{StaticResource ListViewBackgroundSelectedBrush}"
-                          Visibility="Collapsed" />
+                          Visibility="Collapsed" />-->
 
-            <html:HtmlPanel x:Name="tbMarkdown"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            MinWidth="5"
-                            Margin="10,0"
-                            HorizontalAlignment="Stretch"
-                            Text="{Binding ElementName=tbNote,
-                                           Path=Document.Text,
-                                           UpdateSourceTrigger=PropertyChanged,
-                                           Converter={StaticResource MarkdownConverter}}" />
+            <Rectangle x:Name="gridSplitterMarkdown"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Width="3"
+                       Fill="{StaticResource ListViewBackgroundSelectedBrush}"
+                       Visibility="Collapsed" />
+
+            <WebBrowser x:Name="tbMarkdown"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        MinWidth="5"
+                        Margin="10,0"
+                        HorizontalAlignment="Stretch"
+                        ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
+                        ab:WebBrowserBehavior.HTML="{Binding NoteText,
+                                                             UpdateSourceTrigger=PropertyChanged,
+                                                             Converter={StaticResource MarkdownConverter}}" />
 
         </Grid>
     </Grid>

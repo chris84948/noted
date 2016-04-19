@@ -9,52 +9,59 @@ using System.Windows.Interactivity;
 
 namespace NotedUI.AttachedBehaviors
 {
-    public static class AvalonEditBehaviour
+    public sealed class AvalonEditBehaviour : Behavior<TextEditor>
     {
-        public static readonly DependencyProperty BindToTextProperty =
-            DependencyProperty.RegisterAttached("BindToText",
-                                                typeof(bool),
-                                                typeof(AvalonEditBehaviour),
-                                                new PropertyMetadata(false, new PropertyChangedCallback(BindToTextChanged)));
-
-        public static bool GetBindToText(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(BindToTextProperty);
-        }
-
-        public static void SetBindToText(DependencyObject obj, bool value)
-        {
-            obj.SetValue(BindToTextProperty, value);
-        }
-
-        private static void BindToTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            TextEditor editor = (TextEditor)d;
-            bool newVal = (bool)e.NewValue;
-
-            if (!newVal)
-                return;
-
-            editor.TextChanged += (sender, args) =>
-            {
-                SetBindableText(d, editor.Text);
-            };
-        }
-
         public static readonly DependencyProperty BindableTextProperty =
-            DependencyProperty.RegisterAttached("BindableText",
-                                                typeof(string),
-                                                typeof(AvalonEditBehaviour),
-                                                new PropertyMetadata(null));
+            DependencyProperty.Register("BindableText",
+                                        typeof(string),
+                                        typeof(AvalonEditBehaviour),
+                                        new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnBindableTextChanged)));
 
-        public static string GetBindableText(DependencyObject obj)
+        public string BindableText
         {
-            return (string)obj.GetValue(BindableTextProperty);
+            get { return (string)GetValue(BindableTextProperty); }
+            set { SetValue(BindableTextProperty, value); }
         }
 
-        public static void SetBindableText(DependencyObject obj, string value)
+        protected override void OnAttached()
         {
-            obj.SetValue(BindableTextProperty, value);
+            base.OnAttached();
+            if (AssociatedObject != null)
+                AssociatedObject.TextChanged += AssociatedObjectOnTextChanged;
+        }
+
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+            if (AssociatedObject != null)
+                AssociatedObject.TextChanged -= AssociatedObjectOnTextChanged;
+        }
+
+        private void AssociatedObjectOnTextChanged(object sender, EventArgs eventArgs)
+        {
+            var textEditor = sender as TextEditor;
+            if (textEditor != null)
+            {
+                if (textEditor.Document != null)
+                    BindableText = textEditor.Document.Text;
+            }
+        }
+
+        private static void OnBindableTextChanged(
+            DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var behavior = dependencyObject as AvalonEditBehaviour;
+            if (behavior.AssociatedObject != null)
+            {
+                var editor = behavior.AssociatedObject as TextEditor;
+                if (editor.Document != null)
+                {
+                    var caretOffset = editor.CaretOffset;
+                    editor.Document.Text = dependencyPropertyChangedEventArgs.NewValue.ToString();
+                    editor.CaretOffset = caretOffset;
+                }
+            }
         }
     }
 }

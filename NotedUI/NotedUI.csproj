@@ -35,20 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonMark.NET.0.11.0\lib\net45\CommonMark.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.0.0-ALPHA013\lib\net40\GongSolutions.Wpf.DragDrop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net45\HtmlRenderer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="HtmlRenderer.WPF, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.WPF.1.5.0.6\lib\net45\HtmlRenderer.WPF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.1.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
@@ -59,18 +51,9 @@
       <HintPath>..\packages\JustMVVM.1.0.0\lib\JustMVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -104,6 +87,7 @@
     <Compile Include="AttachedBehaviors\NoteSyncBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
     <Compile Include="AttachedBehaviors\TextBoxBehaviors.cs" />
+    <Compile Include="AttachedBehaviors\WebBrowserBehavior.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Controls\SlideContentControl.cs" />
@@ -117,6 +101,9 @@
     <Compile Include="Converters\MarkdownConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
+    <Content Include="CSS\Github.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\ListData.cs" />
     <Compile Include="Models\Note.cs" />
@@ -261,11 +248,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\SourceCodePro-Regular.otf" />
-    <Resource Include="Resources\black_jack.ttf" />
-    <Resource Include="Resources\Cabin-Medium.ttf" />
-    <Resource Include="Resources\Cabin-SemiBold.ttf" />
-    <Resource Include="Resources\Montserrat-Regular.ttf" />
+    <Resource Include="Fonts\SourceCodePro-Regular.otf" />
+    <Resource Include="Fonts\black_jack.ttf" />
+    <Resource Include="Fonts\Cabin-Medium.ttf" />
+    <Resource Include="Fonts\Cabin-SemiBold.ttf" />
+    <Resource Include="Fonts\Montserrat-Regular.ttf" />
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

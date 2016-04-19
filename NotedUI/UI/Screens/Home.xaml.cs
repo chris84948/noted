@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NotedUI.AttachedBehaviors;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +13,6 @@ namespace NotedUI.UI.Screens
     /// </summary>
     public partial class Home : UserControl
     {
-        private bool changedWidthOfMarkdown = false;
-
         public Home()
         {
             InitializeComponent();
@@ -27,8 +26,46 @@ namespace NotedUI.UI.Screens
 
         private void me_Loaded(object sender, RoutedEventArgs e)
         {
-            tbMarkdown.Width = gridNote.ActualWidth / 2;
+            tbMarkdown.Width = 5;
             tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
+
+            gridNote.SizeChanged += (s, args) =>
+            {
+                tbMarkdown.Width = args.NewSize.Width / 2;
+
+                if (tbMarkdown.Margin.Right < 0)
+                    tbMarkdown.Margin = new Thickness(0, 0, -args.NewSize.Width / 2, 0);
+            };
+
+            tbNote.Text = @"## Welcome to MarkdownPad 2 ##
+
+**MarkdownPad** is a full-featured Markdown editor for Windows.
+
+### Built exclusively for Markdown ###
+
+Enjoy first-class Markdown support with easy access to  Markdown syntax and convenient keyboard shortcuts.
+
+Give them a try:
+
+- **Bold** (`Ctrl+B`) and *Italic* (`Ctrl+I`)
+- Quotes (`Ctrl+Q`)
+- Code blocks (`Ctrl+K`)
+- Headings 1, 2, 3 (`Ctrl+1`, `Ctrl+2`, `Ctrl+3`)
+- Lists (`Ctrl+U` and `Ctrl+Shift+O`)
+
+### See your changes instantly with LivePreview ###
+
+Don't guess if your [hyperlink syntax](http://markdownpad.com) is correct; LivePreview will show you exactly what your document looks like every time you press a key.
+
+### Make it your own ###
+
+Fonts, color schemes, layouts and stylesheets are all 100% customizable so you can turn MarkdownPad into your perfect editor.
+
+### A robust editor for advanced Markdown users ###
+
+MarkdownPad supports multiple Markdown processing engines, including standard Markdown, Markdown Extra (with Table support) and GitHub Flavored Markdown.
+
+With a tabbed document interface, PDF export, a built-in image uploader, session management, spell check, auto-save, syntax highlighting and a built-in CSS management interface, there's no limit to what you can do with MarkdownPad.";
         }
 
         private void MainMenu_ShowPreviewChanged(object sender, RoutedEventArgs e)
@@ -44,18 +81,14 @@ namespace NotedUI.UI.Screens
             sb.Begin();
         }
         
-        private void GridSplitterMarkdown_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
-        {
-            // Only run this event once to fix the width of the markdown field
-            gridSplitterMarkdown.DragDelta -= GridSplitterMarkdown_DragDelta;
-            tbMarkdown.Width = Double.NaN;
-            changedWidthOfMarkdown = true;
-        }
-
         private Storyboard GetShowPreviewStoryboard()
         {
-            // Really hacky hack to make the dragging work
-            gridSplitterMarkdown.DragDelta += GridSplitterMarkdown_DragDelta;
+            // Fixes the first time width to half the screen
+            if (tbMarkdown.Width == 5)
+            {
+                tbMarkdown.Width = gridNote.ActualWidth / 2;
+                tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
+            }
 
             var visAnim = new ObjectAnimationUsingKeyFrames()
             {
@@ -119,7 +152,7 @@ namespace NotedUI.UI.Screens
                 Duration = new Duration(TimeSpan.FromMilliseconds(500)),
                 KeyFrames = new ThicknessKeyFrameCollection()
                 {
-                    new EasingThicknessKeyFrame(new Thickness(0, 0, (changedWidthOfMarkdown ? -2 : -1) * tbMarkdown.ActualWidth, 0), KeyTime.FromPercent(1))
+                    new EasingThicknessKeyFrame(new Thickness(0, 0, -tbMarkdown.ActualWidth, 0), KeyTime.FromPercent(1))
                         { EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut } }
                 }
             };

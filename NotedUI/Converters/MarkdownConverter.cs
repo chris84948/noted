@@ -1,4 +1,4 @@
-﻿using MarkdownSharp;
+﻿using CommonMark;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,8 +17,7 @@ namespace NotedUI.Converters
             if (!(value is string))
                 return "";
 
-            Markdown markdown = new Markdown();
-            return markdown.Transform(value.ToString());
+            return CommonMarkConverter.Convert(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

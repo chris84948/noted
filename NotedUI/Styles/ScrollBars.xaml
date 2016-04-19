@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="{x:Type ScrollViewer}">
+    <Style x:Key="ListViewScrollViewer"
+           TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
         <Setter Property="Template">
@@ -22,6 +23,7 @@
                                    Grid.Column="1"
                                    HorizontalAlignment="Right"
                                    Maximum="{TemplateBinding ScrollableHeight}"
+                                   Style="{DynamicResource ListViewScrollBar}"
                                    ViewportSize="{TemplateBinding ViewportHeight}"
                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
                                    Value="{TemplateBinding VerticalOffset}" />
@@ -30,6 +32,7 @@
                                    VerticalAlignment="Bottom"
                                    Maximum="{TemplateBinding ScrollableWidth}"
                                    Orientation="Horizontal"
+                                   Style="{DynamicResource ListViewScrollBar}"
                                    ViewportSize="{TemplateBinding ViewportWidth}"
                                    Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                                    Value="{TemplateBinding HorizontalOffset}" />
@@ -75,7 +78,7 @@
     </Style>
 
     <!--  ScrollBars  -->
-    <Style x:Key="{x:Type ScrollBar}"
+    <Style x:Key="ListViewScrollBar"
            TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsFlicksEnabled"
                 Value="false" />
@@ -122,16 +125,6 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Thumb"
-                                    Property="Background"
-                                    Value="{DynamicResource ButtonSelectBrush}" />
-                        </Trigger>
-                        <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-                            <Setter TargetName="Thumb"
-                                    Property="Background"
-                                    Value="{DynamicResource DarkBrush}" />
-                        </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Foreground"

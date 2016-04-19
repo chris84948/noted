@@ -32,7 +32,8 @@
                             BorderThickness="0"
                             SnapsToDevicePixels="true">
 
-                        <ScrollViewer Focusable="false">
+                        <ScrollViewer Focusable="false"
+                                      Style="{DynamicResource ListViewScrollViewer}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ScrollViewer>
 

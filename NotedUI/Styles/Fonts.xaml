@@ -1,19 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <FontFamily x:Key="TitleFont">/Resources/#Blackjack</FontFamily>
+    <FontFamily x:Key="TitleFont">/Fonts/#Blackjack</FontFamily>
     <FontWeight x:Key="TitleFontWeight">Normal</FontWeight>
 
-    <FontFamily x:Key="ButtonFont">/Resources/#Montserrat</FontFamily>
+    <FontFamily x:Key="ButtonFont">/Fonts/#Montserrat</FontFamily>
     <FontWeight x:Key="ButtonFontWeight">Normal</FontWeight>
 
-    <FontFamily x:Key="ListViewHeaderFont">/Resources/#Cabin SemiBold</FontFamily>
+    <FontFamily x:Key="ListViewHeaderFont">/Fonts/#Cabin SemiBold</FontFamily>
     <FontWeight x:Key="ListViewHeaderFontWeight">SemiBold</FontWeight>
 
-    <FontFamily x:Key="ListViewContentFont">/Resources/#Cabin SemiBold</FontFamily>
+    <FontFamily x:Key="ListViewContentFont">/Fonts/#Cabin SemiBold</FontFamily>
     <FontWeight x:Key="ListViewContentFontWeight">Normal</FontWeight>
 
-    <FontFamily x:Key="NoteFont">/Resources/#Source Code Pro</FontFamily>
+    <FontFamily x:Key="NoteFont">/Fonts/#Source Code Pro</FontFamily>
     <FontWeight x:Key="NoteFontWeight">Normal</FontWeight>
 
 </ResourceDictionary>
