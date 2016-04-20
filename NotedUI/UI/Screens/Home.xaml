@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
              xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              xmlns:components="clr-namespace:NotedUI.UI.Components"
              xmlns:controls="clr-namespace:NotedUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,11 +15,11 @@
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="me"
+             d:DesignHeight="720"
+             d:DesignWidth="1280"
              Background="{StaticResource NoteBackgroundBrush}"
              BorderBrush="{StaticResource AppTopBannerBrush}"
              Loaded="me_Loaded"
-             d:DesignHeight="720"
-             d:DesignWidth="1280"
              mc:Ignorable="d">
 
     <i:Interaction.Triggers>
@@ -248,11 +249,11 @@
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
                       MinWidth="200"
-                      ItemsSource="{Binding AllNotes.View}"
                       drag:DragDrop.DropHandler="{Binding}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
-                      drag:DragDrop.UseDefaultDragAdorner="True">
+                      drag:DragDrop.UseDefaultDragAdorner="True"
+                      ItemsSource="{Binding AllNotes.View}">
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
@@ -261,12 +262,12 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="GroupItem">
                                             <Expander VerticalAlignment="Top"
-                                                      Header="{Binding Name,
-                                                                       Converter={StaticResource ToUpperConverter}}"
-                                                      IsExpanded="False"
                                                       ab:ExpanderBehavior.ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                                                                               Path=DataContext.AllNotes.ExpandAllGroups,
-                                                                                              Mode=TwoWay}">
+                                                                                              Mode=TwoWay}"
+                                                      Header="{Binding Name,
+                                                                       Converter={StaticResource ToUpperConverter}}"
+                                                      IsExpanded="False">
                                                 <ItemsPresenter />
                                             </Expander>
                                         </ControlTemplate>
@@ -295,6 +296,7 @@
                  Grid.Column="0"
                  Height="35"
                  VerticalAlignment="Bottom"
+                 ab:TextBoxBehaviors.Hint="Enter Search"
                  Background="{StaticResource ListViewPanelBackground}"
                  FontFamily="Montserrat"
                  FontSize="14"
@@ -302,8 +304,7 @@
                  Style="{StaticResource TextBoxIcon}"
                  Text="{Binding AllNotes.Filter,
                                 Mode=TwoWay,
-                                UpdateSourceTrigger=PropertyChanged}"
-                 ab:TextBoxBehaviors.Hint="Enter Search">
+                                UpdateSourceTrigger=PropertyChanged}">
             <TextBox.RenderTransform>
                 <TranslateTransform />
             </TextBox.RenderTransform>
@@ -373,16 +374,16 @@
                        Fill="{StaticResource ListViewBackgroundSelectedBrush}"
                        Visibility="Collapsed" />
 
-            <WebBrowser x:Name="tbMarkdown"
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        MinWidth="5"
-                        Margin="10,0"
-                        HorizontalAlignment="Stretch"
-                        ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
-                        ab:WebBrowserBehavior.HTML="{Binding NoteText,
-                                                             UpdateSourceTrigger=PropertyChanged,
-                                                             Converter={StaticResource MarkdownConverter}}" />
+            <cef:ChromiumWebBrowser x:Name="tbMarkdown"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    MinWidth="5"
+                                    Margin="10,0"
+                                    HorizontalAlignment="Stretch"
+                                    ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
+                                    ab:WebBrowserBehavior.HTML="{Binding NoteText,
+                                                                         UpdateSourceTrigger=PropertyChanged,
+                                                                         Converter={StaticResource MarkdownConverter}}" />
 
         </Grid>
     </Grid>

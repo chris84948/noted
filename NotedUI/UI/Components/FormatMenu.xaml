@@ -50,52 +50,67 @@
 
         <Button x:Name="Header1"
                 Click="Header1_Click"
+                Content="H1"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 1"
-                Content="H1" />
+                ToolTip="HEADER 1" />
         <Button x:Name="Header2"
                 Click="Header2_Click"
+                Content="H2"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 2"
-                Content="H2" />
+                ToolTip="HEADER 2" />
         <Button x:Name="Header3"
                 Click="Header3_Click"
+                Content="H3"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 3"
-                Content="H3" />
+                ToolTip="HEADER 3" />
         <Button x:Name="Header4"
                 Click="Header4_Click"
+                Content="H4"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 4"
-                Content="H4" />
+                ToolTip="HEADER 4" />
         <Button x:Name="Header5"
                 Click="Header5_Click"
+                Content="H5"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 5"
-                Content="H5" />
+                ToolTip="HEADER 5" />
         <Button x:Name="Header6"
                 Click="Header6_Click"
+                Content="H6"
                 Style="{StaticResource Text}"
-                ToolTip="HEADER 6"
-                Content="H6" />
+                ToolTip="HEADER 6" />
         <Button x:Name="Bold"
                 Click="Bold_Click"
+                Content="B"
                 FontWeight="Bold"
                 Style="{StaticResource Text}"
-                ToolTip="BOLD"
-                Content="B" />
+                ToolTip="BOLD" />
         <Button x:Name="Italic"
                 Click="Italic_Click"
+                Content="I"
                 FontStyle="Italic"
                 Style="{StaticResource Text}"
-                ToolTip="ITALIC"
-                Content="I" />
+                ToolTip="ITALIC" />
+
+        <Button x:Name="Underline"
+                Click="Underline_Click"
+                Style="{StaticResource Text}"
+                ToolTip="UNDERLINE">
+            <Button.Resources>
+                <Style x:Key="Underlined">
+                    <Setter Property="TextBlock.TextDecorations"
+                            Value="Underline" />
+                </Style>
+            </Button.Resources>
+            <TextBlock Style="{StaticResource Underlined}"
+                       Text="U" />
+        </Button>
+
         <Grid>
             <Button x:Name="Strikethrough"
                     Click="Strikethrough_Click"
+                    Content="S"
                     Style="{StaticResource Text}"
-                    ToolTip="STRIKETHROUGH"
-                    Content="S" />
+                    ToolTip="STRIKETHROUGH" />
             <Rectangle Width="10"
                        Height="1"
                        Margin="0,1,0,0"
@@ -105,11 +120,11 @@
         </Grid>
         <Button x:Name="Quote"
                 Click="Quote_Click"
+                Content="&quot;&quot;"
                 FontSize="20"
                 Padding="0,4,0,0"
                 Style="{StaticResource Text}"
-                ToolTip="QUOTATION"
-                Content="&quot;&quot;" />
+                ToolTip="QUOTATION" />
         <Button x:Name="Code"
                 Click="Code_Click"
                 Style="{StaticResource Icon}"

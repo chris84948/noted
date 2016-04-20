@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ICSharpCode.AvalonEdit;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,13 +13,13 @@ namespace NotedUI.UI.Components
     {
         public static readonly DependencyProperty TextBoxProperty =
             DependencyProperty.Register("TextBox", 
-                                        typeof(TextBox), 
+                                        typeof(TextEditor), 
                                         typeof(FormatMenu),
                                         new FrameworkPropertyMetadata(null));
 
-        public TextBox TextBox
+        public TextEditor TextBox
         {
-            get { return (TextBox)GetValue(TextBoxProperty); }
+            get { return (TextEditor)GetValue(TextBoxProperty); }
             set { SetValue(TextBoxProperty, value); }
         }
 
@@ -128,6 +129,19 @@ namespace NotedUI.UI.Components
 
         public static readonly DependencyProperty StrikethroughCommandProperty =
             DependencyProperty.Register("StrikethroughCommand",
+                                        typeof(ICommand),
+                                        typeof(FormatMenu),
+                                        new PropertyMetadata((ICommand)null));
+
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand UnderlineCommand
+        {
+            get { return (ICommand)GetValue(UnderlineCommandProperty); }
+            set { SetValue(UnderlineCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty UnderlineCommandProperty =
+            DependencyProperty.Register("UnderlineCommand",
                                         typeof(ICommand),
                                         typeof(FormatMenu),
                                         new PropertyMetadata((ICommand)null));
@@ -282,6 +296,12 @@ namespace NotedUI.UI.Components
         {
             if (ItalicCommand?.CanExecute(TextBox) == true)
                 ItalicCommand?.Execute(TextBox);
+        }
+
+        private void Underline_Click(object sender, RoutedEventArgs e)
+        {
+            if (UnderlineCommand?.CanExecute(TextBox) == true)
+                UnderlineCommand?.Execute(TextBox);
         }
 
         private void Strikethrough_Click(object sender, RoutedEventArgs e)
