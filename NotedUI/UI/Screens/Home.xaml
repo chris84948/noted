@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
              xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              xmlns:components="clr-namespace:NotedUI.UI.Components"
              xmlns:controls="clr-namespace:NotedUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -192,6 +191,8 @@
                              HomeViewModel="{Binding }"
                              SelectedNote="{Binding ElementName=lvNotes,
                                                     Path=SelectedItem}"
+                             ShowPreview="{Binding MainCommands.ShowPreview,
+                                                   Mode=TwoWay}"
                              ShowPreviewChanged="MainMenu_ShowPreviewChanged"
                              ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
@@ -374,16 +375,16 @@
                        Fill="{StaticResource ListViewBackgroundSelectedBrush}"
                        Visibility="Collapsed" />
 
-            <cef:ChromiumWebBrowser x:Name="tbMarkdown"
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    MinWidth="5"
-                                    Margin="10,0"
-                                    HorizontalAlignment="Stretch"
-                                    ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
-                                    ab:WebBrowserBehavior.HTML="{Binding NoteText,
-                                                                         UpdateSourceTrigger=PropertyChanged,
-                                                                         Converter={StaticResource MarkdownConverter}}" />
+            <WebBrowser x:Name="tbMarkdown"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="-10,0"
+                        HorizontalAlignment="Stretch"
+                        Width="0"
+                        ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
+                        ab:WebBrowserBehavior.HTML="{Binding NoteText,
+                                                             UpdateSourceTrigger=PropertyChanged,
+                                                             Converter={StaticResource MarkdownConverter}}" />
 
         </Grid>
     </Grid>

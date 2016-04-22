@@ -22,6 +22,8 @@ namespace NotedUI.UI.ViewModels
         public AllNotesViewModel AllNotes { get; set; }
         public string CSSStyle { get; set; }
 
+        public bool ShowPreviewOnLoad { get; set; }
+
         // TODO Don't think I'll need this once the list of notes comes in, but for now it works
         private string _noteText;
         public string NoteText

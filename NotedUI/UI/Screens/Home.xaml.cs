@@ -1,4 +1,5 @@
 ﻿using NotedUI.AttachedBehaviors;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -26,8 +27,13 @@ namespace NotedUI.UI.Screens
 
         private void me_Loaded(object sender, RoutedEventArgs e)
         {
-            tbMarkdown.Width = 5;
-            tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
+            var homeVM = DataContext as HomeViewModel;
+
+            if (homeVM?.ShowPreviewOnLoad == true)
+            {
+                homeVM.ShowPreviewOnLoad = false;
+                MainMenu.ShowPreview = true;
+            }
 
             gridNote.SizeChanged += (s, args) =>
             {
@@ -84,11 +90,8 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
         private Storyboard GetShowPreviewStoryboard()
         {
             // Fixes the first time width to half the screen
-            if (tbMarkdown.Width == 5)
-            {
-                tbMarkdown.Width = gridNote.ActualWidth / 2;
-                tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
-            }
+            tbMarkdown.Width = gridNote.ActualWidth / 2;
+            tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
 
             var visAnim = new ObjectAnimationUsingKeyFrames()
             {
@@ -128,6 +131,12 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
             var sb = new Storyboard()
             {
                 Children = new TimelineCollection() { visAnim, marginAnim }
+            };
+
+            sb.Completed += (sender, args) =>
+            {
+                tbMarkdown.Width = gridNote.ActualWidth / 2;
+                tbMarkdown.Margin = new Thickness(0, 0, 0, 0);
             };
 
             return sb;

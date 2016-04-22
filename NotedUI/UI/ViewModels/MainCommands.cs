@@ -18,6 +18,17 @@ namespace NotedUI.UI.ViewModels
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
 
+        private bool _showPreview;
+        public bool ShowPreview
+        {
+            get { return _showPreview; }
+            set
+            {
+                _showPreview = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool CanAddNoteExec(AllNotesViewModel allNotes)
         {
             return true;
@@ -96,6 +107,12 @@ namespace NotedUI.UI.ViewModels
 
         public void ShowSettingsExec(HomeViewModel homeVM)
         {
+            if (ShowPreview)
+            {
+                ShowPreview = false;
+                homeVM.ShowPreviewOnLoad = true;
+            }
+
             var settings = new SettingsViewModel(homeVM);
             homeVM.InvokeChangeScreen(settings);
         }
