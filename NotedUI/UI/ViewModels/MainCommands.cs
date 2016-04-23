@@ -1,5 +1,6 @@
 ﻿using JustMVVM;
 using NotedUI.Models;
+using NotedUI.UI.Components;
 using NotedUI.UI.Screens;
 using System;
 using System.Collections.ObjectModel;
@@ -17,6 +18,9 @@ namespace NotedUI.UI.ViewModels
         public ICommand ExportHTMLCommand { get { return new RelayCommand<AllNotesViewModel>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
+
+        public ICommand ToggleFormattingCommand { get { return new RelayCommand<MainMenu>(ToggleFormattingExec); } }
+        public ICommand TogglePreviewCommand { get { return new RelayCommand<MainMenu>(TogglePreviewExec); } }
 
         private bool _showPreview;
         public bool ShowPreview
@@ -115,6 +119,16 @@ namespace NotedUI.UI.ViewModels
 
             var settings = new SettingsViewModel(homeVM);
             homeVM.InvokeChangeScreen(settings);
+        }
+
+        private void ToggleFormattingExec(MainMenu menu)
+        {
+            menu.ShowFormatMenu = !menu.ShowFormatMenu;
+        }
+
+        private void TogglePreviewExec(MainMenu menu)
+        {
+            menu.ShowPreview = !menu.ShowPreview;
         }
     }
 }

@@ -114,7 +114,7 @@ namespace NotedUI.UI.ViewModels
 
         public void UnderlineExec(TextEditor tbNote)
         {
-            FormatText(tbNote, "__", "__");
+            FormatText(tbNote, "<u>", "</u>");
         }
 
         public bool CanStrikethroughExec(TextEditor tbNote)
@@ -124,7 +124,7 @@ namespace NotedUI.UI.ViewModels
 
         public void StrikethroughExec(TextEditor tbNote)
         {
-            FormatText(tbNote, "~~", "~~");
+            FormatText(tbNote, "<s>", "</s>");
         }
 
         public bool CanQuotesExec(TextEditor tbNote)
@@ -139,7 +139,7 @@ namespace NotedUI.UI.ViewModels
             var selectedText = tbNote.Document.Text.Substring(start, highlightedLength);
 
             var numLines = selectedText.Count(c => c == '\n');
-            var newText = selectedText.Replace("\n", "\n>");
+            var newText = ">" + selectedText.Replace("\r\n", "  \r\n>") + "  ";
 
             tbNote.Document.Replace(start, highlightedLength, newText);
             SelectText(tbNote, start, newText.Length);
@@ -152,16 +152,19 @@ namespace NotedUI.UI.ViewModels
 
         public void CodeExec(TextEditor tbNote)
         {
-            if (tbNote.Document.Text[tbNote.SelectionStart - 1] == '\n' &&
-                tbNote.Document.Text[tbNote.SelectionStart + tbNote.SelectionLength + 1] == '\n')
+            int columnPos = tbNote.TextArea.Caret.Position.Column;
+
+            bool multiLine = tbNote.SelectionLength > columnPos + 1;
+
+            if (multiLine)
             {
                 var start = GetPreviousLineBreak(tbNote);
                 tbNote.Select(start, (tbNote.SelectionStart - start) + tbNote.SelectionLength);
-                FormatText(tbNote, "```\n", "\n```");
+                FormatText(tbNote, "```\r\n", "\r\n```");
             }
             else
             {
-                FormatText(tbNote, "``", "``");
+                FormatText(tbNote, "`", "`");
             }
         }
 
@@ -262,7 +265,7 @@ namespace NotedUI.UI.ViewModels
         {
             var start = tbNote.SelectionStart;
 
-            while (start > 0 && tbNote.Document.Text[start] != '\n')
+            while (start > 0 && tbNote.Document.Text[start - 1] != '\n')
                 start--;
 
             return start;

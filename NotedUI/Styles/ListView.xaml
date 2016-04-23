@@ -5,24 +5,15 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <Style TargetType="{x:Type ListView}">
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.CanContentScroll"
-                Value="true" />
-        <Setter Property="Padding"
-                Value="1" />
-        <Setter Property="ScrollViewer.PanningMode"
-                Value="Both" />
-        <Setter Property="Stylus.IsFlicksEnabled"
-                Value="False" />
-        <Setter Property="FontFamily"
-                Value="Montserrat" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="FontFamily" Value="Montserrat" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListView}">
@@ -46,8 +37,7 @@
                                 <Condition Property="IsGrouping" Value="true" />
                                 <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="ScrollViewer.CanContentScroll"
-                                    Value="false" />
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
                         </MultiTrigger>
 
                     </ControlTemplate.Triggers>
@@ -57,18 +47,12 @@
     </Style>
 
     <Style TargetType="{x:Type ListViewItem}">
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Stretch" />
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="Foreground"
-                Value="{StaticResource ListViewTextColorBrush}" />
-        <Setter Property="ab:ListViewItemBehavior.AnimateOnAdd"
-                Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource ListViewTextColorBrush}" />
+        <Setter Property="ab:ListViewItemBehavior.AnimateOnAdd" Value="True" />
         <Setter Property="LayoutTransform">
             <Setter.Value>
                 <TransformGroup>
@@ -77,11 +61,8 @@
                 </TransformGroup>
             </Setter.Value>
         </Setter>
-        <Setter Property="FocusVisualStyle"
-                Value="{x:Null}" />
-        <Setter Property="ab:ListViewItemBehavior.PerformRemoval"
-                Value="{Binding RelativeSource={RelativeSource AncestorType=ListView},
-                                Path=DataContext.MainCommands.DeleteNoteCommand}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ab:ListViewItemBehavior.PerformRemoval" Value="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.MainCommands.DeleteNoteCommand}" />
         <Setter Property="ab:ListViewItemBehavior.RemoveStoryboard">
             <Setter.Value>
                 <Storyboard>
@@ -176,6 +157,10 @@
                                   TextElement.FontFamily="{StaticResource ListViewContentFont}"
                                   TextElement.FontWeight="{StaticResource ListViewContentFontWeight}">
 
+                                <Grid.LayoutTransform>
+                                    <TranslateTransform />
+                                </Grid.LayoutTransform>
+
                                 <Grid Margin="4,2"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
@@ -215,7 +200,6 @@
                                         <Viewbox x:Name="IconSync"
                                                  Width="{StaticResource IconSize}"
                                                  Height="{StaticResource IconSize}"
-                                                 
                                                  RenderTransformOrigin="0.5,0.5"
                                                  Visibility="Hidden">
 
@@ -236,7 +220,6 @@
                                         <Viewbox x:Name="IconSyncComplete"
                                                  Width="{StaticResource IconSize}"
                                                  Height="{StaticResource IconSize}"
-                                                 
                                                  Visibility="Hidden">
 
                                             <Viewbox.OpacityMask>
@@ -256,10 +239,6 @@
                                     </Grid>
 
                                 </Grid>
-
-                                <Grid.LayoutTransform>
-                                    <TranslateTransform />
-                                </Grid.LayoutTransform>
                             </Grid>
                         </Grid>
                     </Border>
@@ -267,26 +246,17 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd"
-                                    Property="Background"
-                                    Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Bd"
-                                    Property="Background"
-                                    Value="{StaticResource ListViewBackgroundSelectedBrush}" />
-                            <Setter TargetName="content"
-                                    Property="TextElement.FontWeight"
-                                    Value="SemiBold" />
-                            <Setter Property="Foreground"
-                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource ListViewBackgroundSelectedBrush}" />
+                            <Setter TargetName="content" Property="TextElement.FontWeight" Value="SemiBold" />
+                            <Setter Property="Foreground" Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                         <Trigger Property="ab:ListViewItemBehavior.IsMarkedForRemoval" Value="True">
-                            <Setter TargetName="Bd"
-                                    Property="Background"
-                                    Value="Transparent" />
+                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>

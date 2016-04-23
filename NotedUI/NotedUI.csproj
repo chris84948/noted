@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Graphics\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonMark.NET.0.11.0\lib\net45\CommonMark.dll</HintPath>
@@ -83,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="AttachedBehaviors\AvalonEditBehavior.cs" />
     <Compile Include="AttachedBehaviors\ExpanderBehavior.cs" />
+    <Compile Include="AttachedBehaviors\FocusBehavior.cs" />
     <Compile Include="AttachedBehaviors\ListViewItemBehavior.cs" />
     <Compile Include="AttachedBehaviors\NoteSyncBehavior.cs" />
     <Compile Include="AttachedBehaviors\ScrollBubbleEvent.cs" />
@@ -101,7 +105,7 @@
     <Compile Include="Converters\MarkdownConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
-    <Content Include="CSS\Github.css">
+    <Content Include="Resources\CSS\Github.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Models\eNoteState.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Resource Include="Resources\Graphics\Icon.ico" />
     <Page Include="Styles\Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,11 +253,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Fonts\SourceCodePro-Regular.otf" />
-    <Resource Include="Fonts\black_jack.ttf" />
-    <Resource Include="Fonts\Cabin-Medium.ttf" />
-    <Resource Include="Fonts\Cabin-SemiBold.ttf" />
-    <Resource Include="Fonts\Montserrat-Regular.ttf" />
+    <Resource Include="Resources\Fonts\SourceCodePro-Regular.otf" />
+    <Resource Include="Resources\Fonts\black_jack.ttf" />
+    <Resource Include="Resources\Fonts\Cabin-Medium.ttf" />
+    <Resource Include="Resources\Fonts\Cabin-SemiBold.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat-Regular.ttf" />
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

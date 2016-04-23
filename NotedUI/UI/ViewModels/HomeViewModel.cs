@@ -51,7 +51,7 @@ namespace NotedUI.UI.ViewModels
             Formatting = new FormatCommands();
             MainCommands = new MainCommands();
             AllNotes = new AllNotesViewModel();
-            CSSStyle = File.ReadAllText("CSS\\Github.css");
+            CSSStyle = File.ReadAllText("Resources\\CSS\\Github.css");
         }
 
         public void InvokeChangeScreen(IScreen screen)

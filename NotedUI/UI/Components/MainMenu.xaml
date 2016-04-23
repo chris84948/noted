@@ -15,22 +15,14 @@
         <Style x:Key="PopupButtonStyle"
                BasedOn="{StaticResource TextButton}"
                TargetType="Button">
-            <Setter Property="Foreground"
-                    Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="FontFamily"
-                    Value="Montserrat" />
-            <Setter Property="VerticalAlignment"
-                    Value="Stretch" />
-            <Setter Property="Height"
-                    Value="40" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Left" />
-            <Setter Property="Padding"
-                    Value="20,5" />
-            <Setter Property="FontSize"
-                    Value="12" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="FontFamily" Value="Montserrat" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="20,5" />
+            <Setter Property="FontSize" Value="12" />
         </Style>
 
     </UserControl.Resources>
@@ -43,38 +35,24 @@
         <StackPanel.Resources>
             <Style BasedOn="{StaticResource IconTextButton}"
                    TargetType="Button">
-                <Setter Property="Foreground"
-                        Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
-                <Setter Property="FontWeight"
-                        Value="{StaticResource TitleFontWeight}" />
-                <Setter Property="VerticalAlignment"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        Value="70" />
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="ab:ButtonBehaviors.IconSize"
-                        Value="18" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="70" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="ab:ButtonBehaviors.IconSize" Value="18" />
             </Style>
 
             <Style BasedOn="{StaticResource IconTextToggleButton}"
                    TargetType="ToggleButton">
-                <Setter Property="Foreground"
-                        Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
-                <Setter Property="FontWeight"
-                        Value="{StaticResource TitleFontWeight}" />
-                <Setter Property="VerticalAlignment"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        Value="70" />
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="ab:ButtonBehaviors.IconSize"
-                        Value="18" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="70" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="ab:ButtonBehaviors.IconSize" Value="18" />
             </Style>
         </StackPanel.Resources>
 
@@ -88,30 +66,30 @@
                 Padding="0,4,2,0"
                 Style="{StaticResource TextButton}" />
 
-        <ToggleButton Content="SEARCH"
+        <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
+                      Content="SEARCH"
                       IsChecked="{Binding ShowSearch,
-                                          ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}" />
+                                          ElementName=Me}" />
 
         <Button x:Name="buttonAdd"
-                Click="buttonAdd_Click"
-                Content="ADD"
                 ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
-                ab:ButtonBehaviors.IconSize="16" />
+                ab:ButtonBehaviors.IconSize="16"
+                Click="buttonAdd_Click"
+                Content="ADD" />
 
         <Button x:Name="buttonDelete"
-                Click="buttonDelete_Click"
-                Content="DELETE"
                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                ab:ButtonBehaviors.IconSize="16" />
+                ab:ButtonBehaviors.IconSize="16"
+                Click="buttonDelete_Click"
+                Content="DELETE" />
 
         <ToggleButton x:Name="buttonFolder"
+                      ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}"
                       Content="GROUP"
                       IsHitTestVisible="{Binding ElementName=popupFolder,
                                                  Path=IsOpen,
                                                  Mode=OneWay,
-                                                 Converter={StaticResource InvertValueConverter}}"
-                      ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}" />
+                                                 Converter={StaticResource InvertValueConverter}}" />
 
         <Popup x:Name="popupFolder"
                IsOpen="{Binding ElementName=buttonFolder,
@@ -135,12 +113,12 @@
         </Popup>
 
         <ToggleButton x:Name="buttonExport"
+                      ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}"
                       Content="EXPORT"
                       IsHitTestVisible="{Binding ElementName=popupExport,
                                                  Path=IsOpen,
                                                  Mode=OneWay,
-                                                 Converter={StaticResource InvertValueConverter}}"
-                      ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}" />
+                                                 Converter={StaticResource InvertValueConverter}}" />
 
         <Popup x:Name="popupExport"
                IsOpen="{Binding ElementName=buttonExport,
@@ -165,21 +143,21 @@
 
         <ToggleButton x:Name="buttonFormat"
                       Margin="70,0,0,0"
+                      ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}"
                       Content="FORMAT"
                       IsChecked="{Binding ShowFormatMenu,
-                                          ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}" />
+                                          ElementName=Me}" />
 
-        <ToggleButton Content="PREVIEW"
+        <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
+                      Content="PREVIEW"
                       IsChecked="{Binding ShowPreview,
-                                          ElementName=Me}"
-                      ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}" />
+                                          ElementName=Me}" />
 
         <Button x:Name="buttonShowSettings"
                 Margin="70,0,0,0"
+                ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
                 Click="buttonShowSettings_Click"
-                Content="SETTINGS"
-                ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}" />
+                Content="SETTINGS" />
     </StackPanel>
 
 </UserControl>

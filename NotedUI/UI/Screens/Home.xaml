@@ -14,12 +14,24 @@
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="me"
+             ab:FocusBehavior.FocusOnLoaded="True"
              d:DesignHeight="720"
              d:DesignWidth="1280"
              Background="{StaticResource NoteBackgroundBrush}"
              BorderBrush="{StaticResource AppTopBannerBrush}"
              Loaded="me_Loaded"
              mc:Ignorable="d">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="F"
+                    Command="{Binding MainCommands.ToggleFormattingCommand}"
+                    CommandParameter="{Binding ElementName=MainMenu}"
+                    Modifiers="Ctrl+Shift" />
+        <KeyBinding Key="P"
+                    Command="{Binding MainCommands.TogglePreviewCommand}"
+                    CommandParameter="{Binding ElementName=MainMenu}"
+                    Modifiers="Ctrl+Shift" />
+    </UserControl.InputBindings>
 
     <i:Interaction.Triggers>
 
@@ -196,6 +208,25 @@
                              ShowPreviewChanged="MainMenu_ShowPreviewChanged"
                              ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
+        <TextBox x:Name="SearchBox"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Height="35"
+                 VerticalAlignment="Bottom"
+                 ab:TextBoxBehaviors.Hint="Enter Search"
+                 Background="{StaticResource ListViewPanelBackground}"
+                 FontFamily="Montserrat"
+                 FontSize="14"
+                 RenderTransformOrigin="0.5,0"
+                 Style="{StaticResource TextBoxIcon}"
+                 Text="{Binding AllNotes.Filter,
+                                Mode=TwoWay,
+                                UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.RenderTransform>
+                <TranslateTransform />
+            </TextBox.RenderTransform>
+        </TextBox>
+
 
         <components:FormatMenu x:Name="FormatMenu"
                                Grid.Row="0"
@@ -218,6 +249,8 @@
                                ListCommand="{Binding Formatting.ListCommand}"
                                QuotesCommand="{Binding Formatting.QuotesCommand}"
                                StrikethroughCommand="{Binding Formatting.StrikethroughCommand}"
+                               TextBox="{Binding ElementName=tbNote}"
+                               UnderlineCommand="{Binding Formatting.UnderlineCommand}"
                                Visibility="Hidden">
             <components:FormatMenu.RenderTransform>
                 <TransformGroup>
@@ -230,7 +263,6 @@
         <!--  ListView / Search  -->
         <Grid Grid.Row="1"
               Grid.Column="0"
-              Width="240"
               MinWidth="5"
               Background="{StaticResource ListViewPanelBackground}">
 
@@ -282,34 +314,12 @@
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
                            TargetType="ListViewItem">
-                        <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval"
-                                Value="{Binding IsMarkedForRemoval}" />
-                        <Setter Property="ab:NoteSyncBehavior.SyncState"
-                                Value="{Binding State,
-                                                Mode=TwoWay}" />
+                        <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval" Value="{Binding IsMarkedForRemoval}" />
+                        <Setter Property="ab:NoteSyncBehavior.SyncState" Value="{Binding State, Mode=TwoWay}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
-
-        <TextBox x:Name="SearchBox"
-                 Grid.Row="0"
-                 Grid.Column="0"
-                 Height="35"
-                 VerticalAlignment="Bottom"
-                 ab:TextBoxBehaviors.Hint="Enter Search"
-                 Background="{StaticResource ListViewPanelBackground}"
-                 FontFamily="Montserrat"
-                 FontSize="14"
-                 RenderTransformOrigin="0.5,0"
-                 Style="{StaticResource TextBoxIcon}"
-                 Text="{Binding AllNotes.Filter,
-                                Mode=TwoWay,
-                                UpdateSourceTrigger=PropertyChanged}">
-            <TextBox.RenderTransform>
-                <TranslateTransform />
-            </TextBox.RenderTransform>
-        </TextBox>
 
         <GridSplitter Grid.Row="1"
                       Grid.Column="1"
@@ -357,6 +367,78 @@
                 <i:Interaction.Behaviors>
                     <ab:AvalonEditBehaviour BindableText="{Binding Path=NoteText, UpdateSourceTrigger=PropertyChanged}" />
                 </i:Interaction.Behaviors>
+
+                <avalon:TextEditor.InputBindings>
+                    <KeyBinding Key="B"
+                                Command="{Binding Formatting.BoldCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="I"
+                                Command="{Binding Formatting.ItalicCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="U"
+                                Command="{Binding Formatting.UnderlineCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="S"
+                                Command="{Binding Formatting.StrikethroughCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D1"
+                                Command="{Binding Formatting.Header1Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D2"
+                                Command="{Binding Formatting.Header2Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D3"
+                                Command="{Binding Formatting.Header3Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D4"
+                                Command="{Binding Formatting.Header4Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D5"
+                                Command="{Binding Formatting.Header5Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D6"
+                                Command="{Binding Formatting.Header6Command}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="Q"
+                                Command="{Binding Formatting.QuotesCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="K"
+                                Command="{Binding Formatting.CodeCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="L"
+                                Command="{Binding Formatting.LinkCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="OemPeriod"
+                                Command="{Binding Formatting.BulletPointCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="D0"
+                                Command="{Binding Formatting.ListCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="M"
+                                Command="{Binding Formatting.ImageCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="OemMinus"
+                                Command="{Binding Formatting.HorizontalLineCommand}"
+                                CommandParameter="{Binding ElementName=tbNote}"
+                                Modifiers="Ctrl" />
+
+                </avalon:TextEditor.InputBindings>
             </avalon:TextEditor>
 
             <!--<GridSplitter x:Name="gridSplitterMarkdown"
@@ -378,9 +460,9 @@
             <WebBrowser x:Name="tbMarkdown"
                         Grid.Row="1"
                         Grid.Column="2"
+                        Width="0"
                         Margin="-10,0"
                         HorizontalAlignment="Stretch"
-                        Width="0"
                         ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
                         ab:WebBrowserBehavior.HTML="{Binding NoteText,
                                                              UpdateSourceTrigger=PropertyChanged,
