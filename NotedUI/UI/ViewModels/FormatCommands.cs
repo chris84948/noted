@@ -134,15 +134,50 @@ namespace NotedUI.UI.ViewModels
 
         public void QuotesExec(TextEditor tbNote)
         {
-            var start = GetPreviousLineBreak(tbNote);
-            var highlightedLength = (tbNote.SelectionStart - start) + tbNote.SelectionLength;
-            var selectedText = tbNote.Document.Text.Substring(start, highlightedLength);
+            if (tbNote.SelectionLength == 0)
+                AddNoSelectionQuotes(tbNote);
 
-            var numLines = selectedText.Count(c => c == '\n');
-            var newText = ">" + selectedText.Replace("\r\n", "  \r\n>") + "  ";
+            else
+                AddSelectionQuotes(tbNote);
+        }
 
-            tbNote.Document.Replace(start, highlightedLength, newText);
-            SelectText(tbNote, start, newText.Length);
+        private void AddNoSelectionQuotes(TextEditor tbNote)
+        {
+            var numPreviousEmptyLines = GetNumberOfPreviousLineBreaks(tbNote);
+            var startPos = tbNote.SelectionStart;
+            var newText = "";
+
+            if (tbNote.SelectionStart == 0 || numPreviousEmptyLines >= 2)
+                newText = ">\r\n\r\n";
+
+            else if (numPreviousEmptyLines == 0)
+                newText = "\r\n\r\n>\r\n\r\n";
+
+            else if (numPreviousEmptyLines == 1)
+                newText = "\r\n>\r\n\r\n";
+
+            tbNote.Document.Insert(startPos, newText);
+            tbNote.Select(startPos + newText.Length - 4, 0);
+        }
+
+        private void AddSelectionQuotes(TextEditor tbNote)
+        {
+            var numPreviousEmptyLines = GetNumberOfPreviousLineBreaks(tbNote);
+            var numLines = tbNote.SelectedText.Count(c => c == '\n');
+            var startPos = tbNote.SelectionStart;
+            string newText = "";
+
+            if (tbNote.SelectionStart == 0 || numPreviousEmptyLines >= 2)
+                newText = ">" + tbNote.SelectedText.Replace("\r\n", "  \r\n>") + "  \r\n\r\n";
+
+            else if (numPreviousEmptyLines == 0)
+                newText = "\r\n\r\n>" + tbNote.SelectedText.Replace("\r\n", "  \r\n>") + "  \r\n\r\n";
+
+            else if (numPreviousEmptyLines == 1)
+                newText = "\r\n>" + tbNote.SelectedText.Replace("\r\n", "  \r\n>") + "  \r\n\r\n";
+
+            tbNote.Document.Replace(startPos, tbNote.SelectionLength, newText);
+            SelectText(tbNote, startPos + newText.Length, 0);
         }
 
         public bool CanCodeExec(TextEditor tbNote)
@@ -158,7 +193,7 @@ namespace NotedUI.UI.ViewModels
 
             if (multiLine)
             {
-                var start = GetPreviousLineBreak(tbNote);
+                var start = GetPreviousLineBreakPosition(tbNote);
                 tbNote.Select(start, (tbNote.SelectionStart - start) + tbNote.SelectionLength);
                 FormatText(tbNote, "```\r\n", "\r\n```");
             }
@@ -221,7 +256,7 @@ namespace NotedUI.UI.ViewModels
             }
             else
             {
-                var start = GetPreviousLineBreak(tbNote);
+                var start = GetPreviousLineBreakPosition(tbNote);
                 InsertHorizontalLine(tbNote, start);
             }
         }
@@ -261,7 +296,7 @@ namespace NotedUI.UI.ViewModels
             tbNote.Select(start, length);
         }
 
-        private int GetPreviousLineBreak(TextEditor tbNote)
+        private int GetPreviousLineBreakPosition(TextEditor tbNote)
         {
             var start = tbNote.SelectionStart;
 
@@ -269,6 +304,28 @@ namespace NotedUI.UI.ViewModels
                 start--;
 
             return start;
+        }
+
+        private int GetNumberOfPreviousLineBreaks(TextEditor tbNote)
+        {
+            var start = tbNote.SelectionStart - 1;
+            int numLines = 0;
+
+            while (start > 0)
+            {
+                if (tbNote.Document.Text[start] == '\n')
+                    numLines++;
+
+                else if (tbNote.Document.Text[start] == '\r')
+                { }
+
+                else
+                    break;  // Any character not a line break is the end of the search
+
+                start--;
+            }
+
+            return numLines;
         }
     }
 }
