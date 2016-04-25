@@ -135,32 +135,13 @@ namespace NotedUI.UI.ViewModels
         public void QuotesExec(TextEditor tbNote)
         {
             if (tbNote.SelectionLength == 0)
-                AddNoSelectionQuotes(tbNote);
+                FormatTextMultiLine(tbNote, ">", "");
 
             else
-                AddSelectionQuotes(tbNote);
+                FormatTextMultiLineQuotes(tbNote);
         }
 
-        private void AddNoSelectionQuotes(TextEditor tbNote)
-        {
-            var numPreviousEmptyLines = GetNumberOfPreviousLineBreaks(tbNote);
-            var startPos = tbNote.SelectionStart;
-            var newText = "";
-
-            if (tbNote.SelectionStart == 0 || numPreviousEmptyLines >= 2)
-                newText = ">\r\n\r\n";
-
-            else if (numPreviousEmptyLines == 0)
-                newText = "\r\n\r\n>\r\n\r\n";
-
-            else if (numPreviousEmptyLines == 1)
-                newText = "\r\n>\r\n\r\n";
-
-            tbNote.Document.Insert(startPos, newText);
-            tbNote.Select(startPos + newText.Length - 4, 0);
-        }
-
-        private void AddSelectionQuotes(TextEditor tbNote)
+        private void FormatTextMultiLineQuotes(TextEditor tbNote)
         {
             var numPreviousEmptyLines = GetNumberOfPreviousLineBreaks(tbNote);
             var numLines = tbNote.SelectedText.Count(c => c == '\n');
@@ -189,18 +170,11 @@ namespace NotedUI.UI.ViewModels
         {
             int columnPos = tbNote.TextArea.Caret.Position.Column;
 
-            bool multiLine = tbNote.SelectionLength > columnPos + 1;
-
-            if (multiLine)
-            {
-                var start = GetPreviousLineBreakPosition(tbNote);
-                tbNote.Select(start, (tbNote.SelectionStart - start) + tbNote.SelectionLength);
-                FormatText(tbNote, "```\r\n", "\r\n```");
-            }
-            else
-            {
+            if (columnPos > 0 && tbNote.SelectionLength > 0 && !tbNote.SelectedText.Contains('\n')) // Less than 1 line highlighted
                 FormatText(tbNote, "`", "`");
-            }
+
+            else // Use multiline code markdown
+                FormatTextMultiLine(tbNote, "```\r\n", "\r\n```");
         }
 
         public bool CanBulletPointExec(TextEditor tbNote)
@@ -288,6 +262,29 @@ namespace NotedUI.UI.ViewModels
 
             tbNote.Document.Replace(tbNote.SelectionStart, tbNote.SelectionLength, newText);
             SelectText(tbNote, selectStart + before.Length, selectLength);
+        }
+
+        private void FormatTextMultiLine(TextEditor tbNote, string before, string after)
+        {
+            var numPreviousEmptyLines = GetNumberOfPreviousLineBreaks(tbNote);
+            var startPos = tbNote.SelectionStart;
+            var newText = "";
+
+            if (tbNote.SelectionStart == 0 || numPreviousEmptyLines >= 2)
+                newText = before + tbNote.SelectedText + after + "\r\n\r\n";
+
+            else if (numPreviousEmptyLines == 0)
+                newText = "\r\n\r\n" + before + tbNote.SelectedText + after + "\r\n\r\n";
+
+            else if (numPreviousEmptyLines == 1)
+                newText = "\r\n" + before + tbNote.SelectedText + after + "\r\n\r\n";
+
+            tbNote.Document.Replace(startPos, tbNote.SelectionLength, newText);
+
+            if (tbNote.SelectionLength == 0)
+                tbNote.Select(startPos + newText.Length - 4 - after.Length, 0);
+            else
+                tbNote.Select(startPos + newText.Length, 0);
         }
 
         private void SelectText(TextEditor tbNote, int start, int length)
