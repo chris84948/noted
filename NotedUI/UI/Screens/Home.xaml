@@ -31,8 +31,8 @@
                     CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
         <KeyBinding Key="S"
-                    Command="{Binding MainCommands.ShowSettingsCommand}"
-                    CommandParameter="{Binding}"
+                    Command="{Binding MainCommands.ToggleSearchCommand}"
+                    CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
     </UserControl.InputBindings>
 
@@ -201,7 +201,7 @@
                              Grid.ColumnSpan="5"
                              Panel.ZIndex="1"
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
-                             AllNotes="{Binding AllNotes}"
+                             AllNotes="{Binding AllNotes.View}"
                              Background="{StaticResource AppTopBannerBrush}"
                              DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
@@ -249,6 +249,7 @@
                                Header4Command="{Binding Formatting.Header4Command}"
                                Header5Command="{Binding Formatting.Header5Command}"
                                Header6Command="{Binding Formatting.Header6Command}"
+                               HomeViewModel="{Binding }"
                                HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
                                ImageCommand="{Binding Formatting.ImageCommand}"
                                ItalicCommand="{Binding Formatting.ItalicCommand}"
@@ -271,6 +272,7 @@
         <Grid Grid.Row="1"
               Grid.Column="0"
               MinWidth="5"
+              Panel.ZIndex="-1"
               Background="{StaticResource ListViewPanelBackground}">
 
             <Grid.RowDefinitions>
@@ -372,6 +374,7 @@
                                Padding="10"
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">
+
                 <i:Interaction.Behaviors>
                     <ab:AvalonEditBehaviour BindableText="{Binding Path=NoteText, UpdateSourceTrigger=PropertyChanged}" />
                 </i:Interaction.Behaviors>
@@ -427,8 +430,14 @@
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="L"
                                 Command="{Binding Formatting.LinkCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
-                                Modifiers="Ctrl" />
+                                Modifiers="Ctrl">
+                        <KeyBinding.CommandParameter>
+                            <MultiBinding Converter="{StaticResource DialogDataConverter}">
+                                <Binding Path="." />
+                                <Binding ElementName="tbNote" />
+                            </MultiBinding>
+                        </KeyBinding.CommandParameter>
+                    </KeyBinding>
                     <KeyBinding Key="OemPeriod"
                                 Command="{Binding Formatting.BulletPointCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
@@ -468,6 +477,7 @@
             <WebBrowser x:Name="tbMarkdown"
                         Grid.Row="1"
                         Grid.Column="2"
+                        Navigating="tbMarkdown_Navigating"
                         Width="0"
                         Margin="-10,0"
                         HorizontalAlignment="Stretch"

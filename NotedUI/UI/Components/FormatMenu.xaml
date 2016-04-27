@@ -14,37 +14,24 @@
             <Style x:Key="Icon"
                    BasedOn="{StaticResource IconButton}"
                    TargetType="Button">
-                <Setter Property="Foreground"
-                        Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
-                <Setter Property="FontWeight"
-                        Value="{StaticResource TitleFontWeight}" />
-                <Setter Property="VerticalAlignment"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        Value="35" />
-                <Setter Property="ToolTipService.Placement"
-                        Value="Bottom" />
-                <Setter Property="ab:ButtonBehaviors.IconSize"
-                        Value="13" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="35" />
+                <Setter Property="ToolTipService.Placement" Value="Bottom" />
+                <Setter Property="ab:ButtonBehaviors.IconSize" Value="13" />
             </Style>
 
             <Style x:Key="Text"
                    BasedOn="{StaticResource TextButton}"
                    TargetType="Button">
-                <Setter Property="Foreground"
-                        Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="FontFamily"
-                        Value="Montserrat" />
-                <Setter Property="VerticalAlignment"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        Value="35" />
-                <Setter Property="ToolTipService.Placement"
-                        Value="Bottom" />
-                <Setter Property="FontSize"
-                        Value="14" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="FontFamily" Value="Montserrat" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="35" />
+                <Setter Property="ToolTipService.Placement" Value="Bottom" />
+                <Setter Property="FontSize" Value="14" />
             </Style>
         </StackPanel.Resources>
 
@@ -97,8 +84,7 @@
                 ToolTip="UNDERLINE">
             <Button.Resources>
                 <Style x:Key="Underlined">
-                    <Setter Property="TextBlock.TextDecorations"
-                            Value="Underline" />
+                    <Setter Property="TextBlock.TextDecorations" Value="Underline" />
                 </Style>
             </Button.Resources>
             <TextBlock Style="{StaticResource Underlined}"
@@ -126,31 +112,31 @@
                 Style="{StaticResource Text}"
                 ToolTip="QUOTATION" />
         <Button x:Name="Code"
+                ab:ButtonBehaviors.Icon="{StaticResource CodeIcon}"
+                ab:ButtonBehaviors.IconSize="14"
                 Click="Code_Click"
                 Style="{StaticResource Icon}"
-                ToolTip="CODE BLOCK"
-                ab:ButtonBehaviors.Icon="{StaticResource CodeIcon}"
-                ab:ButtonBehaviors.IconSize="14" />
+                ToolTip="CODE BLOCK" />
         <Button x:Name="BulletPoint"
+                ab:ButtonBehaviors.Icon="{StaticResource BulletIcon}"
                 Click="BulletPoint_Click"
                 Style="{StaticResource Icon}"
-                ToolTip="BULLETPOINTS"
-                ab:ButtonBehaviors.Icon="{StaticResource BulletIcon}" />
+                ToolTip="BULLETPOINTS" />
         <Button x:Name="List"
+                ab:ButtonBehaviors.Icon="{StaticResource ListIcon}"
                 Click="List_Click"
                 Style="{StaticResource Icon}"
-                ToolTip="NUMBERED LIST"
-                ab:ButtonBehaviors.Icon="{StaticResource ListIcon}" />
+                ToolTip="NUMBERED LIST" />
         <Button x:Name="Image"
+                ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}"
                 Click="Image_Click"
                 Style="{StaticResource Icon}"
-                ToolTip="IMAGE"
-                ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}" />
+                ToolTip="IMAGE" />
         <Button x:Name="Link"
+                ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}"
                 Click="Link_Click"
                 Style="{StaticResource Icon}"
-                ToolTip="LINK"
-                ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}" />
+                ToolTip="LINK" />
         <Grid>
             <Button x:Name="HorizontalLine"
                     Click="HorizontalLine_Click"

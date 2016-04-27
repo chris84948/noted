@@ -1,4 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit;
+using NotedUI.Models;
+using NotedUI.UI.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +24,19 @@ namespace NotedUI.UI.Components
             get { return (TextEditor)GetValue(TextBoxProperty); }
             set { SetValue(TextBoxProperty, value); }
         }
+
+        public static readonly DependencyProperty HomeViewModelProperty =
+            DependencyProperty.Register("HomeViewModel",
+                                        typeof(HomeViewModel),
+                                        typeof(FormatMenu),
+                                        new FrameworkPropertyMetadata(null));
+
+        public HomeViewModel HomeViewModel
+        {
+            get { return (HomeViewModel)GetValue(HomeViewModelProperty); }
+            set { SetValue(HomeViewModelProperty, value); }
+        }
+
 
         public static readonly DependencyProperty Header1CommandProperty =
             DependencyProperty.Register("Header1Command",
@@ -336,14 +351,18 @@ namespace NotedUI.UI.Components
 
         private void Image_Click(object sender, RoutedEventArgs e)
         {
-            if (ImageCommand?.CanExecute(TextBox) == true)
-                ImageCommand?.Execute(TextBox);
+            var data = new DialogData(HomeViewModel, TextBox);
+
+            if (ImageCommand?.CanExecute(data) == true)
+                ImageCommand?.Execute(data);
         }
 
         private void Link_Click(object sender, RoutedEventArgs e)
         {
-            if (LinkCommand?.CanExecute(TextBox) == true)
-            LinkCommand?.Execute(TextBox);
+            var data = new DialogData(HomeViewModel, TextBox);
+
+            if (LinkCommand?.CanExecute(data) == true)
+            LinkCommand?.Execute(data);
         }
 
         private void HorizontalLine_Click(object sender, RoutedEventArgs e)

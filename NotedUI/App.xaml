@@ -43,6 +43,8 @@
 
             <conv:MarkdownConverter x:Key="MarkdownConverter" />
 
+            <conv:DialogDataConverter x:Key="DialogDataConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -93,6 +93,7 @@
     <Compile Include="AttachedBehaviors\TextBoxBehaviors.cs" />
     <Compile Include="AttachedBehaviors\WebBrowserBehavior.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />
+    <Compile Include="Converters\DialogDataConverter.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Controls\SlideContentControl.cs" />
     <Compile Include="Controls\SlideTransition.cs" />
@@ -108,11 +109,17 @@
     <Content Include="Resources\CSS\Github.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Models\DialogData.cs" />
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\ListData.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Resources\AvalonHighlighting\HighlightingLoader.cs" />
+    <Compile Include="UI\Dialogs\LinkDialog.xaml.cs">
+      <DependentUpon>LinkDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
+    <Compile Include="UI\ViewModels\IDialog.cs" />
+    <Compile Include="UI\ViewModels\LinkDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>
@@ -143,6 +150,10 @@
     <Page Include="Styles\SettingsButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\LinkDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

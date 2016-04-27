@@ -16,6 +16,7 @@ namespace NotedUI.UI.ViewModels
     public class HomeViewModel : MVVMBase, IScreen, IDropTarget
     {
         public event Action<IScreen, eTransitionType> ChangeScreen;
+        public event Action<IDialog> ShowDialog;
 
         public FormatCommands Formatting { get; set; }
         public MainCommands MainCommands { get; set; }
@@ -57,6 +58,18 @@ namespace NotedUI.UI.ViewModels
         public void InvokeChangeScreen(IScreen screen)
         {
             ChangeScreen?.Invoke(screen, eTransitionType.SlideInFromLeft);
+        }
+
+        public void InvokeShowDialog(IDialog dialog)
+        {
+            if (MainCommands.ShowPreview)
+            {
+                MainCommands.ShowPreview = false;
+                dialog.DialogClosed += () => MainCommands.ShowPreview = true;
+            }
+
+
+            ShowDialog?.Invoke(dialog);
         }
 
         public void DragOver(IDropInfo dropInfo)

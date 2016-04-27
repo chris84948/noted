@@ -56,8 +56,10 @@
             </Style>
         </StackPanel.Resources>
 
-        <Button Width="140"
+        <Button x:Name="buttonNoted"
+                Width="140"
                 VerticalAlignment="Stretch"
+                Click="buttonNoted_Click"
                 Content="noted"
                 FontFamily="{StaticResource TitleFont}"
                 FontSize="40"

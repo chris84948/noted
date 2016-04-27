@@ -14,15 +14,181 @@
                       Height="720"
                       MinWidth="1024"
                       MinHeight="600"
+                      WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
 
     <controls:NotedWindow.DataContext>
         <vm:MainWindowViewModel />
     </controls:NotedWindow.DataContext>
 
-    <controls:TransitionPresenter HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  Content="{Binding CurrentViewModel}"
-                                  Transition="{Binding Transition}" />
+    <i:Interaction.Triggers>
+
+        <ei:DataTrigger Binding="{Binding ShowDialog}"
+                        Value="True">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+
+                    <Storyboard>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridDialog"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                    Value="{x:Static Visibility.Visible}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridDialogBackground"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0.56">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+        <ei:DataTrigger Binding="{Binding ShowDialog}"
+                        Value="False">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+
+                    <Storyboard>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridDialogBackground"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0.56" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0.5">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0.5">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridDialog"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.3"
+                                                    Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                    </Storyboard>
+
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <controls:TransitionPresenter HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      Content="{Binding CurrentViewModel}"
+                                      Transition="{Binding Transition}" />
+
+        <Grid x:Name="GridDialog"
+              Visibility="Collapsed">
+
+            <Grid x:Name="GridDialogBackground"
+                  Background="#FF111111"
+                  Opacity="0" />
+
+            <ContentPresenter x:Name="Dialog"
+                              Content="{Binding Dialog}"
+                              RenderTransformOrigin="0.5,0.5">
+                <ContentPresenter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="DialogScaleTransform"
+                                        ScaleX="0"
+                                        ScaleY="0" />
+                    </TransformGroup>
+                </ContentPresenter.RenderTransform>
+            </ContentPresenter>
+        </Grid>
+    </Grid>
 
 </controls:NotedWindow>

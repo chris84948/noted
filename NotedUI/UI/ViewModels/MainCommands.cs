@@ -21,6 +21,7 @@ namespace NotedUI.UI.ViewModels
 
         public ICommand ToggleFormattingCommand { get { return new RelayCommand<MainMenu>(ToggleFormattingExec); } }
         public ICommand TogglePreviewCommand { get { return new RelayCommand<MainMenu>(TogglePreviewExec); } }
+        public ICommand ToggleSearchCommand { get { return new RelayCommand<MainMenu>(ToggleSearchExec); } }
 
         private bool _showPreview;
         public bool ShowPreview
@@ -31,6 +32,17 @@ namespace NotedUI.UI.ViewModels
                 _showPreview = value;
                 OnPropertyChanged();
             }
+        }
+
+        public bool CanNotedExec(AllNotesViewModel allNotes)
+        {
+            return true;
+        }
+
+        public void NotedExec(AllNotesViewModel allNotes)
+        {
+            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).
+                AddWithAnimation(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
         }
 
         public bool CanAddNoteExec(AllNotesViewModel allNotes)
@@ -129,6 +141,11 @@ namespace NotedUI.UI.ViewModels
         private void TogglePreviewExec(MainMenu menu)
         {
             menu.ShowPreview = !menu.ShowPreview;
+        }
+
+        private void ToggleSearchExec(MainMenu menu)
+        {
+            menu.ShowSearch = !menu.ShowSearch;
         }
     }
 }

@@ -3,6 +3,7 @@ using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -211,6 +212,17 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
         private void tbNote_Loaded(object sender, RoutedEventArgs e)
         {
             tbNote.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Markdown");
+        }
+
+        private void tbMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (e.Uri == null)
+                return;
+
+            // cancel loading in this browser control
+            e.Cancel = true;
+
+            Process.Start(new ProcessStartInfo(e.Uri.ToString()));
         }
     }
 }

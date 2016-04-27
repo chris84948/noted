@@ -100,6 +100,19 @@ namespace NotedUI.UI.Components
             set { SetValue(ShowFormatMenuProperty, value); }
         }
 
+        public static readonly DependencyProperty NotedCommandProperty =
+            DependencyProperty.Register("NotedCommand",
+                                        typeof(ICommand),
+                                        typeof(MainMenu),
+                                        new FrameworkPropertyMetadata((ICommand)null));
+
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand NotedCommand
+        {
+            get { return (ICommand)GetValue(NotedCommandProperty); }
+            set { SetValue(NotedCommandProperty, value); }
+        }
+
         public static readonly DependencyProperty AddNoteCommandProperty =
             DependencyProperty.Register("AddNoteCommand",
                                         typeof(ICommand),
@@ -203,6 +216,11 @@ namespace NotedUI.UI.Components
 
             RoutedEventArgs args = new RoutedEventArgs(ShowPreviewChangedEvent);
             me.RaiseEvent(args);
+        }
+        
+        private void buttonNoted_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)

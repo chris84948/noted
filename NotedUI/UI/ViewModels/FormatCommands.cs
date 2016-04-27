@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit;
 using JustMVVM;
+using NotedUI.Models;
 using System;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,8 @@ namespace NotedUI.UI.ViewModels
         public ICommand CodeCommand { get { return new RelayCommand<TextEditor>(CodeExec, CanCodeExec); } }
         public ICommand BulletPointCommand { get { return new RelayCommand<TextEditor>(BulletPointExec, CanBulletPointExec); } }
         public ICommand ListCommand { get { return new RelayCommand<TextEditor>(ListExec, CanListExec); } }
-        public ICommand ImageCommand { get { return new RelayCommand<TextEditor>(ImageExec, CanImageExec); } }
-        public ICommand LinkCommand { get { return new RelayCommand<TextEditor>(LinkExec, CanLinkExec); } }
+        public ICommand ImageCommand { get { return new RelayCommand<DialogData>(ImageExec, CanImageExec); } }
+        public ICommand LinkCommand { get { return new RelayCommand<DialogData>(LinkExec, CanLinkExec); } }
         public ICommand HorizontalLineCommand { get { return new RelayCommand<TextEditor>(HorizontalLineExec, CanHorizontalLineExec); } }
         public ICommand EnterCommand { get { return new RelayCommand<TextEditor>(EnterExec, CanEnterExec); } }
 
@@ -200,24 +201,38 @@ namespace NotedUI.UI.ViewModels
             FormatList(tbNote, bulletPoint: false);
         }
 
-        public bool CanImageExec(TextEditor tbNote)
+        public bool CanImageExec(DialogData data)
         {
             return true;
         }
 
-        public void ImageExec(TextEditor tbNote)
+        public void ImageExec(DialogData data)
         {
 
         }
 
-        public bool CanLinkExec(TextEditor tbNote)
+        public bool CanLinkExec(DialogData data)
         {
             return true;
         }
 
-        public void LinkExec(TextEditor tbNote)
+        public void LinkExec(DialogData data)
         {
+            var dialog = new LinkDialogViewModel(data.Editor.SelectedText);
 
+            dialog.DialogClosed += () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+
+                var start = data.Editor.SelectionStart;
+                var link = $"[{ dialog.Description }]({ dialog.Link })";
+                data.Editor.Document.Replace(start, data.Editor.SelectionLength, link);
+                data.Editor.Focus();
+                data.Editor.Select(start + link.Length, 0);
+            };
+
+            data.HomeVM.InvokeShowDialog(dialog);
         }
 
         public bool CanHorizontalLineExec(TextEditor tbNote)
