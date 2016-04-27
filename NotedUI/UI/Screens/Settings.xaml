@@ -5,51 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NotedUI.UI.Screens"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Background="{StaticResource NoteBackgroundBrush}"
              d:DesignHeight="720"
              d:DesignWidth="1280"
+             Background="{StaticResource NoteBackgroundBrush}"
              mc:Ignorable="d">
 
     <UserControl.Resources>
 
         <Style BasedOn="{StaticResource SettingsToggleButton}"
                TargetType="RadioButton">
-            <Setter Property="FontFamily"
-                    Value="{StaticResource ListViewHeaderFont}" />
-            <Setter Property="FontSize"
-                    Value="20" />
-            <Setter Property="FontWeight"
-                    Value="{StaticResource ListViewHeaderFontWeight}" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="Foreground"
-                    Value="{StaticResource ListViewTextColorBrush}" />
-            <Setter Property="Padding"
-                    Value="30,30" />
-            <Setter Property="VerticalAlignment"
-                    Value="Center" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Left" />
+            <Setter Property="FontFamily" Value="{StaticResource ListViewHeaderFont}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="{StaticResource ListViewHeaderFontWeight}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Foreground" Value="{StaticResource ListViewTextColorBrush}" />
+            <Setter Property="Padding" Value="30,30" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
 
         <Style BasedOn="{StaticResource SettingsButton}"
                TargetType="Button">
-            <Setter Property="FontFamily"
-                    Value="{StaticResource ListViewHeaderFont}" />
-            <Setter Property="FontSize"
-                    Value="20" />
-            <Setter Property="Background"
-                    Value="{StaticResource AppTopBannerBrush}" />
-            <Setter Property="FontWeight"
-                    Value="{StaticResource ListViewHeaderFontWeight}" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="Foreground"
-                    Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="Padding"
-                    Value="20,20" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Left" />
+            <Setter Property="FontFamily" Value="{StaticResource ListViewHeaderFont}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="{StaticResource AppTopBannerBrush}" />
+            <Setter Property="FontWeight" Value="{StaticResource ListViewHeaderFontWeight}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="Padding" Value="20,20" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
 
     </UserControl.Resources>
@@ -64,10 +48,11 @@
                     Orientation="Vertical">
 
             <Button x:Name="buttonClose"
+                    ab:ButtonBehaviors.Icon="{StaticResource CloseSettingsIcon}"
+                    ab:ButtonBehaviors.IconSize="16"
                     Command="{Binding CloseCommand}"
                     Content="CLOSE SETTINGS"
-                    ab:ButtonBehaviors.Icon="{StaticResource CloseSettingsIcon}"
-                    ab:ButtonBehaviors.IconSize="16" />
+                    IsCancel="True" />
 
             <RadioButton Content="APPEARANCE" />
 

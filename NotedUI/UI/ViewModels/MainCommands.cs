@@ -61,7 +61,7 @@ namespace NotedUI.UI.ViewModels
 
         public void DeleteNoteExec(ListData data)
         {
-            (data.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Remove(data.SelectedNote);
+            data.AllNotes.Remove(data.SelectedNote);
         }
 
         public bool CanFolderAddExec(AllNotesViewModel allNotes)

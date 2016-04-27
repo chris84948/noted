@@ -99,7 +99,7 @@ namespace NotedUI.AttachedBehaviors
             Storyboard.SetTarget(sb, d);
             sb.Completed += (_, __) =>
             {
-                var data = new ListData((AllNotesViewModel)(listView.ItemsSource as ListCollectionView).SourceCollection, 
+                var data = new ListData((ObservableCollection<NoteViewModel>)(listView.ItemsSource as ListCollectionView).SourceCollection, 
                                         (NoteViewModel)element.DataContext);
                 
                 if (!performRemoval.CanExecute(data))

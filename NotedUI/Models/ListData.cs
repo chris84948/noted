@@ -10,10 +10,10 @@ namespace NotedUI.Models
 {
     public class ListData
     {
-        public AllNotesViewModel AllNotes { get; set; }
+        public ObservableCollection<NoteViewModel> AllNotes { get; set; }
         public NoteViewModel SelectedNote { get; set; }
 
-        public ListData(AllNotesViewModel allNotes, NoteViewModel selectedNote)
+        public ListData(ObservableCollection<NoteViewModel> allNotes, NoteViewModel selectedNote)
         {
             AllNotes = allNotes;
             SelectedNote = selectedNote;

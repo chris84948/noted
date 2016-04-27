@@ -46,9 +46,9 @@
       <HintPath>..\packages\gong-wpf-dragdrop.1.0.0-ALPHA013\lib\net40\GongSolutions.Wpf.DragDrop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.1.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\AvalonEdit\ICSharpCode.AvalonEdit\bin\Debug\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="JustMVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JustMVVM.1.0.0\lib\JustMVVM.dll</HintPath>
@@ -111,6 +111,7 @@
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\ListData.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Resources\AvalonHighlighting\HighlightingLoader.cs" />
     <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
     <Compile Include="UI\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
@@ -253,6 +254,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="Resources\AvalonHighlighting\Markdown.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Resource Include="Resources\Fonts\SourceCodePro-Regular.otf" />
     <Resource Include="Resources\Fonts\black_jack.ttf" />
     <Resource Include="Resources\Fonts\Cabin-Medium.ttf" />

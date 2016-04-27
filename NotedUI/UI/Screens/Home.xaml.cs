@@ -1,4 +1,5 @@
 ﻿using NotedUI.AttachedBehaviors;
+using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -14,6 +15,18 @@ namespace NotedUI.UI.Screens
     /// </summary>
     public partial class Home : UserControl
     {
+        public static readonly RoutedEvent EnterPressedEvent =
+            EventManager.RegisterRoutedEvent("EnterPressed",
+                                             RoutingStrategy.Bubble,
+                                             typeof(RoutedEventHandler),
+                                             typeof(Home));
+
+        public event RoutedEventHandler EnterPressed
+        {
+            add { AddHandler(EnterPressedEvent, value); }
+            remove { RemoveHandler(EnterPressedEvent, value); }
+        }
+        
         public Home()
         {
             InitializeComponent();
@@ -35,12 +48,20 @@ namespace NotedUI.UI.Screens
                 MainMenu.ShowPreview = true;
             }
 
+            // This event forces the markdown preview to be the same size as the editor
             gridNote.SizeChanged += (s, args) =>
             {
                 tbMarkdown.Width = args.NewSize.Width / 2;
 
                 if (tbMarkdown.Margin.Right < 0)
                     tbMarkdown.Margin = new Thickness(0, 0, -args.NewSize.Width / 2, 0);
+            };
+
+            // This event passes the Enter pressed key to handle continuing lists
+            tbNote.PreviewKeyDown += (s, args) =>
+            {
+                if (args.Key == System.Windows.Input.Key.Enter)
+                    tbNote.TextChanged += tbNote_TextChangedEvent;
             };
 
             tbNote.Text = @"## Welcome to MarkdownPad 2 ##
@@ -72,6 +93,17 @@ Fonts, color schemes, layouts and stylesheets are all 100% customizable so you c
 MarkdownPad supports multiple Markdown processing engines, including standard Markdown, Markdown Extra (with Table support) and GitHub Flavored Markdown.
 
 With a tabbed document interface, PDF export, a built-in image uploader, session management, spell check, auto-save, syntax highlighting and a built-in CSS management interface, there's no limit to what you can do with MarkdownPad.";
+
+            tbNote.Focus();
+            tbNote.Select(tbNote.Text.Length, 0);
+        }
+
+        private void tbNote_TextChangedEvent(object sender, EventArgs args)
+        {
+            tbNote.TextChanged -= tbNote_TextChangedEvent;
+
+            RoutedEventArgs routedArgs = new RoutedEventArgs(EnterPressedEvent);
+            me.RaiseEvent(routedArgs);
         }
 
         private void MainMenu_ShowPreviewChanged(object sender, RoutedEventArgs e)
@@ -174,6 +206,11 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
             };
 
             return sb;
+        }
+
+        private void tbNote_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbNote.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Markdown");
         }
     }
 }

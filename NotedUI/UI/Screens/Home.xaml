@@ -14,7 +14,6 @@
              xmlns:screens="clr-namespace:NotedUI.UI.Screens"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="me"
-             ab:FocusBehavior.FocusOnLoaded="True"
              d:DesignHeight="720"
              d:DesignWidth="1280"
              Background="{StaticResource NoteBackgroundBrush}"
@@ -31,9 +30,18 @@
                     Command="{Binding MainCommands.TogglePreviewCommand}"
                     CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
+        <KeyBinding Key="S"
+                    Command="{Binding MainCommands.ShowSettingsCommand}"
+                    CommandParameter="{Binding}"
+                    Modifiers="Ctrl+Shift" />
     </UserControl.InputBindings>
 
     <i:Interaction.Triggers>
+
+        <i:EventTrigger EventName="EnterPressed">
+            <i:InvokeCommandAction Command="{Binding Formatting.EnterCommand}"
+                                   CommandParameter="{Binding ElementName=tbNote}" />
+        </i:EventTrigger>
 
         <!--  Show / Hide Search Box Animations  -->
         <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
@@ -227,7 +235,6 @@
             </TextBox.RenderTransform>
         </TextBox>
 
-
         <components:FormatMenu x:Name="FormatMenu"
                                Grid.Row="0"
                                Grid.Column="2"
@@ -357,11 +364,12 @@
                                Grid.Row="1"
                                Grid.Column="0"
                                MinWidth="5"
-                               Margin="10"
                                Background="{StaticResource NoteBackgroundBrush}"
                                FontFamily="Consolas"
                                FontSize="13"
                                HorizontalScrollBarVisibility="Disabled"
+                               Loaded="tbNote_Loaded"
+                               Padding="10"
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">
                 <i:Interaction.Behaviors>
