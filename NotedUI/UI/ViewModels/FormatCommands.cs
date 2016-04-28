@@ -30,6 +30,7 @@ namespace NotedUI.UI.ViewModels
         public ICommand LinkCommand { get { return new RelayCommand<DialogData>(LinkExec, CanLinkExec); } }
         public ICommand HorizontalLineCommand { get { return new RelayCommand<TextEditor>(HorizontalLineExec, CanHorizontalLineExec); } }
         public ICommand EnterCommand { get { return new RelayCommand<TextEditor>(EnterExec, CanEnterExec); } }
+        public ICommand LineBreakCommand { get { return new RelayCommand<TextEditor>(LineBreakExec, CanLineBreakExec); } }
 
         public bool CanHeader1Exec(TextEditor tbNote)
         {
@@ -244,12 +245,12 @@ namespace NotedUI.UI.ViewModels
         {
             if (tbNote.SelectionLength == 0)
             {
-                InsertHorizontalLine(tbNote, tbNote.SelectionStart);
+                InsertContentInLineBreaks(tbNote, tbNote.SelectionStart, "----------");
             }
             else
             {
                 var start = GetPreviousLineBreakPosition(tbNote);
-                InsertHorizontalLine(tbNote, start);
+                InsertContentInLineBreaks(tbNote, start, "----------");
             }
         }
 
@@ -282,14 +283,32 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        private void InsertHorizontalLine(TextEditor tbNote, int startPos)
+        public bool CanLineBreakExec(TextEditor tbNote)
+        {
+            return true;
+        }
+
+        public void LineBreakExec(TextEditor tbNote)
+        {
+            if (tbNote.SelectionLength == 0)
+            {
+                InsertContentInLineBreaks(tbNote, tbNote.SelectionStart, "<br></br>");
+            }
+            else
+            {
+                var start = GetPreviousLineBreakPosition(tbNote);
+                InsertContentInLineBreaks(tbNote, start, "<br></br>");
+            }
+        }
+
+        private void InsertContentInLineBreaks(TextEditor tbNote, int startPos, string content)
         {
             if (startPos > 0 && tbNote.Text[startPos - 1] != '\n')
-                FormatText(tbNote, "\r\n\r\n----------\r\n\r\n", "");
+                FormatText(tbNote, "\r\n\r\n" + content + "\r\n\r\n", "");
             else if (startPos < tbNote.Text.Length && tbNote.Text[startPos + 1] != '\n')
-                FormatText(tbNote, "\r\n----------\r\n\r\n", "");
+                FormatText(tbNote, "\r\n" + content + "\r\n\r\n", "");
             else
-                FormatText(tbNote, "\r\n----------\r\n\r\n", "");
+                FormatText(tbNote, "\r\n" + content + "\r\n\r\n", "");
         }
 
         private void FormatText(TextEditor tbNote, string before, string after)

@@ -259,6 +259,19 @@ namespace NotedUI.UI.Components
             set { SetValue(HorizontalLineCommandProperty, value); }
         }
 
+        public static readonly DependencyProperty LineBreakCommandProperty =
+            DependencyProperty.Register("LineBreakCommand",
+                                        typeof(ICommand),
+                                        typeof(FormatMenu),
+                                        new PropertyMetadata((ICommand)null));
+
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand LineBreakCommand
+        {
+            get { return (ICommand)GetValue(LineBreakCommandProperty); }
+            set { SetValue(LineBreakCommandProperty, value); }
+        }
+
 
         public FormatMenu()
         {
@@ -369,6 +382,12 @@ namespace NotedUI.UI.Components
         {
             if (HorizontalLineCommand?.CanExecute(TextBox) == true)
                 HorizontalLineCommand?.Execute(TextBox);
+        }
+
+        private void LineBreak_Click(object sender, RoutedEventArgs e)
+        {
+            if (LineBreakCommand?.CanExecute(TextBox) == true)
+                LineBreakCommand?.Execute(TextBox);
         }
     }
 }

@@ -149,6 +149,11 @@
                        Fill="{StaticResource ButtonForegroundBrush}"
                        Stretch="Fill" />
         </Grid>
+        <Button x:Name="LineBreak"
+                ab:ButtonBehaviors.Icon="{StaticResource ReturnIcon}"
+                Click="LineBreak_Click"
+                Style="{StaticResource Icon}"
+                ToolTip="LINE BREAK" />
 
     </StackPanel>
 

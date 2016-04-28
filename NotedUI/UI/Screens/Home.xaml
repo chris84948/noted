@@ -253,6 +253,7 @@
                                HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
                                ImageCommand="{Binding Formatting.ImageCommand}"
                                ItalicCommand="{Binding Formatting.ItalicCommand}"
+                               LineBreakCommand="{Binding Formatting.LineBreakCommand}"
                                LinkCommand="{Binding Formatting.LinkCommand}"
                                ListCommand="{Binding Formatting.ListCommand}"
                                QuotesCommand="{Binding Formatting.QuotesCommand}"
@@ -458,6 +459,16 @@
                 </avalon:TextEditor.InputBindings>
             </avalon:TextEditor>
 
+            <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
+            <ComboBox Width="200"
+                          VerticalAlignment="Bottom"
+                          FontSize="25"
+                      Grid.Row="1" HorizontalAlignment="Left"
+                          ItemsSource="{Binding NoteStates}"
+                          SelectedItem="{Binding ElementName=lvNotes,
+                                                 Mode=TwoWay,
+                                                 Path=SelectedItem.State}" />
+
             <!--<GridSplitter x:Name="gridSplitterMarkdown"
                           Grid.Row="1"
                           Grid.Column="1"
@@ -477,14 +488,14 @@
             <WebBrowser x:Name="tbMarkdown"
                         Grid.Row="1"
                         Grid.Column="2"
-                        Navigating="tbMarkdown_Navigating"
                         Width="0"
                         Margin="-10,0"
                         HorizontalAlignment="Stretch"
                         ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
                         ab:WebBrowserBehavior.HTML="{Binding NoteText,
                                                              UpdateSourceTrigger=PropertyChanged,
-                                                             Converter={StaticResource MarkdownConverter}}" />
+                                                             Converter={StaticResource MarkdownConverter}}"
+                        Navigating="tbMarkdown_Navigating" />
 
         </Grid>
     </Grid>
