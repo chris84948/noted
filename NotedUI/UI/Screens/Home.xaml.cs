@@ -27,7 +27,20 @@ namespace NotedUI.UI.Screens
             add { AddHandler(EnterPressedEvent, value); }
             remove { RemoveHandler(EnterPressedEvent, value); }
         }
-        
+
+        public static readonly RoutedEvent FindDialogShownEvent =
+            EventManager.RegisterRoutedEvent("FindDialogShown",
+                                             RoutingStrategy.Bubble,
+                                             typeof(RoutedEventHandler),
+                                             typeof(Home));
+
+        public event RoutedEventHandler FindDialogShown
+        {
+            add { AddHandler(FindDialogShownEvent, value); }
+            remove { RemoveHandler(FindDialogShownEvent, value); }
+        }
+
+
         public Home()
         {
             InitializeComponent();
@@ -37,6 +50,13 @@ namespace NotedUI.UI.Screens
         {
             SearchBox.Focus();
             SearchBox.SelectAll();
+        }
+
+        private void storyboardShowFindDialog_Completed(object sender, EventArgs e)
+        {
+            // Raise an event to call a command to focus the Find/Repalce dialog
+            RoutedEventArgs routedArgs = new RoutedEventArgs(FindDialogShownEvent);
+            me.RaiseEvent(routedArgs);
         }
 
         private void me_Loaded(object sender, RoutedEventArgs e)

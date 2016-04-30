@@ -114,6 +114,9 @@
     <Compile Include="Models\ListData.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Resources\AvalonHighlighting\HighlightingLoader.cs" />
+    <Compile Include="UI\Dialogs\FindReplaceDialog.xaml.cs">
+      <DependentUpon>FindReplaceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\LinkDialog.xaml.cs">
       <DependentUpon>LinkDialog.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Page Include="Styles\SettingsButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\FindReplaceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\LinkDialog.xaml">
       <SubType>Designer</SubType>

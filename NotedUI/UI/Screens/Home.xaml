@@ -6,6 +6,7 @@
              xmlns:components="clr-namespace:NotedUI.UI.Components"
              xmlns:controls="clr-namespace:NotedUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dialogs="clr-namespace:NotedUI.UI.Dialogs"
              xmlns:drag="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -20,6 +21,7 @@
              BorderBrush="{StaticResource AppTopBannerBrush}"
              Loaded="me_Loaded"
              mc:Ignorable="d">
+
 
     <UserControl.InputBindings>
         <KeyBinding Key="F"
@@ -38,9 +40,33 @@
 
     <i:Interaction.Triggers>
 
+        <i:EventTrigger EventName="FindDialogShown">
+            <i:InvokeCommandAction Command="{Binding ElementName=FindDialog, Path=DialogShownCommand}" />
+        </i:EventTrigger>
+
         <i:EventTrigger EventName="EnterPressed">
             <i:InvokeCommandAction Command="{Binding Formatting.EnterCommand}"
                                    CommandParameter="{Binding ElementName=tbNote}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="FocusFindDialog"
+                        SourceName="FormatMenu">
+            <i:InvokeCommandAction Command="{Binding FocusDialogCommand, ElementName=FindDialog}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="FindDialogHidden"
+                        SourceName="FindDialog">
+            <i:InvokeCommandAction Command="{Binding HideFindDialogCommand, ElementName=FormatMenu}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="FindShown"
+                        SourceName="FindDialog">
+            <i:InvokeCommandAction Command="{Binding ShowFindCommand, ElementName=FormatMenu}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="ReplaceShown"
+                        SourceName="FindDialog">
+            <i:InvokeCommandAction Command="{Binding ShowReplaceCommand, ElementName=FormatMenu}" />
         </i:EventTrigger>
 
         <!--  Show / Hide Search Box Animations  -->
@@ -182,6 +208,50 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
+        <!--  Show / Hide Find & Replace Animations  -->
+        <ei:DataTrigger Binding="{Binding ElementName=FormatMenu,
+                                          Path=ShowFindDialog,
+                                          UpdateSourceTrigger=PropertyChanged}"
+                        Value="True">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+                    <Storyboard x:Name="storyboardShowFindDialog"
+                                Completed="storyboardShowFindDialog_Completed">
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
+                                                       Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+        <ei:DataTrigger Binding="{Binding ElementName=FormatMenu,
+                                          Path=ShowFindDialog}"
+                        Value="False">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+                    <Storyboard x:Name="storyboardHideFindDialog">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
+                                                       Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                                  Value="-115">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
     </i:Interaction.Triggers>
 
     <Grid>
@@ -261,6 +331,7 @@
                                TextBox="{Binding ElementName=tbNote}"
                                UnderlineCommand="{Binding Formatting.UnderlineCommand}"
                                Visibility="Hidden">
+
             <components:FormatMenu.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
@@ -381,10 +452,10 @@
                 </i:Interaction.Behaviors>
 
                 <avalon:TextEditor.InputBindings>
-                    <KeyBinding Key="B"
+                    <!--<KeyBinding Key="B"
                                 Command="{Binding Formatting.BoldCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
-                                Modifiers="Ctrl" />
+                                Modifiers="Ctrl" />-->
                     <KeyBinding Key="I"
                                 Command="{Binding Formatting.ItalicCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
@@ -455,28 +526,33 @@
                                 Command="{Binding Formatting.HorizontalLineCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
+                    <KeyBinding Key="F"
+                                Command="{Binding ShowFindCommand,
+                                                  ElementName=FormatMenu}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="R"
+                                Command="{Binding ShowReplaceCommand,
+                                                  ElementName=FormatMenu}"
+                                Modifiers="Ctrl" />
+                    <KeyBinding Key="Esc"
+                                Command="{Binding HideFindDialogCommand,
+                                                  ElementName=FormatMenu}" />
 
                 </avalon:TextEditor.InputBindings>
             </avalon:TextEditor>
 
-            <!--  TESTING *******  REMOVE THIS WHEN DONE *******  -->
-            <ComboBox Width="200"
-                          VerticalAlignment="Bottom"
-                          FontSize="25"
-                      Grid.Row="1" HorizontalAlignment="Left"
-                          ItemsSource="{Binding NoteStates}"
-                          SelectedItem="{Binding ElementName=lvNotes,
-                                                 Mode=TwoWay,
-                                                 Path=SelectedItem.State}" />
+            <dialogs:FindReplaceDialog x:Name="FindDialog"
+                                       Grid.Row="1"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       Editor="{Binding ElementName=tbNote}"
+                                       ShowReplace="{Binding ElementName=FormatMenu,
+                                                             Path=ShowReplace}">
 
-            <!--<GridSplitter x:Name="gridSplitterMarkdown"
-                          Grid.Row="1"
-                          Grid.Column="1"
-                          Width="5"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Stretch"
-                          Background="{StaticResource ListViewBackgroundSelectedBrush}"
-                          Visibility="Collapsed" />-->
+                <dialogs:FindReplaceDialog.RenderTransform>
+                    <TranslateTransform Y="-115" />
+                </dialogs:FindReplaceDialog.RenderTransform>
+            </dialogs:FindReplaceDialog>
 
             <Rectangle x:Name="gridSplitterMarkdown"
                        Grid.Row="1"

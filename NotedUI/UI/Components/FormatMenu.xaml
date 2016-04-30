@@ -14,24 +14,35 @@
             <Style x:Key="Icon"
                    BasedOn="{StaticResource IconButton}"
                    TargetType="Button">
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
                 <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement" Value="Bottom" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="35" />
-                <Setter Property="ToolTipService.Placement" Value="Bottom" />
                 <Setter Property="ab:ButtonBehaviors.IconSize" Value="13" />
             </Style>
 
             <Style x:Key="Text"
                    BasedOn="{StaticResource TextButton}"
                    TargetType="Button">
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily" Value="Montserrat" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement" Value="Bottom" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="35" />
-                <Setter Property="ToolTipService.Placement" Value="Bottom" />
+            </Style>
+
+            <Style x:Key="TextToggle"
+                   BasedOn="{StaticResource TextToggleButton}"
+                   TargetType="ToggleButton">
+                <Setter Property="FontFamily" Value="Montserrat" />
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement" Value="Bottom" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="35" />
             </Style>
         </StackPanel.Resources>
 
@@ -154,6 +165,16 @@
                 Click="LineBreak_Click"
                 Style="{StaticResource Icon}"
                 ToolTip="LINE BREAK" />
+        <ToggleButton x:Name="Find"
+                      Width="55"
+                      Click="Find_Click"
+                      Content="FIND"
+                      Style="{StaticResource TextToggle}" />
+        <ToggleButton x:Name="Replace"
+                      Width="85"
+                      Click="Replace_Click"
+                      Content="REPLACE"
+                      Style="{StaticResource TextToggle}" />
 
     </StackPanel>
 

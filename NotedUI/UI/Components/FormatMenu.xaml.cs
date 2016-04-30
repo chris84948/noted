@@ -1,10 +1,12 @@
 ﻿using ICSharpCode.AvalonEdit;
+using JustMVVM;
 using NotedUI.Models;
 using NotedUI.UI.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System;
 
 namespace NotedUI.UI.Components
 {
@@ -13,6 +15,10 @@ namespace NotedUI.UI.Components
     /// </summary>
     public partial class FormatMenu : UserControl
     {
+        public ICommand ShowFindCommand { get { return new RelayCommand(ShowFindExec); } }
+        public ICommand ShowReplaceCommand { get { return new RelayCommand(ShowReplaceExec); } }
+        public ICommand HideFindDialogCommand { get { return new RelayCommand(HideFindDialogExec); } }
+
         public static readonly DependencyProperty TextBoxProperty =
             DependencyProperty.Register("TextBox", 
                                         typeof(TextEditor), 
@@ -37,6 +43,42 @@ namespace NotedUI.UI.Components
             set { SetValue(HomeViewModelProperty, value); }
         }
 
+        public static readonly DependencyProperty ShowFindDialogProperty =
+            DependencyProperty.Register("ShowFindDialog",
+                                        typeof(bool),
+                                        typeof(FormatMenu),
+                                        new FrameworkPropertyMetadata(false));
+
+        public bool ShowFindDialog
+        {
+            get { return (bool)GetValue(ShowFindDialogProperty); }
+            set { SetValue(ShowFindDialogProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowReplaceProperty =
+            DependencyProperty.Register("ShowReplace",
+                                        typeof(bool),
+                                        typeof(FormatMenu),
+                                        new FrameworkPropertyMetadata(false));
+
+        public bool ShowReplace
+        {
+            get { return (bool)GetValue(ShowReplaceProperty); }
+            set { SetValue(ShowReplaceProperty, value); }
+        }
+
+        public static readonly RoutedEvent FocusFindDialogEvent =
+            EventManager.RegisterRoutedEvent("FocusFindDialog",
+                                             RoutingStrategy.Bubble,
+                                             typeof(RoutedEventHandler),
+                                             typeof(FormatMenu));
+
+        public event RoutedEventHandler FocusFindDialog
+        {
+            add { AddHandler(FocusFindDialogEvent, value); }
+            remove { RemoveHandler(FocusFindDialogEvent, value); }
+        }
+        
 
         public static readonly DependencyProperty Header1CommandProperty =
             DependencyProperty.Register("Header1Command",
@@ -271,7 +313,12 @@ namespace NotedUI.UI.Components
             get { return (ICommand)GetValue(LineBreakCommandProperty); }
             set { SetValue(LineBreakCommandProperty, value); }
         }
-
+        
+        //private static RoutedCommand _showFindCommand = new RoutedCommand();
+        //public static RoutedCommand ShowFindCommand
+        //{
+        //    get { return _showFindCommand; }
+        //}
 
         public FormatMenu()
         {
@@ -388,6 +435,70 @@ namespace NotedUI.UI.Components
         {
             if (LineBreakCommand?.CanExecute(TextBox) == true)
                 LineBreakCommand?.Execute(TextBox);
+        }
+
+        private void Find_Click(object sender, RoutedEventArgs e)
+        {
+            if (Replace.IsChecked == true)
+                Replace.IsChecked = false;
+
+            if (ShowFindDialog != ((bool)Find.IsChecked || (bool)Replace.IsChecked))
+            {
+                ShowFindDialog = (bool)Find.IsChecked || (bool)Replace.IsChecked;
+            }
+            else if (Find.IsChecked == true || Replace.IsChecked == true)
+            {
+                RoutedEventArgs routedArgs = new RoutedEventArgs(FocusFindDialogEvent);
+                RaiseEvent(routedArgs);
+            }
+
+            if (ShowReplace)
+                ShowReplace = false;
+        }
+
+        private void Replace_Click(object sender, RoutedEventArgs e)
+        {
+            if (Find.IsChecked == true)
+                Find.IsChecked = false;
+
+            if (ShowFindDialog != ((bool)Find.IsChecked || (bool)Replace.IsChecked))
+            {
+                ShowFindDialog = (bool)Find.IsChecked || (bool)Replace.IsChecked;
+            }
+            else if (Find.IsChecked == true || Replace.IsChecked == true)
+            {
+                RoutedEventArgs routedArgs = new RoutedEventArgs(FocusFindDialogEvent);
+                RaiseEvent(routedArgs);
+            }
+
+            if (!ShowReplace)
+                ShowReplace = true;
+        }
+
+        private void ShowFindExec()
+        {
+            Find.IsChecked = true;
+            Find_Click(null, null);
+        }
+
+        private void ShowReplaceExec()
+        {
+            Replace.IsChecked = true;
+            Replace_Click(null, null);
+        }
+        
+        private void HideFindDialogExec()
+        {
+            if (Find.IsChecked == true)
+                Find.IsChecked = false;
+
+            if (Replace.IsChecked == true)
+                Replace.IsChecked = false;
+            
+            if (ShowFindDialog)
+                ShowFindDialog = false;
+
+            TextBox.Focus();
         }
     }
 }
