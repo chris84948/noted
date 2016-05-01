@@ -106,7 +106,8 @@ namespace NotedUI.UI.Dialogs
 
         private void tbReplace_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.Enter)
+                ReplaceExec();
         }
 
         private void tbFind_KeyDown(object sender, KeyEventArgs e)
@@ -149,13 +150,25 @@ namespace NotedUI.UI.Dialogs
 
         private void ReplaceExec()
         {
-            Editor.Document.Replace(Editor.SelectionStart, Editor.SelectionLength, tbReplace.Text);
+            SearchNextExec();
+
+            if (Editor.SelectionLength > 0)
+            {
+                var startPos = Editor.SelectionStart;
+                Editor.Document.Replace(startPos, Editor.SelectionLength, tbReplace.Text);
+                Editor.Select(startPos, tbReplace.Text.Length);
+            }
+
+            if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
+                allMatches = null;
         }
 
         private void ReplaceAllExec()
         {
+            ReplaceExec();
 
-            Editor.Document.Replace(Editor.SelectionStart, Editor.SelectionLength, tbReplace.Text);
+            while (Editor.SelectionLength > 0)
+                ReplaceExec();
         }
 
         private void MatchCaseToggleExec()
