@@ -119,48 +119,28 @@ namespace NotedUI.UI.Dialogs
         private void SearchNextExec()
         {
             if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
-            {
-                if (buttonMatchWord.IsChecked == true)
-                    SearchPositionNextRegex($@"\b{ tbFind.Text }\b");
+                    SearchPositionNextRegex();
 
-                else
-                    SearchPositionNextRegex(tbFind.Text);
-            }
             else
-            {
                  SearchPositionNext();
-            }
         }
 
         private void SearchPreviousExec()
         {
             if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
-            {
-                if (buttonMatchWord.IsChecked == true)
-                    SearchPositionPreviousRegex($@"\b{ tbFind.Text }\b");
+                SearchPositionPreviousRegex();
 
-                else
-                    SearchPositionPreviousRegex(tbFind.Text);
-            }
             else
-            {
                 SearchPositionPrevious();
-            }
         }
 
         private void ReplaceExec()
         {
-            SearchNextExec();
+            if (buttonMatchWord.IsChecked == true || buttonRegex.IsChecked == true)
+                ReplaceUsingRegex();
 
-            if (Editor.SelectionLength > 0)
-            {
-                var startPos = Editor.SelectionStart;
-                Editor.Document.Replace(startPos, Editor.SelectionLength, tbReplace.Text);
-                Editor.Select(startPos, tbReplace.Text.Length);
-            }
-
-            if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
-                allMatches = null;
+            else
+                ReplaceNormally();
         }
 
         private void ReplaceAllExec()
@@ -215,12 +195,29 @@ namespace NotedUI.UI.Dialogs
         private MatchCollection allMatches;
         private int matchIndex;
 
-        private void SearchPositionNextRegex(string regex)
+        private void SearchPositionNextRegex()
         {
-            if (allMatches == null || regexMem != regex)
+            string regex = "";
+
+            if (buttonMatchCase.IsChecked == true)
+                regex = $@"\b{ tbFind.Text }\b";
+            else
+                regex = tbFind.Text;
+
+            try
             {
-                allMatches = GetAllRegexMatches(regex);
-                regexMem = regex;
+                if (allMatches == null || regexMem != regex)
+                {
+                    allMatches = GetAllRegexMatches(regex);
+                    regexMem = regex;
+                }
+            }
+            catch (ArgumentException)
+            {
+                // This is thrown when an invalid regex string is provided
+                // For example, a single backslash at the end
+                // It doesn't matter, it just won't work, so ignore it
+                matchIndex = -1;
             }
 
             matchIndex = GetNextMatchIndex(allMatches);
@@ -231,15 +228,32 @@ namespace NotedUI.UI.Dialogs
                 SelectTextForMatch(allMatches[matchIndex].Index, allMatches[matchIndex].Value.Length);
         }
 
-        private void SearchPositionPreviousRegex(string regex)
+        private void SearchPositionPreviousRegex()
         {
-            if (allMatches == null || regexMem != regex)
+            string regex = "";
+
+            if (buttonMatchCase.IsChecked == true)
+                regex = $@"\b{ tbFind.Text }\b";
+            else
+                regex = tbFind.Text;
+
+            try
             {
-                allMatches = GetAllRegexMatches(regex);
-                regexMem = regex;
+                if (allMatches == null || regexMem != regex)
+                {
+                    allMatches = GetAllRegexMatches(regex);
+                    regexMem = regex;
+                }
+            }
+            catch (ArgumentException)
+            {
+                // This is thrown when an invalid regex string is provided
+                // For example, a single backslash at the end
+                // It doesn't matter, it just won't work, so ignore it
+                matchIndex = -1;
             }
 
-            matchIndex = GetPreviousMatchIndex(allMatches);
+    matchIndex = GetPreviousMatchIndex(allMatches);
 
             if (matchIndex == -1)
                 SelectTextForMatch(-1, 0);
@@ -256,32 +270,36 @@ namespace NotedUI.UI.Dialogs
 
         private int GetNextMatchIndex(MatchCollection matches)
         {
-            if (matches.Count == 0)
-                return -1;
-
-            for (int i = 0; i < matches.Count; i++)
+            if (matches?.Count > 0)
             {
-                if (matches[i].Index > Editor.SelectionStart)
-                    return i;
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    if (matches[i].Index > Editor.SelectionStart)
+                        return i;
+                }
+
+                // Grab the first match again, basically wrap around to the first one again
+                return 0;
             }
 
-            // Grab the first match again, basically wrap around to the first one again
-            return 0;
+            return -1;
         }
 
         private int GetPreviousMatchIndex(MatchCollection matches)
         {
-            if (matches.Count == 0)
-                return -1;
-
-            for (int i = matches.Count - 1; i >= 0; i--)
+            if (matches?.Count > 0)
             {
-                if (matches[i].Index < Editor.SelectionStart)
-                    return i;
+                for (int i = matches.Count - 1; i >= 0; i--)
+                {
+                    if (matches[i].Index < Editor.SelectionStart)
+                        return i;
+                }
+
+                // Grab the last match again, basically wrap around to the last one again
+                return matches.Count - 1;
             }
 
-            // Grab the last match again, basically wrap around to the last one again
-            return matches.Count - 1;
+            return -1;
         }
 
         private void SearchPositionNext()
@@ -320,6 +338,34 @@ namespace NotedUI.UI.Dialogs
 
             else // Unhighlight text when no matches are found
                 Editor.Select(Editor.SelectionStart, 0);
+        }
+
+        private void ReplaceUsingRegex()
+        {
+            SearchPositionNextRegex();
+
+            if (Editor.SelectionLength > 0)
+            {
+                var startPos = Editor.SelectionStart;
+
+                string replaceText = Regex.Replace(Editor.SelectedText, tbFind.Text, tbReplace.Text);
+                Editor.Document.Replace(startPos, Editor.SelectionLength, replaceText);
+                Editor.Select(startPos, replaceText.Length);
+
+                allMatches = null;
+            }
+        }
+
+        private void ReplaceNormally()
+        {
+            SearchNextExec();
+
+            if (Editor.SelectionLength > 0)
+            {
+                var startPos = Editor.SelectionStart;
+                Editor.Document.Replace(startPos, Editor.SelectionLength, tbReplace.Text);
+                Editor.Select(startPos, tbReplace.Text.Length);
+            }
         }
     }
 }
