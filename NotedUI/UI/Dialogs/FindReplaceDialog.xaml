@@ -225,6 +225,7 @@
                      AcceptsTab="False"
                      Background="{StaticResource ButtonForegroundBrush}"
                      FontFamily="Montserrat"
+                     KeyDown="tbFind_KeyDown"
                      FontSize="14"
                      Style="{StaticResource TextBoxNoIcon}"
                      TabIndex="0" />
@@ -321,7 +322,6 @@
                         ab:ButtonBehaviors.IconSize="14"
                         Command="{Binding SearchNextCommand,
                                           ElementName=Me}"
-                        IsDefault="True"
                         Style="{StaticResource Icon}"
                         TabIndex="8"
                         ToolTip="SEARCH DOWN (F3)" />

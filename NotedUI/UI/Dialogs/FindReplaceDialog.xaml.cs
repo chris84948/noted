@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
 using JustMVVM;
 using System;
 using System.Collections.Generic;
@@ -97,8 +98,13 @@ namespace NotedUI.UI.Dialogs
             add { AddHandler(ReplaceShownEvent, value); }
             remove { RemoveHandler(ReplaceShownEvent, value); }
         }
-        
-        
+
+
+        private string regexMem = "";
+        private MatchCollection allMatches;
+        private int matchIndex;
+
+
         public FindReplaceDialog()
         {
             InitializeComponent();
@@ -119,8 +125,7 @@ namespace NotedUI.UI.Dialogs
         private void SearchNextExec()
         {
             if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
-                    SearchPositionNextRegex();
-
+                SearchPositionNextRegex();
             else
                  SearchPositionNext();
         }
@@ -129,7 +134,6 @@ namespace NotedUI.UI.Dialogs
         {
             if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
                 SearchPositionPreviousRegex();
-
             else
                 SearchPositionPrevious();
         }
@@ -138,17 +142,28 @@ namespace NotedUI.UI.Dialogs
         {
             if (buttonMatchWord.IsChecked == true || buttonRegex.IsChecked == true)
                 ReplaceUsingRegex();
-
             else
                 ReplaceNormally();
         }
 
         private void ReplaceAllExec()
         {
-            ReplaceExec();
+            Editor.Document.UndoStack.StartUndoGroup();
+
+            if (buttonMatchWord.IsChecked == true || buttonRegex.IsChecked == true)
+                ReplaceUsingRegex();
+            else
+                ReplaceNormally();
 
             while (Editor.SelectionLength > 0)
-                ReplaceExec();
+            {
+                if (buttonMatchWord.IsChecked == true || buttonRegex.IsChecked == true)
+                    ReplaceUsingRegex();
+                else
+                    ReplaceNormally();
+            }
+
+            Editor.Document.UndoStack.EndUndoGroup();
         }
 
         private void MatchCaseToggleExec()
@@ -187,13 +202,14 @@ namespace NotedUI.UI.Dialogs
         private void DialogShownExec()
         {
             tbFind.Focus();
-            tbFind.Text = Editor.SelectedText;
+
+            if (Editor.SelectionLength == 0)
+                tbFind.SelectAll();
+            else
+                tbFind.Text = Editor.SelectedText;
+
             tbFind.SelectAll();
         }
-
-        private string regexMem = "";
-        private MatchCollection allMatches;
-        private int matchIndex;
 
         private void SearchPositionNextRegex()
         {
@@ -253,7 +269,7 @@ namespace NotedUI.UI.Dialogs
                 matchIndex = -1;
             }
 
-    matchIndex = GetPreviousMatchIndex(allMatches);
+            matchIndex = GetPreviousMatchIndex(allMatches);
 
             if (matchIndex == -1)
                 SelectTextForMatch(-1, 0);
@@ -346,11 +362,8 @@ namespace NotedUI.UI.Dialogs
 
             if (Editor.SelectionLength > 0)
             {
-                var startPos = Editor.SelectionStart;
-
                 string replaceText = Regex.Replace(Editor.SelectedText, tbFind.Text, tbReplace.Text);
-                Editor.Document.Replace(startPos, Editor.SelectionLength, replaceText);
-                Editor.Select(startPos, replaceText.Length);
+                Editor.Document.Replace(Editor.SelectionStart, Editor.SelectionLength, replaceText, OffsetChangeMappingType.RemoveAndInsert);
 
                 allMatches = null;
             }
@@ -358,14 +371,13 @@ namespace NotedUI.UI.Dialogs
 
         private void ReplaceNormally()
         {
-            SearchNextExec();
+            if (Editor.SelectionLength == 0)
+                SearchNextExec();
 
             if (Editor.SelectionLength > 0)
-            {
-                var startPos = Editor.SelectionStart;
-                Editor.Document.Replace(startPos, Editor.SelectionLength, tbReplace.Text);
-                Editor.Select(startPos, tbReplace.Text.Length);
-            }
+                Editor.Document.Replace(Editor.SelectionStart, Editor.SelectionLength, tbReplace.Text, OffsetChangeMappingType.KeepAnchorBeforeInsertion);
+
+            SearchNextExec();
         }
     }
 }
