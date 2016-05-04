@@ -1,4 +1,5 @@
-﻿using NotedUI.AttachedBehaviors;
+﻿using mshtml;
+using NotedUI.AttachedBehaviors;
 using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.ViewModels;
 using System;
@@ -232,6 +233,9 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
         private void tbNote_Loaded(object sender, RoutedEventArgs e)
         {
             tbNote.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Markdown");
+
+            tbNote.Focus();
+            tbNote.Select(0, 0);
         }
 
         private void tbMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
@@ -243,6 +247,35 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
             e.Cancel = true;
 
             Process.Start(new ProcessStartInfo(e.Uri.ToString()));
+        }
+
+
+        private void tbNote_ScrollPositionChanged(object sender, ScrollChangedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Vertical Position Changed - " + e.VerticalChange);
+
+            SetScrollOffset(e);
+        }
+
+        public void SetScrollOffset(ScrollChangedEventArgs ea)
+        {
+            var document2 = (IHTMLDocument2)tbMarkdown.Document;
+            var document3 = (IHTMLDocument3)tbMarkdown.Document;
+
+            if (document3?.documentElement != null)
+            {
+                var percentToScroll = PercentScroll(ea);
+                if (percentToScroll > 0.99) percentToScroll = 1.1; // deal with round off at end of scroll
+                var body = document2.body;
+                var scrollHeight = ((IHTMLElement2)body).scrollHeight - document3.documentElement.offsetHeight;
+                document2.parentWindow.scroll(0, (int)Math.Ceiling(percentToScroll * scrollHeight));
+            }
+        }
+
+        private static double PercentScroll(ScrollChangedEventArgs e)
+        {
+            var y = e.ExtentHeight - e.ViewportHeight;
+            return e.VerticalOffset / ((Math.Abs(y) < .000001) ? 1 : y);
         }
     }
 }

@@ -271,7 +271,7 @@
                              Grid.ColumnSpan="5"
                              Panel.ZIndex="1"
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
-                             AllNotes="{Binding AllNotes.View}"
+                             AllNotes="{Binding AllNotes}"
                              Background="{StaticResource AppTopBannerBrush}"
                              DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
@@ -444,6 +444,7 @@
                                HorizontalScrollBarVisibility="Disabled"
                                Loaded="tbNote_Loaded"
                                Padding="10"
+                               ScrollPositionChanged="tbNote_ScrollPositionChanged"
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">
 

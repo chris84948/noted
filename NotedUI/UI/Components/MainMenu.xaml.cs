@@ -17,13 +17,13 @@ namespace NotedUI.UI.Components
     {
         public static readonly DependencyProperty AllNotesProperty =
             DependencyProperty.Register("AllNotes",
-                                        typeof(ObservableCollection<NoteViewModel>),
+                                        typeof(AllNotesViewModel),
                                         typeof(MainMenu),
                                         new FrameworkPropertyMetadata(null));
 
-        public ObservableCollection<NoteViewModel> AllNotes
+        public AllNotesViewModel AllNotes
         {
-            get { return (ObservableCollection<NoteViewModel>)GetValue(AllNotesProperty); }
+            get { return (AllNotesViewModel)GetValue(AllNotesProperty); }
             set { SetValue(AllNotesProperty, value); }
         }
 
@@ -231,7 +231,8 @@ namespace NotedUI.UI.Components
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            var data = new ListData(AllNotes, SelectedNote);
+            var data = new ListData(AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>, 
+                                    SelectedNote);
 
             if (DeleteNoteCommand?.CanExecute(data) == true)
                 DeleteNoteCommand?.Execute(data);
