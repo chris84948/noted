@@ -31,7 +31,6 @@ namespace NotedUI.AttachedBehaviors
             if (browser != null && !string.IsNullOrWhiteSpace(newText))
             {
                 browser.NavigateToString(newText);
-
             }
             
             if (!browser.IsLoaded)
