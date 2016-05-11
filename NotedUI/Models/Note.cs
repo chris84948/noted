@@ -4,7 +4,8 @@ namespace NotedUI.Models
 {
     public class Note
     {
-        public string ID { get; set; }
+        public long ID { get; set; }
+        public string CloudKey { get; set; }
         public DateTime? LastModified { get; set; }
         public string Content { get; set; }
         public string Folder { get; set; }
@@ -12,15 +13,24 @@ namespace NotedUI.Models
         public Note()
         { }
 
-        public Note(string id,
+        public Note(string content,
+                    string folder)
+        {
+            Content = content;
+            Folder = folder;
+        }
+
+        public Note(long id,
+                    string cloudKey,
                     DateTime? lastModified,
                     string content,
                     string folder)
         {
-            this.ID = id;
-            this.LastModified = lastModified;
-            this.Content = content;
-            this.Folder = folder;
+            ID = id;
+            CloudKey = cloudKey;
+            LastModified = lastModified;
+            Content = content;
+            Folder = folder;
         }
     }
 }

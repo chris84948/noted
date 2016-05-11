@@ -1,4 +1,7 @@
 ﻿using JustMVVM;
+using NotedUI.Controls;
+using NotedUI.DataStorage;
+using NotedUI.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Data;
 
@@ -14,13 +18,24 @@ namespace NotedUI.UI.ViewModels
 {
     public class AllNotesViewModel : MVVMBase
     {
-        private ObservableCollection<NoteViewModel> _notes;
-        private System.Timers.Timer filterTimer;
+        private Timer filterTimer, _updateNoteTimer, _pollAllNotesTimer;
 
+        private AsyncObservableCollection<NoteViewModel> _notes;
         private ICollectionView _view;
         public ICollectionView View
         {
             get { return _view; }
+        }
+
+        private NoteViewModel _selectedNote;
+        public NoteViewModel SelectedNote
+        {
+            get { return _selectedNote; }
+            set
+            {
+                _selectedNote = value;
+                OnPropertyChanged();
+            }
         }
 
         private string _filter;
@@ -48,17 +63,14 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        internal ILocalStorage LocalStorage { get; set; }
+
         public AllNotesViewModel()
         {
-            _notes = new ObservableCollection<NoteViewModel>()
-            {
-                new NoteViewModel("1,", DateTime.Now.Subtract(TimeSpan.FromDays(1)), "Note 1", "Group 1"),
-                new NoteViewModel("1,", DateTime.Now.Subtract(TimeSpan.FromMinutes(34)), "Note 2", "Group 1"),
-                new NoteViewModel("1,", DateTime.Now, "Note 3", "Group 2"),
-                new NoteViewModel("1,", DateTime.Now.Subtract(TimeSpan.FromDays(14)), "Note 4", "Group 2"),
-                new NoteViewModel("1,", DateTime.Now.Subtract(TimeSpan.FromHours(7)), "Note 5", "Group 2"),
-                new NoteViewModel("1,", DateTime.Now.Subtract(TimeSpan.FromSeconds(35)), "Note 6", "Group 2")
-            };
+            _notes = new AsyncObservableCollection<NoteViewModel>();
+            LocalStorage = new SQLiteStorage();
+
+            Task.Run(() => InitializeNotes());
 
             _view = CollectionViewSource.GetDefaultView(_notes);
             _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
@@ -80,6 +92,18 @@ namespace NotedUI.UI.ViewModels
             };
         }
 
+        private async void InitializeNotes()
+        {
+            // Get local files first
+            await LocalStorage.Initialize();
+            _notes = new AsyncObservableCollection<NoteViewModel>((await LocalStorage.GetAllNotes()).Select(x => new NoteViewModel(x)));
+
+            if (_notes.Count > 0)
+                SelectedNote = _notes[0];
+
+            // TODO get cloud notes here
+        }
+
         private bool NoteFilter(object obj)
         {
             NoteViewModel note = obj as NoteViewModel;
@@ -89,17 +113,6 @@ namespace NotedUI.UI.ViewModels
 
             else
                 return note.Content.ToUpper().Contains(_filter.ToUpper());
-        }
-    }
-
-    public class NoteSorter : IComparer
-    {
-        public int Compare(object a, object b)
-        {
-            NoteViewModel noteA = a as NoteViewModel;
-            NoteViewModel noteB = b as NoteViewModel;
-
-            return noteA.Title.CompareTo(noteB.Title);
         }
     }
 }

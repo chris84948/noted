@@ -15,14 +15,14 @@
         <Style x:Key="PopupButtonStyle"
                BasedOn="{StaticResource TextButton}"
                TargetType="Button">
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
             <Setter Property="FontFamily" Value="Montserrat" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="Padding" Value="20,5" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
         </Style>
 
     </UserControl.Resources>
@@ -35,23 +35,23 @@
         <StackPanel.Resources>
             <Style BasedOn="{StaticResource IconTextButton}"
                    TargetType="Button">
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="70" />
-                <Setter Property="FontSize" Value="12" />
                 <Setter Property="ab:ButtonBehaviors.IconSize" Value="18" />
             </Style>
 
             <Style BasedOn="{StaticResource IconTextToggleButton}"
                    TargetType="ToggleButton">
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="70" />
-                <Setter Property="FontSize" Value="12" />
                 <Setter Property="ab:ButtonBehaviors.IconSize" Value="18" />
             </Style>
         </StackPanel.Resources>

@@ -25,18 +25,6 @@ namespace NotedUI.UI.ViewModels
 
         public bool ShowPreviewOnLoad { get; set; }
 
-        // TODO Don't think I'll need this once the list of notes comes in, but for now it works
-        private string _noteText;
-        public string NoteText
-        {
-            get { return _noteText; }
-            set
-            {
-                _noteText = value;
-                OnPropertyChanged();
-            }
-        }
-
         // TODO Delete this when done testing
         public IEnumerable<eNoteState> NoteStates
         {

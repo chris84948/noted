@@ -12,12 +12,22 @@ namespace NotedUI.UI.ViewModels
     {
         private Note _note = new Note();
 
-        public string ID
+        public long ID
         {
             get { return _note.ID; }
             set
             {
                 _note.ID = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string CloudKey
+        {
+            get { return _note.CloudKey; }
+            set
+            {
+                _note.CloudKey = value;
                 OnPropertyChanged();
             }
         }
@@ -32,9 +42,15 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        private string _title;
         public string Title
         {
-            get { return _note.Content.Split('\n')[0]; }
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged();
+            }
         }
 
         public string Content
@@ -44,6 +60,8 @@ namespace NotedUI.UI.ViewModels
             {
                 _note.Content = value;
                 OnPropertyChanged();
+
+                Title = GetTitle();
             }
         }
 
@@ -81,7 +99,7 @@ namespace NotedUI.UI.ViewModels
 
         public bool AnimateOnLoad { get; set; } = false;
 
-        public NoteViewModel(string id,
+        public NoteViewModel(int id,
                              DateTime? lastModified,
                              string content,
                              string folder)
@@ -93,6 +111,27 @@ namespace NotedUI.UI.ViewModels
 
             State = eNoteState.Normal;
             IsMarkedForRemoval = false;
+        }
+
+        public NoteViewModel(Note note)
+        {
+            ID = note.ID;
+            LastModified = note.LastModified;
+            Content = note.Content;
+            Folder = note.Folder;
+            CloudKey = note.CloudKey;
+        }
+
+        private string GetTitle()
+        {
+            int index = _note.Content.IndexOf("\r\n");
+
+            if (index == -1 && _note.Content.Length > 20 || index > 20)
+                return _note.Content.Substring(0, 20);
+            else if (index == -1)
+                return _note.Content;
+            else
+                return _note.Content.Substring(0, index);
         }
     }
 }

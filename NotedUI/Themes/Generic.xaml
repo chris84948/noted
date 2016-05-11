@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Themes/NotedExpander.xaml" />
         <ResourceDictionary Source="Themes/NotedWindow.xaml" />
-        <ResourceDictionary Source="Themes/SlideContentControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

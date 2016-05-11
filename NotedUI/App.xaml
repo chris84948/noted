@@ -11,7 +11,6 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionaries/DataTemplates.xaml" />
-                <ResourceDictionary Source="Styles/Expander.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/IconButton.xaml" />
@@ -44,6 +43,8 @@
             <conv:MarkdownConverter x:Key="MarkdownConverter" />
 
             <conv:DialogDataConverter x:Key="DialogDataConverter" />
+
+            <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

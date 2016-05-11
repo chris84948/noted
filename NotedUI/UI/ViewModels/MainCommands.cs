@@ -77,8 +77,7 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
 
         public void NotedExec(AllNotesViewModel allNotes)
         {
-            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).
-                AddWithAnimation(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
+            
         }
 
         public bool CanAddNoteExec(AllNotesViewModel allNotes)
@@ -86,10 +85,15 @@ With a tabbed document interface, PDF export, a built-in image uploader, session
             return true;
         }
 
-        public void AddNoteExec(AllNotesViewModel allNotes)
+        public async void AddNoteExec(AllNotesViewModel allNotes)
         {
+            string folderName = "Group 1";
+            int id = (int)await allNotes.LocalStorage.AddNote(folderName);
+
+            var newNote = new NoteViewModel(id, DateTime.Now, "", folderName);
             (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).
-                AddWithAnimation(new NoteViewModel("1", DateTime.Now, "Note 10", "Group 1"));
+                AddWithAnimation(newNote);
+            allNotes.SelectedNote = newNote;
         }
 
         public bool CanPrepareToDelete(ListData data)

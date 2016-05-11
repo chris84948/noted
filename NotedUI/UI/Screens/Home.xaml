@@ -367,7 +367,8 @@
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
                       drag:DragDrop.UseDefaultDragAdorner="True"
-                      ItemsSource="{Binding AllNotes.View}">
+                      ItemsSource="{Binding AllNotes.View}"
+                      SelectedItem="{Binding AllNotes.SelectedNote}">
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
@@ -375,15 +376,15 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="GroupItem">
-                                            <Expander VerticalAlignment="Top"
-                                                      ab:ExpanderBehavior.ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
-                                                                                              Path=DataContext.AllNotes.ExpandAllGroups,
-                                                                                              Mode=TwoWay}"
-                                                      Header="{Binding Name,
-                                                                       Converter={StaticResource ToUpperConverter}}"
-                                                      IsExpanded="False">
-                                                <ItemsPresenter />
-                                            </Expander>
+                                            <controls:NotedExpander VerticalAlignment="Top"
+                                                                    ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
+                                                                                                            Path=DataContext.AllNotes.ExpandAllGroups,
+                                                                                                            Mode=TwoWay}"
+                                                                    Header="{Binding Name,
+                                                                                     Converter={StaticResource ToUpperConverter}}"
+                                                                    IsExpanded="False">
+                                                <ItemsPresenter Tag="{Binding ElementName=lvNotes}" />
+                                            </controls:NotedExpander>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
@@ -448,15 +449,28 @@
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">
 
+                <avalon:TextEditor.Style>
+                    <Style BasedOn="{StaticResource {x:Type avalon:TextEditor}}"
+                           TargetType="{x:Type avalon:TextEditor}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=lvNotes,
+                                                           Path=SelectedItem}"
+                                         Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </avalon:TextEditor.Style>
+
                 <i:Interaction.Behaviors>
-                    <ab:AvalonEditBehaviour BindableText="{Binding Path=NoteText, UpdateSourceTrigger=PropertyChanged}" />
+                    <ab:AvalonEditBehaviour BindableText="{Binding AllNotes.SelectedNote.Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </i:Interaction.Behaviors>
 
                 <avalon:TextEditor.InputBindings>
-                    <!--<KeyBinding Key="B"
+                    <KeyBinding Key="B"
                                 Command="{Binding Formatting.BoldCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
-                                Modifiers="Ctrl" />-->
+                                Modifiers="Ctrl" />
                     <KeyBinding Key="I"
                                 Command="{Binding Formatting.ItalicCommand}"
                                 CommandParameter="{Binding ElementName=tbNote}"
@@ -569,7 +583,7 @@
                         Margin="-10,0"
                         HorizontalAlignment="Stretch"
                         ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
-                        ab:WebBrowserBehavior.HTML="{Binding NoteText,
+                        ab:WebBrowserBehavior.HTML="{Binding AllNotes.SelectedNote.Content,
                                                              UpdateSourceTrigger=PropertyChanged,
                                                              Converter={StaticResource MarkdownConverter}}"
                         Navigating="tbMarkdown_Navigating" />
