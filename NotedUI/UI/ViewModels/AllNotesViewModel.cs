@@ -70,7 +70,7 @@ namespace NotedUI.UI.ViewModels
             _notes = new AsyncObservableCollection<NoteViewModel>();
             LocalStorage = new SQLiteStorage();
 
-            Task.Run(() => InitializeNotes());
+            InitializeNotes();
 
             _view = CollectionViewSource.GetDefaultView(_notes);
             _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
@@ -102,6 +102,7 @@ namespace NotedUI.UI.ViewModels
                 SelectedNote = _notes[0];
 
             // TODO get cloud notes here
+            
         }
 
         private bool NoteFilter(object obj)

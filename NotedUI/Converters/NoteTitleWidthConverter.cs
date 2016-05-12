@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace NotedUI.Converters
 {
-    [ValueConversion(typeof(string), typeof(string))]
-    public class ToUpperConverter : IValueConverter
+    [ValueConversion(typeof(double), typeof(double))]
+    public class NoteTitleWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value?.ToString().ToUpper() ?? "";
+            if (!(value is double))
+                return 1;
+
+            return (double)value - 75; // Width of margins and icons in listview item
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

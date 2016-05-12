@@ -46,6 +46,8 @@
 
             <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />
 
+            <conv:NoteTitleWidthConverter x:Key="NoteTitleWidthConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

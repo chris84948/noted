@@ -175,6 +175,7 @@
     <Compile Include="Controls\NotedWindow.cs" />
     <Compile Include="Converters\InvertValueConverter.cs" />
     <Compile Include="Converters\MarkdownConverter.cs" />
+    <Compile Include="Converters\NoteTitleWidthConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
     <Content Include="Resources\CSS\Github.css">
@@ -378,8 +379,8 @@
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.101.0\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>cd $(TargetDir)
-del Noted.db</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

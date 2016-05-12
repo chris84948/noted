@@ -11,17 +11,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type controls:NotedWindow}">
-        <Setter Property="WindowChrome.WindowChrome">
-            <Setter.Value>
-                <WindowChrome x:Name="Chrome"
-                              CaptionHeight="0"
-                              CornerRadius="0"
-                              GlassFrameThickness="0"
-                              ResizeBorderThickness="3" />
-            </Setter.Value>
-        </Setter>
-        <Setter Property="BorderThickness"
-                Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
         <!--  Template  -->
         <Setter Property="Template">
             <Setter.Value>
@@ -49,35 +39,30 @@
                                         <StackPanel.Resources>
                                             <Style BasedOn="{StaticResource IconButton}"
                                                    TargetType="Button">
-                                                <Setter Property="Width"
-                                                        Value="50" />
-                                                <Setter Property="Height"
-                                                        Value="30" />
-                                                <Setter Property="ab:ButtonBehaviors.IconSize"
-                                                        Value="12" />
-                                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
-                                                        Value="True" />
-                                                <Setter Property="Foreground"
-                                                        Value="{StaticResource ButtonForegroundBrush}" />
+                                                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+                                                <Setter Property="Height" Value="30" />
+                                                <Setter Property="Width" Value="50" />
+                                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                                                <Setter Property="ab:ButtonBehaviors.IconSize" Value="12" />
                                             </Style>
                                         </StackPanel.Resources>
 
-                                        <Button Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
-                                                Padding="0,8,0,0"
-                                                ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}" />
+                                        <Button ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
+                                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                                Padding="0,8,0,0" />
 
                                         <Button x:Name="buttonMax"
-                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
-                                                ab:ButtonBehaviors.Icon="{StaticResource MaximizeIcon}" />
+                                                ab:ButtonBehaviors.Icon="{StaticResource MaximizeIcon}"
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}" />
 
                                         <Button x:Name="buttonRestore"
+                                                ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
-                                                Visibility="Collapsed"
-                                                ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}" />
+                                                Visibility="Collapsed" />
 
-                                        <Button Background="{StaticResource CloseButtonBrush}"
-                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
-                                                ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}" />
+                                        <Button ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
+                                                Background="{StaticResource CloseButtonBrush}"
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" />
 
                                     </StackPanel>
                                 </Grid>
@@ -90,16 +75,21 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="buttonMax"
-                                    Property="Visibility"
-                                    Value="Collapsed" />
-                            <Setter TargetName="buttonRestore"
-                                    Property="Visibility"
-                                    Value="Visible" />
+                            <Setter TargetName="buttonMax" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="buttonRestore" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome x:Name="Chrome"
+                              CaptionHeight="0"
+                              CornerRadius="0"
+                              GlassFrameThickness="0"
+                              ResizeBorderThickness="3" />
             </Setter.Value>
         </Setter>
 
@@ -107,8 +97,7 @@
         <Style.Triggers>
 
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter Property="BorderThickness"
-                        Value="8" />
+                <Setter Property="BorderThickness" Value="8" />
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
                         <WindowChrome CaptionHeight="6"

@@ -1,4 +1,5 @@
 ﻿using mshtml;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -7,6 +8,29 @@ namespace NotedUI.AttachedBehaviors
 {
     class WebBrowserBehavior
     {
+        public static readonly DependencyProperty SetCSSOnLoadProperty =
+            DependencyProperty.RegisterAttached("SetCSSOnLoad",
+                                                typeof(bool),
+                                                typeof(WebBrowserBehavior),
+                                                new PropertyMetadata(false, new PropertyChangedCallback(SetCSSOnLoadChanged)));
+
+        public static bool GetSetCSSOnLoad(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(SetCSSOnLoadProperty);
+        }
+
+        public static void SetSetCSSOnLoad(DependencyObject obj, bool value)
+        {
+            obj.SetValue(SetCSSOnLoadProperty, value);
+        }
+
+        private static void SetCSSOnLoadChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            WebBrowser browser = (WebBrowser)d;
+            browser.LoadCompleted += (s, args) => SetupWebBrowserCSS(browser);
+        }
+
+
         public static readonly DependencyProperty HTMLProperty =
             DependencyProperty.RegisterAttached("HTML",
                                                 typeof(string),
@@ -32,15 +56,15 @@ namespace NotedUI.AttachedBehaviors
             {
                 browser.NavigateToString(newText);
             }
-            
-            if (!browser.IsLoaded)
-                browser.LoadCompleted += WebBrowser_LoadCompleted;
         }
 
-        private static void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
+        private static void SetupWebBrowserCSS(WebBrowser browser)
         {
-            var browser = sender as WebBrowser;
             IHTMLDocument2 doc = browser.Document as IHTMLDocument2;
+
+            if (doc == null)
+                return;
+
             IHTMLStyleSheet ss = doc.createStyleSheet("", 0);
             ss.cssText = GetCSSStyle(browser);
         }

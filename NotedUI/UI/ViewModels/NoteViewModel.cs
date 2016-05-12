@@ -10,34 +10,37 @@ namespace NotedUI.UI.ViewModels
 {
     public class NoteViewModel : MVVMBase
     {
-        private Note _note = new Note();
+        /// <summary>
+        /// Underlying object for writing/reading from SQL
+        /// </summary>
+        internal Note NoteData { get; set; } = new Note();
 
         public long ID
         {
-            get { return _note.ID; }
+            get { return NoteData.ID; }
             set
             {
-                _note.ID = value;
+                NoteData.ID = value;
                 OnPropertyChanged();
             }
         }
 
         public string CloudKey
         {
-            get { return _note.CloudKey; }
+            get { return NoteData.CloudKey; }
             set
             {
-                _note.CloudKey = value;
+                NoteData.CloudKey = value;
                 OnPropertyChanged();
             }
         }
 
         public DateTime? LastModified
         {
-            get { return _note.LastModified; }
+            get { return NoteData.LastModified; }
             set
             {
-                _note.LastModified = value;
+                NoteData.LastModified = value;
                 OnPropertyChanged();
             }
         }
@@ -55,10 +58,10 @@ namespace NotedUI.UI.ViewModels
 
         public string Content
         {
-            get { return _note.Content; }
+            get { return NoteData.Content; }
             set
             {
-                _note.Content = value;
+                NoteData.Content = value;
                 OnPropertyChanged();
 
                 Title = GetTitle();
@@ -67,10 +70,10 @@ namespace NotedUI.UI.ViewModels
 
         public string Folder
         {
-            get { return _note.Folder; }
+            get { return NoteData.Folder; }
             set
             {
-                _note.Folder = value;
+                NoteData.Folder = value;
                 OnPropertyChanged();
             }
         }
@@ -124,14 +127,12 @@ namespace NotedUI.UI.ViewModels
 
         private string GetTitle()
         {
-            int index = _note.Content.IndexOf("\r\n");
-
-            if (index == -1 && _note.Content.Length > 20 || index > 20)
-                return _note.Content.Substring(0, 20);
-            else if (index == -1)
-                return _note.Content;
+            int index = NoteData.Content.IndexOf("\r\n");
+            
+            if (index == -1)
+                return NoteData.Content;
             else
-                return _note.Content.Substring(0, index);
+                return NoteData.Content.Substring(0, index);
         }
     }
 }

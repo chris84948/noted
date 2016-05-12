@@ -68,8 +68,9 @@ namespace NotedUI.DataStorage
                     folderID = folder.ID;
 
                 var cmd = new SQLiteCommand(SQLQueries.AddNote(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", DateTime.Now.ToString()));
                 cmd.Parameters.Add(new SQLiteParameter("@Content", ""));
-                cmd.Parameters.Add(new SQLiteParameter("@FolderID", folderName));
+                cmd.Parameters.Add(new SQLiteParameter("@FolderID", folderID));
 
                 await cmd.ExecuteNonQueryAsync();
 
@@ -195,17 +196,36 @@ namespace NotedUI.DataStorage
 
         private Note ReadNoteFromSQL(DbDataReader reader)
         {
-            return new Note(Convert.ToInt32(reader["ID"]),
-                            reader["CloudKey"].ToString(),
+            return new Note(ConvertFromDBVal<Int32>(reader["ID"]),
+                            ConvertFromDBVal<string>(reader["CloudKey"]),
                             Convert.ToDateTime(reader["LastModified"]),
-                            reader["Content"].ToString(),
-                            reader["Folder"].ToString());
+                            ConvertFromDBVal<string>(reader["Content"]),
+                            ConvertFromDBVal<string>(reader["Folder"]));
         }
 
         private Folder ReadFolderFromSQL(DbDataReader reader)
         {
-            return new Folder(Convert.ToInt32(reader["ID"]),
-                              reader["Name"].ToString());
+            return new Folder(ConvertFromDBVal<int>(reader["ID"]),
+                              ConvertFromDBVal<string>(reader["Name"]));
+        }
+
+        public static T ConvertFromDBVal<T>(object obj)
+        {
+            if (obj == null || obj == DBNull.Value)
+            {
+                return default(T); // returns the default value for the type
+            }
+            else
+            {
+                try
+                {
+                    return (T)Convert.ChangeType(obj, typeof(T));
+                }
+                catch (InvalidCastException)
+                {
+                    return default(T);
+                }
+            }
         }
     }
 }

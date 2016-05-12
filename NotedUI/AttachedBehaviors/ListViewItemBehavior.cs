@@ -98,14 +98,9 @@ namespace NotedUI.AttachedBehaviors
 
             Storyboard.SetTarget(sb, d);
             sb.Completed += (_, __) =>
-            {
-                var data = new ListData((ObservableCollection<NoteViewModel>)(listView.ItemsSource as ListCollectionView).SourceCollection, 
-                                        (NoteViewModel)element.DataContext);
-                
-                if (!performRemoval.CanExecute(data))
-                    return;
-
-                performRemoval.Execute(data);
+            {   
+                if (performRemoval.CanExecute((NoteViewModel)element.DataContext))
+                    performRemoval.Execute((NoteViewModel)element.DataContext);
             };
 
             sb.Begin();

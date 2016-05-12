@@ -378,8 +378,8 @@
                                         <ControlTemplate TargetType="GroupItem">
                                             <controls:NotedExpander VerticalAlignment="Top"
                                                                     ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
-                                                                                                            Path=DataContext.AllNotes.ExpandAllGroups,
-                                                                                                            Mode=TwoWay}"
+                                                                                        Path=DataContext.AllNotes.ExpandAllGroups,
+                                                                                        Mode=TwoWay}"
                                                                     Header="{Binding Name,
                                                                                      Converter={StaticResource ToUpperConverter}}"
                                                                     IsExpanded="False">
@@ -586,6 +586,7 @@
                         ab:WebBrowserBehavior.HTML="{Binding AllNotes.SelectedNote.Content,
                                                              UpdateSourceTrigger=PropertyChanged,
                                                              Converter={StaticResource MarkdownConverter}}"
+                        ab:WebBrowserBehavior.SetCSSOnLoad="True"
                         Navigating="tbMarkdown_Navigating" />
 
         </Grid>

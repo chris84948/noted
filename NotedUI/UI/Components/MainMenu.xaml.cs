@@ -231,11 +231,8 @@ namespace NotedUI.UI.Components
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            var data = new ListData(AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>, 
-                                    SelectedNote);
-
-            if (DeleteNoteCommand?.CanExecute(data) == true)
-                DeleteNoteCommand?.Execute(data);
+            if (DeleteNoteCommand?.CanExecute(AllNotes) == true)
+                DeleteNoteCommand?.Execute(AllNotes);
         }
 
         private void buttonAddFolder_Click(object sender, RoutedEventArgs e)
