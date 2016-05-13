@@ -1,4 +1,5 @@
 ﻿using CommonMark;
+using ICSharpCode.AvalonEdit;
 using JustMVVM;
 using NotedUI.Export;
 using NotedUI.Models;
@@ -6,6 +7,7 @@ using NotedUI.UI.Components;
 using NotedUI.UI.Screens;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -13,7 +15,6 @@ namespace NotedUI.UI.ViewModels
     public class MainCommands : MVVMBase
     {
         public ICommand AddNoteCommand { get { return new RelayCommand<AllNotesViewModel>(AddNoteExec, CanAddNoteExec); } }
-        public ICommand PrepareToDeleteCommand { get { return new RelayCommand<NoteViewModel>(PrepareToDeleteExec, CanPrepareToDelete); } }
         public ICommand DeleteNoteCommand { get { return new RelayCommand<AllNotesViewModel>(DeleteNoteExec, CanDeleteNoteExec); } }
         public ICommand FolderAddCommand { get { return new RelayCommand<AllNotesViewModel>(FolderAddExec, CanFolderAddExec); } }
         public ICommand FolderDeleteCommand { get { return new RelayCommand<AllNotesViewModel>(FolderDeleteExec, CanFolderDeleteExec); } }
@@ -57,19 +58,8 @@ namespace NotedUI.UI.ViewModels
             int id = (int)await allNotes.LocalStorage.AddNote(folderName);
 
             var newNote = new NoteViewModel(id, DateTime.Now, "", folderName);
-            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).
-                AddWithAnimation(newNote);
+            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Add(newNote);
             allNotes.SelectedNote = newNote;
-        }
-
-        public bool CanPrepareToDelete(NoteViewModel note)
-        {
-            return note != null;
-        }
-
-        public void PrepareToDeleteExec(NoteViewModel note)
-        {
-            note.IsMarkedForRemoval = true;
         }
 
         public bool CanDeleteNoteExec(AllNotesViewModel allNotes)
@@ -79,8 +69,16 @@ namespace NotedUI.UI.ViewModels
 
         public void DeleteNoteExec(AllNotesViewModel allNotes)
         {
+            var noteList = allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>;
+            int noteIndex = noteList.IndexOf(allNotes.SelectedNote);
+
             allNotes.LocalStorage.DeleteNote(allNotes.SelectedNote.NoteData);
             (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Remove(allNotes.SelectedNote);
+
+            if (noteList.Count == 0)
+                return;
+
+            allNotes.SelectedNote = noteList[noteIndex < noteList.Count ? noteIndex : noteIndex - 1];
         }
 
         public bool CanFolderAddExec(AllNotesViewModel allNotes)

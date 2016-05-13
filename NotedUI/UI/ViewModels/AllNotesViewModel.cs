@@ -13,12 +13,15 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
 {
     public class AllNotesViewModel : MVVMBase
     {
-        private Timer filterTimer, _updateNoteTimer, _pollAllNotesTimer;
+        public ICommand TextChangedCommand { get { return new RelayCommand(TextChangedExec); } }
+
+        private Timer _filterTimer, _updateNoteTimer, _pollAllNotesTimer;
 
         private AsyncObservableCollection<NoteViewModel> _notes;
         private ICollectionView _view;
@@ -33,6 +36,10 @@ namespace NotedUI.UI.ViewModels
             get { return _selectedNote; }
             set
             {
+                // Update note before changing
+                if (_selectedNote != null)
+                    UpdateNote(_selectedNote);
+
                 _selectedNote = value;
                 OnPropertyChanged();
             }
@@ -47,8 +54,8 @@ namespace NotedUI.UI.ViewModels
                 _filter = value;
                 OnPropertyChanged();
 
-                filterTimer.Stop();
-                filterTimer.Start();
+                _filterTimer.Stop();
+                _filterTimer.Start();
             }
         }
 
@@ -83,15 +90,21 @@ namespace NotedUI.UI.ViewModels
             //groupDescription.GroupNames.Add("GROUP 3");
             //view.GroupDescriptions.Add(groupDescription);
 
-            filterTimer = new System.Timers.Timer(1000);
-            filterTimer.AutoReset = false;
-            filterTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
-            {
-                App.Current.Dispatcher.Invoke(() => _view.Refresh());
-                ExpandAllGroups = true;
-            };
+            _filterTimer = new System.Timers.Timer(1000);
+            _filterTimer.AutoReset = false;
+            _filterTimer.Elapsed += FilterTimer_Elapsed;
+
+            _updateNoteTimer = new System.Timers.Timer(3000);
+            _updateNoteTimer.AutoReset = false;
+            _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote); ;
         }
 
+        private void FilterTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(() => _view.Refresh());
+            ExpandAllGroups = true;
+        }
+        
         private async void InitializeNotes()
         {
             // Get local files first
@@ -103,6 +116,24 @@ namespace NotedUI.UI.ViewModels
 
             // TODO get cloud notes here
             
+        }
+
+        private async void UpdateNote(NoteViewModel note)
+        {
+            if (note?.State != eNoteState.Changed)
+                return;
+
+            note.State = eNoteState.Syncing;
+            await LocalStorage.UpdateNote(note.NoteData);
+            note.State = eNoteState.SyncComplete;
+        }
+
+        private void TextChangedExec()
+        {
+            // Reset the update timer every time the text changes
+            // This stops it from being updated constantly, just after typing has stopped for > 3 seconds
+            _updateNoteTimer.Stop();
+            _updateNoteTimer.Start();
         }
 
         private bool NoteFilter(object obj)

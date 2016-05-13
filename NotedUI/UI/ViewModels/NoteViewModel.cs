@@ -65,6 +65,7 @@ namespace NotedUI.UI.ViewModels
                 OnPropertyChanged();
 
                 Title = GetTitle();
+                SetNoteState();
             }
         }
 
@@ -89,41 +90,26 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        private bool _isMarkedForRemoval;
-        public bool IsMarkedForRemoval
-        {
-            get { return _isMarkedForRemoval; }
-            set
-            {
-                _isMarkedForRemoval = value;
-                OnPropertyChanged();
-            }
-        }
-
         public bool AnimateOnLoad { get; set; } = false;
 
-        public NoteViewModel(int id,
+        public NoteViewModel(long id,
                              DateTime? lastModified,
                              string content,
-                             string folder)
+                             string folder,
+                             string cloudKey = null)
         {
             ID = id;
             LastModified = lastModified;
             Content = content;
             Folder = folder;
+            CloudKey = cloudKey;
 
             State = eNoteState.Normal;
-            IsMarkedForRemoval = false;
         }
 
         public NoteViewModel(Note note)
-        {
-            ID = note.ID;
-            LastModified = note.LastModified;
-            Content = note.Content;
-            Folder = note.Folder;
-            CloudKey = note.CloudKey;
-        }
+            : this(note.ID, note.LastModified, note.Content, note.Folder, note.CloudKey)
+        { }
 
         private string GetTitle()
         {
@@ -133,6 +119,13 @@ namespace NotedUI.UI.ViewModels
                 return NoteData.Content;
             else
                 return NoteData.Content.Substring(0, index);
+        }
+
+        private void SetNoteState()
+        {
+            // Only change the note if it's in a Normal state
+            if (State == eNoteState.Normal)
+                State = eNoteState.Changed;
         }
     }
 }

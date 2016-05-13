@@ -69,6 +69,11 @@
             <i:InvokeCommandAction Command="{Binding ShowReplaceCommand, ElementName=FormatMenu}" />
         </i:EventTrigger>
 
+        <i:EventTrigger EventName="TextChanged"
+                        SourceName="tbNote">
+            <i:InvokeCommandAction Command="{Binding AllNotes.TextChangedCommand}" />
+        </i:EventTrigger>
+
         <!--  Show / Hide Search Box Animations  -->
         <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
                                           Path=ShowSearch}"
@@ -273,18 +278,17 @@
                              AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
                              AllNotes="{Binding AllNotes}"
                              Background="{StaticResource AppTopBannerBrush}"
-                             DeleteNoteCommand="{Binding MainCommands.PrepareToDeleteCommand}"
+                             DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
                              ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
                              FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
                              FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
                              HomeViewModel="{Binding }"
-                             SelectedNote="{Binding ElementName=lvNotes,
-                                                    Path=SelectedItem}"
                              ShowPreview="{Binding MainCommands.ShowPreview,
                                                    Mode=TwoWay}"
                              ShowPreviewChanged="MainMenu_ShowPreviewChanged"
-                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
+                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}"
+                             TextEditor="{Binding ElementName=tbNote}" />
 
         <TextBox x:Name="SearchBox"
                  Grid.Row="0"
@@ -396,7 +400,6 @@
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
                            TargetType="ListViewItem">
-                        <Setter Property="ab:ListViewItemBehavior.IsMarkedForRemoval" Value="{Binding IsMarkedForRemoval}" />
                         <Setter Property="ab:NoteSyncBehavior.SyncState" Value="{Binding State, Mode=TwoWay}" />
                     </Style>
                 </ListView.ItemContainerStyle>

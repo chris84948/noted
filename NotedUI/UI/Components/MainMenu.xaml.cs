@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System;
+using ICSharpCode.AvalonEdit;
 
 namespace NotedUI.UI.Components
 {
@@ -27,18 +28,6 @@ namespace NotedUI.UI.Components
             set { SetValue(AllNotesProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedNoteProperty =
-            DependencyProperty.Register("SelectedNote",
-                                        typeof(NoteViewModel),
-                                        typeof(MainMenu),
-                                        new FrameworkPropertyMetadata(null));
-
-        public NoteViewModel SelectedNote
-        {
-            get { return (NoteViewModel)GetValue(SelectedNoteProperty); }
-            set { SetValue(SelectedNoteProperty, value); }
-        }
-
         public static readonly DependencyProperty HomeViewModelProperty =
             DependencyProperty.Register("HomeViewModel",
                                         typeof(HomeViewModel),
@@ -51,6 +40,17 @@ namespace NotedUI.UI.Components
             set { SetValue(HomeViewModelProperty, value); }
         }
 
+        public static readonly DependencyProperty TextEditorProperty =
+            DependencyProperty.Register("TextEditor",
+                                        typeof(TextEditor),
+                                        typeof(MainMenu),
+                                        new FrameworkPropertyMetadata(null));
+
+        public TextEditor TextEditor
+        {
+            get { return (TextEditor)GetValue(TextEditorProperty); }
+            set { SetValue(TextEditorProperty, value); }
+        }
 
         public static readonly DependencyProperty ShowSearchProperty =
             DependencyProperty.Register("ShowSearch",
@@ -227,6 +227,9 @@ namespace NotedUI.UI.Components
         {
             if (AddNoteCommand?.CanExecute(AllNotes) == true)
                 AddNoteCommand?.Execute(AllNotes);
+
+            TextEditor.Focus();
+            TextEditor.Select(TextEditor.Text.Length - 1, 0);
         }
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)

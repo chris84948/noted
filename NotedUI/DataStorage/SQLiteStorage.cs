@@ -41,15 +41,16 @@ namespace NotedUI.DataStorage
             {
                 conn.Open();
 
-                var notes = new List<Note>();
+                using (var reader = await new SQLiteCommand(SQLQueries.GetAllNotes(), conn)
+                                                     .ExecuteReaderAsync())
+                {
+                    var notes = new List<Note>();
 
-                var reader = await new SQLiteCommand(SQLQueries.GetAllNotes(), conn)
-                                                     .ExecuteReaderAsync();
+                    while (reader.Read())
+                        notes.Add(ReadNoteFromSQL(reader));
 
-                while (reader.Read())
-                    notes.Add(ReadNoteFromSQL(reader));
-
-                return notes;
+                    return notes;
+                }
             }
         }
 
@@ -67,15 +68,17 @@ namespace NotedUI.DataStorage
                 else
                     folderID = folder.ID;
 
-                var cmd = new SQLiteCommand(SQLQueries.AddNote(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", DateTime.Now.ToString()));
-                cmd.Parameters.Add(new SQLiteParameter("@Content", ""));
-                cmd.Parameters.Add(new SQLiteParameter("@FolderID", folderID));
+                using (var cmd = new SQLiteCommand(SQLQueries.AddNote(), conn))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", DateTime.Now.ToString()));
+                    cmd.Parameters.Add(new SQLiteParameter("@Content", ""));
+                    cmd.Parameters.Add(new SQLiteParameter("@FolderID", folderID));
 
-                await cmd.ExecuteNonQueryAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
 
-                var cmdGetID = new SQLiteCommand(SQLQueries.GetLastInsertedRowID(), conn);
-                return (long)await cmdGetID.ExecuteScalarAsync();
+                using (var cmdGetID = new SQLiteCommand(SQLQueries.GetLastInsertedRowID(), conn))
+                    return (long)cmdGetID.ExecuteScalar();
             }
         }
 
@@ -85,14 +88,16 @@ namespace NotedUI.DataStorage
             {
                 conn.Open();
 
-                var cmd = new SQLiteCommand(SQLQueries.UpdateNote(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@ID", note.ID));
-                cmd.Parameters.Add(new SQLiteParameter("@CloudKey", note.CloudKey));
-                cmd.Parameters.Add(new SQLiteParameter("@LastModified", note.LastModified));
-                cmd.Parameters.Add(new SQLiteParameter("@Content", note.Content));
-                cmd.Parameters.Add(new SQLiteParameter("@Folder", note.Folder));
+                using (var cmd = new SQLiteCommand(SQLQueries.UpdateNote(), conn))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@ID", note.ID));
+                    cmd.Parameters.Add(new SQLiteParameter("@CloudKey", note.CloudKey));
+                    cmd.Parameters.Add(new SQLiteParameter("@LastModified", note.LastModified));
+                    cmd.Parameters.Add(new SQLiteParameter("@Content", note.Content));
+                    cmd.Parameters.Add(new SQLiteParameter("@Folder", note.Folder));
 
-                return cmd.ExecuteNonQueryAsync();
+                    return cmd.ExecuteNonQueryAsync();
+                }
             }
         }
 
@@ -102,10 +107,12 @@ namespace NotedUI.DataStorage
             {
                 conn.Open();
 
-                var cmd = new SQLiteCommand(SQLQueries.DeleteNote(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@ID", note.ID));
+                using (var cmd = new SQLiteCommand(SQLQueries.DeleteNote(), conn))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@ID", note.ID));
 
-                return cmd.ExecuteNonQueryAsync();
+                    return cmd.ExecuteNonQueryAsync();
+                }
             }
         }
 
@@ -160,38 +167,45 @@ namespace NotedUI.DataStorage
 
         private async Task<Folder> GetFolderWithConnection(SQLiteConnection conn, string folderName)
         {
-            var cmd = new SQLiteCommand(SQLQueries.GetAllFolders(), conn);
-            cmd.Parameters.Add(new SQLiteParameter("@Name", folderName));
-            var reader = await cmd.ExecuteReaderAsync();
+            using (var cmd = new SQLiteCommand(SQLQueries.GetAllFolders(), conn))
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Name", folderName));
 
-            if (reader.Read())
-                return ReadFolderFromSQL(reader);
-            else
-                return null;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (reader.Read())
+                        return ReadFolderFromSQL(reader);
+                    else
+                        return null;
+                }
+            }
         }
 
         private async Task<List<Folder>> GetAllFoldersWithConnection(SQLiteConnection conn)
         {
-            var folders = new List<Folder>();
+            using (var reader = await new SQLiteCommand(SQLQueries.GetAllFolders(), conn)
+                                                 .ExecuteReaderAsync())
+            {
+                var folders = new List<Folder>();
 
-            var reader = await new SQLiteCommand(SQLQueries.GetAllFolders(), conn)
-                                                 .ExecuteReaderAsync();
+                while (reader.Read())
+                    folders.Add(ReadFolderFromSQL(reader));
 
-            while (reader.Read())
-                folders.Add(ReadFolderFromSQL(reader));
-
-            return folders;
+                return folders;
+            }
         }
 
         private async Task<long> AddFolderWithConnection(SQLiteConnection conn, string folderName)
         {
-            var cmd = new SQLiteCommand(SQLQueries.AddFolder(), conn);
-            cmd.Parameters.Add(new SQLiteParameter("@Folder", folderName));
+            using (var cmd = new SQLiteCommand(SQLQueries.AddFolder(), conn))
+            {
+                cmd.Parameters.Add(new SQLiteParameter("@Folder", folderName));
 
-            await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();
+            }
 
-            var cmdGetID = new SQLiteCommand(SQLQueries.GetLastInsertedRowID(), conn);
-            return (long)await cmdGetID.ExecuteScalarAsync();
+            using (var cmdGetID = new SQLiteCommand(SQLQueries.GetLastInsertedRowID(), conn))
+                return (long)await cmdGetID.ExecuteScalarAsync();
         }
 
         private Note ReadNoteFromSQL(DbDataReader reader)

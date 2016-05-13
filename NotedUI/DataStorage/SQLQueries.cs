@@ -62,9 +62,9 @@
                 @"UPDATE Notes 
                   SET CloudKey = @CloudKey,
                       LastModified = @LastModified, 
-                      Content = @Content
-                      Folder = SELECT TOP 1 ID FROM Folders
-                               WHERE Name = @Folder
+                      Content = @Content,
+                      FolderID = (SELECT Folders.ID FROM Folders
+                               WHERE Folders.Name = @Folder)
                   WHERE ID = @ID";
         }
 

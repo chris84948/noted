@@ -3,8 +3,7 @@
 
     <Style x:Key="ListViewScrollViewer"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -64,12 +63,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Tag" Value="Horizontal">
-                            <Setter TargetName="Rectangle1"
-                                    Property="Width"
-                                    Value="Auto" />
-                            <Setter TargetName="Rectangle1"
-                                    Property="Height"
-                                    Value="7" />
+                            <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -80,14 +75,9 @@
     <!--  ScrollBars  -->
     <Style x:Key="ListViewScrollBar"
            TargetType="{x:Type ScrollBar}">
-        <Setter Property="Stylus.IsFlicksEnabled"
-                Value="false" />
-        <Setter Property="Foreground"
-                Value="{StaticResource ListViewBackgroundSelectedBrush}" />
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="Width"
-                Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource ListViewBackgroundSelectedBrush}" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -127,48 +117,35 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground"
-                                    Value="{StaticResource AppTopBannerBrush}" />
-                            <Setter Property="Opacity"
-                                    Value="0.5" />
+                            <Setter Property="Foreground" Value="{StaticResource AppTopBannerBrush}" />
+                            <Setter Property="Opacity" Value="0.5" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Thumb"
-                                    Property="Visibility"
-                                    Value="Collapsed" />
+                            <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="Orientation" Value="Horizontal">
-                            <Setter TargetName="GridRoot"
-                                    Property="LayoutTransform">
+                            <Setter Property="Height" Value="6" />
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter TargetName="GridRoot" Property="LayoutTransform">
                                 <Setter.Value>
                                     <RotateTransform Angle="-90" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="PART_Track"
-                                    Property="LayoutTransform">
+                            <Setter TargetName="PART_Track" Property="LayoutTransform">
                                 <Setter.Value>
                                     <RotateTransform Angle="-90" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Width"
-                                    Value="Auto" />
-                            <Setter Property="Height"
-                                    Value="6" />
-                            <Setter TargetName="Thumb"
-                                    Property="Tag"
-                                    Value="Horizontal" />
-                            <Setter TargetName="PageDown"
-                                    Property="Command"
-                                    Value="ScrollBar.PageLeftCommand" />
-                            <Setter TargetName="PageUp"
-                                    Property="Command"
-                                    Value="ScrollBar.PageRightCommand" />
+                            <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                            <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Width" Value="8" />
     </Style>
 
 </ResourceDictionary>
