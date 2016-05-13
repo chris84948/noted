@@ -175,6 +175,8 @@
     <Compile Include="Controls\NotedWindow.cs" />
     <Compile Include="Converters\InvertValueConverter.cs" />
     <Compile Include="Converters\MarkdownConverter.cs" />
+    <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\MathMultiConverter.cs" />
     <Compile Include="Converters\NoteTitleWidthConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
