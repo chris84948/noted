@@ -287,8 +287,7 @@
                              ShowPreview="{Binding MainCommands.ShowPreview,
                                                    Mode=TwoWay}"
                              ShowPreviewChanged="MainMenu_ShowPreviewChanged"
-                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}"
-                             TextEditor="{Binding ElementName=tbNote}" />
+                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
 
         <TextBox x:Name="SearchBox"
                  Grid.Row="0"

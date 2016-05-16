@@ -85,9 +85,6 @@ namespace NotedUI.UI.Screens
                 if (args.Key == System.Windows.Input.Key.Enter)
                     tbNote.TextChanged += tbNote_TextChangedEvent;
             };
-
-            tbNote.Focus();
-            tbNote.Select(tbNote.Text.Length, 0);
         }
 
         private void tbNote_TextChangedEvent(object sender, EventArgs args)
@@ -206,6 +203,13 @@ namespace NotedUI.UI.Screens
 
             tbNote.Focus();
             tbNote.Select(0, 0);
+
+            tbNote.LostFocus += TbNote_LostFocus;
+        }
+
+        private void TbNote_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
         }
 
         private void tbMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)

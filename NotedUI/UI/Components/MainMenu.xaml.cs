@@ -40,18 +40,6 @@ namespace NotedUI.UI.Components
             set { SetValue(HomeViewModelProperty, value); }
         }
 
-        public static readonly DependencyProperty TextEditorProperty =
-            DependencyProperty.Register("TextEditor",
-                                        typeof(TextEditor),
-                                        typeof(MainMenu),
-                                        new FrameworkPropertyMetadata(null));
-
-        public TextEditor TextEditor
-        {
-            get { return (TextEditor)GetValue(TextEditorProperty); }
-            set { SetValue(TextEditorProperty, value); }
-        }
-
         public static readonly DependencyProperty ShowSearchProperty =
             DependencyProperty.Register("ShowSearch",
                                         typeof(bool),
@@ -227,9 +215,6 @@ namespace NotedUI.UI.Components
         {
             if (AddNoteCommand?.CanExecute(AllNotes) == true)
                 AddNoteCommand?.Execute(AllNotes);
-
-            TextEditor.Focus();
-            TextEditor.Select(TextEditor.Text.Length - 1, 0);
         }
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
