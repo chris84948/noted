@@ -8,29 +8,29 @@ namespace NotedUI.Models
         public string CloudKey { get; set; }
         public DateTime? LastModified { get; set; }
         public string Content { get; set; }
-        public string Folder { get; set; }
+        public string Group { get; set; }
 
         public Note()
         { }
 
         public Note(string content,
-                    string folder)
+                    string group)
         {
             Content = content;
-            Folder = folder;
+            Group = group;
         }
 
         public Note(long id,
                     string cloudKey,
                     DateTime? lastModified,
                     string content,
-                    string folder)
+                    string group)
         {
             ID = id;
             CloudKey = cloudKey;
             LastModified = lastModified;
             Content = content;
-            Folder = folder;
+            Group = group;
         }
     }
 }

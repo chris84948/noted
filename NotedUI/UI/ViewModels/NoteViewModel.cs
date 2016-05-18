@@ -1,10 +1,6 @@
 ﻿using JustMVVM;
 using NotedUI.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -69,12 +65,12 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        public string Folder
+        public string Group
         {
-            get { return NoteData.Folder; }
+            get { return NoteData.Group; }
             set
             {
-                NoteData.Folder = value;
+                NoteData.Group = value;
                 OnPropertyChanged();
             }
         }
@@ -95,20 +91,20 @@ namespace NotedUI.UI.ViewModels
         public NoteViewModel(long id,
                              DateTime? lastModified,
                              string content,
-                             string folder,
+                             string group,
                              string cloudKey = null)
         {
             ID = id;
             LastModified = lastModified;
             Content = content;
-            Folder = folder;
+            Group = group;
             CloudKey = cloudKey;
 
             State = eNoteState.Normal;
         }
 
         public NoteViewModel(Note note)
-            : this(note.ID, note.LastModified, note.Content, note.Folder, note.CloudKey)
+            : this(note.ID, note.LastModified, note.Content, note.Group, note.CloudKey)
         { }
 
         private string GetTitle()

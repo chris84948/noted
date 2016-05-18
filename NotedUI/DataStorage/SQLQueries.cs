@@ -10,10 +10,10 @@
                     CloudKey TEXT,
                     LastModified TEXT,
                     Content TEXT,
-                    FolderID INTEGER
+                    GroupID INTEGER
                 );
 
-                CREATE TABLE Folders (
+                CREATE TABLE Groups (
                     ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Name TEXT
                 );
@@ -24,10 +24,10 @@
                         CloudKey,
                         LastModified,
                         Content,
-                        folders.Name AS Folder
+                        groups.Name AS [Group]
                     FROM
                         Notes notes
-                        LEFT JOIN Folders folders ON (notes.FolderID = folders.ID);";
+                        LEFT JOIN Groups groups ON notes.GroupID = groups.ID;";
         }
 
         public static string GetLastInsertedRowID()
@@ -52,8 +52,8 @@
         public static string AddNote()
         {
             return
-                @"INSERT INTO Notes (CloudKey, LastModified, Content, FolderID)
-                  VALUES (null, @LastModified, @Content, @FolderID)";
+                @"INSERT INTO Notes (CloudKey, LastModified, Content, GroupID)
+                  VALUES (null, @LastModified, @Content, @GroupID)";
         }
 
         public static string UpdateNote()
@@ -63,8 +63,8 @@
                   SET CloudKey = @CloudKey,
                       LastModified = @LastModified, 
                       Content = @Content,
-                      FolderID = (SELECT Folders.ID FROM Folders
-                               WHERE Folders.Name = @Folder)
+                      GroupID = (SELECT Groups.ID FROM Groups
+                               WHERE Groups.Name = @Group)
                   WHERE ID = @ID";
         }
 
@@ -75,39 +75,39 @@
                   WHERE ID = @ID";
         }
 
-        public static string AddFolder()
+        public static string AddGroup()
         {
             return
-                @"INSERT INTO Folders (Name)
-                  VALUES (@Folder)";
+                @"INSERT INTO Groups (Name)
+                  VALUES (@Group)";
         }
 
-        public static string GetAllFolders()
+        public static string GetAllGroups()
         {
             return
-                @"SELECT * FROM Folders";
+                @"SELECT * FROM Groups";
         }
 
-        public static string GetFolder()
+        public static string GetGroup()
         {
             return
-                @"SELECT * FROM Folders
-                  WHERE Name = @Folder;";
+                @"SELECT * FROM Groups
+                  WHERE Name = '@Group';";
         }
 
-        public static string UpdateFolder()
+        public static string UpdateGroup()
         {
             return
-                @"UPDATE Folders
-                  SET Name = @Folder
-                  WHERE FolderID = @FolderID;";
+                @"UPDATE Groups
+                  SET Name = @Group
+                  WHERE GroupID = @GroupID;";
         }
 
-        public static string DeleteFolder()
+        public static string DeleteGroup()
         {
             return
-                @"DELETE FROM Folders
-                  WHERE FolderID = @FolderID;";
+                @"DELETE FROM Groups
+                  WHERE GroupID = @GroupID;";
         }
     }
 }

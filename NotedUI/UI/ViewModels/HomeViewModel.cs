@@ -1,7 +1,5 @@
 ﻿using System;
 using JustMVVM;
-using System.Collections.ObjectModel;
-using NotedUI.UI.Screens;
 using NotedUI.Controls;
 using System.Collections.Generic;
 using NotedUI.Models;
@@ -75,7 +73,7 @@ namespace NotedUI.UI.ViewModels
             NoteViewModel sourceItem = dropInfo.Data as NoteViewModel;
             NoteViewModel targetItem = dropInfo.TargetItem as NoteViewModel;
 
-            sourceItem.Folder = dropInfo.TargetGroup.Name.ToString();
+            sourceItem.Group = dropInfo.TargetGroup.Name.ToString();
 
             // Changing group data at runtime isn't handled well: force a refresh on the collection view.
             if (dropInfo.TargetCollection is IEditableCollectionView)

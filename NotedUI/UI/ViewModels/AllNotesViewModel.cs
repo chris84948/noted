@@ -3,15 +3,10 @@ using NotedUI.Controls;
 using NotedUI.DataStorage;
 using NotedUI.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -41,6 +36,17 @@ namespace NotedUI.UI.ViewModels
                     UpdateNote(_selectedNote);
 
                 _selectedNote = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<GroupViewModel> _groups;
+        public List<GroupViewModel> Groups
+        {
+            get { return _groups; }
+            set
+            {
+                _groups = value;
                 OnPropertyChanged();
             }
         }
@@ -79,24 +85,19 @@ namespace NotedUI.UI.ViewModels
 
             InitializeNotes();
 
-            _view = CollectionViewSource.GetDefaultView(_notes);
-            _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
-            _view.GroupDescriptions.Add(new PropertyGroupDescription("Folder"));
-            _view.Filter = NoteFilter;
-
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
-            //groupDescription.GroupNames.Add("GROUP 1");
-            //groupDescription.GroupNames.Add("GROUP 2");
-            //groupDescription.GroupNames.Add("GROUP 3");
-            //view.GroupDescriptions.Add(groupDescription);
-
-            _filterTimer = new System.Timers.Timer(1000);
+            _filterTimer = new Timer(1000);
             _filterTimer.AutoReset = false;
             _filterTimer.Elapsed += FilterTimer_Elapsed;
 
-            _updateNoteTimer = new System.Timers.Timer(3000);
+            _updateNoteTimer = new Timer(3000);
             _updateNoteTimer.AutoReset = false;
-            _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote); ;
+            _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
+        }
+
+        public void AddGroup(GroupViewModel group)
+        {
+            Groups.Add(group);
+            UpdateViewGroupDescription();
         }
 
         private void FilterTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -109,13 +110,18 @@ namespace NotedUI.UI.ViewModels
         {
             // Get local files first
             await LocalStorage.Initialize();
+            Groups = (await LocalStorage.GetAllGroups()).Select(x => new GroupViewModel(x)).ToList();
             _notes = new AsyncObservableCollection<NoteViewModel>((await LocalStorage.GetAllNotes()).Select(x => new NoteViewModel(x)));
 
             if (_notes.Count > 0)
                 SelectedNote = _notes[0];
 
             // TODO get cloud notes here
-            
+
+            _view = CollectionViewSource.GetDefaultView(_notes);
+            _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
+            UpdateViewGroupDescription();
+            _view.Filter = NoteFilter;
         }
 
         private async void UpdateNote(NoteViewModel note)
@@ -126,6 +132,19 @@ namespace NotedUI.UI.ViewModels
             note.State = eNoteState.Syncing;
             await LocalStorage.UpdateNote(note.NoteData);
             note.State = eNoteState.SyncComplete;
+        }
+
+        private void UpdateViewGroupDescription()
+        {
+            if (Groups == null || _view == null)
+                return;
+
+            // First clear the existing list
+            _view.GroupDescriptions.Clear();
+
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
+            Groups.ForEach(x => groupDescription.GroupNames.Add(x.Name));
+            _view.GroupDescriptions.Add(groupDescription);
         }
 
         private void TextChangedExec()

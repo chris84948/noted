@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NotedUI.Models
+﻿namespace NotedUI.Models
 {
-    public class Folder
+    public class Group
     {
         public long ID { get; set; }
         public string Name { get; set; }
 
-        public Folder(long id, string folderName)
+        public Group()
+        { }
+
+        public Group(long id, string groupName)
         {
             ID = id;
-            Name = folderName;
+            Name = groupName;
         }
     }
 }

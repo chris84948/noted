@@ -189,21 +189,27 @@
     <Compile Include="DataStorage\SQLQueries.cs" />
     <Compile Include="Export\HTMLExporter.cs" />
     <Compile Include="Export\PDFExporter.cs" />
-    <Compile Include="Models\DialogData.cs" />
+    <Compile Include="Models\AddGroupParams.cs" />
+    <Compile Include="Models\AddLinkParams.cs" />
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\ListData.cs" />
+    <Compile Include="Models\AddNoteParams.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Resources\AvalonHighlighting\HighlightingLoader.cs" />
     <Compile Include="Controls\NotedExpander.cs" />
     <Compile Include="UI\Dialogs\FindReplaceDialog.xaml.cs">
       <DependentUpon>FindReplaceDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\GroupNameDialog.xaml.cs">
+      <DependentUpon>GroupNameDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\LinkDialog.xaml.cs">
       <DependentUpon>LinkDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
+    <Compile Include="UI\ViewModels\GroupViewModel.cs" />
     <Compile Include="UI\ViewModels\IDialog.cs" />
+    <Compile Include="UI\ViewModels\GroupNameDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\LinkDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
@@ -244,6 +250,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Dialogs\GroupNameDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Dialogs\LinkDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,10 +271,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ResourceDictionaries\DataTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\Fonts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

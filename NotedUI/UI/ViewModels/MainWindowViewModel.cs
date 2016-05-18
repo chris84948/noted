@@ -1,6 +1,5 @@
 ﻿using JustMVVM;
 using NotedUI.Controls;
-using NotedUI.UI.ViewModels;
 
 namespace NotedUI.UI.ViewModels
 {

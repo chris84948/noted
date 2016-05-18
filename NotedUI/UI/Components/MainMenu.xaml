@@ -73,11 +73,34 @@
                       IsChecked="{Binding ShowSearch,
                                           ElementName=Me}" />
 
-        <Button x:Name="buttonAdd"
-                ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
-                ab:ButtonBehaviors.IconSize="16"
-                Click="buttonAdd_Click"
-                Content="ADD" />
+        <ToggleButton x:Name="buttonAdd"
+                      ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
+                      Content="NOTE"
+                      IsHitTestVisible="{Binding ElementName=popupAddNote,
+                                                 Path=IsOpen,
+                                                 Mode=OneWay,
+                                                 Converter={StaticResource InvertValueConverter}}" />
+
+        <Popup x:Name="popupAddNote"
+               IsOpen="{Binding ElementName=buttonAdd,
+                                Path=IsChecked}"
+               Placement="Bottom"
+               PlacementTarget="{Binding ElementName=buttonAdd}"
+               StaysOpen="False"
+               VerticalOffset="-1">
+
+            <ItemsControl Background="{StaticResource ButtonPopupBrush}"
+                          ItemsSource="{Binding AllNotes.Groups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Click="popupAddNote_Click"
+                                Content="{Binding Name,
+                                                  Converter={StaticResource ToUpperConverter}}"
+                                Style="{StaticResource PopupButtonStyle}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Popup>
 
         <Button x:Name="buttonDelete"
                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
@@ -85,34 +108,10 @@
                 Click="buttonDelete_Click"
                 Content="DELETE" />
 
-        <ToggleButton x:Name="buttonFolder"
-                      ab:ButtonBehaviors.Icon="{StaticResource FolderIcon}"
-                      Content="GROUP"
-                      IsHitTestVisible="{Binding ElementName=popupFolder,
-                                                 Path=IsOpen,
-                                                 Mode=OneWay,
-                                                 Converter={StaticResource InvertValueConverter}}" />
-
-        <Popup x:Name="popupFolder"
-               IsOpen="{Binding ElementName=buttonFolder,
-                                Path=IsChecked}"
-               Placement="Bottom"
-               PlacementTarget="{Binding ElementName=buttonFolder}"
-               StaysOpen="False"
-               VerticalOffset="-1">
-
-            <StackPanel Background="{StaticResource ButtonPopupBrush}"
-                        Orientation="Vertical">
-                <Button x:Name="buttonAddFolder"
-                        Click="buttonAddFolder_Click"
-                        Content="ADD"
-                        Style="{StaticResource PopupButtonStyle}" />
-                <Button x:Name="buttonDeleteFolder"
-                        Click="buttonDeleteFolder_Click"
-                        Content="DELETE"
-                        Style="{StaticResource PopupButtonStyle}" />
-            </StackPanel>
-        </Popup>
+        <Button x:Name="buttonGroup"
+                ab:ButtonBehaviors.Icon="{StaticResource GroupIcon}"
+                Click="buttonAddGroup_Click"
+                Content="GROUP" />
 
         <ToggleButton x:Name="buttonExport"
                       ab:ButtonBehaviors.Icon="{StaticResource ExportIcon}"

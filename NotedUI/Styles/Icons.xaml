@@ -27,20 +27,10 @@
           x:Shared="False"
           Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
           Fill="#FF000000" />
-    <Path x:Key="FolderIcon"
-          x:Shared="False"
-          Data="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"
-          Fill="#FF000000" />
-    <Path x:Key="FolderAddIcon"
+    <Path x:Key="GroupIcon"
           x:Shared="False"
           Data="M10,4L12,6H20A2,2 0 0,1 22,8V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10M15,9V12H12V14H15V17H17V14H20V12H17V9H15Z"
           Fill="#FF000000" />
-    <Path x:Key="FolderDeleteIcon"
-          x:Shared="False"
-          Data="M10,4L12,6H20A2,2 0 0,1 22,8V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10M12.46,10.88L14.59,13L12.46,15.12L13.88,16.54L16,14.41L18.12,16.54L19.54,15.12L17.41,13L19.54,10.88L18.12,9.46L16,11.59L13.88,9.46L12.46,10.88Z"
-          Fill="#FF000000" />
-
-
 
     <Path x:Key="ExportIcon"
           x:Shared="False"
@@ -106,5 +96,10 @@
     <Path x:Key="ReplaceAllIcon"
           x:Shared="False"
           Data="M5.59,7.41L7,6L13,12L7,18L5.59,16.59L10.17,12L5.59,7.41M11.59,7.41L13,6L19,12L13,18L11.59,16.59L16.17,12L11.59,7.41Z"
+          Fill="#FF000000" />
+
+    <Path x:Key="AlertMessageIcon"
+          x:Shared="False"
+          Data="M13,10H11V6H13M13,14H11V12H13M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4C22,2.89 21.1,2 20,2Z"
           Fill="#FF000000" />
 </ResourceDictionary>

@@ -1,5 +1,4 @@
 ﻿using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Highlighting;
 using System.Windows;
 
 namespace NotedUI

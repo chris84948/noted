@@ -1,19 +1,8 @@
 ﻿using NotedUI.UI.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NotedUI.Controls
 {
@@ -74,7 +63,8 @@ namespace NotedUI.Controls
             };
 
             // First run, open the expander and select the new item - this only runs when the group is first added
-            expander.IsExpanded = true;
+            if (expander.IsLoaded)
+                expander.IsExpanded = true;
             expander._eventsInitialized = true;
         }
 
@@ -120,7 +110,7 @@ namespace NotedUI.Controls
             var draggedNote = e.Data.GetData("GongSolutions.Wpf.DragDrop") as NoteViewModel;
             var expander = sender as Expander;
 
-            if (draggedNote.Folder.ToUpper() != expander.Header.ToString().ToUpper())
+            if (draggedNote.Group.ToUpper() != expander.Header.ToString().ToUpper())
                 SetShowHighlight(expander, true);
         }
 
@@ -132,7 +122,7 @@ namespace NotedUI.Controls
             var draggedNote = e.Data.GetData("GongSolutions.Wpf.DragDrop") as NoteViewModel;
             var expander = sender as Expander;
 
-            if (draggedNote.Folder.ToUpper() != expander.Header.ToString().ToUpper())
+            if (draggedNote.Group.ToUpper() != expander.Header.ToString().ToUpper())
                 SetShowHighlight(expander, false);
         }
     }

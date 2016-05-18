@@ -10,13 +10,13 @@ namespace NotedUI.DataStorage
 
         Task<List<Note>> GetAllNotes();
 
-        Task<long> AddNote(string folderName);
+        Task<long> AddNote(string groupName);
         Task UpdateNote(Note note);
         Task DeleteNote(Note note);
 
-        Task<Folder> GetFolder(string folderName);
-        Task<List<Folder>> GetAllFolders();
-        Task<long> AddFolder(string folderName);
-        Task UpdateFolder(string folderName);
+        Task<Group> GetGroup(string groupName);
+        Task<List<Group>> GetAllGroups();
+        Task<long> AddGroup(string groupName);
+        Task UpdateGroup(string groupName);
     }
 }

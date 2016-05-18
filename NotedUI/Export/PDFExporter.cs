@@ -1,8 +1,4 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
-using System;
-using System.IO;
+﻿using System.IO;
 
 namespace NotedUI.Export
 {

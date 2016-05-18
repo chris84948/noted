@@ -281,8 +281,7 @@
                              DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
                              ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
-                             FolderAddCommand="{Binding MainCommands.FolderAddCommand}"
-                             FolderDeleteCommand="{Binding MainCommands.FolderDeleteCommand}"
+                             GroupAddCommand="{Binding MainCommands.GroupAddCommand}"
                              HomeViewModel="{Binding }"
                              ShowPreview="{Binding MainCommands.ShowPreview,
                                                    Mode=TwoWay}"
@@ -372,6 +371,7 @@
                       drag:DragDrop.UseDefaultDragAdorner="True"
                       ItemsSource="{Binding AllNotes.View}"
                       SelectedItem="{Binding AllNotes.SelectedNote}">
+
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>

@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -26,8 +25,8 @@ namespace NotedUI.UI.ViewModels
         public ICommand CodeCommand { get { return new RelayCommand<TextEditor>(CodeExec, CanCodeExec); } }
         public ICommand BulletPointCommand { get { return new RelayCommand<TextEditor>(BulletPointExec, CanBulletPointExec); } }
         public ICommand ListCommand { get { return new RelayCommand<TextEditor>(ListExec, CanListExec); } }
-        public ICommand ImageCommand { get { return new RelayCommand<DialogData>(ImageExec, CanImageExec); } }
-        public ICommand LinkCommand { get { return new RelayCommand<DialogData>(LinkExec, CanLinkExec); } }
+        public ICommand ImageCommand { get { return new RelayCommand<AddLinkParams>(ImageExec, CanImageExec); } }
+        public ICommand LinkCommand { get { return new RelayCommand<AddLinkParams>(LinkExec, CanLinkExec); } }
         public ICommand HorizontalLineCommand { get { return new RelayCommand<TextEditor>(HorizontalLineExec, CanHorizontalLineExec); } }
         public ICommand EnterCommand { get { return new RelayCommand<TextEditor>(EnterExec, CanEnterExec); } }
         public ICommand LineBreakCommand { get { return new RelayCommand<TextEditor>(LineBreakExec, CanLineBreakExec); } }
@@ -202,22 +201,22 @@ namespace NotedUI.UI.ViewModels
             FormatList(tbNote, bulletPoint: false);
         }
 
-        public bool CanImageExec(DialogData data)
+        public bool CanImageExec(AddLinkParams data)
         {
             return true;
         }
 
-        public void ImageExec(DialogData data)
+        public void ImageExec(AddLinkParams data)
         {
 
         }
 
-        public bool CanLinkExec(DialogData data)
+        public bool CanLinkExec(AddLinkParams data)
         {
             return true;
         }
 
-        public void LinkExec(DialogData data)
+        public void LinkExec(AddLinkParams data)
         {
             var dialog = new LinkDialogViewModel(data.Editor.SelectedText);
 

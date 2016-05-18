@@ -1,13 +1,9 @@
 ﻿using NotedUI.Models;
-using NotedUI.UI.Screens;
 using NotedUI.UI.ViewModels;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System;
-using ICSharpCode.AvalonEdit;
 
 namespace NotedUI.UI.Components
 {
@@ -127,30 +123,17 @@ namespace NotedUI.UI.Components
             set { SetValue(DeleteNoteCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty FolderAddCommandProperty =
-            DependencyProperty.Register("FolderAddCommand",
+        public static readonly DependencyProperty GroupAddCommandProperty =
+            DependencyProperty.Register("GroupAddCommand",
                                         typeof(ICommand),
                                         typeof(MainMenu),
                                         new PropertyMetadata((ICommand)null));
 
         [TypeConverter(typeof(CommandConverter))]
-        public ICommand FolderAddCommand
+        public ICommand GroupAddCommand
         {
-            get { return (ICommand)GetValue(FolderAddCommandProperty); }
-            set { SetValue(FolderAddCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty FolderDeleteCommandProperty =
-            DependencyProperty.Register("FolderDeleteCommand",
-                                        typeof(ICommand),
-                                        typeof(MainMenu),
-                                        new PropertyMetadata((ICommand)null));
-
-        [TypeConverter(typeof(CommandConverter))]
-        public ICommand FolderDeleteCommand
-        {
-            get { return (ICommand)GetValue(FolderDeleteCommandProperty); }
-            set { SetValue(FolderDeleteCommandProperty, value); }
+            get { return (ICommand)GetValue(GroupAddCommandProperty); }
+            set { SetValue(GroupAddCommandProperty, value); }
         }
 
         public static readonly DependencyProperty ExportHTMLCommandProperty =
@@ -223,22 +206,26 @@ namespace NotedUI.UI.Components
                 DeleteNoteCommand?.Execute(AllNotes);
         }
 
-        private void buttonAddFolder_Click(object sender, RoutedEventArgs e)
+        private void popupAddNote_Click(object sender, RoutedEventArgs e)
         {
-            popupFolder.IsOpen = false;
+            popupAddNote.IsOpen = false;
 
-            if (FolderAddCommand?.CanExecute(AllNotes) == true)
-                FolderAddCommand?.Execute(AllNotes);
+            var button = sender as Button;
+            string groupName = button.Content.ToString();
+            var cmdArgs = new AddNoteParams(AllNotes, groupName);
+
+            if (AddNoteCommand?.CanExecute(cmdArgs) == true)
+                AddNoteCommand?.Execute(cmdArgs);
         }
 
-        private void buttonDeleteFolder_Click(object sender, RoutedEventArgs e)
+        private void buttonAddGroup_Click(object sender, RoutedEventArgs e)
         {
-            popupFolder.IsOpen = false;
+            var data = new AddGroupParams(HomeViewModel, AllNotes);
 
-            if (FolderDeleteCommand?.CanExecute(AllNotes) == true)
-                FolderDeleteCommand?.Execute(AllNotes);
+            if (GroupAddCommand?.CanExecute(data) == true)
+                GroupAddCommand?.Execute(data);
         }
-
+        
         private void buttonExportHTML_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;

@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System;
 
 namespace NotedUI.UI.Components
 {
@@ -411,7 +410,7 @@ namespace NotedUI.UI.Components
 
         private void Image_Click(object sender, RoutedEventArgs e)
         {
-            var data = new DialogData(HomeViewModel, TextBox);
+            var data = new AddLinkParams(HomeViewModel, TextBox);
 
             if (ImageCommand?.CanExecute(data) == true)
                 ImageCommand?.Execute(data);
@@ -419,7 +418,7 @@ namespace NotedUI.UI.Components
 
         private void Link_Click(object sender, RoutedEventArgs e)
         {
-            var data = new DialogData(HomeViewModel, TextBox);
+            var data = new AddLinkParams(HomeViewModel, TextBox);
 
             if (LinkCommand?.CanExecute(data) == true)
             LinkCommand?.Execute(data);

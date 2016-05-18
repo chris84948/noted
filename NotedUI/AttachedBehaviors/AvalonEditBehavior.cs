@@ -52,7 +52,7 @@ namespace NotedUI.AttachedBehaviors
             if (behavior.AssociatedObject != null)
             {
                 var editor = behavior.AssociatedObject as TextEditor;
-                if (editor.Document != null)
+                if (editor.Document != null && dependencyPropertyChangedEventArgs.NewValue != null)
                 {
                     editor.Document.Text = dependencyPropertyChangedEventArgs.NewValue.ToString();
 

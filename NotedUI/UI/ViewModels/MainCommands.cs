@@ -1,23 +1,17 @@
-﻿using CommonMark;
-using ICSharpCode.AvalonEdit;
-using JustMVVM;
-using NotedUI.Export;
+﻿using JustMVVM;
 using NotedUI.Models;
 using NotedUI.UI.Components;
-using NotedUI.UI.Screens;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
 {
     public class MainCommands : MVVMBase
     {
-        public ICommand AddNoteCommand { get { return new RelayCommand<AllNotesViewModel>(AddNoteExec, CanAddNoteExec); } }
+        public ICommand AddNoteCommand { get { return new RelayCommand<AddNoteParams>(AddNoteExec, CanAddNoteExec); } }
         public ICommand DeleteNoteCommand { get { return new RelayCommand<AllNotesViewModel>(DeleteNoteExec, CanDeleteNoteExec); } }
-        public ICommand FolderAddCommand { get { return new RelayCommand<AllNotesViewModel>(FolderAddExec, CanFolderAddExec); } }
-        public ICommand FolderDeleteCommand { get { return new RelayCommand<AllNotesViewModel>(FolderDeleteExec, CanFolderDeleteExec); } }
+        public ICommand GroupAddCommand { get { return new RelayCommand<AddGroupParams>(GroupAddExec, CanGroupAddExec); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand<AllNotesViewModel>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
@@ -47,19 +41,18 @@ namespace NotedUI.UI.ViewModels
             
         }
 
-        public bool CanAddNoteExec(AllNotesViewModel allNotes)
+        public bool CanAddNoteExec(AddNoteParams cmdArgs)
         {
             return true;
         }
 
-        public async void AddNoteExec(AllNotesViewModel allNotes)
+        public async void AddNoteExec(AddNoteParams cmdArgs)
         {
-            string folderName = "Group 1";
-            int id = (int)await allNotes.LocalStorage.AddNote(folderName);
+            int id = (int)await cmdArgs.AllNotes.LocalStorage.AddNote(cmdArgs.GroupName);
 
-            var newNote = new NoteViewModel(id, DateTime.Now, "", folderName);
-            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Add(newNote);
-            allNotes.SelectedNote = newNote;
+            var newNote = new NoteViewModel(id, DateTime.Now, "", cmdArgs.GroupName);
+            (cmdArgs.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Add(newNote);
+            cmdArgs.AllNotes.SelectedNote = newNote;
         }
 
         public bool CanDeleteNoteExec(AllNotesViewModel allNotes)
@@ -81,22 +74,35 @@ namespace NotedUI.UI.ViewModels
             allNotes.SelectedNote = noteList[noteIndex < noteList.Count ? noteIndex : noteIndex - 1];
         }
 
-        public bool CanFolderAddExec(AllNotesViewModel allNotes)
+        public bool CanGroupAddExec(AddGroupParams cmdArgs)
         {
             return true;
         }
 
-        public void FolderAddExec(AllNotesViewModel allNotes)
+        public void GroupAddExec(AddGroupParams cmdArgs)
         {
+            var dialog = new GroupNameDialogViewModel(cmdArgs.AllNotes.Groups);
 
+            dialog.DialogClosed += async () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+
+                // Get ID, add group to local storage
+                var id = await cmdArgs.AllNotes.LocalStorage.AddGroup(dialog.GroupName);
+                cmdArgs.AllNotes.AddGroup(new GroupViewModel(id, dialog.GroupName));
+            };
+
+            cmdArgs.HomeVM.InvokeShowDialog(dialog);
         }
 
-        public bool CanFolderDeleteExec(AllNotesViewModel allNotes)
+        // TODO Might want to move this somewhere else when the context menu is in place
+        public bool CanGroupDeleteExec(AllNotesViewModel allNotes)
         {
             return true;
         }
 
-        public void FolderDeleteExec(AllNotesViewModel allNotes)
+        public void GroupDeleteExec(AllNotesViewModel allNotes)
         {
 
         }

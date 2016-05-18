@@ -23,7 +23,7 @@ namespace NotedUI.DataStorage
                 await CreateDatabase();
         }
 
-        private Task CreateDatabase()
+        private async Task CreateDatabase()
         {
             SQLiteConnection.CreateFile(_dbLocation);
 
@@ -31,7 +31,9 @@ namespace NotedUI.DataStorage
             {
                 conn.Open();
 
-                return new SQLiteCommand(SQLQueries.CreateTables(), conn).ExecuteNonQueryAsync();
+                await new SQLiteCommand(SQLQueries.CreateTables(), conn).ExecuteNonQueryAsync();
+
+                await AddGroupWithConnection(conn, "Notes");
             }
         }
 
@@ -54,25 +56,25 @@ namespace NotedUI.DataStorage
             }
         }
 
-        public async Task<long> AddNote(string folderName)
+        public async Task<long> AddNote(string groupName)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var folder = await GetFolderWithConnection(conn, folderName);
+                var group = await GetGroupWithConnection(conn, groupName);
 
-                long folderID = 0;
-                if (folder == null)
-                    folderID = await AddFolderWithConnection(conn, folderName);
+                long groupID = 0;
+                if (group == null)
+                    groupID = await AddGroupWithConnection(conn, groupName);
                 else
-                    folderID = folder.ID;
+                    groupID = group.ID;
 
                 using (var cmd = new SQLiteCommand(SQLQueries.AddNote(), conn))
                 {
                     cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", DateTime.Now.ToString()));
                     cmd.Parameters.Add(new SQLiteParameter("@Content", ""));
-                    cmd.Parameters.Add(new SQLiteParameter("@FolderID", folderID));
+                    cmd.Parameters.Add(new SQLiteParameter("@GroupID", groupID));
 
                     await cmd.ExecuteNonQueryAsync();
                 }
@@ -94,7 +96,7 @@ namespace NotedUI.DataStorage
                     cmd.Parameters.Add(new SQLiteParameter("@CloudKey", note.CloudKey));
                     cmd.Parameters.Add(new SQLiteParameter("@LastModified", note.LastModified));
                     cmd.Parameters.Add(new SQLiteParameter("@Content", note.Content));
-                    cmd.Parameters.Add(new SQLiteParameter("@Folder", note.Folder));
+                    cmd.Parameters.Add(new SQLiteParameter("@Group", note.Group));
 
                     return cmd.ExecuteNonQueryAsync();
                 }
@@ -116,90 +118,91 @@ namespace NotedUI.DataStorage
             }
         }
 
-        public async Task<Folder> GetFolder(string folderName)
+        public async Task<Group> GetGroup(string groupName)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                return await GetFolderWithConnection(conn, folderName);
+                return await GetGroupWithConnection(conn, groupName);
             }
         }
 
-        public async Task<List<Folder>> GetAllFolders()
+        public async Task<List<Group>> GetAllGroups()
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                return await GetAllFoldersWithConnection(conn);
+                return await GetAllGroupsWithConnection(conn);
             }
         }
 
-        public async Task<long> AddFolder(string folderName)
+        public async Task<long> AddGroup(string groupName)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                return await AddFolderWithConnection(conn, folderName);
+                return await AddGroupWithConnection(conn, groupName);
             }
         }
 
-        public Task UpdateFolder(string folderName)
+        public Task UpdateGroup(string groupName)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var cmdGet = new SQLiteCommand(SQLQueries.GetFolder(), conn);
-                cmdGet.Parameters.Add(new SQLiteParameter("@Folder", folderName));
+                var cmdGet = new SQLiteCommand(SQLQueries.GetGroup(), conn);
+                cmdGet.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
 
                 var reader = cmdGet.ExecuteReader();
-                int folderID = Convert.ToInt32(reader["ID"]);
+                int groupID = Convert.ToInt32(reader["ID"]);
 
-                var cmdUpdate = new SQLiteCommand(SQLQueries.UpdateFolder(), conn);
-                cmdUpdate.Parameters.Add(new SQLiteParameter("@FolderID", folderID));
+                var cmdUpdate = new SQLiteCommand(SQLQueries.UpdateGroup(), conn);
+                cmdUpdate.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
+                cmdUpdate.Parameters.Add(new SQLiteParameter("@GroupID", groupID));
 
                 return cmdUpdate.ExecuteNonQueryAsync();
             }
         }
 
-        private async Task<Folder> GetFolderWithConnection(SQLiteConnection conn, string folderName)
+        private async Task<Group> GetGroupWithConnection(SQLiteConnection conn, string groupName)
         {
-            using (var cmd = new SQLiteCommand(SQLQueries.GetAllFolders(), conn))
+            using (var cmd = new SQLiteCommand(SQLQueries.GetAllGroups(), conn))
             {
-                cmd.Parameters.Add(new SQLiteParameter("@Name", folderName));
+                cmd.Parameters.Add(new SQLiteParameter("@Name", groupName));
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
                     if (reader.Read())
-                        return ReadFolderFromSQL(reader);
+                        return ReadGroupFromSQL(reader);
                     else
                         return null;
                 }
             }
         }
 
-        private async Task<List<Folder>> GetAllFoldersWithConnection(SQLiteConnection conn)
+        private async Task<List<Group>> GetAllGroupsWithConnection(SQLiteConnection conn)
         {
-            using (var reader = await new SQLiteCommand(SQLQueries.GetAllFolders(), conn)
+            using (var reader = await new SQLiteCommand(SQLQueries.GetAllGroups(), conn)
                                                  .ExecuteReaderAsync())
             {
-                var folders = new List<Folder>();
+                var groups = new List<Group>();
 
                 while (reader.Read())
-                    folders.Add(ReadFolderFromSQL(reader));
+                    groups.Add(ReadGroupFromSQL(reader));
 
-                return folders;
+                return groups;
             }
         }
 
-        private async Task<long> AddFolderWithConnection(SQLiteConnection conn, string folderName)
+        private async Task<long> AddGroupWithConnection(SQLiteConnection conn, string groupName)
         {
-            using (var cmd = new SQLiteCommand(SQLQueries.AddFolder(), conn))
+            using (var cmd = new SQLiteCommand(SQLQueries.AddGroup(), conn))
             {
-                cmd.Parameters.Add(new SQLiteParameter("@Folder", folderName));
+                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
 
                 await cmd.ExecuteNonQueryAsync();
             }
@@ -214,12 +217,12 @@ namespace NotedUI.DataStorage
                             ConvertFromDBVal<string>(reader["CloudKey"]),
                             Convert.ToDateTime(reader["LastModified"]),
                             ConvertFromDBVal<string>(reader["Content"]),
-                            ConvertFromDBVal<string>(reader["Folder"]));
+                            ConvertFromDBVal<string>(reader["Group"]));
         }
 
-        private Folder ReadFolderFromSQL(DbDataReader reader)
+        private Group ReadGroupFromSQL(DbDataReader reader)
         {
-            return new Folder(ConvertFromDBVal<int>(reader["ID"]),
+            return new Group(ConvertFromDBVal<int>(reader["ID"]),
                               ConvertFromDBVal<string>(reader["Name"]));
         }
 

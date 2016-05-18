@@ -1,13 +1,10 @@
 ﻿using mshtml;
-using NotedUI.AttachedBehaviors;
 using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media.Animation;
 
 namespace NotedUI.UI.Screens
@@ -203,15 +200,8 @@ namespace NotedUI.UI.Screens
 
             tbNote.Focus();
             tbNote.Select(0, 0);
-
-            tbNote.LostFocus += TbNote_LostFocus;
         }
-
-        private void TbNote_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int i = 0;
-        }
-
+        
         private void tbMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
             if (e.Uri == null)
