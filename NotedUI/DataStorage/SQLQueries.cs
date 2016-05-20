@@ -100,14 +100,14 @@
             return
                 @"UPDATE Groups
                   SET Name = @Group
-                  WHERE GroupID = @GroupID;";
+                  WHERE ID = @GroupID;";
         }
 
         public static string DeleteGroup()
         {
             return
                 @"DELETE FROM Groups
-                  WHERE GroupID = @GroupID;";
+                  WHERE Name = @Group;";
         }
     }
 }

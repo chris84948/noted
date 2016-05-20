@@ -101,6 +101,33 @@ namespace NotedUI.UI.ViewModels
             UpdateViewGroupDescription();
         }
 
+        public void UpdateGroup(string oldGroupName, string newGroupName)
+        {
+            // Update the groups list
+            foreach (var group in Groups)
+            {
+                if (group.Name.ToUpper() == oldGroupName.ToUpper())
+                    group.Name = newGroupName;
+            }
+
+            UpdateViewGroupDescription();
+            App.Current.Dispatcher.Invoke(() => _view.Refresh());
+        }
+
+        public void DeleteGroup(string groupName)
+        {
+            // Reverse through the list of groups to delete it
+            for (int i = Groups.Count - 1; i >= 0; i--)
+            {
+                if (Groups[i].Name.ToUpper() == groupName.ToUpper())
+                {
+                    Groups.RemoveAt(i);
+                    UpdateViewGroupDescription();
+                    return;
+                }
+            }
+        }
+
         private void FilterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => _view.Refresh());

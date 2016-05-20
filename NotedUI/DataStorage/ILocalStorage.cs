@@ -17,6 +17,7 @@ namespace NotedUI.DataStorage
         Task<Group> GetGroup(string groupName);
         Task<List<Group>> GetAllGroups();
         Task<long> AddGroup(string groupName);
-        Task UpdateGroup(string groupName);
+        Task UpdateGroup(string oldGroupName, string newGroupName);
+        Task DeleteGroup(string groupName);
     }
 }

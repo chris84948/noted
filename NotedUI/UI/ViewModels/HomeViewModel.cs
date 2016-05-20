@@ -54,7 +54,6 @@ namespace NotedUI.UI.ViewModels
                 dialog.DialogClosed += () => MainCommands.ShowPreview = true;
             }
 
-
             ShowDialog?.Invoke(dialog);
         }
 

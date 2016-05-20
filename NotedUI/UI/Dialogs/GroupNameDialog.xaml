@@ -53,7 +53,9 @@
         </Grid.RowDefinitions>
 
         <Label Background="{StaticResource AppTopBannerBrush}"
-               Content="ADD NEW GROUP"
+               Content="{Binding Title,
+                                 Converter={StaticResource ToUpperConverter},
+                                 FallbackValue=ADD NEW GROUP}"
                FontFamily="{StaticResource ButtonFont}"
                FontSize="18"
                Foreground="{StaticResource ListViewPanelBackground}"

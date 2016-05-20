@@ -4,6 +4,7 @@ using NotedUI.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -12,7 +13,11 @@ namespace NotedUI.UI.ViewModels
     {
         public ICommand AddNoteCommand { get { return new RelayCommand<AddNoteParams>(AddNoteExec, CanAddNoteExec); } }
         public ICommand DeleteNoteCommand { get { return new RelayCommand<AllNotesViewModel>(DeleteNoteExec, CanDeleteNoteExec); } }
-        public ICommand GroupAddCommand { get { return new RelayCommand<AddGroupParams>(GroupAddExec, CanGroupAddExec); } }
+
+        public ICommand AddGroupCommand { get { return new RelayCommand<GroupCmdParams>(AddGroupExec, CanAddGroupExec); } }
+        public ICommand RenameGroupCommand { get { return new RelayCommand<GroupCmdParams>(RenameGroupExec); } }
+        public ICommand DeleteGroupCommand { get { return new RelayCommand<GroupCmdParams>(DeleteGroupExec, CanDeleteGroupExec); } }
+
         public ICommand ExportHTMLCommand { get { return new RelayCommand<AllNotesViewModel>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
@@ -75,14 +80,14 @@ namespace NotedUI.UI.ViewModels
             allNotes.SelectedNote = noteList[noteIndex < noteList.Count ? noteIndex : noteIndex - 1];
         }
 
-        public bool CanGroupAddExec(AddGroupParams cmdArgs)
+        public bool CanAddGroupExec(GroupCmdParams cmdArgs)
         {
             return true;
         }
 
-        public void GroupAddExec(AddGroupParams cmdArgs)
+        public void AddGroupExec(GroupCmdParams cmdArgs)
         {
-            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups));
+            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups), String.Empty, "Add New Group");
 
             dialog.DialogClosed += async () =>
             {
@@ -97,15 +102,50 @@ namespace NotedUI.UI.ViewModels
             cmdArgs.HomeVM.InvokeShowDialog(dialog);
         }
 
-        // TODO Might want to move this somewhere else when the context menu is in place
-        public bool CanGroupDeleteExec(AllNotesViewModel allNotes)
+        private void RenameGroupExec(GroupCmdParams cmdArgs)
         {
-            return true;
+            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups), cmdArgs.GroupName, "Rename Group");
+
+            dialog.DialogClosed += async () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+
+                // Update the group name in the DB then update the notes in the VM
+                await cmdArgs.AllNotes.LocalStorage.UpdateGroup(cmdArgs.GroupName, dialog.GroupName);
+
+                // Update the notes with this group name
+                foreach (var note in (cmdArgs.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>))
+                {
+                    string oldGroupName = cmdArgs.GroupName.ToUpper();
+                    if (note.Group.ToUpper() == oldGroupName)
+                        note.Group = dialog.GroupName;
+                }
+
+                // Update the group name
+                cmdArgs.AllNotes.UpdateGroup(cmdArgs.GroupName, dialog.GroupName);
+            };
+
+            cmdArgs.HomeVM.InvokeShowDialog(dialog);
         }
 
-        public void GroupDeleteExec(AllNotesViewModel allNotes)
+        private bool CanDeleteGroupExec(GroupCmdParams cmdArgs)
         {
+            if (cmdArgs == null)
+                return false;
 
+            var notes = (cmdArgs?.AllNotes?.View?.SourceCollection
+                            as ObservableCollection<NoteViewModel>).ToList()
+                                                                   .Where(x => x?.Group?.ToUpper() == cmdArgs?.GroupName?.ToUpper());
+            // Can only delete a group if it's empty!
+            return notes?.Count() == 0;
+        }
+
+        private async void DeleteGroupExec(GroupCmdParams cmdArgs)
+        {
+            await cmdArgs.AllNotes.LocalStorage.DeleteGroup(cmdArgs.GroupName);
+
+            cmdArgs.AllNotes.DeleteGroup(cmdArgs.GroupName);
         }
 
         public bool CanExportHTMLExec(AllNotesViewModel allNotes)

@@ -16,6 +16,17 @@ namespace NotedUI.UI.ViewModels
 
         private List<string> _allGroups;
 
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _groupName;
         public string GroupName
         {
@@ -37,15 +48,12 @@ namespace NotedUI.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public GroupNameDialogViewModel(List<GroupViewModel> allGroups)
-            : this(allGroups, "")
-        { }
-
-        public GroupNameDialogViewModel(List<GroupViewModel> allGroups, string groupName)
+        
+        public GroupNameDialogViewModel(List<GroupViewModel> allGroups, string groupName, string dialogTitle)
         {
             _allGroups = allGroups.Select(x => x.Name).ToList();
             GroupName = groupName;
+            Title = dialogTitle;
         }
 
         private bool CanOKExec()

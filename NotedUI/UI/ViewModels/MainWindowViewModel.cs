@@ -77,6 +77,7 @@ namespace NotedUI.UI.ViewModels
             Dialog.DialogClosed += () =>
             {
                 ShowDialog = false;
+                Dialog = null;
             };
             ShowDialog = true;
         }

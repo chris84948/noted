@@ -148,23 +148,32 @@ namespace NotedUI.DataStorage
             }
         }
 
-        public Task UpdateGroup(string groupName)
+        public async Task UpdateGroup(string oldGroupName, string newGroupName)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var cmdGet = new SQLiteCommand(SQLQueries.GetGroup(), conn);
-                cmdGet.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
-
-                var reader = cmdGet.ExecuteReader();
-                int groupID = Convert.ToInt32(reader["ID"]);
+                var oldGroup = await GetGroupWithConnection(conn, oldGroupName.ToUpper());
 
                 var cmdUpdate = new SQLiteCommand(SQLQueries.UpdateGroup(), conn);
-                cmdUpdate.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
-                cmdUpdate.Parameters.Add(new SQLiteParameter("@GroupID", groupID));
+                cmdUpdate.Parameters.Add(new SQLiteParameter("@Group", newGroupName.ToUpper()));
+                cmdUpdate.Parameters.Add(new SQLiteParameter("@GroupID", oldGroup.ID));
 
-                return cmdUpdate.ExecuteNonQueryAsync();
+                await cmdUpdate.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task DeleteGroup(string groupName)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmdDelete = new SQLiteCommand(SQLQueries.DeleteGroup(), conn);
+                cmdDelete.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
+
+                await cmdDelete.ExecuteNonQueryAsync();
             }
         }
 
@@ -223,7 +232,7 @@ namespace NotedUI.DataStorage
         private Group ReadGroupFromSQL(DbDataReader reader)
         {
             return new Group(ConvertFromDBVal<int>(reader["ID"]),
-                              ConvertFromDBVal<string>(reader["Name"]));
+                             ConvertFromDBVal<string>(reader["Name"]));
         }
 
         public static T ConvertFromDBVal<T>(object obj)

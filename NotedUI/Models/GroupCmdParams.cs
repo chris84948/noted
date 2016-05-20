@@ -2,17 +2,19 @@
 
 namespace NotedUI.Models
 {
-    public class AddGroupParams
+    public class GroupCmdParams
     {
         public HomeViewModel HomeVM { get; set; }
         public AllNotesViewModel AllNotes { get; set; }
+        public string GroupName { get; set; }
 
-        public AddGroupParams() { }
+        public GroupCmdParams() { }
 
-        public AddGroupParams(HomeViewModel homeVM, AllNotesViewModel allNotes)
+        public GroupCmdParams(HomeViewModel homeVM, AllNotesViewModel allNotes, string groupName = null)
         {
             HomeVM = homeVM;
             AllNotes = allNotes;
+            GroupName = groupName;
         }
     }
 }

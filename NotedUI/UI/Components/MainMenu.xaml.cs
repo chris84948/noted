@@ -124,13 +124,13 @@ namespace NotedUI.UI.Components
         }
 
         public static readonly DependencyProperty GroupAddCommandProperty =
-            DependencyProperty.Register("GroupAddCommand",
+            DependencyProperty.Register("AddGroupCommand",
                                         typeof(ICommand),
                                         typeof(MainMenu),
                                         new PropertyMetadata((ICommand)null));
 
         [TypeConverter(typeof(CommandConverter))]
-        public ICommand GroupAddCommand
+        public ICommand AddGroupCommand
         {
             get { return (ICommand)GetValue(GroupAddCommandProperty); }
             set { SetValue(GroupAddCommandProperty, value); }
@@ -220,10 +220,10 @@ namespace NotedUI.UI.Components
 
         private void buttonAddGroup_Click(object sender, RoutedEventArgs e)
         {
-            var data = new AddGroupParams(HomeViewModel, AllNotes);
+            var data = new GroupCmdParams(HomeViewModel, AllNotes);
 
-            if (GroupAddCommand?.CanExecute(data) == true)
-                GroupAddCommand?.Execute(data);
+            if (AddGroupCommand?.CanExecute(data) == true)
+                AddGroupCommand?.Execute(data);
         }
         
         private void buttonExportHTML_Click(object sender, RoutedEventArgs e)

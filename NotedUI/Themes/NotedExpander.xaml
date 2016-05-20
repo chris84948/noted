@@ -12,6 +12,8 @@
     <conv:MathMultiConverter x:Key="MultiplyMultiConverter"
                              Operation="Multiply" />
 
+    <conv:ContextMenuCommandParamConverter x:Key="ContextMenuCommandParamConverter" />
+
     <KeyTime x:Key="AnimationTime">0:0:0.3</KeyTime>
 
     <Style x:Key="ExpanderDownHeaderStyle"
@@ -158,7 +160,46 @@
                                           IsChecked="{Binding IsExpanded,
                                                               Mode=TwoWay,
                                                               RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource ExpanderDownHeaderStyle}" />
+                                          Style="{StaticResource ExpanderDownHeaderStyle}"
+                                          Tag="{Binding RelativeSource={RelativeSource AncestorType=ListView},
+                                                        Path=DataContext}">
+
+                                <ToggleButton.ContextMenu>
+                                    <ContextMenu x:Name="ContextMenu"
+                                                 Background="{StaticResource ButtonPopupBrush}">
+                                        <MenuItem x:Name="buttonRenameGroup"
+                                                  Command="{Binding PlacementTarget.Tag.MainCommands.RenameGroupCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  Header="RENAME">
+                                            <MenuItem.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                    <Binding Path="PlacementTarget.Content"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                    <Binding Path="PlacementTarget.Tag"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                </MultiBinding>
+                                            </MenuItem.CommandParameter>
+                                        </MenuItem>
+                                        <MenuItem x:Name="buttonDeleteGroup"
+                                                  Command="{Binding PlacementTarget.Tag.MainCommands.DeleteGroupCommand,
+                                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  Header="DELETE">
+                                            <MenuItem.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                    <Binding Path="PlacementTarget.Content"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                    <Binding Path="PlacementTarget.Tag"
+                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                </MultiBinding>
+                                            </MenuItem.CommandParameter>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </ToggleButton.ContextMenu>
+                            </ToggleButton>
 
                             <Grid x:Name="ExpandSiteContainer"
                                   DockPanel.Dock="Bottom">
