@@ -22,7 +22,6 @@
              Loaded="me_Loaded"
              mc:Ignorable="d">
 
-
     <UserControl.InputBindings>
         <KeyBinding Key="F"
                     Command="{Binding MainCommands.ToggleFormattingCommand}"
@@ -370,7 +369,8 @@
                       drag:DragDrop.IsDropTarget="True"
                       drag:DragDrop.UseDefaultDragAdorner="True"
                       ItemsSource="{Binding AllNotes.View}"
-                      SelectedItem="{Binding AllNotes.SelectedNote}">
+                      SelectedItem="{Binding AllNotes.SelectedNote}"
+                      SelectionChanged="lvNotes_SelectionChanged">
 
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -386,6 +386,17 @@
                                                                     Header="{Binding Name,
                                                                                      Converter={StaticResource ToUpperConverter}}"
                                                                     IsExpanded="False">
+                                                <controls:NotedExpander.ContextMenu>
+                                                    <ContextMenu Background="{StaticResource ButtonPopupBrush}">
+                                                        <MenuItem x:Name="buttonRenameGroup"
+                                                                  Command="{Binding MainCommands.RenameGroupCommand}"
+                                                                  Header="RENAME" />
+                                                        <MenuItem x:Name="buttonDeleteGroup"
+                                                                  Command="{Binding MainCommands.DeleteGroupCommand}"
+                                                                  Header="DELETE" />
+                                                    </ContextMenu>
+                                                </controls:NotedExpander.ContextMenu>
+
                                                 <ItemsPresenter Tag="{Binding ElementName=lvNotes}" />
                                             </controls:NotedExpander>
                                         </ControlTemplate>
@@ -452,8 +463,7 @@
                                SyntaxHighlighting="MarkDown">
 
                 <avalon:TextEditor.Style>
-                    <Style BasedOn="{StaticResource {x:Type avalon:TextEditor}}"
-                           TargetType="{x:Type avalon:TextEditor}">
+                    <Style TargetType="{x:Type avalon:TextEditor}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=lvNotes,
                                                            Path=SelectedItem}"

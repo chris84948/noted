@@ -3,6 +3,7 @@ using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.ViewModels;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -213,6 +214,18 @@ namespace NotedUI.UI.Screens
             Process.Start(new ProcessStartInfo(e.Uri.ToString()));
         }
 
+        private void lvNotes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Task.Delay(20);
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    tbNote.Focus();
+                    tbNote.Select(tbNote.Text.Length, 0);
+                });
+            });
+        }
 
         private void tbNote_ScrollPositionChanged(object sender, ScrollChangedEventArgs e)
         {

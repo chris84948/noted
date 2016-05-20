@@ -170,9 +170,9 @@ namespace NotedUI.DataStorage
 
         private async Task<Group> GetGroupWithConnection(SQLiteConnection conn, string groupName)
         {
-            using (var cmd = new SQLiteCommand(SQLQueries.GetAllGroups(), conn))
+            using (var cmd = new SQLiteCommand(SQLQueries.GetGroup(), conn))
             {
-                cmd.Parameters.Add(new SQLiteParameter("@Name", groupName));
+                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName));
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {

@@ -2,6 +2,7 @@
 using NotedUI.Models;
 using NotedUI.UI.Components;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -81,7 +82,7 @@ namespace NotedUI.UI.ViewModels
 
         public void GroupAddExec(AddGroupParams cmdArgs)
         {
-            var dialog = new GroupNameDialogViewModel(cmdArgs.AllNotes.Groups);
+            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups));
 
             dialog.DialogClosed += async () =>
             {

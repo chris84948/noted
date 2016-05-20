@@ -14,11 +14,14 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ContextMenu.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/IconButton.xaml" />
                 <ResourceDictionary Source="Styles/IconTextButton.xaml" />
                 <ResourceDictionary Source="Styles/ListView.xaml" />
+                <ResourceDictionary Source="Styles/MenuItem.xaml" />
+                <ResourceDictionary Source="Styles/PopupButton.xaml" />
                 <ResourceDictionary Source="Styles/ScrollBars.xaml" />
                 <ResourceDictionary Source="Styles/SettingsButton.xaml" />
                 <ResourceDictionary Source="Styles/TextButton.xaml" />

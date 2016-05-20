@@ -54,20 +54,15 @@ namespace NotedUI.AttachedBehaviors
                 var editor = behavior.AssociatedObject as TextEditor;
                 if (editor.Document != null && dependencyPropertyChangedEventArgs.NewValue != null)
                 {
+                    var caretOffset = editor.CaretOffset;
                     editor.Document.Text = dependencyPropertyChangedEventArgs.NewValue.ToString();
 
-                    Task.Run(() =>
-                    {
-                        // Delay to let whatever Avalon does to unfocus, do it's thing.
-                        // If i remove this task, the highlight stuff doesn't work
-                        System.Threading.Thread.Sleep(10);
-
-                        App.Current.Dispatcher.Invoke(() =>
-                        {
-                            editor.Focus();
-                            editor.Select(editor.Document.Text.Length, 0);
-                        });
-                    });
+                    if (caretOffset < editor.Text.Length)
+                        editor.CaretOffset = caretOffset;
+                }
+                else if (editor.Document != null && dependencyPropertyChangedEventArgs.NewValue == null)
+                {
+                    editor.Document.Text = "";
                 }
             }
         }

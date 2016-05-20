@@ -10,23 +10,6 @@
              Height="60"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-
-        <Style x:Key="PopupButtonStyle"
-               BasedOn="{StaticResource TextButton}"
-               TargetType="Button">
-            <Setter Property="FontFamily" Value="Montserrat" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="Padding" Value="20,5" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-        </Style>
-
-    </UserControl.Resources>
-
     <StackPanel Grid.Row="0"
                 Grid.ColumnSpan="2"
                 Panel.ZIndex="1"

@@ -92,7 +92,7 @@
         {
             return
                 @"SELECT * FROM Groups
-                  WHERE Name = '@Group';";
+                  WHERE Name = @Group;";
         }
 
         public static string UpdateGroup()

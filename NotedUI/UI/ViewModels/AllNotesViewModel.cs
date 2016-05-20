@@ -4,6 +4,7 @@ using NotedUI.DataStorage;
 using NotedUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Timers;
@@ -40,8 +41,8 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        private List<GroupViewModel> _groups;
-        public List<GroupViewModel> Groups
+        private ObservableCollection<GroupViewModel> _groups;
+        public ObservableCollection<GroupViewModel> Groups
         {
             get { return _groups; }
             set
@@ -110,7 +111,7 @@ namespace NotedUI.UI.ViewModels
         {
             // Get local files first
             await LocalStorage.Initialize();
-            Groups = (await LocalStorage.GetAllGroups()).Select(x => new GroupViewModel(x)).ToList();
+            Groups = new ObservableCollection<GroupViewModel>((await LocalStorage.GetAllGroups()).Select(x => new GroupViewModel(x)));
             _notes = new AsyncObservableCollection<NoteViewModel>((await LocalStorage.GetAllNotes()).Select(x => new NoteViewModel(x)));
 
             if (_notes.Count > 0)
@@ -143,7 +144,10 @@ namespace NotedUI.UI.ViewModels
             _view.GroupDescriptions.Clear();
 
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Group");
-            Groups.ForEach(x => groupDescription.GroupNames.Add(x.Name));
+
+            foreach (var group in Groups)
+                groupDescription.GroupNames.Add(group.Name);
+
             _view.GroupDescriptions.Add(groupDescription);
         }
 

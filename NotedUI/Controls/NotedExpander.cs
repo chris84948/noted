@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace NotedUI.Controls
@@ -58,13 +59,19 @@ namespace NotedUI.Controls
 
             ((INotifyCollectionChanged)listview.Items).CollectionChanged += (sender, args) =>
             {
+                if (args.NewItems == null)
+                    return;
+
                 // If a new item is added, make sure the expander is open
-                expander.IsExpanded = true;
+                if (expander.Header.ToString() == (args?.NewItems[0] as NoteViewModel).Group)
+                    expander.IsExpanded = true;
             };
 
-            // First run, open the expander and select the new item - this only runs when the group is first added
-            if (expander.IsLoaded)
+            // Make sure on startup that the selected item is expanded
+            var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
+            if (expanderItems.Contains(listview.SelectedItem))
                 expander.IsExpanded = true;
+
             expander._eventsInitialized = true;
         }
 
