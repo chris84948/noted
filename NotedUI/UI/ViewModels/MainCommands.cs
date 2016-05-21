@@ -12,7 +12,7 @@ namespace NotedUI.UI.ViewModels
     public class MainCommands : MVVMBase
     {
         public ICommand AddNoteCommand { get { return new RelayCommand<AddNoteParams>(AddNoteExec, CanAddNoteExec); } }
-        public ICommand DeleteNoteCommand { get { return new RelayCommand<AllNotesViewModel>(DeleteNoteExec, CanDeleteNoteExec); } }
+        public ICommand DeleteNoteCommand { get { return new RelayCommand<DeleteNoteParams>(DeleteNoteExec, CanDeleteNoteExec); } }
 
         public ICommand AddGroupCommand { get { return new RelayCommand<GroupCmdParams>(AddGroupExec, CanAddGroupExec); } }
         public ICommand RenameGroupCommand { get { return new RelayCommand<GroupCmdParams>(RenameGroupExec); } }
@@ -61,23 +61,23 @@ namespace NotedUI.UI.ViewModels
             cmdArgs.AllNotes.SelectedNote = newNote;
         }
 
-        public bool CanDeleteNoteExec(AllNotesViewModel allNotes)
+        public bool CanDeleteNoteExec(DeleteNoteParams cmdArgs)
         {
-            return allNotes.SelectedNote != null;
+            return true;
         }
 
-        public void DeleteNoteExec(AllNotesViewModel allNotes)
+        public void DeleteNoteExec(DeleteNoteParams cmdArgs)
         {
-            var noteList = allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>;
-            int noteIndex = noteList.IndexOf(allNotes.SelectedNote);
+            var noteList = cmdArgs.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>;
+            noteList.Remove(cmdArgs.NoteToDelete);
 
-            allNotes.LocalStorage.DeleteNote(allNotes.SelectedNote.NoteData);
-            (allNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Remove(allNotes.SelectedNote);
+            cmdArgs.AllNotes.LocalStorage.DeleteNote(cmdArgs.NoteToDelete.NoteData);
 
             if (noteList.Count == 0)
                 return;
 
-            allNotes.SelectedNote = noteList[noteIndex < noteList.Count ? noteIndex : noteIndex - 1];
+            // TODO For now, just unselect all notes when it's deleted
+            cmdArgs.AllNotes.SelectedNote = null;
         }
 
         public bool CanAddGroupExec(GroupCmdParams cmdArgs)

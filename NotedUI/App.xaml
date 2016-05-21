@@ -57,7 +57,7 @@
 
             <conv:NoteTitleWidthConverter x:Key="NoteTitleWidthConverter" />
 
-            <conv:ContextMenuCommandParamConverter x:Key="ContextMenuCommandParamConverter" />
+            <conv:ContextMenuGroupCommandParamConverter x:Key="ContextMenuGroupCommandParamConverter" />
 
 
 

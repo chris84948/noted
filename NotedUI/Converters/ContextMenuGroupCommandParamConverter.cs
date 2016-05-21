@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace NotedUI.Converters
 {
-    public class ContextMenuCommandParamConverter : IMultiValueConverter
+    public class ContextMenuGroupCommandParamConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

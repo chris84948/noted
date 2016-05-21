@@ -12,7 +12,7 @@
     <conv:MathMultiConverter x:Key="MultiplyMultiConverter"
                              Operation="Multiply" />
 
-    <conv:ContextMenuCommandParamConverter x:Key="ContextMenuCommandParamConverter" />
+    <conv:ContextMenuGroupCommandParamConverter x:Key="ContextMenuGroupCommandParamConverter" />
 
     <KeyTime x:Key="AnimationTime">0:0:0.3</KeyTime>
 
@@ -172,7 +172,7 @@
                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                   Header="RENAME">
                                             <MenuItem.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
                                                     <Binding Path="PlacementTarget.Tag.AllNotes"
                                                              RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
                                                     <Binding Path="PlacementTarget.Content"
@@ -187,7 +187,7 @@
                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                   Header="DELETE">
                                             <MenuItem.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
                                                     <Binding Path="PlacementTarget.Tag.AllNotes"
                                                              RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
                                                     <Binding Path="PlacementTarget.Content"

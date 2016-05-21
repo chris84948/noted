@@ -397,7 +397,7 @@
                                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                                   Header="RENAME">
                                                             <MenuItem.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
                                                                     <Binding Path="PlacementTarget.Tag.AllNotes"
                                                                              RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
                                                                     <Binding Path="PlacementTarget.Header"
@@ -412,7 +412,7 @@
                                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                                   Header="DELETE">
                                                             <MenuItem.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ContextMenuCommandParamConverter}">
+                                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
                                                                     <Binding Path="PlacementTarget.Tag.AllNotes"
                                                                              RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
                                                                     <Binding Path="PlacementTarget.Header"
