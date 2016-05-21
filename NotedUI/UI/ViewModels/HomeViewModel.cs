@@ -80,6 +80,12 @@ namespace NotedUI.UI.ViewModels
                 ((IEditableCollectionView)dropInfo.TargetCollection).EditItem(sourceItem);
                 ((IEditableCollectionView)dropInfo.TargetCollection).CommitEdit();
             }
+
+            // Update databases
+            AllNotes.LocalStorage.UpdateNote(sourceItem.NoteData);
+
+            // Select the moved note
+            AllNotes.SelectedNote = sourceItem;
         }
     }
 }
