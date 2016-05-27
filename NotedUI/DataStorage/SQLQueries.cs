@@ -53,7 +53,7 @@
         {
             return
                 @"INSERT INTO Notes (CloudKey, LastModified, Content, GroupID)
-                  VALUES (null, @LastModified, @Content, @GroupID)";
+                  VALUES (@CloudKey, @LastModified, @Content, @GroupID)";
         }
 
         public static string UpdateNote()

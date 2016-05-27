@@ -67,6 +67,16 @@ namespace NotedUI.Controls
                     expander.IsExpanded = true;
             };
 
+            listview.SelectionChanged += (sender, args) =>
+            {
+                if (listview.SelectedItem == null)
+                    return;
+
+                // Make sure the expander is selected if this item is selected
+                if (expander.Header.ToString() == (listview.SelectedItem as NoteViewModel).Group)
+                    expander.IsExpanded = true;
+            };
+
             // Make sure on startup that the selected item is expanded
             var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
             if (expanderItems.Contains(listview.SelectedItem))

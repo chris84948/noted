@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -54,11 +55,21 @@ namespace NotedUI.UI.ViewModels
 
         public async void AddNoteExec(AddNoteParams cmdArgs)
         {
+            // Little complicated here
+            // First add the note to local storage to get the ID
             int id = (int)await cmdArgs.AllNotes.LocalStorage.AddNote(cmdArgs.GroupName);
-
             var newNote = new NoteViewModel(id, DateTime.Now, "", cmdArgs.GroupName);
+
+            // Add the note to the screen now so there's no delay
             (cmdArgs.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>).Add(newNote);
             cmdArgs.AllNotes.SelectedNote = newNote;
+
+            await Task.Run(async () =>
+            {
+                // Finally add to the cloud, update the local DB with the cloud key and modified date and update the SelectedNote
+                await cmdArgs.AllNotes.CloudStorage.AddNote(cmdArgs.AllNotes.SelectedNote.NoteData);
+                await cmdArgs.AllNotes.LocalStorage.UpdateNote(cmdArgs.AllNotes.SelectedNote.NoteData);
+            });
         }
 
         public bool CanDeleteNoteExec(DeleteNoteParams cmdArgs)
@@ -66,12 +77,13 @@ namespace NotedUI.UI.ViewModels
             return true;
         }
 
-        public void DeleteNoteExec(DeleteNoteParams cmdArgs)
+        public async void DeleteNoteExec(DeleteNoteParams cmdArgs)
         {
             var noteList = cmdArgs.AllNotes.View.SourceCollection as ObservableCollection<NoteViewModel>;
             noteList.Remove(cmdArgs.NoteToDelete);
 
-            cmdArgs.AllNotes.LocalStorage.DeleteNote(cmdArgs.NoteToDelete.NoteData);
+            await cmdArgs.AllNotes.LocalStorage.DeleteNote(cmdArgs.NoteToDelete.NoteData);
+            await cmdArgs.AllNotes.CloudStorage.DeleteNote(cmdArgs.NoteToDelete.NoteData);
 
             if (noteList.Count == 0)
                 return;
@@ -87,7 +99,7 @@ namespace NotedUI.UI.ViewModels
 
         public void AddGroupExec(GroupCmdParams cmdArgs)
         {
-            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups), String.Empty, "Add New Group");
+            var dialog = new GroupNameDialogViewModel(cmdArgs.AllNotes.AllGroups, String.Empty, "Add New Group");
 
             dialog.DialogClosed += async () =>
             {
@@ -104,7 +116,7 @@ namespace NotedUI.UI.ViewModels
 
         private void RenameGroupExec(GroupCmdParams cmdArgs)
         {
-            var dialog = new GroupNameDialogViewModel(new List<GroupViewModel>(cmdArgs.AllNotes.Groups), cmdArgs.GroupName, "Rename Group");
+            var dialog = new GroupNameDialogViewModel(cmdArgs.AllNotes.AllGroups, cmdArgs.GroupName, "Rename Group");
 
             dialog.DialogClosed += async () =>
             {

@@ -11,6 +11,8 @@
 
     <conv:ContextMenuNoteCommandParamConverter x:Key="ContextMenuNoteCommandParamConverter" />
 
+    <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />
+
     <Style TargetType="{x:Type ListView}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontFamily" Value="Montserrat" />
@@ -144,9 +146,8 @@
                                     <StackPanel Grid.Column="0"
                                                 Width="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                                 Path=ActualWidth,
-                                                                Converter={StaticResource NoteTitleWidthConverter},
-                                                                ConverterParameter=0.6}"
-                                                Margin="21,8,8,6"
+                                                                Converter={StaticResource NoteTitleWidthConverter}}"
+                                                Margin="21,8,0,6"
                                                 HorizontalAlignment="Left"
                                                 Orientation="Vertical">
                                         <Label Margin="0,0,0,2"
@@ -157,7 +158,8 @@
                                                Padding="0" />
                                         <Label Margin="0,0,0,2"
                                                Content="{Binding DataContext.LastModified,
-                                                                 RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 RelativeSource={RelativeSource TemplatedParent},
+                                                                 Converter={StaticResource LastSavedDateConverter}}"
                                                FontSize="11"
                                                Foreground="{TemplateBinding Foreground}"
                                                Padding="0" />
@@ -168,7 +170,7 @@
                                           Background="Transparent">
 
                                         <Grid.Resources>
-                                            <sys:Double x:Key="IconSize">25</sys:Double>
+                                            <sys:Double x:Key="IconSize">24</sys:Double>
                                         </Grid.Resources>
 
                                         <Viewbox x:Name="IconSync"

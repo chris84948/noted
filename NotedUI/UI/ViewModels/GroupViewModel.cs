@@ -25,10 +25,13 @@ namespace NotedUI.UI.ViewModels
             get { return GroupData.Name; }
             set
             {
-                GroupData.Name = value;
+                GroupData.Name = value.ToUpper();
                 OnPropertyChanged();
             }
         }
+
+        public GroupViewModel()
+        { }
 
         public GroupViewModel(Group group)
             : this(group.ID, group.Name)

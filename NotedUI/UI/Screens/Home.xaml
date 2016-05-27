@@ -389,42 +389,6 @@
                                                                     Tag="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                                                                   Path=DataContext}">
 
-                                                <!--<controls:NotedExpander.ContextMenu>
-                                                    <ContextMenu x:Name="ContextMenu"
-                                                                 Background="{StaticResource ButtonPopupBrush}">
-                                                        <MenuItem x:Name="buttonRenameGroup"
-                                                                  Command="{Binding PlacementTarget.Tag.MainCommands.RenameGroupCommand,
-                                                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                                                                  Header="RENAME">
-                                                            <MenuItem.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
-                                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                    <Binding Path="PlacementTarget.Header"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                    <Binding Path="PlacementTarget.Tag"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                </MultiBinding>
-                                                            </MenuItem.CommandParameter>
-                                                        </MenuItem>
-                                                        <MenuItem x:Name="buttonDeleteGroup"
-                                                                  Command="{Binding PlacementTarget.Tag.MainCommands.DeleteGroupCommand,
-                                                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                                                                  Header="DELETE">
-                                                            <MenuItem.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
-                                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                    <Binding Path="PlacementTarget.Header"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                    <Binding Path="PlacementTarget.Tag"
-                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                </MultiBinding>
-                                                            </MenuItem.CommandParameter>
-                                                        </MenuItem>
-                                                    </ContextMenu>
-                                                </controls:NotedExpander.ContextMenu>-->
-
                                                 <ItemsPresenter Tag="{Binding ElementName=lvNotes}" />
                                             </controls:NotedExpander>
                                         </ControlTemplate>

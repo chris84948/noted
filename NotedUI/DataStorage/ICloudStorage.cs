@@ -9,11 +9,14 @@ namespace NotedUI.DataStorage
         Task Connect();
         bool IsConnected();
 
-        Dictionary<string, Note> GetAllNotes();
-        Task<Note> GetNoteWithContent(string noteID);
-
-        Task<Note> AddNote(string noteContent);
-        Task UpdateNote(Note note, string content);
+        Task<Dictionary<string, Note>> GetAllNotes();
+        Task GetNoteWithContent(Note note);
+        Task AddNote(Note note);
+        Task UpdateNote(Note note);
         Task DeleteNote(Note note);
+
+        Task<bool> DoGroupsNeedToBeUpdated(GroupCollection groups);
+        Task<GroupCollection> GetAllGroups();
+        Task UpdateAllGroups(GroupCollection groups);
     }
 }

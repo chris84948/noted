@@ -32,8 +32,6 @@ namespace NotedUI.DataStorage
                 conn.Open();
 
                 await new SQLiteCommand(SQLQueries.CreateTables(), conn).ExecuteNonQueryAsync();
-
-                await AddGroupWithConnection(conn, "Notes");
             }
         }
 
@@ -58,22 +56,31 @@ namespace NotedUI.DataStorage
 
         public async Task<long> AddNote(string groupName)
         {
+            return await AddNote(new Note() { CloudKey = null,
+                                              Content = "",
+                                              LastModified = DateTime.Now,
+                                              Group = groupName });
+        }
+
+        public async Task<long> AddNote(Note note)
+        {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var group = await GetGroupWithConnection(conn, groupName);
+                var group = await GetGroupWithConnection(conn, note.Group);
 
                 long groupID = 0;
                 if (group == null)
-                    groupID = await AddGroupWithConnection(conn, groupName);
+                    groupID = await AddGroupWithConnection(conn, note.Group);
                 else
                     groupID = group.ID;
 
                 using (var cmd = new SQLiteCommand(SQLQueries.AddNote(), conn))
                 {
-                    cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", DateTime.Now.ToString()));
-                    cmd.Parameters.Add(new SQLiteParameter("@Content", ""));
+                    cmd.Parameters.Add(new SQLiteParameter("@CloudKey", note.CloudKey));
+                    cmd.Parameters.Add(new SQLiteParameter("@LastMOdified", note.LastModified.ToString()));
+                    cmd.Parameters.Add(new SQLiteParameter("@Content", note.Content));
                     cmd.Parameters.Add(new SQLiteParameter("@GroupID", groupID));
 
                     await cmd.ExecuteNonQueryAsync();

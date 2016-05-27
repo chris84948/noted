@@ -5,14 +5,14 @@ using System.Windows.Data;
 namespace NotedUI.Converters
 {
     [ValueConversion(typeof(DateTime), typeof(string))]
-    public class LastSavedDateConverter : IMultiValueConverter
+    public class LastSavedDateConverter : IValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(values[0] is DateTime) || !(values[1] is bool))
+            if (!(value is DateTime))
                 return "";
 
-            var lastSaved = (DateTime)values[0];
+            var lastSaved = (DateTime)value;
             var now = DateTime.Now;
 
             if (lastSaved > now.AddHours(-1))
@@ -36,7 +36,7 @@ namespace NotedUI.Converters
                 return $"{ num } { timeUnit }s ago";
         }
 
-        public object[] ConvertBack(object value, Type[] targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

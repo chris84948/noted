@@ -12,7 +12,7 @@ namespace NotedUI.Converters
             if (!(value is double))
                 return 1;
 
-            return (double)value - 75; // Width of margins and icons in listview item
+            return (double)value - 69; // Width of margins and icons in listview item
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

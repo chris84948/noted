@@ -1,4 +1,5 @@
 ﻿using JustMVVM;
+using NotedUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,9 @@ namespace NotedUI.UI.ViewModels
             }
         }
         
-        public GroupNameDialogViewModel(List<GroupViewModel> allGroups, string groupName, string dialogTitle)
+        public GroupNameDialogViewModel(GroupCollection allGroups, string groupName, string dialogTitle)
         {
-            _allGroups = allGroups.Select(x => x.Name).ToList();
+            _allGroups = allGroups.Groups.Select(x => x.Name).ToList();
             GroupName = groupName;
             Title = dialogTitle;
         }

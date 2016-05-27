@@ -9,8 +9,8 @@ namespace NotedUI.DataStorage
         Task Initialize();
 
         Task<List<Note>> GetAllNotes();
-
         Task<long> AddNote(string groupName);
+        Task<long> AddNote(Note note);
         Task UpdateNote(Note note);
         Task DeleteNote(Note note);
 

@@ -73,7 +73,7 @@
                VerticalOffset="-1">
 
             <ItemsControl Background="{StaticResource ButtonPopupBrush}"
-                          ItemsSource="{Binding AllNotes.Groups}">
+                          ItemsSource="{Binding AllNotes.AllGroups.Groups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button Click="popupAddNote_Click"
@@ -84,12 +84,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Popup>
-
-        <Button x:Name="buttonDelete"
-                ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                ab:ButtonBehaviors.IconSize="16"
-                Click="buttonDelete_Click"
-                Content="DELETE" />
 
         <Button x:Name="buttonGroup"
                 ab:ButtonBehaviors.Icon="{StaticResource GroupIcon}"

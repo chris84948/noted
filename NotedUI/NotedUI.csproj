@@ -185,6 +185,7 @@
     <Content Include="Resources\CSS\Github.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="DataStorage\GoogleDriveStorage.cs" />
     <Compile Include="DataStorage\ICloudStorage.cs" />
     <Compile Include="DataStorage\ILocalStorage.cs" />
     <Compile Include="DataStorage\SQLiteStorage.cs" />
@@ -195,9 +196,15 @@
     <Compile Include="Models\GroupCmdParams.cs" />
     <Compile Include="Models\AddLinkParams.cs" />
     <Compile Include="Models\eNoteState.cs" />
-    <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\AddNoteParams.cs" />
+    <Compile Include="Models\GroupCollection.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\AvalonHighlighting\HighlightingLoader.cs" />
     <Compile Include="Controls\NotedExpander.cs" />
     <Compile Include="UI\Dialogs\FindReplaceDialog.xaml.cs">
@@ -347,20 +354,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="client_id.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -368,6 +366,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AvalonHighlighting\Markdown.xshd">
       <SubType>Designer</SubType>
     </EmbeddedResource>

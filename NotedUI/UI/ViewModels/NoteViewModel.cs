@@ -107,6 +107,11 @@ namespace NotedUI.UI.ViewModels
             : this(note.ID, note.LastModified, note.Content, note.Group, note.CloudKey)
         { }
 
+        public void ForceLastModifiedConverterRefresh()
+        {
+            LastModified = LastModified;
+        }
+
         private string GetTitle()
         {
             int index = NoteData.Content.IndexOf("\r\n");

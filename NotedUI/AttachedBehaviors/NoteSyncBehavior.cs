@@ -1,4 +1,5 @@
 ﻿using NotedUI.Models;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,7 +43,10 @@ namespace NotedUI.AttachedBehaviors
 
                 sb.Completed += (_, __) =>
                 {
-                    RunSyncingStoryboard(d, item);
+                    if (GetSyncState(d) == eNoteState.SyncComplete)
+                        RunSyncCompleteStoryboard(d, item);
+                    else
+                        RunSyncingStoryboard(d, item);
                 };
 
                 sb.Begin(item, item.Template);
@@ -69,6 +73,10 @@ namespace NotedUI.AttachedBehaviors
 
         private static void RunSyncCompleteStoryboard(DependencyObject d, ListViewItem item)
         {
+            // Sync the last modified time exactly with the check appearing for nice UI
+            var note = (d as ListViewItem).DataContext as NoteViewModel;
+            note.ForceLastModifiedConverterRefresh();
+
             var sb = GetSyncCompleteStoryboard();
 
             sb.Completed += (_, __) =>
