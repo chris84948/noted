@@ -1,4 +1,6 @@
-﻿using JustMVVM;
+﻿using CommonMark;
+using JustMVVM;
+using NotedUI.Export;
 using NotedUI.Models;
 using NotedUI.UI.Components;
 using System;
@@ -19,6 +21,7 @@ namespace NotedUI.UI.ViewModels
         public ICommand RenameGroupCommand { get { return new RelayCommand<GroupCmdParams>(RenameGroupExec); } }
         public ICommand DeleteGroupCommand { get { return new RelayCommand<GroupCmdParams>(DeleteGroupExec, CanDeleteGroupExec); } }
 
+        public ICommand ExportTextCommand { get { return new RelayCommand<AllNotesViewModel>(ExportTextExec, CanExportTextExec); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand<AllNotesViewModel>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
@@ -160,6 +163,16 @@ namespace NotedUI.UI.ViewModels
             cmdArgs.AllNotes.DeleteGroup(cmdArgs.GroupName);
         }
 
+        public bool CanExportTextExec(AllNotesViewModel allNotes)
+        {
+            return true;
+        }
+
+        public void ExportTextExec(AllNotesViewModel allNotes)
+        {
+            TextExporter.Export(@"c:\github\notedui\testExport.txt", allNotes.SelectedNote.Content);
+        }
+
         public bool CanExportHTMLExec(AllNotesViewModel allNotes)
         {
             return true;
@@ -167,9 +180,9 @@ namespace NotedUI.UI.ViewModels
 
         public void ExportHTMLExec(AllNotesViewModel allNotes)
         {
-            //var html = CommonMarkConverter.Convert(_markdown);
+            var html = CommonMarkConverter.Convert(allNotes.SelectedNote.Content);
 
-            //HTMLExporter.Export(@"c:\github\notedui\htmltestexport.html", "github", html);
+            HTMLExporter.Export(@"c:\github\notedui\textExport.html", "github", html);
         }
 
         public bool CanExportPDFExec(AllNotesViewModel allNotes)
@@ -179,9 +192,9 @@ namespace NotedUI.UI.ViewModels
 
         public void ExportPDFExec(AllNotesViewModel allNotes)
         {
-            //var html = CommonMarkConverter.Convert(_markdown);
+            var html = CommonMarkConverter.Convert(allNotes.SelectedNote.Content);
 
-            //PDFExporter.Export(@"c:\github\notedui\pdftestexport.pdf", "github", html);
+            PDFExporter.Export(@"c:\github\notedui\textExport.pdf", "github", html);
         }
 
         public bool CanShowSettingsExec(HomeViewModel homeVM)

@@ -1,5 +1,6 @@
 ﻿using mshtml;
 using NotedUI.Resources.AvalonHighlighting;
+using NotedUI.UI.Storyboards;
 using NotedUI.UI.ViewModels;
 using System;
 using System.Diagnostics;
@@ -83,6 +84,10 @@ namespace NotedUI.UI.Screens
                 if (args.Key == System.Windows.Input.Key.Enter)
                     tbNote.TextChanged += tbNote_TextChangedEvent;
             };
+
+            // HACK Might want to change this sometime later
+            homeVM.AllNotes.TextEditor = tbNote;
+
         }
 
         private void tbNote_TextChangedEvent(object sender, EventArgs args)
@@ -98,102 +103,14 @@ namespace NotedUI.UI.Screens
             Storyboard sb = null;
 
             if (MainMenu.ShowPreview)
-                sb = GetShowPreviewStoryboard();
-
+                sb = MarkdownPreviewStoryboards.GetShow(tbMarkdown, gridNote, gridSplitterMarkdown);
             else
-                sb = GetHidePreviewStoryboard();
+                sb = MarkdownPreviewStoryboards.GetHide(tbMarkdown, gridNote, gridSplitterMarkdown);
 
             sb.Begin();
         }
         
-        private Storyboard GetShowPreviewStoryboard()
-        {
-            // Fixes the first time width to half the screen
-            tbMarkdown.Width = gridNote.ActualWidth / 2;
-            tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
-
-            var visAnim = new ObjectAnimationUsingKeyFrames()
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                KeyFrames = new ObjectKeyFrameCollection()
-                {
-                    new DiscreteObjectKeyFrame(Visibility.Visible, KeyTime.FromPercent(1))
-                }
-            };
-            Storyboard.SetTarget(visAnim, gridSplitterMarkdown);
-            Storyboard.SetTargetProperty(visAnim, new PropertyPath("(FrameworkElement.Visibility)"));
-
-            var marginAnim = new ThicknessAnimationUsingKeyFrames()
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                KeyFrames = new ThicknessKeyFrameCollection()
-                {
-                    new EasingThicknessKeyFrame(new Thickness(0), KeyTime.FromPercent(1))
-                        { EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut } }
-                }
-            };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
-            Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
-
-            var widthAnim = new DoubleAnimationUsingKeyFrames()
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                KeyFrames = new DoubleKeyFrameCollection()
-                {
-                    new SplineDoubleKeyFrame(tbMarkdown.ActualWidth, KeyTime.FromPercent(0.999)),
-                    new SplineDoubleKeyFrame(Double.NaN, KeyTime.FromPercent(1))
-                }
-            };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
-            Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
-
-            var sb = new Storyboard()
-            {
-                Children = new TimelineCollection() { visAnim, marginAnim }
-            };
-
-            sb.Completed += (sender, args) =>
-            {
-                tbMarkdown.Width = gridNote.ActualWidth / 2;
-                tbMarkdown.Margin = new Thickness(0, 0, 0, 0);
-            };
-
-            return sb;
-        }
-
-        private Storyboard GetHidePreviewStoryboard()
-        {
-            tbMarkdown.Width = tbMarkdown.ActualWidth;
-
-            var visAnim = new ObjectAnimationUsingKeyFrames()
-            {
-                KeyFrames = new ObjectKeyFrameCollection()
-                {
-                    new DiscreteObjectKeyFrame(Visibility.Collapsed, KeyTime.FromPercent(0))
-                }
-            };
-            Storyboard.SetTarget(visAnim, gridSplitterMarkdown);
-            Storyboard.SetTargetProperty(visAnim, new PropertyPath("(FrameworkElement.Visibility)"));
-
-            var marginAnim = new ThicknessAnimationUsingKeyFrames()
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                KeyFrames = new ThicknessKeyFrameCollection()
-                {
-                    new EasingThicknessKeyFrame(new Thickness(0, 0, -tbMarkdown.ActualWidth, 0), KeyTime.FromPercent(1))
-                        { EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut } }
-                }
-            };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
-            Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
-
-            var sb = new Storyboard()
-            {
-                Children = new TimelineCollection() { visAnim, marginAnim }
-            };
-
-            return sb;
-        }
+        
 
         private void tbNote_Loaded(object sender, RoutedEventArgs e)
         {
@@ -229,8 +146,6 @@ namespace NotedUI.UI.Screens
 
         private void tbNote_ScrollPositionChanged(object sender, ScrollChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Vertical Position Changed - " + e.VerticalChange);
-
             SetScrollOffset(e);
         }
 

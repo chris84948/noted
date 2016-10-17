@@ -269,7 +269,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
         <components:MainMenu x:Name="MainMenu"
                              Grid.Row="0"
                              Grid.ColumnSpan="5"
@@ -281,6 +280,7 @@
                              DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
                              ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
                              ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
+                             ExportTextCommand="{Binding MainCommands.ExportTextCommand}"
                              HomeViewModel="{Binding }"
                              ShowPreview="{Binding MainCommands.ShowPreview,
                                                    Mode=TwoWay}"
@@ -402,7 +402,9 @@
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
                            TargetType="ListViewItem">
-                        <Setter Property="ab:NoteSyncBehavior.SyncState" Value="{Binding State, Mode=TwoWay}" />
+                        <Setter Property="ab:NoteSyncBehavior.SyncState"
+                                Value="{Binding State,
+                                                Mode=TwoWay}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
@@ -460,15 +462,16 @@
                             <DataTrigger Binding="{Binding ElementName=lvNotes,
                                                            Path=SelectedItem}"
                                          Value="{x:Null}">
-                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="IsEnabled"
+                                        Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </avalon:TextEditor.Style>
 
-                <i:Interaction.Behaviors>
+                <!--<i:Interaction.Behaviors>
                     <ab:AvalonEditBehaviour BindableText="{Binding AllNotes.SelectedNote.Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
 
                 <avalon:TextEditor.InputBindings>
                     <KeyBinding Key="B"
@@ -587,11 +590,25 @@
                         Margin="-10,0"
                         HorizontalAlignment="Stretch"
                         ab:WebBrowserBehavior.CSSStyle="{Binding CSSStyle}"
-                        ab:WebBrowserBehavior.HTML="{Binding AllNotes.SelectedNote.Content,
-                                                             UpdateSourceTrigger=PropertyChanged,
-                                                             Converter={StaticResource MarkdownConverter}}"
                         ab:WebBrowserBehavior.SetCSSOnLoad="True"
-                        Navigating="tbMarkdown_Navigating" />
+                        Navigating="tbMarkdown_Navigating">
+                <WebBrowser.Style>
+                    <Style TargetType="{x:Type WebBrowser}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=MainMenu,
+                                                           Path=ShowPreview}"
+                                         Value="false">
+                                <Setter Property="ab:WebBrowserBehavior.HTML"
+                                        Value="" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="ab:WebBrowserBehavior.HTML"
+                                Value="{Binding AllNotes.SelectedNote.Content,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                Converter={StaticResource MarkdownConverter}}" />
+                    </Style>
+                </WebBrowser.Style>
+            </WebBrowser>
 
         </Grid>
     </Grid>

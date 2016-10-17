@@ -100,6 +100,10 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Markdig, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.0.5.2\lib\net40\Markdig.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -192,6 +196,7 @@
     <Compile Include="DataStorage\SQLQueries.cs" />
     <Compile Include="Export\HTMLExporter.cs" />
     <Compile Include="Export\PDFExporter.cs" />
+    <Compile Include="Export\TextExporter.cs" />
     <Compile Include="Models\DeleteNoteParams.cs" />
     <Compile Include="Models\GroupCmdParams.cs" />
     <Compile Include="Models\AddLinkParams.cs" />
@@ -216,6 +221,7 @@
     <Compile Include="UI\Dialogs\LinkDialog.xaml.cs">
       <DependentUpon>LinkDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Storyboards\MarkdownPreviewStoryboards.cs" />
     <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
     <Compile Include="UI\ViewModels\GroupViewModel.cs" />
     <Compile Include="UI\ViewModels\IDialog.cs" />

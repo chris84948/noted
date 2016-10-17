@@ -1,4 +1,5 @@
-﻿using JustMVVM;
+﻿using ICSharpCode.AvalonEdit;
+using JustMVVM;
 using NotedUI.Controls;
 using NotedUI.DataStorage;
 using NotedUI.Models;
@@ -39,6 +40,9 @@ namespace NotedUI.UI.ViewModels
 
                 _selectedNote = value;
                 OnPropertyChanged();
+
+                if (_selectedNote != null && TextEditor != null)
+                    App.Current.Dispatcher.Invoke(() => TextEditor.Text = _selectedNote.Content);
             }
         }
 
@@ -86,6 +90,19 @@ namespace NotedUI.UI.ViewModels
             {
                 _gettingLatestNotes = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private TextEditor _textEditor;
+        public TextEditor TextEditor
+        {
+            get { return _textEditor; }
+            set
+            {
+                _textEditor = value;
+
+                if (_textEditor != null)
+                    _textEditor.Text = SelectedNote?.Content ?? "";
             }
         }
 
@@ -230,8 +247,12 @@ namespace NotedUI.UI.ViewModels
 
         private void TextChangedExec()
         {
+            // Update the loccal note storage any time it's updated in the editor
+            if (SelectedNote.Content != TextEditor.Text)
+                SelectedNote.Content = TextEditor.Text;
+
             // Reset the update timer every time the text changes
-            // This stops it from being updated constantly, just after typing has stopped for > 3 seconds
+            // This stops it from being updated to the cloud constantly, just after typing has stopped for > 3 seconds
             _updateNoteTimer.Stop();
             _updateNoteTimer.Start();
         }

@@ -136,6 +136,19 @@ namespace NotedUI.UI.Components
             set { SetValue(GroupAddCommandProperty, value); }
         }
 
+        public static readonly DependencyProperty ExportTextCommandProperty =
+            DependencyProperty.Register("ExportTextCommand",
+                                        typeof(ICommand),
+                                        typeof(MainMenu),
+                                        new PropertyMetadata((ICommand)null));
+
+        [TypeConverter(typeof(CommandConverter))]
+        public ICommand ExportTextCommand
+        {
+            get { return (ICommand)GetValue(ExportTextCommandProperty); }
+            set { SetValue(ExportTextCommandProperty, value); }
+        }
+
         public static readonly DependencyProperty ExportHTMLCommandProperty =
             DependencyProperty.Register("ExportHTMLCommand",
                                         typeof(ICommand),
@@ -225,7 +238,15 @@ namespace NotedUI.UI.Components
             if (AddGroupCommand?.CanExecute(data) == true)
                 AddGroupCommand?.Execute(data);
         }
-        
+
+        private void buttonExportText_Click(object sender, RoutedEventArgs e)
+        {
+            popupExport.IsOpen = false;
+
+            if (ExportTextCommand?.CanExecute(AllNotes) == true)
+                ExportTextCommand?.Execute(AllNotes);
+        }
+
         private void buttonExportHTML_Click(object sender, RoutedEventArgs e)
         {
             popupExport.IsOpen = false;

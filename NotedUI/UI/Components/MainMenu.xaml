@@ -108,6 +108,10 @@
 
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
+                <Button x:Name="buttonExportText"
+                        Click="buttonExportText_Click"
+                        Content="TO TEXT"
+                        Style="{StaticResource PopupButtonStyle}" />
                 <Button x:Name="buttonExportHTML"
                         Click="buttonExportHTML_Click"
                         Content="TO HTML"

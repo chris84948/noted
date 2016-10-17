@@ -263,7 +263,7 @@ namespace NotedUI.DataStorage
             }
         }
 
-        private Task<string> GetNoteContentTask(string fileID)
+        private async Task<string> GetNoteContentTask(string fileID)
         {
             TaskCompletionSource<string> tcs = new TaskCompletionSource<string>();
 
@@ -286,7 +286,7 @@ namespace NotedUI.DataStorage
 
             request.Download(stream);
 
-            return tcs.Task;
+            return await tcs.Task;
         }
 
         private File CreateNewFile(string filename, string content, string directoryId)
