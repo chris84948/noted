@@ -8,6 +8,7 @@ using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -21,15 +22,14 @@ namespace NotedUI.UI.ViewModels
         public AllNotesViewModel AllNotes { get; set; }
         public string CSSStyle { get; set; }
 
-        public bool ShowPreviewOnLoad { get; set; }
-
-        // TODO Delete this when done testing
-        public IEnumerable<eNoteState> NoteStates
+        private bool _fixAirspace;
+        public bool FixAirspace
         {
-            get
+            get { return _fixAirspace; }
+            set
             {
-                return Enum.GetValues(typeof(eNoteState))
-                    .Cast<eNoteState>();
+                _fixAirspace = value;
+                OnPropertyChanged();
             }
         }
 
@@ -48,11 +48,12 @@ namespace NotedUI.UI.ViewModels
 
         public void InvokeShowDialog(IDialog dialog)
         {
-            if (MainCommands.ShowPreview)
+            FixAirspace = true;
+            dialog.DialogClosed += async () =>
             {
-                MainCommands.ShowPreview = false;
-                dialog.DialogClosed += () => MainCommands.ShowPreview = true;
-            }
+                await Task.Delay(300);
+                FixAirspace = false;
+            };
 
             ShowDialog?.Invoke(dialog);
         }

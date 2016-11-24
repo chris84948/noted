@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AirspaceFixer;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -8,11 +9,11 @@ namespace NotedUI.UI.Storyboards
 {
     public class MarkdownPreviewStoryboards
     {
-        public static Storyboard GetShow(WebBrowser tbMarkdown, Grid gridNote, Rectangle gridSplitterMarkdown)
+        public static Storyboard GetShow(AirspacePanel tbMarkdownPanel, Grid gridNote, Rectangle gridSplitterMarkdown)
         {
             // Fixes the first time width to half the screen
-            tbMarkdown.Width = gridNote.ActualWidth / 2;
-            tbMarkdown.Margin = new Thickness(0, 0, -tbMarkdown.Width, 0);
+            tbMarkdownPanel.Width = gridNote.ActualWidth / 2;
+            tbMarkdownPanel.Margin = new Thickness(0, 0, -tbMarkdownPanel.Width, 0);
 
             var visAnim = new ObjectAnimationUsingKeyFrames()
             {
@@ -34,7 +35,7 @@ namespace NotedUI.UI.Storyboards
                         { EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut } }
                 }
             };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
+            Storyboard.SetTarget(marginAnim, tbMarkdownPanel);
             Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
 
             var widthAnim = new DoubleAnimationUsingKeyFrames()
@@ -42,11 +43,11 @@ namespace NotedUI.UI.Storyboards
                 Duration = new Duration(TimeSpan.FromMilliseconds(500)),
                 KeyFrames = new DoubleKeyFrameCollection()
                 {
-                    new SplineDoubleKeyFrame(tbMarkdown.ActualWidth, KeyTime.FromPercent(0.999)),
+                    new SplineDoubleKeyFrame(tbMarkdownPanel.ActualWidth, KeyTime.FromPercent(0.999)),
                     new SplineDoubleKeyFrame(Double.NaN, KeyTime.FromPercent(1))
                 }
             };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
+            Storyboard.SetTarget(marginAnim, tbMarkdownPanel);
             Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
 
             var sb = new Storyboard()
@@ -56,16 +57,16 @@ namespace NotedUI.UI.Storyboards
 
             sb.Completed += (sender, args) =>
             {
-                tbMarkdown.Width = gridNote.ActualWidth / 2;
-                tbMarkdown.Margin = new Thickness(0, 0, 0, 0);
+                tbMarkdownPanel.Width = gridNote.ActualWidth / 2;
+                tbMarkdownPanel.Margin = new Thickness(0, 0, 0, 0);
             };
 
             return sb;
         }
 
-        public static Storyboard GetHide(WebBrowser tbMarkdown, Grid gridNote, Rectangle gridSplitterMarkdown)
+        public static Storyboard GetHide(AirspacePanel tbMarkdownPanel, Grid gridNote, Rectangle gridSplitterMarkdown)
         {
-            tbMarkdown.Width = tbMarkdown.ActualWidth;
+            tbMarkdownPanel.Width = tbMarkdownPanel.ActualWidth;
 
             var visAnim = new ObjectAnimationUsingKeyFrames()
             {
@@ -82,11 +83,11 @@ namespace NotedUI.UI.Storyboards
                 Duration = new Duration(TimeSpan.FromMilliseconds(500)),
                 KeyFrames = new ThicknessKeyFrameCollection()
                 {
-                    new EasingThicknessKeyFrame(new Thickness(0, 0, -tbMarkdown.ActualWidth, 0), KeyTime.FromPercent(1))
+                    new EasingThicknessKeyFrame(new Thickness(0, 0, -tbMarkdownPanel.ActualWidth, 0), KeyTime.FromPercent(1))
                         { EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut } }
                 }
             };
-            Storyboard.SetTarget(marginAnim, tbMarkdown);
+            Storyboard.SetTarget(marginAnim, tbMarkdownPanel);
             Storyboard.SetTargetProperty(marginAnim, new PropertyPath("(FrameworkElement.Margin)"));
 
             var sb = new Storyboard()

@@ -40,6 +40,7 @@ namespace NotedUI.UI.Screens
             remove { RemoveHandler(FindDialogShownEvent, value); }
         }
 
+        private int _markdownScrollPosition;
 
         public Home()
         {
@@ -63,36 +64,29 @@ namespace NotedUI.UI.Screens
         {
             var homeVM = DataContext as HomeViewModel;
 
-            if (homeVM?.ShowPreviewOnLoad == true)
-            {
-                homeVM.ShowPreviewOnLoad = false;
-                MainMenu.ShowPreview = true;
-            }
-
             // This event forces the markdown preview to be the same size as the editor
             gridNote.SizeChanged += (s, args) =>
             {
-                tbMarkdown.Width = args.NewSize.Width / 2;
+                tbMarkdownPanel.Width = args.NewSize.Width / 2;
 
-                if (tbMarkdown.Margin.Right < 0)
-                    tbMarkdown.Margin = new Thickness(0, 0, -args.NewSize.Width / 2, 0);
+                if (tbMarkdownPanel.Margin.Right < 0)
+                    tbMarkdownPanel.Margin = new Thickness(0, 0, -args.NewSize.Width / 2, 0);
             };
 
             // This event passes the Enter pressed key to handle continuing lists
             tbNote.PreviewKeyDown += (s, args) =>
             {
                 if (args.Key == System.Windows.Input.Key.Enter)
-                    tbNote.TextChanged += tbNote_TextChangedEvent;
+                    tbNote.TextChanged += tbNote_EnterHandler;
             };
 
             // HACK Might want to change this sometime later
             homeVM.AllNotes.TextEditor = tbNote;
-
         }
 
-        private void tbNote_TextChangedEvent(object sender, EventArgs args)
+        private void tbNote_EnterHandler(object sender, EventArgs args)
         {
-            tbNote.TextChanged -= tbNote_TextChangedEvent;
+            tbNote.TextChanged -= tbNote_EnterHandler;
 
             RoutedEventArgs routedArgs = new RoutedEventArgs(EnterPressedEvent);
             me.RaiseEvent(routedArgs);
@@ -103,9 +97,9 @@ namespace NotedUI.UI.Screens
             Storyboard sb = null;
 
             if (MainMenu.ShowPreview)
-                sb = MarkdownPreviewStoryboards.GetShow(tbMarkdown, gridNote, gridSplitterMarkdown);
+                sb = MarkdownPreviewStoryboards.GetShow(tbMarkdownPanel, gridNote, gridSplitterMarkdown);
             else
-                sb = MarkdownPreviewStoryboards.GetHide(tbMarkdown, gridNote, gridSplitterMarkdown);
+                sb = MarkdownPreviewStoryboards.GetHide(tbMarkdownPanel, gridNote, gridSplitterMarkdown);
 
             sb.Begin();
         }
@@ -160,7 +154,10 @@ namespace NotedUI.UI.Screens
                 if (percentToScroll > 0.99) percentToScroll = 1.1; // deal with round off at end of scroll
                 var body = document2.body;
                 var scrollHeight = ((IHTMLElement2)body).scrollHeight - document3.documentElement.offsetHeight;
-                document2.parentWindow.scroll(0, (int)Math.Ceiling(percentToScroll * scrollHeight));
+
+                _markdownScrollPosition = (int)Math.Ceiling(percentToScroll * scrollHeight);
+
+                document2.parentWindow.scroll(0, _markdownScrollPosition);
             }
         }
 

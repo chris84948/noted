@@ -1,6 +1,7 @@
 ﻿using JustMVVM;
 using NotedUI.Controls;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -20,7 +21,13 @@ namespace NotedUI.UI.ViewModels
 
         private void CloseExec()
         {
-            ChangeScreen?.Invoke(_homeVM, eTransitionType.SlideOutFromRight);
+            Task.Run(async () =>
+            {
+                ChangeScreen?.Invoke(_homeVM, eTransitionType.SlideOutFromRight);
+
+                await Task.Delay(500);
+                _homeVM.FixAirspace = false;
+            });
         }
     }
 }

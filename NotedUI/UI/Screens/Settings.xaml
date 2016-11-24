@@ -14,26 +14,42 @@
 
         <Style BasedOn="{StaticResource SettingsToggleButton}"
                TargetType="RadioButton">
-            <Setter Property="FontFamily" Value="{StaticResource ListViewHeaderFont}" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontWeight" Value="{StaticResource ListViewHeaderFontWeight}" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Foreground" Value="{StaticResource ListViewTextColorBrush}" />
-            <Setter Property="Padding" Value="30,30" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ListViewHeaderFont}" />
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="FontWeight"
+                    Value="{StaticResource ListViewHeaderFontWeight}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource ListViewTextColorBrush}" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left" />
+            <Setter Property="Padding"
+                    Value="30,30" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
         </Style>
 
         <Style BasedOn="{StaticResource SettingsButton}"
                TargetType="Button">
-            <Setter Property="FontFamily" Value="{StaticResource ListViewHeaderFont}" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Background" Value="{StaticResource AppTopBannerBrush}" />
-            <Setter Property="FontWeight" Value="{StaticResource ListViewHeaderFontWeight}" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="Padding" Value="20,20" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Background"
+                    Value="{StaticResource AppTopBannerBrush}" />
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ListViewHeaderFont}" />
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="FontWeight"
+                    Value="{StaticResource ListViewHeaderFontWeight}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left" />
+            <Setter Property="Padding"
+                    Value="20,20" />
         </Style>
 
     </UserControl.Resources>
@@ -48,9 +64,9 @@
                     Orientation="Vertical">
 
             <Button x:Name="buttonClose"
+                    Height="80"
                     ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                     ab:ButtonBehaviors.IconSize="16"
-                    Height="80"
                     Command="{Binding CloseCommand}"
                     Content="CLOSE SETTINGS"
                     IsCancel="True" />

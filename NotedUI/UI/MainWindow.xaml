@@ -94,7 +94,7 @@
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
 
-                    <Storyboard>
+                    <Storyboard Completed="Storyboard_Completed">
 
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridDialogBackground"
                                                        Storyboard.TargetProperty="Opacity">

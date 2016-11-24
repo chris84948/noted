@@ -106,6 +106,9 @@ namespace NotedUI.UI.ViewModels
 
             dialog.DialogClosed += async () =>
             {
+                await Task.Delay(300);
+                cmdArgs.HomeVM.FixAirspace = false;
+
                 if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
                     return;
 
@@ -123,6 +126,9 @@ namespace NotedUI.UI.ViewModels
 
             dialog.DialogClosed += async () =>
             {
+                await Task.Delay(300);
+                cmdArgs.HomeVM.FixAirspace = false;
+
                 if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
                     return;
 
@@ -204,11 +210,8 @@ namespace NotedUI.UI.ViewModels
 
         public void ShowSettingsExec(HomeViewModel homeVM)
         {
-            if (ShowPreview)
-            {
-                ShowPreview = false;
-                homeVM.ShowPreviewOnLoad = true;
-            }
+            if (homeVM.MainCommands.ShowPreview)
+                homeVM.FixAirspace = true;
 
             var settings = new SettingsViewModel(homeVM);
             homeVM.InvokeChangeScreen(settings);

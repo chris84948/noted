@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -220,11 +221,14 @@ namespace NotedUI.UI.ViewModels
         {
             var dialog = new LinkDialogViewModel(data.Editor.SelectedText);
 
-            dialog.DialogClosed += () =>
+            dialog.DialogClosed += async () =>
             {
+                await Task.Delay(300);
+                data.HomeVM.FixAirspace = false;
+
                 if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
                     return;
-
+                
                 var start = data.Editor.SelectionStart;
                 var link = $"[{ dialog.Description }]({ dialog.Link })";
                 data.Editor.Document.Replace(start, data.Editor.SelectionLength, link);

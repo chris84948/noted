@@ -11,7 +11,8 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type controls:NotedWindow}">
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
         <!--  Template  -->
         <Setter Property="Template">
             <Setter.Value>
@@ -39,11 +40,16 @@
                                         <StackPanel.Resources>
                                             <Style BasedOn="{StaticResource IconButton}"
                                                    TargetType="Button">
-                                                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-                                                <Setter Property="Height" Value="30" />
-                                                <Setter Property="Width" Value="50" />
-                                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-                                                <Setter Property="ab:ButtonBehaviors.IconSize" Value="12" />
+                                                <Setter Property="Foreground"
+                                                        Value="{StaticResource ButtonForegroundBrush}" />
+                                                <Setter Property="Height"
+                                                        Value="30" />
+                                                <Setter Property="Width"
+                                                        Value="50" />
+                                                <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                                        Value="True" />
+                                                <Setter Property="ab:ButtonBehaviors.IconSize"
+                                                        Value="12" />
                                             </Style>
                                         </StackPanel.Resources>
 
@@ -75,8 +81,12 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="buttonMax" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="buttonRestore" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="buttonMax"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                            <Setter TargetName="buttonRestore"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
@@ -97,7 +107,8 @@
         <Style.Triggers>
 
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter Property="BorderThickness" Value="7" />
+                <Setter Property="BorderThickness"
+                        Value="7" />
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
                         <WindowChrome CaptionHeight="6"
