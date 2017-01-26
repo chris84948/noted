@@ -205,6 +205,7 @@
     <Compile Include="Converters\NoteTitleWidthConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\ToLowerConverter.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
     <Content Include="Resources\CSS\Github.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

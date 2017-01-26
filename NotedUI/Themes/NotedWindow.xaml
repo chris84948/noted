@@ -38,7 +38,8 @@
                                                 VerticalAlignment="Top"
                                                 Orientation="Horizontal">
                                         <StackPanel.Resources>
-                                            <Style BasedOn="{StaticResource IconButton}"
+                                            <Style x:Key="TitleButton"
+                                                   BasedOn="{StaticResource IconButton}"
                                                    TargetType="Button">
                                                 <Setter Property="Foreground"
                                                         Value="{StaticResource ButtonForegroundBrush}" />
@@ -55,20 +56,27 @@
 
                                         <Button ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
-                                                Padding="0,8,0,0" />
+                                                Padding="0,8,0,0"
+                                                Style="{StaticResource TitleButton}" />
 
                                         <Button x:Name="buttonMax"
                                                 ab:ButtonBehaviors.Icon="{StaticResource MaximizeIcon}"
-                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}" />
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                                Style="{StaticResource TitleButton}" />
 
                                         <Button x:Name="buttonRestore"
                                                 ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
+                                                Style="{StaticResource TitleButton}"
                                                 Visibility="Collapsed" />
 
-                                        <Button ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
-                                                Background="{StaticResource CloseButtonBrush}"
-                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" />
+                                        <Button Width="50"
+                                                Height="30"
+                                                ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
+                                                ab:ButtonBehaviors.IconSize="12"
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                                Style="{StaticResource IconCloseButton}"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
 
                                     </StackPanel>
                                 </Grid>

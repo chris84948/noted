@@ -19,14 +19,16 @@
 
     <Style x:Key="IconTextButton"
            TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="LightGray" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="ToolTipService.HasDropShadow" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
-        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource FocusVisual}" />
+        <Setter Property="Foreground"
+                Value="LightGray" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -95,36 +97,52 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger SourceName="border" Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter TargetName="MouseOverRect" Property="Opacity" Value="0.3" />
+                            <Setter Property="Foreground"
+                                    Value="White" />
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0.2" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter TargetName="MouseOverRect" Property="Opacity" Value="0" />
-                            <Setter Property="Background" Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter Property="Foreground"
+                                    Value="White" />
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundDisabledBrush}" />
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource ButtonForegroundDisabledBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
 
     <Style x:Key="IconTextToggleButton"
            TargetType="{x:Type ToggleButton}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="LightGray" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="ToolTipService.HasDropShadow" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource FocusVisual}" />
+        <Setter Property="Foreground"
+                Value="LightGray" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -193,29 +211,46 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger SourceName="border" Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter TargetName="MouseOverRect" Property="Opacity" Value="0.3" />
+                            <Setter Property="Foreground"
+                                    Value="White" />
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0.2" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter TargetName="MouseOverRect" Property="Opacity" Value="0" />
-                            <Setter Property="Background" Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter Property="Foreground"
+                                    Value="White" />
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0" />
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="MouseOverRect" Property="Opacity" Value="0" />
-                            <Setter Property="Background" Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource ButtonPopupBrush}" />
+                            <Setter TargetName="MouseOverRect"
+                                    Property="Opacity"
+                                    Value="0" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundDisabledBrush}" />
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource ButtonForegroundDisabledBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
 
 </ResourceDictionary>

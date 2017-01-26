@@ -1,6 +1,8 @@
-﻿using JustMVVM;
+﻿using CommonMark;
+using JustMVVM;
 using NotedUI.Models;
 using System;
+using System.Timers;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -62,7 +64,13 @@ namespace NotedUI.UI.ViewModels
 
                 Title = GetTitle();
                 SetNoteState();
+                _markdownTimer.Reset();
             }
+        }
+
+        public string Markdown
+        {
+            get { return CommonMarkConverter.Convert(Content ?? ""); }
         }
 
         public string Group
@@ -88,6 +96,8 @@ namespace NotedUI.UI.ViewModels
 
         public bool AnimateOnLoad { get; set; } = false;
 
+        private Timer _markdownTimer;
+
         public NoteViewModel(long id,
                              DateTime? lastModified,
                              string content,
@@ -101,6 +111,12 @@ namespace NotedUI.UI.ViewModels
             CloudKey = cloudKey;
 
             State = eNoteState.Normal;
+
+            _markdownTimer = new Timer(600);
+            _markdownTimer.Elapsed += (s, e) =>
+            {
+                OnPropertyChanged(nameof(Markdown));
+            };
         }
 
         public NoteViewModel(Note note)

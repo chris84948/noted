@@ -1,4 +1,5 @@
 ﻿using mshtml;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -48,17 +49,39 @@ namespace NotedUI.AttachedBehaviors
         private static void HTMLChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var browser = d as WebBrowser;
-            var newText = e.NewValue as string;
+            var newText = "<div id='content'>" + e.NewValue as string + "</div>";
 
             if (browser != null && !string.IsNullOrWhiteSpace(newText))
             {
-                browser.NavigateToString(newText);
+                UpdateContent2(browser, newText);
             }
+        }
+
+        private static void UpdateContent(WebBrowser browser, string markdown)
+        {
+            var document = browser.Document as IHTMLDocument3;
+            var element = document?.getElementById("content");
+
+            if (element == null)
+                browser.NavigateToString(markdown);
+            else
+                element.innerHTML = markdown;
+        }
+
+        private static void UpdateContent2(WebBrowser browser, string markdown)
+        {
+            HTMLDocument document = (HTMLDocument)browser.Document;
+            IHTMLElement textArea = document?.getElementById("content");
+
+            if (textArea == null)
+                browser.NavigateToString(markdown);
+            else
+                textArea.innerHTML = markdown;
         }
 
         private static void SetupWebBrowserCSS(WebBrowser browser)
         {
-            IHTMLDocument2 doc = browser.Document as IHTMLDocument2;
+            IHTMLDocument2 doc = (IHTMLDocument2)browser.Document;
 
             if (doc == null)
                 return;

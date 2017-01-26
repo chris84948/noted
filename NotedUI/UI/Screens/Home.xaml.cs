@@ -40,7 +40,7 @@ namespace NotedUI.UI.Screens
             remove { RemoveHandler(FindDialogShownEvent, value); }
         }
 
-        private int _markdownScrollPosition;
+        private double _markdownScrollPercent;
 
         public Home()
         {
@@ -104,8 +104,6 @@ namespace NotedUI.UI.Screens
             sb.Begin();
         }
         
-        
-
         private void tbNote_Loaded(object sender, RoutedEventArgs e)
         {
             tbNote.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Markdown");
@@ -113,7 +111,7 @@ namespace NotedUI.UI.Screens
             tbNote.Focus();
             tbNote.Select(0, 0);
         }
-        
+
         private void tbMarkdown_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
             if (e.Uri == null)
@@ -140,24 +138,26 @@ namespace NotedUI.UI.Screens
 
         private void tbNote_ScrollPositionChanged(object sender, ScrollChangedEventArgs e)
         {
-            SetScrollOffset(e);
+            _markdownScrollPercent = PercentScroll(e);
+            SetScrollOffset(_markdownScrollPercent);
         }
 
-        public void SetScrollOffset(ScrollChangedEventArgs ea)
+        public void SetScrollOffset(double scrollPercent)
         {
             var document2 = (IHTMLDocument2)tbMarkdown.Document;
             var document3 = (IHTMLDocument3)tbMarkdown.Document;
 
             if (document3?.documentElement != null)
             {
-                var percentToScroll = PercentScroll(ea);
-                if (percentToScroll > 0.99) percentToScroll = 1.1; // deal with round off at end of scroll
+                if (scrollPercent > 0.99)
+                    scrollPercent = 1.1; // deal with round off at end of scroll
+
                 var body = document2.body;
                 var scrollHeight = ((IHTMLElement2)body).scrollHeight - document3.documentElement.offsetHeight;
 
-                _markdownScrollPosition = (int)Math.Ceiling(percentToScroll * scrollHeight);
+                int scrollPosition = (int)Math.Ceiling(scrollPercent * scrollHeight);
 
-                document2.parentWindow.scroll(0, _markdownScrollPosition);
+                document2.parentWindow.scroll(0, scrollPosition);
             }
         }
 

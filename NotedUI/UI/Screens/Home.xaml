@@ -606,9 +606,8 @@
                                 </DataTrigger>
                             </Style.Triggers>
                             <Setter Property="ab:WebBrowserBehavior.HTML"
-                                    Value="{Binding AllNotes.SelectedNote.Content,
-                                                    UpdateSourceTrigger=PropertyChanged,
-                                                    Converter={StaticResource MarkdownConverter}}" />
+                                    Value="{Binding AllNotes.SelectedNote.Markdown,
+                                                    UpdateSourceTrigger=PropertyChanged}" />
                         </Style>
                     </WebBrowser.Style>
                 </WebBrowser>
