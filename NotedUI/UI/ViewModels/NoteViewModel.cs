@@ -1,6 +1,6 @@
-﻿using CommonMark;
-using JustMVVM;
+﻿using JustMVVM;
 using NotedUI.Models;
+using NotedUI.Utilities;
 using System;
 using System.Timers;
 
@@ -70,7 +70,7 @@ namespace NotedUI.UI.ViewModels
 
         public string Markdown
         {
-            get { return CommonMarkConverter.Convert(Content ?? ""); }
+            get { return MarkdownParser.Parse(Content); }
         }
 
         public string Group

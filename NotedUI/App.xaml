@@ -49,8 +49,6 @@
 
             <conv:MarginConverter x:Key="MarginConverter" />
 
-            <conv:MarkdownConverter x:Key="MarkdownConverter" />
-
             <conv:DialogDataConverter x:Key="DialogDataConverter" />
 
             <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />

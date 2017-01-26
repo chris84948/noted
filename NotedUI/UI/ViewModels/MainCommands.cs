@@ -1,8 +1,8 @@
-﻿using CommonMark;
-using JustMVVM;
+﻿using JustMVVM;
 using NotedUI.Export;
 using NotedUI.Models;
 using NotedUI.UI.Components;
+using NotedUI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -186,7 +186,7 @@ namespace NotedUI.UI.ViewModels
 
         public void ExportHTMLExec(AllNotesViewModel allNotes)
         {
-            var html = CommonMarkConverter.Convert(allNotes.SelectedNote.Content);
+            var html = MarkdownParser.Parse(allNotes.SelectedNote.Content);
 
             HTMLExporter.Export(@"c:\github\notedui\textExport.html", "github", html);
         }
@@ -198,7 +198,7 @@ namespace NotedUI.UI.ViewModels
 
         public void ExportPDFExec(AllNotesViewModel allNotes)
         {
-            var html = CommonMarkConverter.Convert(allNotes.SelectedNote.Content);
+            var html = MarkdownParser.Parse(allNotes.SelectedNote.Content);
 
             PDFExporter.Export(@"c:\github\notedui\textExport.pdf", "github", html);
         }
