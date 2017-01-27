@@ -60,12 +60,11 @@
         {
             return
                 @"UPDATE Notes 
-                  SET CloudKey = @CloudKey,
-                      LastModified = @LastModified, 
+                  SET LastModified = @LastModified, 
                       Content = @Content,
                       GroupID = (SELECT Groups.ID FROM Groups
                                WHERE Groups.Name = @Group)
-                  WHERE ID = @ID";
+                  WHERE CloudKey = @CloudKey";
         }
 
         public static string DeleteNote()

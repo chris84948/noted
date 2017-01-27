@@ -99,7 +99,6 @@ namespace NotedUI.DataStorage
 
                 using (var cmd = new SQLiteCommand(SQLQueries.UpdateNote(), conn))
                 {
-                    cmd.Parameters.Add(new SQLiteParameter("@ID", note.ID));
                     cmd.Parameters.Add(new SQLiteParameter("@CloudKey", note.CloudKey));
                     cmd.Parameters.Add(new SQLiteParameter("@LastModified", note.LastModified));
                     cmd.Parameters.Add(new SQLiteParameter("@Content", note.Content));

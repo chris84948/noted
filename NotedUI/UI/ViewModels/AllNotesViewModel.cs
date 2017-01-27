@@ -201,7 +201,10 @@ namespace NotedUI.UI.ViewModels
                 if (notes.ContainsKey(_notes[i]?.CloudKey ?? ""))
                 {
                     if (notes[_notes[i].CloudKey].LastModified != _notes[i].LastModified)
+                    {
                         await CloudStorage.GetNoteWithContent(_notes[i].NoteData);
+                        await LocalStorage.UpdateNote(_notes[i].NoteData);
+                    }
 
                     notes.Remove(_notes[i].CloudKey);
                 }

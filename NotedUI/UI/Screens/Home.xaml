@@ -452,7 +452,7 @@
                                FontSize="13"
                                HorizontalScrollBarVisibility="Disabled"
                                Loaded="tbNote_Loaded"
-                               Padding="10"
+                               Padding="10,10,10,10"
                                ScrollPositionChanged="tbNote_ScrollPositionChanged"
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">

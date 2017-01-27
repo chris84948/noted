@@ -130,12 +130,16 @@ namespace NotedUI.UI.ViewModels
 
         private string GetTitle()
         {
-            int index = NoteData.Content.IndexOf("\r\n");
-            
-            if (index == -1)
+            int indexFirstLinebreak = NoteData.Content.IndexOf("\r\n");
+            if (indexFirstLinebreak == -1)
+                return NoteData.Content;
+
+            string firstline = NoteData.Content.Substring(0, indexFirstLinebreak);
+
+            if (String.IsNullOrEmpty(firstline))
                 return NoteData.Content;
             else
-                return NoteData.Content.Substring(0, index);
+                return firstline;
         }
 
         private void SetNoteState()
