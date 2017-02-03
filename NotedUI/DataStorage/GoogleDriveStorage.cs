@@ -11,6 +11,7 @@ using NotedUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -142,7 +143,7 @@ namespace NotedUI.DataStorage
                 {
                     userCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(stream,
                                                                                  _scopes,
-                                                                                 "user",
+                                                                                 "chris84948",
                                                                                  CancellationToken.None,
                                                                                  new FileDataStore(credPath, true)).Result;
                 }
@@ -348,6 +349,75 @@ namespace NotedUI.DataStorage
                 Console.WriteLine("An error occurred: " + e.Message);
                 return null;
             }
+        }
+
+        public async Task<Dictionary<string, InstallFile>> GetFilesForLatestVersion()
+        {
+            var files = await GetFilesRecursively(_service, "0B6J4GdPPuCf4VGdJNnVqWlR2dTA", "", new List<InstallFile>());
+
+            return files.ToDictionary(f => f.Filename, f => f);
+        }
+
+        private async Task<List<InstallFile>> GetFilesRecursively(DriveService service, string folderID, string path, List<InstallFile> currentFiles)
+        {
+            var newFiles = await GetFilesInFolderID(service, folderID);
+
+            foreach (var item in newFiles)
+            {
+                if (item.MimeType == "application/vnd.google-apps.folder")
+                {
+                    await GetFilesRecursively(service, item.Id, System.IO.Path.Combine(path, item.Name), currentFiles);
+                }
+                else
+                {
+                    currentFiles.Add(new InstallFile()
+                    {
+                        UpdateType = eUpdateType.None,
+                        Filename = System.IO.Path.Combine(path, item.Name),
+                        LastModified = (DateTime)item.ModifiedTime,
+                        CloudID = item.Id
+                    });
+                }
+            }
+
+            return currentFiles;
+        }
+
+        private async Task<IList<File>> GetFilesInFolderID(DriveService service, string folderID)
+        {
+            var request = service.Files.List();
+            request.Q = $"'{ folderID }' in parents";
+            request.Fields = "files(mimeType,id,modifiedTime,name,version,originalFilename)";
+            request.PageSize = 1000;
+
+            return (await request.ExecuteAsync()).Files;
+        }
+
+        public async Task<bool> DownloadFile(string cloudID, string filename)
+        {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+
+            var request = _service.Files.Get(cloudID);
+            var stream = new System.IO.MemoryStream();
+
+            request.MediaDownloader.ProgressChanged += progress =>
+            {
+                if (progress.Status == DownloadStatus.Completed)
+                {
+                    using (var file = new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+                        stream.WriteTo(file);
+
+                    tcs.SetResult(true);
+                }
+                else if (progress.Status == DownloadStatus.Failed)
+                {
+                    tcs.SetException(new Exception("File download failed"));
+                }
+            };
+
+            request.Download(stream);
+
+            return await tcs.Task;
         }
     }
 }

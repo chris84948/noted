@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NotedUI.Models;
 using System.IO;
-using System.Data.SQLite;
 using System.Data.Common;
+using System.Data.SQLite;
 
 namespace NotedUI.DataStorage
 {

@@ -18,5 +18,8 @@ namespace NotedUI.DataStorage
         Task<bool> DoGroupsNeedToBeUpdated(GroupCollection groups);
         Task<GroupCollection> GetAllGroups();
         Task UpdateAllGroups(GroupCollection groups);
+
+        Task<Dictionary<string, InstallFile>> GetFilesForLatestVersion();
+        Task<bool> DownloadFile(string cloudID, string filename);
     }
 }
