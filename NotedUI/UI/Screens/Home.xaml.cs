@@ -107,7 +107,7 @@ namespace NotedUI.UI.Screens
         private void tbNote_Loaded(object sender, RoutedEventArgs e)
         {
             tbNote.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Markdown");
-
+            
             tbNote.Focus();
             tbNote.Select(0, 0);
         }

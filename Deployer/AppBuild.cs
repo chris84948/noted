@@ -11,14 +11,13 @@ namespace Deployer
     {
         private const string MSBUILD_LOCATION = @"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild";
 
-        public static void BuildRelease(Version version, int revision)
+        public static void BuildRelease(Version version)
         {
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = $@"""{ MSBUILD_LOCATION }""";
             startInfo.Arguments = $@"""{ @"C:\GitHub\notedui\NotedUI\NotedUI.csproj" }"" /target:clean,rebuild ";
-            startInfo.Arguments += $@"/p:Configuration=Release;ApplicationRevision={ revision };";
-            startInfo.Arguments += $@"VersionNumber={ version };ApplicationVersion={ version }";
+            startInfo.Arguments += $@"/p:Configuration=Release;ApplicationRevision={ version.ToString() }";
 
             process.StartInfo = startInfo;
             process.Start();

@@ -121,7 +121,7 @@ namespace NotedUI.UI.ViewModels
             _filterTimer.AutoReset = false;
             _filterTimer.Elapsed += FilterTimer_Elapsed;
 
-            _updateNoteTimer = new Timer(3000);
+            _updateNoteTimer = new Timer(2000);
             _updateNoteTimer.AutoReset = false;
             _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
 

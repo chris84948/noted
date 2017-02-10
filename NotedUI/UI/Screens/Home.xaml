@@ -36,6 +36,13 @@
                     Command="{Binding MainCommands.ToggleSearchCommand}"
                     CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
+        <KeyBinding Key="F3"
+                    Command="{Binding ElementName=FindDialog,
+                                      Path=SearchNextCommand}" />
+        <KeyBinding Key="F3"
+                    Command="{Binding ElementName=FindDialog,
+                                      Path=SearchPreviousCommand}"
+                    Modifiers="Shift" />
     </UserControl.InputBindings>
 
     <i:Interaction.Triggers>
@@ -457,6 +464,10 @@
                                ShowLineNumbers="False"
                                SyntaxHighlighting="MarkDown">
 
+                <avalon:TextEditor.Options>
+                    <avalon:TextEditorOptions AllowScrollBelowDocument="True" />
+                </avalon:TextEditor.Options>
+
                 <avalon:TextEditor.Style>
                     <Style TargetType="{x:Type avalon:TextEditor}">
                         <Style.Triggers>
@@ -469,10 +480,6 @@
                         </Style.Triggers>
                     </Style>
                 </avalon:TextEditor.Style>
-
-                <!--<i:Interaction.Behaviors>
-                    <ab:AvalonEditBehaviour BindableText="{Binding AllNotes.SelectedNote.Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                </i:Interaction.Behaviors>-->
 
                 <avalon:TextEditor.InputBindings>
                     <KeyBinding Key="B"

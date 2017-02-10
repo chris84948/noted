@@ -121,6 +121,9 @@ namespace NotedUI.UI.Dialogs
 
         private void SearchPreviousExec()
         {
+            if (String.IsNullOrEmpty(tbFind.Text))
+                return;
+
             if (buttonRegex.IsChecked == true || buttonMatchWord.IsChecked == true)
                 SearchPositionPreviousRegex();
             else
@@ -129,6 +132,9 @@ namespace NotedUI.UI.Dialogs
 
         private void ReplaceExec()
         {
+            if (String.IsNullOrEmpty(tbFind.Text))
+                return;
+
             if (buttonMatchWord.IsChecked == true || buttonRegex.IsChecked == true)
                 ReplaceUsingRegex();
             else
@@ -339,10 +345,14 @@ namespace NotedUI.UI.Dialogs
         private void SelectTextForMatch(int position, int length)
         {
             if (position != -1)
+            {
                 Editor.Select(position, length);
-
+                Editor.ScrollToLine(Editor.TextArea.Caret.Line);
+            }
             else // Unhighlight text when no matches are found
+            {
                 Editor.Select(Editor.SelectionStart, 0);
+            }
         }
 
         private void ReplaceUsingRegex()

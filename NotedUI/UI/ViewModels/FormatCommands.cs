@@ -272,17 +272,18 @@ namespace NotedUI.UI.ViewModels
                 if (lineText.Length == 2)   // Empty line on bullet list, end list
                     tbNote.Document.Replace(tbNote.SelectionStart - 4, 4, "\r\n");
                 else
-                    tbNote.Document.Insert(tbNote.Text.Length, "- ");
+                    tbNote.Document.Insert(tbNote.SelectionStart, "- ");
             }
             else if (Regex.IsMatch(lineText, @"^\d+\.\ "))  // Numbered List
             {
                 var match = Regex.Match(lineText, @"^(\d+)\.");
-                int nextNum = Convert.ToInt32(match.Groups[1].Value) + 1;
+                int currentNum = Convert.ToInt32(match.Groups[1].Value);
+                int currentNumStringLength = currentNum.ToString().Length;
 
-                if (lineText.Length == nextNum.ToString().Length + 2)   // Empty line on numbered list, end list
-                    tbNote.Document.Replace(tbNote.SelectionStart - 5, 5, "\r\n");
+                if (lineText.Length == currentNumStringLength + 2)   // Empty line on numbered list, end list
+                    tbNote.Document.Replace(tbNote.SelectionStart - (4 + currentNumStringLength), 4 + currentNumStringLength, "\r\n");
                 else
-                    tbNote.Document.Insert(tbNote.Text.Length, nextNum.ToString() + ". ");
+                    tbNote.Document.Insert(tbNote.SelectionStart, (currentNum + 1).ToString() + ". ");
             }
         }
 

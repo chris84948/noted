@@ -78,7 +78,7 @@ namespace NotedUI.Models
         public void Delete(ICollectionView view, string groupName)
         {
             // Reverse through the list of groups to delete it
-            for (int i = Groups.Count - 1; i >= 0; i--)
+            for (int i = 0; i < Groups.Count; i++)
             {
                 if (Groups[i].Name.ToUpper() == groupName.ToUpper())
                 {
