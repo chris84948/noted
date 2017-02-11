@@ -461,8 +461,7 @@
                                Loaded="tbNote_Loaded"
                                Padding="10,10,10,10"
                                ScrollPositionChanged="tbNote_ScrollPositionChanged"
-                               ShowLineNumbers="False"
-                               SyntaxHighlighting="MarkDown">
+                               ShowLineNumbers="False">
 
                 <avalon:TextEditor.Options>
                     <avalon:TextEditorOptions AllowScrollBelowDocument="True" />

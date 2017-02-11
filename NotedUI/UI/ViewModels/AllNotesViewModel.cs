@@ -3,6 +3,7 @@ using JustMVVM;
 using NotedUI.Controls;
 using NotedUI.DataStorage;
 using NotedUI.Models;
+using NotedUI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ namespace NotedUI.UI.ViewModels
         public ICommand TextChangedCommand { get { return new RelayCommand(TextChangedExec); } }
 
         private Timer _filterTimer, _updateNoteTimer, _pollAllNotesTimer;
+        private HighlightSearchTransformer _highlightSearchTransformer;
 
         private AsyncObservableCollection<NoteViewModel> _notes;
         private ICollectionView _view;
@@ -153,6 +155,23 @@ namespace NotedUI.UI.ViewModels
         {
             App.Current.Dispatcher.Invoke(() => _view.Refresh());
             ExpandAllGroups = true;
+
+            UpdateSearchTextHighlighting();
+        }
+
+        private void UpdateSearchTextHighlighting()
+        {
+            if (_highlightSearchTransformer != null)
+            {
+                App.Current.Dispatcher.Invoke(() => TextEditor.TextArea.TextView.LineTransformers.Remove(_highlightSearchTransformer));
+                _highlightSearchTransformer = null;
+            }
+
+            if (!String.IsNullOrEmpty(Filter))
+            {
+                _highlightSearchTransformer = new HighlightSearchTransformer(Filter);
+                App.Current.Dispatcher.Invoke(() => TextEditor.TextArea.TextView.LineTransformers.Add(_highlightSearchTransformer));
+            }
         }
         
         private async void InitializeNotes()

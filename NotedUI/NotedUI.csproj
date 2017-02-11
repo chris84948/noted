@@ -194,6 +194,7 @@
     <Compile Include="Models\eUpdateType.cs" />
     <Compile Include="Models\InstallFile.cs" />
     <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Utilities\HighlightSearchTransformer.cs" />
     <Compile Include="Utilities\MarkdownParser.cs" />
     <Compile Include="Utilities\Updater.cs" />
     <Content Include="Resources\CSS\Github.css">

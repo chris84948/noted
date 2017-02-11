@@ -11,15 +11,18 @@
 
     <Style x:Key="TextBoxCloseButton"
            TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource ListViewTextColorBrush}" />
-        <Setter Property="ToolTipService.HasDropShadow" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="IsEnabled" Value="True" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="FocusVisualStyle"
+                Value="{StaticResource FocusVisual}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource ListViewTextColorBrush}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="IsEnabled"
+                Value="True" />
+        <Setter Property="Padding"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -58,23 +61,36 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ToolTipService.HasDropShadow"
+                Value="True" />
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="0" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
 
     <Style x:Key="TextBoxIcon"
            TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="{DynamicResource NoteBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
-        <Setter Property="Foreground" Value="{DynamicResource ListViewTextSelectedColorBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ab:TextBoxBehaviors.Text" Value="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="ab:TextBoxBehaviors.TextBoxViewMargin" Value="1 0 1 0" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="AllowDrop" Value="true" />
-        <Setter Property="ab:TextBoxBehaviors.DoubleClickSelectAll" Value="True" />
-        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="AllowDrop"
+                Value="true" />
+        <Setter Property="Background"
+                Value="{DynamicResource NoteBackgroundBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource TextBox.Static.Border}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource ListViewTextSelectedColorBrush}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+                Value="None" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="VerticalFirst" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -194,53 +210,78 @@
                         </Trigger>
 
                         <Trigger SourceName="PART_CloseButton" Property="IsMouseOver" Value="true">
-                            <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                         <Trigger SourceName="PART_CloseButton" Property="IsPressed" Value="true">
-                            <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource AppTopBannerBrush}" />
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource AppTopBannerBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            <Setter TargetName="border"
+                                    Property="Opacity"
+                                    Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            <Setter TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="{StaticResource TextBox.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+                            <Setter TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="{StaticResource TextBox.Focus.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
 
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ab:TextBoxBehaviors.DoubleClickSelectAll"
+                Value="True" />
+        <Setter Property="ab:TextBoxBehaviors.Text"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=Text}" />
+        <Setter Property="ab:TextBoxBehaviors.TextBoxViewMargin"
+                Value="1 0 1 0" />
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
                     <Condition Property="IsSelectionActive" Value="false" />
                 </MultiTrigger.Conditions>
-                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                <Setter Property="SelectionBrush"
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="TextBoxNoIcon"
            TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="{DynamicResource NoteBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
-        <Setter Property="Foreground" Value="{DynamicResource ListViewTextSelectedColorBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ab:TextBoxBehaviors.Text" Value="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="ab:TextBoxBehaviors.TextBoxViewMargin" Value="1 0 1 0" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="AllowDrop" Value="true" />
-        <Setter Property="ab:TextBoxBehaviors.DoubleClickSelectAll" Value="True" />
-        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="AllowDrop"
+                Value="true" />
+        <Setter Property="Background"
+                Value="{DynamicResource NoteBackgroundBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource TextBox.Static.Border}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource ListViewTextSelectedColorBrush}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+                Value="None" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="VerticalFirst" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -335,34 +376,52 @@
                         </Trigger>
 
                         <Trigger SourceName="PART_CloseButton" Property="IsMouseOver" Value="true">
-                            <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                         <Trigger SourceName="PART_CloseButton" Property="IsPressed" Value="true">
-                            <Setter TargetName="PART_CloseButton" Property="Foreground" Value="{StaticResource AppTopBannerBrush}" />
+                            <Setter TargetName="PART_CloseButton"
+                                    Property="Foreground"
+                                    Value="{StaticResource AppTopBannerBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            <Setter TargetName="border"
+                                    Property="Opacity"
+                                    Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            <Setter TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="{StaticResource TextBox.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+                            <Setter TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="{StaticResource TextBox.Focus.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
 
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="ab:TextBoxBehaviors.DoubleClickSelectAll"
+                Value="True" />
+        <Setter Property="ab:TextBoxBehaviors.Text"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=Text}" />
+        <Setter Property="ab:TextBoxBehaviors.TextBoxViewMargin"
+                Value="1 0 1 0" />
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
                     <Condition Property="IsSelectionActive" Value="false" />
                 </MultiTrigger.Conditions>
-                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                <Setter Property="SelectionBrush"
+                        Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>

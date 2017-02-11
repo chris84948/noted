@@ -18,10 +18,14 @@
 
     <Style x:Key="ExpanderDownHeaderStyle"
            TargetType="{x:Type ToggleButton}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontFamily" Value="{StaticResource ListViewHeaderFont}" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="{StaticResource ListViewHeaderFontWeight}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FontFamily"
+                Value="{StaticResource ListViewHeaderFont}" />
+        <Setter Property="FontSize"
+                Value="16" />
+        <Setter Property="FontWeight"
+                Value="{StaticResource ListViewHeaderFontWeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -120,12 +124,18 @@
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="grid" Property="Background" Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
+                            <Setter TargetName="grid"
+                                    Property="Background"
+                                    Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="header" Property="TextElement.Foreground" Value="{StaticResource ListViewTextSelectedColorBrush}" />
-                            <Setter TargetName="pathChevron" Property="Fill" Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                            <Setter TargetName="header"
+                                    Property="TextElement.Foreground"
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                            <Setter TargetName="pathChevron"
+                                    Property="Fill"
+                                    Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
@@ -135,9 +145,12 @@
     </Style>
 
     <Style TargetType="{x:Type controls:NotedExpander}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="Padding"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:NotedExpander}">
@@ -316,7 +329,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Stretch" />
     </Style>
 
 </ResourceDictionary>

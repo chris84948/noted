@@ -14,7 +14,7 @@ namespace Deployer
     public partial class Form1 : Form
     {
         private const string NOTED_SOLUTION_FOLDER = @"C:\Github\NotedUI";
-        private const string DEPLOY_FOLDER = @"C:\NotedTest";
+        private const string DEPLOY_FOLDER = @"C:\Google Drive\Programming\Noted\Deployment";
 
         public Form1()
         {
