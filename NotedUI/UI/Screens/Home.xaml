@@ -393,7 +393,8 @@
                                                                                         Mode=TwoWay}"
                                                                     Header="{Binding Name,
                                                                                      Converter={StaticResource ToUpperConverter}}"
-                                                                    IsExpanded="False"
+                                                                    LocalStorage="{Binding RelativeSource={RelativeSource AncestorType=ListView},
+                                                                                           Path=DataContext.AllNotes.LocalStorage}"
                                                                     Tag="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                                                                   Path=DataContext}">
 

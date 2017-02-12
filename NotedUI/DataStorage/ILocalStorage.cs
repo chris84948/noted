@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NotedUI.DataStorage
 {
-    interface ILocalStorage
+    public interface ILocalStorage
     {
         Task Initialize();
 
@@ -19,5 +19,13 @@ namespace NotedUI.DataStorage
         Task<long> AddGroup(string groupName);
         Task UpdateGroup(string oldGroupName, string newGroupName);
         Task DeleteGroup(string groupName);
+
+        Task<bool> IsGroupExpanded(string groupName);
+        Task InsertExpandedGroup(string groupName);
+        Task DeleteExpandedGroup(string groupName);
+
+        Task<string> GetSelectedNoteID();
+        Task InsertSelectedNoteID(string noteCloudKey);
+        Task UpdateSelectedNoteID(string noteCloudKey);
     }
 }

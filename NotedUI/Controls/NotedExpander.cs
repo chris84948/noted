@@ -1,4 +1,5 @@
-﻿using NotedUI.UI.ViewModels;
+﻿using NotedUI.DataStorage;
+using NotedUI.UI.ViewModels;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,29 @@ namespace NotedUI.Controls
             obj.SetValue(ShowHighlightProperty, value);
         }
 
+        public static readonly DependencyProperty LocalStorageProperty =
+            DependencyProperty.RegisterAttached("LocalStorage",
+                                                typeof(ILocalStorage),
+                                                typeof(NotedExpander),
+                                                new PropertyMetadata(null));
+
+        public static ILocalStorage GetLocalStorage(DependencyObject obj)
+        {
+            return (ILocalStorage)obj.GetValue(LocalStorageProperty);
+        }
+
+        public static void SetLocalStorage(DependencyObject obj, ILocalStorage value)
+        {
+            obj.SetValue(LocalStorageProperty, value);
+        }
+
+        private static void LocalStorageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            FrameworkElement LocalStorage = (FrameworkElement)d;
+            double newVal = (double)e.NewValue;
+        }
+
+
         static NotedExpander()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NotedExpander), new FrameworkPropertyMetadata(typeof(NotedExpander)));
@@ -78,9 +102,10 @@ namespace NotedUI.Controls
             };
 
             // Make sure on startup that the selected item is expanded
-            var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
-            if (expanderItems.Contains(listview.SelectedItem))
-                expander.IsExpanded = true;
+            // TODO turned off selected note expanded code for now
+            //var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
+            //if (expanderItems.Contains(listview.SelectedItem))
+            //    expander.IsExpanded = true;
 
             expander._eventsInitialized = true;
         }
@@ -90,6 +115,33 @@ namespace NotedUI.Controls
             DragEnter += Expander_DragEnter;
             DragLeave += Expander_DragLeave;
             Drop += Expander_DragLeave;
+            Loaded += NotedExpander_Loaded;
+        }
+
+        private async void NotedExpander_Loaded(object sender, RoutedEventArgs e)
+        {
+            ILocalStorage localStorage = GetLocalStorage(this);
+
+            if (localStorage == null)
+                return;
+
+            // Get the stored value of is expanded and expand it if it's not already
+            IsExpanded = await localStorage.IsGroupExpanded(Header.ToString().ToUpper());
+
+            Expanded += NotedExpander_Expanded;
+            Collapsed += NotedExpander_Collapsed;
+        }
+
+        private void NotedExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            ILocalStorage localStorage = GetLocalStorage(this);
+            localStorage?.InsertExpandedGroup(Header.ToString().ToUpper());
+        }
+
+        private void NotedExpander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            ILocalStorage localStorage = GetLocalStorage(this);
+            localStorage?.DeleteExpandedGroup(Header.ToString().ToUpper());
         }
 
         private static void ExpandNowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

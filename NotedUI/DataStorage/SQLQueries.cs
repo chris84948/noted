@@ -5,29 +5,38 @@
         public static string CreateTables()
         {
             return
-                @"CREATE TABLE Notes (
-                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    CloudKey TEXT,
-                    LastModified TEXT,
-                    Content TEXT,
-                    GroupID INTEGER
-                );
+                @"  CREATE TABLE IF NOT EXISTS Notes 
+                    (
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        CloudKey TEXT,
+                        LastModified TEXT,
+                        Content TEXT,
+                        GroupID INTEGER
+                    );
 
-                CREATE TABLE Groups (
-                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT
-                );
+                    CREATE TABLE IF NOT EXISTS Groups 
+                    (
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Name TEXT
+                    );
 
-                CREATE VIEW AllNotes AS
-                    SELECT
-                        notes.ID AS ID,
-                        CloudKey,
-                        LastModified,
-                        Content,
-                        groups.Name AS [Group]
-                    FROM
-                        Notes notes
-                        LEFT JOIN Groups groups ON notes.GroupID = groups.ID;";
+                    CREATE TABLE IF NOT EXISTS UserSettings
+                    (
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        KeyName TEXT,
+                        KeyValue TEXT
+                    );
+
+                    CREATE VIEW IF NOT EXISTS AllNotes AS
+                        SELECT
+                            notes.ID AS ID,
+                            CloudKey,
+                            LastModified,
+                            Content,
+                            groups.Name AS [Group]
+                        FROM
+                            Notes notes
+                            LEFT JOIN Groups groups ON notes.GroupID = groups.ID;";
         }
 
         public static string GetLastInsertedRowID()
@@ -107,6 +116,53 @@
             return
                 @"DELETE FROM Groups
                   WHERE Name = @Group;";
+        }
+
+        public static string IsGroupExpanded()
+        {
+            return
+              @"SELECT EXISTS
+                (
+                    SELECT 1 FROM UserSettings
+                    WHERE KeyName = 'ExpandedGroups' AND KeyValue = @Group
+                );";
+        }
+
+        public static string InsertExpandedGroup()
+        {
+            return
+                @"INSERT INTO UserSettings (KeyName, KeyValue) 
+                  VALUES ('ExpandedGroups', @Group);";
+        }
+
+        public static string DeleteExpandedGroup()
+        {
+            return
+                @"DELETE UserSettings
+                  WHERE KeyName = 'ExpandedGroups' AND KeyValue = @Group;";
+        }
+
+        public static string GetSelectedNote()
+        {
+            return
+                @"  Select KeyValue 
+                    FROM UserSettings 
+                    WHERE KeyName = 'SelectedNote';";
+        }
+
+        public static string InsertSelectedNote()
+        {
+            return
+                @"  INSERT INTO UserSettings (KeyName, KeyValue)
+                    Values ('SelectedNote', @NoteCloudKey);";
+        }
+
+        public static string UpdateSelectedNote()
+        {
+            return
+                @"  UPDATE UserSettings 
+                    SET KeyValue = @NoteCloudKey
+                    WHERE KeyName = 'SelectedNote';";
         }
     }
 }

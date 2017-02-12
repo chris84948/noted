@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NotedUI.DataStorage
 {
-    interface ICloudStorage
+    public interface ICloudStorage
     {
         Task Connect();
         bool IsConnected();

@@ -20,13 +20,13 @@ namespace NotedUI.DataStorage
             connectionString = $"Data Source={ _dbLocation };Version=3;";
 
             if (!File.Exists(_dbLocation))
-                await CreateDatabase();
+                SQLiteConnection.CreateFile(_dbLocation);
+
+            await CreateTables();
         }
-
-        private async Task CreateDatabase()
+        
+        private async Task CreateTables()
         {
-            SQLiteConnection.CreateFile(_dbLocation);
-
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
@@ -182,6 +182,88 @@ namespace NotedUI.DataStorage
                 await cmdDelete.ExecuteNonQueryAsync();
             }
         }
+        
+        public async Task<bool> IsGroupExpanded(string groupName)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.IsGroupExpanded(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
+
+                long result = (long)(await cmd.ExecuteScalarAsync());
+
+                return result > 0;
+            }
+        }
+
+        public async Task InsertExpandedGroup(string groupName)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.InsertExpandedGroup(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task DeleteExpandedGroup(string groupName)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.DeleteExpandedGroup(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task<string> GetSelectedNoteID()
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.GetSelectedNote(), conn);
+
+                return (string)(await cmd.ExecuteScalarAsync());
+            }
+        }
+        
+        public async Task InsertSelectedNoteID(string cloudKey)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.InsertSelectedNote(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@NoteCloudKey", cloudKey));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task UpdateSelectedNoteID(string cloudKey)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.UpdateSelectedNote(), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@NoteCloudKey", cloudKey));
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+
+
 
         private async Task<Group> GetGroupWithConnection(SQLiteConnection conn, string groupName)
         {

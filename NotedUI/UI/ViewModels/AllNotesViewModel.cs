@@ -108,8 +108,8 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        internal ILocalStorage LocalStorage { get; set; }
-        internal ICloudStorage CloudStorage { get; set; }
+        public ILocalStorage LocalStorage { get; set; }
+        public ICloudStorage CloudStorage { get; set; }
 
         public AllNotesViewModel()
         {
@@ -131,6 +131,28 @@ namespace NotedUI.UI.ViewModels
             _pollAllNotesTimer.AutoReset = true;
             _pollAllNotesTimer.Elapsed += async (ss, ee) => await GetAllNotesAndUpdate();
             _pollAllNotesTimer.Start();
+
+            App.Current.Exit += ApplicationClosing_Exit;
+        }
+
+        private async void ApplicationClosing_Exit(object sender, System.Windows.ExitEventArgs e)
+        {
+            UpdateNote(SelectedNote);
+
+            await SaveSelectedNote();
+        }
+
+        private async Task SaveSelectedNote()
+        {
+            if (SelectedNote == null)
+                return;
+
+            string storedCloudKey = await LocalStorage.GetSelectedNoteID();
+
+            if (String.IsNullOrEmpty(storedCloudKey))
+                await LocalStorage.InsertSelectedNoteID(SelectedNote.CloudKey);
+            else
+                await LocalStorage.UpdateSelectedNoteID(SelectedNote.CloudKey);
         }
 
         public void AddGroup(GroupViewModel group)
@@ -181,8 +203,9 @@ namespace NotedUI.UI.ViewModels
             AllGroups = new GroupCollection((await LocalStorage.GetAllGroups()).Select(x => new GroupViewModel(x)));
             _notes = new AsyncObservableCollection<NoteViewModel>((await LocalStorage.GetAllNotes()).Select(x => new NoteViewModel(x)));
 
-            if (_notes.Count > 0)
-                SelectedNote = _notes[0];
+            string storedCloudKey = await LocalStorage.GetSelectedNoteID();
+            if (!string.IsNullOrEmpty(storedCloudKey))
+                SelectedNote = _notes.Where(n => n.CloudKey == storedCloudKey).FirstOrDefault();
 
             _view = CollectionViewSource.GetDefaultView(_notes);
             _view.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
