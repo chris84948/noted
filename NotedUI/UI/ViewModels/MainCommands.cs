@@ -24,6 +24,7 @@ namespace NotedUI.UI.ViewModels
         public ICommand ExportTextCommand { get { return new RelayCommand<AllNotesViewModel>(ExportTextExec, CanExportTextExec); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand<AllNotesViewModel>(ExportHTMLExec, CanExportHTMLExec); } }
         public ICommand ExportPDFCommand { get { return new RelayCommand<AllNotesViewModel>(ExportPDFExec, CanExportPDFExec); } }
+        public ICommand ExportDocCommand { get { return new RelayCommand<AllNotesViewModel>(ExportDocExec, CanExportDocExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand<HomeViewModel>(ShowSettingsExec, CanShowSettingsExec); } }
 
         public ICommand ToggleFormattingCommand { get { return new RelayCommand<MainMenu>(ToggleFormattingExec); } }
@@ -201,6 +202,18 @@ namespace NotedUI.UI.ViewModels
             var html = MarkdownParser.Parse(allNotes.SelectedNote.Content);
 
             PDFExporter.Export(@"c:\github\notedui\textExport.pdf", "github", html);
+        }
+
+        public bool CanExportDocExec(AllNotesViewModel allNotes)
+        {
+            return true;
+        }
+
+        public void ExportDocExec(AllNotesViewModel allNotes)
+        {
+            var html = MarkdownParser.Parse(allNotes.SelectedNote.Content);
+
+            HTMLExporter.Export(@"c:\github\notedui\textExport.doc", "github", html);
         }
 
         public bool CanShowSettingsExec(HomeViewModel homeVM)
