@@ -260,6 +260,7 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Resource Include="Resources\Graphics\Banner.png" />
     <Resource Include="Resources\Graphics\Icon.ico" />
     <Page Include="Styles\ContextMenu.xaml">
       <SubType>Designer</SubType>

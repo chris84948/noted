@@ -53,7 +53,7 @@
             </Style>
         </StackPanel.Resources>
 
-        <Button x:Name="buttonNoted"
+        <!--<Button x:Name="buttonNoted"
                 Width="140"
                 VerticalAlignment="Stretch"
                 Click="buttonNoted_Click"
@@ -63,7 +63,9 @@
                 FontWeight="{StaticResource TitleFontWeight}"
                 Foreground="{StaticResource ButtonForegroundBrush}"
                 Padding="0,4,2,0"
-                Style="{StaticResource TextButton}" />
+                Style="{StaticResource TextButton}" />-->
+        <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="10,10,10,7"
+               Source="..\..\Resources\Graphics\Banner.png" />
 
         <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
                       Content="SEARCH"
