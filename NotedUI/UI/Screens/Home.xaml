@@ -423,7 +423,8 @@
                                Loaded="tbNote_Loaded"
                                Padding="10,10,10,10"
                                ScrollPositionChanged="tbNote_ScrollPositionChanged"
-                               ShowLineNumbers="False">
+                               ShowLineNumbers="False"
+                               Tag="{Binding RelativeSource={RelativeSource Self}}">
 
                 <avalon:TextEditor.Options>
                     <avalon:TextEditorOptions AllowScrollBelowDocument="True" />
@@ -441,6 +442,15 @@
                         </Style.Triggers>
                     </Style>
                 </avalon:TextEditor.Style>
+
+                <avalon:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Background="{StaticResource ButtonPopupBrush}"
+                                  Command="{Binding Formatting.CopyMarkupToClipboard}"
+                                  CommandParameter="{Binding AllNotes.TextEditor}"
+                                  Header="Copy markup to clipboard" />
+                    </ContextMenu>
+                </avalon:TextEditor.ContextMenu>
 
                 <avalon:TextEditor.InputBindings>
                     <KeyBinding Key="B"

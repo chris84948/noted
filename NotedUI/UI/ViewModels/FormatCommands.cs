@@ -1,11 +1,13 @@
 ﻿using ICSharpCode.AvalonEdit;
 using JustMVVM;
 using NotedUI.Models;
+using NotedUI.Utilities;
 using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NotedUI.UI.ViewModels
@@ -36,6 +38,8 @@ namespace NotedUI.UI.ViewModels
         public ICommand ShowFindDialogCommand { get { return new RelayCommand(ShowFindDialogExec); } }
         public ICommand ShowReplaceDialogCommand { get { return new RelayCommand(ShowReplaceDialogExec); } }
         public ICommand HideFindDialogCommand { get { return new RelayCommand(HideFindDialogExec); } }
+
+        public ICommand CopyMarkupToClipboard { get { return new RelayCommand<TextEditor>(CopyMarkupToClipboardExec); } }
 
         private bool _showFindDialog;
         public bool ShowFindDialog
@@ -211,16 +215,16 @@ namespace NotedUI.UI.ViewModels
             var line = tbNote.Document.GetLineByNumber(tbNote.TextArea.Caret.Line - 1);
             var lineText = tbNote.Document.GetText(line.Offset, line.Length);
 
-            var bulletMatch = Regex.Match(lineText, @"^(\s+)?\-\ ");
+            var bulletMatch = Regex.Match(lineText, @"^((\s+)?\-\ )");
 
             if (bulletMatch.Success)  // Bullet list
             {
                 string bulletMatchText = bulletMatch.Groups[1].Value;
 
-                if (lineText.Length == 2 + bulletMatch.Length)   // Empty line on bullet list, end list
-                    tbNote.Document.Replace(tbNote.SelectionStart - 2 - bulletMatchText.Length, 2, "\r\n");
+                if (lineText.Length == bulletMatch.Length)   // Empty line on bullet list, end list
+                    tbNote.Document.Replace(tbNote.SelectionStart - bulletMatchText.Length - 2, bulletMatchText.Length + 2, "\r\n");
                 else
-                    tbNote.Document.Insert(tbNote.SelectionStart, bulletMatchText + "- ");
+                    tbNote.Document.Insert(tbNote.SelectionStart, "- ");
             }
             else if (Regex.IsMatch(lineText, @"^\d+\.\ "))  // Numbered List
             {
@@ -404,6 +408,14 @@ namespace NotedUI.UI.ViewModels
         {
             ShowFindDialog = false;
             ShowReplaceDialog = false;
+        }
+        
+        private void CopyMarkupToClipboardExec(TextEditor editor)
+        {
+            if (editor.SelectionLength == 0)
+                Clipboard.SetText(MarkdownParser.Parse(editor.Text));
+            else
+                Clipboard.SetText(MarkdownParser.Parse(editor.SelectedText));
         }
     }
 }
