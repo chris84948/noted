@@ -22,8 +22,8 @@ namespace NotedUI.UI.Dialogs
         public ICommand MatchWordToggleCommand { get { return new RelayCommand(MatchWordToggleExec, () => Editor?.Text != null); } }
         public ICommand RegexToggleCommand { get { return new RelayCommand(RegexToggleExec, () => Editor?.Text != null); } }
         public ICommand HideSearchCommand { get { return new RelayCommand(HideSearchExec, () => Editor?.Text != null); } }
-        public ICommand ShowFindCommand { get { return new RelayCommand(ShowFindExec, () => Editor?.Text != null); } }
-        public ICommand ShowReplaceCommand { get { return new RelayCommand(ShowReplaceExec, () => Editor?.Text != null); } }
+        public ICommand ShowFindDialogCommand { get { return new RelayCommand(ShowFindDialogExec, () => Editor?.Text != null); } }
+        public ICommand ShowReplaceDialogCommand { get { return new RelayCommand(ShowReplaceDialogExec, () => Editor?.Text != null); } }
         public ICommand FocusDialogCommand { get { return new RelayCommand(DialogShownExec); } }
 
         public ICommand DialogShownCommand { get { return new RelayCommand(DialogShownExec); } }
@@ -40,16 +40,16 @@ namespace NotedUI.UI.Dialogs
             set { SetValue(EditorProperty, value); }
         }
 
-        public static readonly DependencyProperty ShowReplaceProperty =
-            DependencyProperty.Register("ShowReplace",
+        public static readonly DependencyProperty ShowReplaceDialogProperty =
+            DependencyProperty.Register("ShowReplaceDialog",
                                         typeof(bool),
                                         typeof(FindReplaceDialog),
                                         new FrameworkPropertyMetadata(false));
 
-        public bool ShowReplace
+        public bool ShowReplaceDialog
         {
-            get { return (bool)GetValue(ShowReplaceProperty); }
-            set { SetValue(ShowReplaceProperty, value); }
+            get { return (bool)GetValue(ShowReplaceDialogProperty); }
+            set { SetValue(ShowReplaceDialogProperty, value); }
         }
 
         public static readonly RoutedEvent FindDialogHiddenEvent =
@@ -182,13 +182,13 @@ namespace NotedUI.UI.Dialogs
             RaiseEvent(routedArgs);
         }
 
-        private void ShowFindExec()
+        private void ShowFindDialogExec()
         {
             RoutedEventArgs routedArgs = new RoutedEventArgs(FindShownEvent);
             RaiseEvent(routedArgs);
         }
 
-        private void ShowReplaceExec()
+        private void ShowReplaceDialogExec()
         {
             RoutedEventArgs routedArgs = new RoutedEventArgs(ReplaceShownEvent);
             RaiseEvent(routedArgs);

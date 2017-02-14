@@ -9,8 +9,6 @@
 
     <conv:NoteTitleWidthConverter x:Key="NoteTitleWidthConverter" />
 
-    <conv:ContextMenuNoteCommandParamConverter x:Key="ContextMenuNoteCommandParamConverter" />
-
     <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />
 
     <Style TargetType="{x:Type ListView}">

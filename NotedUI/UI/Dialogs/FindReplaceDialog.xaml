@@ -17,38 +17,60 @@
         <Style x:Key="Icon"
                BasedOn="{StaticResource IconButton}"
                TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource AppTopBannerBrush}" />
-            <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
-            <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="ToolTipService.Placement" Value="Bottom" />
-            <Setter Property="Width" Value="30" />
-            <Setter Property="ab:ButtonBehaviors.IconSize" Value="13" />
+            <Setter Property="Background"
+                    Value="{StaticResource AppTopBannerBrush}" />
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ButtonFont}" />
+            <Setter Property="FontWeight"
+                    Value="{StaticResource TitleFontWeight}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="ToolTipService.Placement"
+                    Value="Bottom" />
+            <Setter Property="Width"
+                    Value="30" />
+            <Setter Property="ab:ButtonBehaviors.IconSize"
+                    Value="13" />
         </Style>
 
         <Style x:Key="IconToggle"
                BasedOn="{StaticResource IconToggleButton}"
                TargetType="ToggleButton">
-            <Setter Property="Background" Value="{StaticResource AppTopBannerBrush}" />
-            <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
-            <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="ToolTipService.Placement" Value="Bottom" />
-            <Setter Property="Width" Value="30" />
-            <Setter Property="ab:ButtonBehaviors.IconSize" Value="13" />
+            <Setter Property="Background"
+                    Value="{StaticResource AppTopBannerBrush}" />
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ButtonFont}" />
+            <Setter Property="FontWeight"
+                    Value="{StaticResource TitleFontWeight}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="ToolTipService.Placement"
+                    Value="Bottom" />
+            <Setter Property="Width"
+                    Value="30" />
+            <Setter Property="ab:ButtonBehaviors.IconSize"
+                    Value="13" />
         </Style>
 
         <Style x:Key="Text"
                BasedOn="{StaticResource TextToggleButton}"
                TargetType="ToggleButton">
-            <Setter Property="Background" Value="{StaticResource AppTopBannerBrush}" />
-            <Setter Property="FontFamily" Value="Montserrat" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-            <Setter Property="ToolTipService.Placement" Value="Bottom" />
-            <Setter Property="Width" Value="30" />
+            <Setter Property="Background"
+                    Value="{StaticResource AppTopBannerBrush}" />
+            <Setter Property="FontFamily"
+                    Value="Montserrat" />
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource ButtonForegroundBrush}" />
+            <Setter Property="ToolTipService.Placement"
+                    Value="Bottom" />
+            <Setter Property="Width"
+                    Value="30" />
         </Style>
     </UserControl.Resources>
 
@@ -84,22 +106,21 @@
                     Command="{Binding HideSearchCommand,
                                       ElementName=Me}" />
         <KeyBinding Key="F"
-                    Command="{Binding ShowFindCommand,
+                    Command="{Binding ShowFindDialogCommand,
                                       ElementName=Me}"
                     Modifiers="Ctrl" />
         <KeyBinding Key="R"
-                    Command="{Binding ShowReplaceCommand,
+                    Command="{Binding ShowReplaceDialogCommand,
                                       ElementName=Me}"
                     Modifiers="Ctrl" />
     </UserControl.InputBindings>
 
     <i:Interaction.Triggers>
-        <ei:DataTrigger Binding="{Binding ShowReplace,
-                                          ElementName=Me}"
+        <ei:DataTrigger Binding="{Binding Formatting.ShowReplaceDialog}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard x:Name="storyboardShowReplace">
+                    <Storyboard x:Name="storyboardShowReplaceDialog">
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="tbReplace"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0"
@@ -140,8 +161,7 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding ShowReplace,
-                                          ElementName=Me}"
+        <ei:DataTrigger Binding="{Binding Formatting.ShowReplaceDialog}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -225,8 +245,8 @@
                      AcceptsTab="False"
                      Background="{StaticResource ButtonForegroundBrush}"
                      FontFamily="Montserrat"
-                     KeyDown="tbFind_KeyDown"
                      FontSize="14"
+                     KeyDown="tbFind_KeyDown"
                      Style="{StaticResource TextBoxNoIcon}"
                      TabIndex="0" />
 
@@ -257,7 +277,8 @@
                           ToolTip="MATCH WHOLE WORD (ALT-W)">
                 <ToggleButton.Resources>
                     <Style x:Key="Underlined">
-                        <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+                        <Setter Property="TextBlock.TextDecorations"
+                                Value="Underline" />
                     </Style>
                 </ToggleButton.Resources>
                 <TextBlock Style="{StaticResource Underlined}"

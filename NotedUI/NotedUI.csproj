@@ -182,8 +182,6 @@
     <Compile Include="AttachedBehaviors\WebBrowserBehavior.cs" />
     <Compile Include="Controls\AsyncObservableCollection.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />
-    <Compile Include="Converters\ContextMenuNoteCommandParamConverter.cs" />
-    <Compile Include="Converters\ContextMenuGroupCommandParamConverter.cs" />
     <Compile Include="Converters\DialogDataConverter.cs" />
     <Compile Include="Converters\LastSavedDateConverter.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
@@ -217,12 +215,9 @@
     <Compile Include="Export\HTMLExporter.cs" />
     <Compile Include="Export\PDFExporter.cs" />
     <Compile Include="Export\TextExporter.cs" />
-    <Compile Include="Models\DeleteNoteParams.cs" />
-    <Compile Include="Models\GroupCmdParams.cs" />
     <Compile Include="Models\AddLinkParams.cs" />
     <Compile Include="Models\eNoteState.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\AddNoteParams.cs" />
     <Compile Include="Models\GroupCollection.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

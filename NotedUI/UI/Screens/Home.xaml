@@ -63,17 +63,17 @@
 
         <i:EventTrigger EventName="FindDialogHidden"
                         SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding HideFindDialogCommand, ElementName=FormatMenu}" />
+            <i:InvokeCommandAction Command="{Binding Formatting.HideFindDialogCommand}" />
         </i:EventTrigger>
 
         <i:EventTrigger EventName="FindShown"
                         SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding ShowFindCommand, ElementName=FormatMenu}" />
+            <i:InvokeCommandAction Command="{Binding Formatting.ShowFindDialogCommand}" />
         </i:EventTrigger>
 
         <i:EventTrigger EventName="ReplaceShown"
                         SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding ShowReplaceCommand, ElementName=FormatMenu}" />
+            <i:InvokeCommandAction Command="{Binding Formatting.ShowReplaceDialogCommand}" />
         </i:EventTrigger>
 
         <i:EventTrigger EventName="TextChanged"
@@ -217,9 +217,7 @@
         </ei:DataTrigger>
 
         <!--  Show / Hide Find & Replace Animations  -->
-        <ei:DataTrigger Binding="{Binding ElementName=FormatMenu,
-                                          Path=ShowFindDialog,
-                                          UpdateSourceTrigger=PropertyChanged}"
+        <ei:DataTrigger Binding="{Binding Formatting.ShowFindDialog}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -240,8 +238,7 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding ElementName=FormatMenu,
-                                          Path=ShowFindDialog}"
+        <ei:DataTrigger Binding="{Binding Formatting.ShowFindDialog}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -303,26 +300,6 @@
                                Grid.Column="2"
                                Height="35"
                                VerticalAlignment="Bottom"
-                               BoldCommand="{Binding Formatting.BoldCommand}"
-                               BulletPointCommand="{Binding Formatting.BulletPointCommand}"
-                               CodeCommand="{Binding Formatting.CodeCommand}"
-                               Header1Command="{Binding Formatting.Header1Command}"
-                               Header2Command="{Binding Formatting.Header2Command}"
-                               Header3Command="{Binding Formatting.Header3Command}"
-                               Header4Command="{Binding Formatting.Header4Command}"
-                               Header5Command="{Binding Formatting.Header5Command}"
-                               Header6Command="{Binding Formatting.Header6Command}"
-                               HomeViewModel="{Binding }"
-                               HorizontalLineCommand="{Binding Formatting.HorizontalLineCommand}"
-                               ImageCommand="{Binding Formatting.ImageCommand}"
-                               ItalicCommand="{Binding Formatting.ItalicCommand}"
-                               LineBreakCommand="{Binding Formatting.LineBreakCommand}"
-                               LinkCommand="{Binding Formatting.LinkCommand}"
-                               ListCommand="{Binding Formatting.ListCommand}"
-                               QuotesCommand="{Binding Formatting.QuotesCommand}"
-                               StrikethroughCommand="{Binding Formatting.StrikethroughCommand}"
-                               TextBox="{Binding ElementName=tbNote}"
-                               UnderlineCommand="{Binding Formatting.UnderlineCommand}"
                                Visibility="Hidden">
 
             <components:FormatMenu.RenderTransform>
@@ -541,16 +518,13 @@
                                 CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="F"
-                                Command="{Binding ShowFindCommand,
-                                                  ElementName=FormatMenu}"
+                                Command="{Binding Formatting.ShowFindDialogCommand}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="R"
-                                Command="{Binding ShowReplaceCommand,
-                                                  ElementName=FormatMenu}"
+                                Command="{Binding Formatting.ShowReplaceDialogCommand}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="Esc"
-                                Command="{Binding HideFindDialogCommand,
-                                                  ElementName=FormatMenu}" />
+                                Command="{Binding Formatting.HideFindDialogCommand}" />
 
                 </avalon:TextEditor.InputBindings>
             </avalon:TextEditor>
@@ -560,8 +534,7 @@
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        Editor="{Binding ElementName=tbNote}"
-                                       ShowReplace="{Binding ElementName=FormatMenu,
-                                                             Path=ShowReplace}">
+                                       ShowReplaceDialog="{Binding Formatting.ShowReplaceDialog}">
 
                 <dialogs:FindReplaceDialog.RenderTransform>
                     <TranslateTransform Y="-115" />

@@ -12,8 +12,6 @@
     <conv:MathMultiConverter x:Key="MultiplyMultiConverter"
                              Operation="Multiply" />
 
-    <conv:ContextMenuGroupCommandParamConverter x:Key="ContextMenuGroupCommandParamConverter" />
-
     <KeyTime x:Key="AnimationTime">0:0:0.3</KeyTime>
 
     <Style x:Key="ExpanderDownHeaderStyle"

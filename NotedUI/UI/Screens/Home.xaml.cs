@@ -88,8 +88,6 @@ namespace NotedUI.UI.Screens
 
         private void tbNote_EnterHandler(object sender, EventArgs args)
         {
-            tbNote.TextChanged -= tbNote_EnterHandler;
-
             RoutedEventArgs routedArgs = new RoutedEventArgs(EnterPressedEvent);
             me.RaiseEvent(routedArgs);
         }

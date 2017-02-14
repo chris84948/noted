@@ -14,88 +14,108 @@
             <Style x:Key="Icon"
                    BasedOn="{StaticResource IconButton}"
                    TargetType="Button">
-                <Setter Property="FontFamily" Value="{StaticResource ButtonFont}" />
-                <Setter Property="FontWeight" Value="{StaticResource TitleFontWeight}" />
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="ToolTipService.Placement" Value="Bottom" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="35" />
-                <Setter Property="ab:ButtonBehaviors.IconSize" Value="13" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource ButtonFont}" />
+                <Setter Property="FontWeight"
+                        Value="{StaticResource TitleFontWeight}" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement"
+                        Value="Bottom" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        Value="35" />
+                <Setter Property="ab:ButtonBehaviors.IconSize"
+                        Value="13" />
             </Style>
 
             <Style x:Key="Text"
                    BasedOn="{StaticResource TextButton}"
                    TargetType="Button">
-                <Setter Property="FontFamily" Value="Montserrat" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="ToolTipService.Placement" Value="Bottom" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="35" />
+                <Setter Property="FontFamily"
+                        Value="Montserrat" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement"
+                        Value="Bottom" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        Value="35" />
             </Style>
 
             <Style x:Key="TextToggle"
                    BasedOn="{StaticResource TextToggleButton}"
                    TargetType="ToggleButton">
-                <Setter Property="FontFamily" Value="Montserrat" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
-                <Setter Property="ToolTipService.Placement" Value="Bottom" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="35" />
+                <Setter Property="FontFamily"
+                        Value="Montserrat" />
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource ButtonForegroundBrush}" />
+                <Setter Property="ToolTipService.Placement"
+                        Value="Bottom" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        Value="35" />
             </Style>
         </StackPanel.Resources>
 
         <Button x:Name="Header1"
-                Click="Header1_Click"
+                Command="{Binding Formatting.Header1Command}"
                 Content="H1"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 1" />
         <Button x:Name="Header2"
-                Click="Header2_Click"
+                Command="{Binding Formatting.Header2Command}"
                 Content="H2"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 2" />
         <Button x:Name="Header3"
-                Click="Header3_Click"
+                Command="{Binding Formatting.Header3Command}"
                 Content="H3"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 3" />
         <Button x:Name="Header4"
-                Click="Header4_Click"
+                Command="{Binding Formatting.Header4Command}"
                 Content="H4"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 4" />
         <Button x:Name="Header5"
-                Click="Header5_Click"
+                Command="{Binding Formatting.Header5Command}"
                 Content="H5"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 5" />
         <Button x:Name="Header6"
-                Click="Header6_Click"
+                Command="{Binding Formatting.Header6Command}"
                 Content="H6"
                 Style="{StaticResource Text}"
                 ToolTip="HEADER 6" />
         <Button x:Name="Bold"
-                Click="Bold_Click"
+                Command="{Binding Formatting.BoldCommand}"
                 Content="B"
                 FontWeight="Bold"
                 Style="{StaticResource Text}"
                 ToolTip="BOLD" />
         <Button x:Name="Italic"
-                Click="Italic_Click"
+                Command="{Binding Formatting.ItalicCommand}"
                 Content="I"
                 FontStyle="Italic"
                 Style="{StaticResource Text}"
                 ToolTip="ITALIC" />
 
         <Button x:Name="Underline"
-                Click="Underline_Click"
+                Command="{Binding Formatting.UnderlineCommand}"
                 Style="{StaticResource Text}"
                 ToolTip="UNDERLINE">
             <Button.Resources>
                 <Style x:Key="Underlined">
-                    <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+                    <Setter Property="TextBlock.TextDecorations"
+                            Value="Underline" />
                 </Style>
             </Button.Resources>
             <TextBlock Style="{StaticResource Underlined}"
@@ -104,7 +124,7 @@
 
         <Grid>
             <Button x:Name="Strikethrough"
-                    Click="Strikethrough_Click"
+                    Command="{Binding Formatting.StrikethroughCommand}"
                     Content="S"
                     Style="{StaticResource Text}"
                     ToolTip="STRIKETHROUGH" />
@@ -116,7 +136,7 @@
                        Stretch="Fill" />
         </Grid>
         <Button x:Name="Quote"
-                Click="Quote_Click"
+                Command="{Binding Formatting.QuotesCommand}"
                 Content="&quot;&quot;"
                 FontSize="20"
                 Padding="0,4,0,0"
@@ -125,32 +145,32 @@
         <Button x:Name="Code"
                 ab:ButtonBehaviors.Icon="{StaticResource CodeIcon}"
                 ab:ButtonBehaviors.IconSize="14"
-                Click="Code_Click"
+                Command="{Binding Formatting.CodeCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="CODE BLOCK" />
         <Button x:Name="BulletPoint"
                 ab:ButtonBehaviors.Icon="{StaticResource BulletIcon}"
-                Click="BulletPoint_Click"
+                Command="{Binding Formatting.BulletPointCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="BULLETPOINTS" />
         <Button x:Name="List"
                 ab:ButtonBehaviors.Icon="{StaticResource ListIcon}"
-                Click="List_Click"
+                Command="{Binding Formatting.ListCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="NUMBERED LIST" />
         <Button x:Name="Image"
                 ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}"
-                Click="Image_Click"
+                Command="{Binding Formatting.ImageCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="IMAGE" />
         <Button x:Name="Link"
                 ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}"
-                Click="Link_Click"
+                Command="{Binding Formatting.LinkCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="LINK" />
         <Grid>
             <Button x:Name="HorizontalLine"
-                    Click="HorizontalLine_Click"
+                    Command="{Binding Formatting.HorizontalLineCommand}"
                     Style="{StaticResource Text}"
                     ToolTip="HORIZONTAL DIVIDER" />
             <Rectangle Width="16"
@@ -162,18 +182,20 @@
         </Grid>
         <Button x:Name="LineBreak"
                 ab:ButtonBehaviors.Icon="{StaticResource ReturnIcon}"
-                Click="LineBreak_Click"
+                Command="{Binding Formatting.LineBreakCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="LINE BREAK" />
-        <ToggleButton x:Name="Find"
+        <ToggleButton x:Name="buttonFind"
                       Width="55"
-                      Click="Find_Click"
                       Content="FIND"
+                      IsChecked="{Binding Formatting.ShowFindDialog,
+                                          Mode=TwoWay}"
                       Style="{StaticResource TextToggle}" />
-        <ToggleButton x:Name="Replace"
+        <ToggleButton x:Name="buttonReplace"
                       Width="85"
-                      Click="Replace_Click"
                       Content="REPLACE"
+                      IsChecked="{Binding Formatting.ShowReplaceDialog,
+                                          Mode=TwoWay}"
                       Style="{StaticResource TextToggle}" />
 
     </StackPanel>
