@@ -53,24 +53,13 @@
             </Style>
         </StackPanel.Resources>
 
-        <!--<Button x:Name="buttonNoted"
-                Width="140"
-                VerticalAlignment="Stretch"
-                Click="buttonNoted_Click"
-                Content="noted"
-                FontFamily="{StaticResource TitleFont}"
-                FontSize="40"
-                FontWeight="{StaticResource TitleFontWeight}"
-                Foreground="{StaticResource ButtonForegroundBrush}"
-                Padding="0,4,2,0"
-                Style="{StaticResource TextButton}" />-->
-        <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="10,10,10,7"
+        <Image Margin="10,10,10,7"
+               RenderOptions.BitmapScalingMode="HighQuality"
                Source="..\..\Resources\Graphics\Banner.png" />
 
         <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource SearchIcon}"
                       Content="SEARCH"
-                      IsChecked="{Binding ShowSearch,
-                                          ElementName=Me}" />
+                      IsChecked="{Binding MainCommands.ShowSearch}" />
 
         <ToggleButton x:Name="buttonAdd"
                       ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
@@ -92,7 +81,9 @@
                           ItemsSource="{Binding AllNotes.AllGroups.Groups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Click="popupAddNote_Click"
+                        <Button Command="{Binding ElementName=buttonAdd,
+                                                  Path=DataContext.MainCommands.AddNoteCommand}"
+                                CommandParameter="{Binding Name}"
                                 Content="{Binding Name,
                                                   Converter={StaticResource ToUpperConverter}}"
                                 Style="{StaticResource PopupButtonStyle}" />
@@ -103,7 +94,7 @@
 
         <Button x:Name="buttonGroup"
                 ab:ButtonBehaviors.Icon="{StaticResource GroupIcon}"
-                Click="buttonAddGroup_Click"
+                Command="{Binding MainCommands.AddGroupCommand}"
                 Content="GROUP" />
 
         <ToggleButton x:Name="buttonExport"
@@ -125,16 +116,20 @@
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
                 <Button x:Name="buttonExportText"
-                        Click="buttonExportText_Click"
+                        Command="{Binding MainCommands.ExportTextCommand}"
                         Content="TO TEXT"
                         Style="{StaticResource PopupButtonStyle}" />
                 <Button x:Name="buttonExportHTML"
-                        Click="buttonExportHTML_Click"
+                        Command="{Binding MainCommands.ExportHTMLCommand}"
                         Content="TO HTML"
                         Style="{StaticResource PopupButtonStyle}" />
                 <Button x:Name="buttonExportPDF"
-                        Click="buttonExportPDF_Click"
+                        Command="{Binding MainCommands.ExportPDFCommand}"
                         Content="TO PDF"
+                        Style="{StaticResource PopupButtonStyle}" />
+                <Button x:Name="buttonExportDoc"
+                        Command="{Binding MainCommands.ExportDocCommand}"
+                        Content="TO DOC"
                         Style="{StaticResource PopupButtonStyle}" />
             </StackPanel>
         </Popup>
@@ -143,18 +138,17 @@
                       Margin="70,0,0,0"
                       ab:ButtonBehaviors.Icon="{StaticResource FormatIcon}"
                       Content="FORMAT"
-                      IsChecked="{Binding ShowFormatMenu,
-                                          ElementName=Me}" />
+                      IsChecked="{Binding MainCommands.ShowFormatting}" />
 
-        <ToggleButton ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
+        <ToggleButton x:Name="buttonPreview"
+                      ab:ButtonBehaviors.Icon="{StaticResource PreviewIcon}"
                       Content="PREVIEW"
-                      IsChecked="{Binding ShowPreview,
-                                          ElementName=Me}" />
+                      IsChecked="{Binding MainCommands.ShowPreview}" />
 
         <Button x:Name="buttonShowSettings"
                 Margin="70,0,0,0"
                 ab:ButtonBehaviors.Icon="{StaticResource SettingsIcon}"
-                Click="buttonShowSettings_Click"
+                Command="{Binding MainCommands.ShowSettingsCommand}"
                 Content="SETTINGS" />
     </StackPanel>
 

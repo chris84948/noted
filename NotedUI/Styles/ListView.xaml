@@ -91,16 +91,9 @@
                     <MenuItem x:Name="buttonDeleteNote"
                               Command="{Binding PlacementTarget.Tag.MainCommands.DeleteNoteCommand,
                                                 RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                              Header="DELETE">
-                        <MenuItem.CommandParameter>
-                            <MultiBinding Converter="{StaticResource ContextMenuNoteCommandParamConverter}">
-                                <Binding Path="PlacementTarget.Tag.AllNotes"
-                                         RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                <Binding Path="PlacementTarget.DataContext"
-                                         RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                            </MultiBinding>
-                        </MenuItem.CommandParameter>
-                    </MenuItem>
+                              CommandParameter="{Binding PlacementTarget.DataContext,
+                                                         RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                              Header="DELETE" />
                 </ContextMenu>
             </Setter.Value>
         </Setter>

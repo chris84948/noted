@@ -82,8 +82,7 @@
         </i:EventTrigger>
 
         <!--  Show / Hide Search Box Animations  -->
-        <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
-                                          Path=ShowSearch}"
+        <ei:DataTrigger Binding="{Binding MainCommands.ShowSearch}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -113,8 +112,7 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding Source={x:Reference MainMenu},
-                                          Path=ShowSearch}"
+        <ei:DataTrigger Binding="{Binding MainCommands.ShowSearch}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -144,8 +142,7 @@
         </ei:DataTrigger>
 
         <!--  Show / Hide Format Menu Buttons  -->
-        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
-                                          Path=ShowFormatMenu}"
+        <ei:DataTrigger Binding="{Binding MainCommands.ShowFormatting}"
                         Value="True">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -182,8 +179,7 @@
             </ei:ControlStoryboardAction>
         </ei:DataTrigger>
 
-        <ei:DataTrigger Binding="{Binding ElementName=MainMenu,
-                                          Path=ShowFormatMenu}"
+        <ei:DataTrigger Binding="{Binding MainCommands.ShowFormatting}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play">
                 <ei:ControlStoryboardAction.Storyboard>
@@ -281,19 +277,7 @@
                              Grid.Row="0"
                              Grid.ColumnSpan="5"
                              Panel.ZIndex="1"
-                             AddGroupCommand="{Binding MainCommands.AddGroupCommand}"
-                             AddNoteCommand="{Binding MainCommands.AddNoteCommand}"
-                             AllNotes="{Binding AllNotes}"
-                             Background="{StaticResource AppTopBannerBrush}"
-                             DeleteNoteCommand="{Binding MainCommands.DeleteNoteCommand}"
-                             ExportHTMLCommand="{Binding MainCommands.ExportHTMLCommand}"
-                             ExportPDFCommand="{Binding MainCommands.ExportPDFCommand}"
-                             ExportTextCommand="{Binding MainCommands.ExportTextCommand}"
-                             HomeViewModel="{Binding }"
-                             ShowPreview="{Binding MainCommands.ShowPreview,
-                                                   Mode=TwoWay}"
-                             ShowPreviewChanged="MainMenu_ShowPreviewChanged"
-                             ShowSettingsCommand="{Binding MainCommands.ShowSettingsCommand}" />
+                             Background="{StaticResource AppTopBannerBrush}" />
 
         <TextBox x:Name="SearchBox"
                  Grid.Row="0"
@@ -605,8 +589,7 @@
                     <WebBrowser.Style>
                         <Style TargetType="{x:Type WebBrowser}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=MainMenu,
-                                                               Path=ShowPreview}"
+                                <DataTrigger Binding="{Binding MainCommands.ShowPreview}"
                                              Value="false">
                                     <Setter Property="ab:WebBrowserBehavior.HTML"
                                             Value="" />

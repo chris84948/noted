@@ -45,6 +45,8 @@ namespace NotedUI.UI.Screens
         public Home()
         {
             InitializeComponent();
+
+            MainMenu.buttonPreview.Click += MainMenu_ShowPreviewChanged;
         }
 
         private void storyboardShowSearch_Completed(object sender, EventArgs e)
@@ -96,7 +98,7 @@ namespace NotedUI.UI.Screens
         {
             Storyboard sb = null;
 
-            if (MainMenu.ShowPreview)
+            if (MainMenu.buttonPreview.IsChecked == true)
                 sb = MarkdownPreviewStoryboards.GetShow(tbMarkdownPanel, gridNote, gridSplitterMarkdown);
             else
                 sb = MarkdownPreviewStoryboards.GetHide(tbMarkdownPanel, gridNote, gridSplitterMarkdown);

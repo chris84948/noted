@@ -183,33 +183,15 @@
                                         <MenuItem x:Name="buttonRenameGroup"
                                                   Command="{Binding PlacementTarget.Tag.MainCommands.RenameGroupCommand,
                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                                                  Header="RENAME">
-                                            <MenuItem.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
-                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                    <Binding Path="PlacementTarget.Content"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                    <Binding Path="PlacementTarget.Tag"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                </MultiBinding>
-                                            </MenuItem.CommandParameter>
-                                        </MenuItem>
+                                                  CommandParameter="{Binding PlacementTarget.Content,
+                                                                             RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  Header="RENAME" />
                                         <MenuItem x:Name="buttonDeleteGroup"
                                                   Command="{Binding PlacementTarget.Tag.MainCommands.DeleteGroupCommand,
                                                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                                                  Header="DELETE">
-                                            <MenuItem.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource ContextMenuGroupCommandParamConverter}">
-                                                    <Binding Path="PlacementTarget.Tag.AllNotes"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                    <Binding Path="PlacementTarget.Content"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                    <Binding Path="PlacementTarget.Tag"
-                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                </MultiBinding>
-                                            </MenuItem.CommandParameter>
-                                        </MenuItem>
+                                                  CommandParameter="{Binding PlacementTarget.Content,
+                                                                             RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  Header="DELETE" />
                                     </ContextMenu>
                                 </ToggleButton.ContextMenu>
                             </ToggleButton>
