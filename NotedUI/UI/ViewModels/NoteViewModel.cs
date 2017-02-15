@@ -134,12 +134,18 @@ namespace NotedUI.UI.ViewModels
             if (indexFirstLinebreak == -1)
                 return NoteData.Content;
 
-            string firstline = NoteData.Content.Substring(0, indexFirstLinebreak);
+            int currentPos = 0;
+            int lineBreakIndex = NoteData.Content.IndexOf("\r\n");
+            string text = NoteData.Content.Substring(currentPos, lineBreakIndex - currentPos);
 
-            if (String.IsNullOrEmpty(firstline))
-                return NoteData.Content;
-            else
-                return firstline;
+            while (String.IsNullOrWhiteSpace(text))
+            {
+                currentPos = lineBreakIndex + 2;  // \r\n is 2 chars
+                lineBreakIndex = NoteData.Content.IndexOf(Environment.NewLine, currentPos);
+                text = NoteData.Content.Substring(currentPos, lineBreakIndex - currentPos);
+            }
+
+            return text;
         }
 
         private void SetNoteState()
