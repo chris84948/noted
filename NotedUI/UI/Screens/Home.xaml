@@ -39,7 +39,8 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
-        <Storyboard x:Key="storyboardHideFindDialog" Completed="StoryboardHideFindDialog_Completed">
+        <Storyboard x:Key="storyboardHideFindDialog"
+                    Completed="StoryboardHideFindDialog_Completed">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
                                            Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4"
@@ -240,7 +241,7 @@
         <ei:DataTrigger Binding="{Binding Formatting.ShowFindDialog}"
                         Value="False">
             <ei:ControlStoryboardAction ControlStoryboardOption="Play"
-                                        Storyboard="{StaticResource storyboardHideFindDialog}"/>
+                                        Storyboard="{StaticResource storyboardHideFindDialog}" />
         </ei:DataTrigger>
 
         <ei:DataTrigger Binding="{Binding Formatting.ShowReplaceDialog}"
@@ -447,77 +448,55 @@
                 <avalon:TextEditor.InputBindings>
                     <KeyBinding Key="B"
                                 Command="{Binding Formatting.BoldCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="I"
                                 Command="{Binding Formatting.ItalicCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="U"
                                 Command="{Binding Formatting.UnderlineCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="S"
                                 Command="{Binding Formatting.StrikethroughCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D1"
                                 Command="{Binding Formatting.Header1Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D2"
                                 Command="{Binding Formatting.Header2Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D3"
                                 Command="{Binding Formatting.Header3Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D4"
                                 Command="{Binding Formatting.Header4Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D5"
                                 Command="{Binding Formatting.Header5Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D6"
                                 Command="{Binding Formatting.Header6Command}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="Q"
                                 Command="{Binding Formatting.QuotesCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="K"
                                 Command="{Binding Formatting.CodeCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="L"
                                 Command="{Binding Formatting.LinkCommand}"
-                                Modifiers="Ctrl">
-                        <KeyBinding.CommandParameter>
-                            <MultiBinding Converter="{StaticResource DialogDataConverter}">
-                                <Binding Path="." />
-                                <Binding ElementName="tbNote" />
-                            </MultiBinding>
-                        </KeyBinding.CommandParameter>
-                    </KeyBinding>
+                                CommandParameter="{Binding }"
+                                Modifiers="Ctrl" />
                     <KeyBinding Key="OemPeriod"
                                 Command="{Binding Formatting.BulletPointCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="D0"
                                 Command="{Binding Formatting.ListCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="M"
                                 Command="{Binding Formatting.ImageCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="OemMinus"
                                 Command="{Binding Formatting.HorizontalLineCommand}"
-                                CommandParameter="{Binding ElementName=tbNote}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="F"
                                 Command="{Binding Formatting.ShowFindDialogCommand}"

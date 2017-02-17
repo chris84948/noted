@@ -14,32 +14,32 @@ namespace NotedUI.UI.ViewModels
 {
     public class FormatCommands : MVVMBase
     {
-        public ICommand Header1Command { get { return new RelayCommand<TextEditor>(Header1Exec); } }
-        public ICommand Header2Command { get { return new RelayCommand<TextEditor>(Header2Exec); } }
-        public ICommand Header3Command { get { return new RelayCommand<TextEditor>(Header3Exec); } }
-        public ICommand Header4Command { get { return new RelayCommand<TextEditor>(Header4Exec); } }
-        public ICommand Header5Command { get { return new RelayCommand<TextEditor>(Header5Exec); } }
-        public ICommand Header6Command { get { return new RelayCommand<TextEditor>(Header6Exec); } }
-        public ICommand BoldCommand { get { return new RelayCommand<TextEditor>(BoldExec); } }
-        public ICommand ItalicCommand { get { return new RelayCommand<TextEditor>(ItalicExec); } }
-        public ICommand UnderlineCommand { get { return new RelayCommand<TextEditor>(UnderlineExec); } }
-        public ICommand StrikethroughCommand { get { return new RelayCommand<TextEditor>(StrikethroughExec); } }
-        public ICommand QuotesCommand { get { return new RelayCommand<TextEditor>(QuotesExec); } }
-        public ICommand CodeCommand { get { return new RelayCommand<TextEditor>(CodeExec); } }
-        public ICommand BulletPointCommand { get { return new RelayCommand<TextEditor>(BulletPointExec); } }
-        public ICommand ListCommand { get { return new RelayCommand<TextEditor>(ListExec); } }
-        public ICommand ImageCommand { get { return new RelayCommand<TextEditor>(ImageExec); } }
-        public ICommand LinkCommand { get { return new RelayCommand<TextEditor>(LinkExec); } }
-        public ICommand HorizontalLineCommand { get { return new RelayCommand<TextEditor>(HorizontalLineExec); } }
-        public ICommand LineBreakCommand { get { return new RelayCommand<TextEditor>(LineBreakExec); } }
+        public ICommand Header1Command { get { return new RelayCommand(Header1Exec); } }
+        public ICommand Header2Command { get { return new RelayCommand(Header2Exec); } }
+        public ICommand Header3Command { get { return new RelayCommand(Header3Exec); } }
+        public ICommand Header4Command { get { return new RelayCommand(Header4Exec); } }
+        public ICommand Header5Command { get { return new RelayCommand(Header5Exec); } }
+        public ICommand Header6Command { get { return new RelayCommand(Header6Exec); } }
+        public ICommand BoldCommand { get { return new RelayCommand(BoldExec); } }
+        public ICommand ItalicCommand { get { return new RelayCommand(ItalicExec); } }
+        public ICommand UnderlineCommand { get { return new RelayCommand(UnderlineExec); } }
+        public ICommand StrikethroughCommand { get { return new RelayCommand(StrikethroughExec); } }
+        public ICommand QuotesCommand { get { return new RelayCommand(QuotesExec); } }
+        public ICommand CodeCommand { get { return new RelayCommand(CodeExec); } }
+        public ICommand BulletPointCommand { get { return new RelayCommand(BulletPointExec); } }
+        public ICommand ListCommand { get { return new RelayCommand(ListExec); } }
+        public ICommand ImageCommand { get { return new RelayCommand(ImageExec); } }
+        public ICommand LinkCommand { get { return new RelayCommand(LinkExec); } }
+        public ICommand HorizontalLineCommand { get { return new RelayCommand(HorizontalLineExec); } }
+        public ICommand LineBreakCommand { get { return new RelayCommand(LineBreakExec); } }
 
-        public ICommand EnterCommand { get { return new RelayCommand<TextEditor>(EnterExec); } }
+        public ICommand EnterCommand { get { return new RelayCommand(EnterExec); } }
 
         public ICommand ShowFindDialogCommand { get { return new RelayCommand(ShowFindDialogExec); } }
         public ICommand ShowReplaceDialogCommand { get { return new RelayCommand(ShowReplaceDialogExec); } }
         public ICommand HideFindDialogCommand { get { return new RelayCommand(HideFindDialogExec); } }
 
-        public ICommand CopyMarkupToClipboard { get { return new RelayCommand<TextEditor>(CopyMarkupToClipboardExec); } }
+        public ICommand CopyMarkupToClipboard { get { return new RelayCommand(CopyMarkupToClipboardExec); } }
 
         private bool _showFindDialog;
         public bool ShowFindDialog
@@ -65,68 +65,69 @@ namespace NotedUI.UI.ViewModels
 
         private HomeViewModel _homeVM;
 
-        public FormatCommands(HomeViewModel homeVM)
+        public FormatCommands(HomeViewModel homeVM, TextEditor tbNote)
         {
             _homeVM = homeVM;
+            _homeVM.AllNotes.TextEditor = tbNote;
         }
 
-        public void Header1Exec(TextEditor tbNote)
+        public void Header1Exec()
         {
-            FormatTextMultiLine(tbNote, "# ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "# ", "");
         }
 
-        public void Header2Exec(TextEditor tbNote)
+        public void Header2Exec()
         {
-            FormatTextMultiLine(tbNote, "## ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "## ", "");
         }
 
-        public void Header3Exec(TextEditor tbNote)
+        public void Header3Exec()
         {
-            FormatTextMultiLine(tbNote, "### ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "### ", "");
         }
 
-        public void Header4Exec(TextEditor tbNote)
+        public void Header4Exec()
         {
-            FormatTextMultiLine(tbNote, "#### ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "#### ", "");
         }
 
-        public void Header5Exec(TextEditor tbNote)
+        public void Header5Exec()
         {
-            FormatTextMultiLine(tbNote, "##### ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "##### ", "");
         }
 
-        public void Header6Exec(TextEditor tbNote)
+        public void Header6Exec()
         {
-            FormatTextMultiLine(tbNote, "###### ", "");
+            FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "###### ", "");
         }
 
-        public void BoldExec(TextEditor tbNote)
+        public void BoldExec()
         {
-            FormatText(tbNote, "**", "**");
+            FormatText(_homeVM.AllNotes.TextEditor, "**", "**");
         }
 
-        public void ItalicExec(TextEditor tbNote)
+        public void ItalicExec()
         {
-            FormatText(tbNote, "*", "*");
+            FormatText(_homeVM.AllNotes.TextEditor, "*", "*");
         }
 
-        public void UnderlineExec(TextEditor tbNote)
+        public void UnderlineExec()
         {
-            FormatText(tbNote, "<u>", "</u>");
+            FormatText(_homeVM.AllNotes.TextEditor, "<u>", "</u>");
         }
 
-        public void StrikethroughExec(TextEditor tbNote)
+        public void StrikethroughExec()
         {
-            FormatText(tbNote, "<s>", "</s>");
+            FormatText(_homeVM.AllNotes.TextEditor, "<s>", "</s>");
         }
 
-        public void QuotesExec(TextEditor tbNote)
+        public void QuotesExec()
         {
-            if (tbNote.SelectionLength == 0)
-                FormatTextMultiLine(tbNote, ">", "");
+            if (_homeVM.AllNotes.TextEditor.SelectionLength == 0)
+                FormatTextMultiLine(_homeVM.AllNotes.TextEditor, ">", "");
 
             else
-                FormatTextMultiLineQuotes(tbNote);
+                FormatTextMultiLineQuotes(_homeVM.AllNotes.TextEditor);
         }
 
         private void FormatTextMultiLineQuotes(TextEditor tbNote)
@@ -149,35 +150,35 @@ namespace NotedUI.UI.ViewModels
             SelectText(tbNote, startPos + newText.Length, 0);
         }
 
-        public void CodeExec(TextEditor tbNote)
+        public void CodeExec()
         {
-            int columnPos = tbNote.TextArea.Caret.Position.Column;
+            int columnPos = _homeVM.AllNotes.TextEditor.TextArea.Caret.Position.Column;
 
-            if (columnPos > 0 && tbNote.SelectionLength > 0 && !tbNote.SelectedText.Contains('\n')) // Less than 1 line highlighted
-                FormatText(tbNote, "`", "`");
+            if (columnPos > 0 && _homeVM.AllNotes.TextEditor.SelectionLength > 0 && !_homeVM.AllNotes.TextEditor.SelectedText.Contains('\n')) // Less than 1 line highlighted
+                FormatText(_homeVM.AllNotes.TextEditor, "`", "`");
 
             else // Use multiline code markdown
-                FormatTextMultiLine(tbNote, "```\r\n", "\r\n```");
+                FormatTextMultiLine(_homeVM.AllNotes.TextEditor, "```\r\n", "\r\n```");
         }
 
-        public void BulletPointExec(TextEditor tbNote)
+        public void BulletPointExec()
         {
-            FormatList(tbNote, bulletPoint: true);
+            FormatList(_homeVM.AllNotes.TextEditor, bulletPoint: true);
         }
 
-        public void ListExec(TextEditor tbNote)
+        public void ListExec()
         {
-            FormatList(tbNote, bulletPoint: false);
+            FormatList(_homeVM.AllNotes.TextEditor, bulletPoint: false);
         }
 
-        public void ImageExec(TextEditor tbNote)
+        public void ImageExec()
         {
 
         }
 
-        public void LinkExec(TextEditor tbNote)
+        public void LinkExec()
         {
-            var dialog = new LinkDialogViewModel(tbNote.SelectedText);
+            var dialog = new LinkDialogViewModel(_homeVM.AllNotes.TextEditor.SelectedText);
 
             dialog.DialogClosed += async () =>
             {
@@ -187,33 +188,33 @@ namespace NotedUI.UI.ViewModels
                 if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
                     return;
                 
-                var start = tbNote.SelectionStart;
+                var start = _homeVM.AllNotes.TextEditor.SelectionStart;
                 var link = $"[{ dialog.Description }]({ dialog.Link })";
-                tbNote.Document.Replace(start, tbNote.SelectionLength, link);
-                tbNote.Focus();
-                tbNote.Select(start + link.Length, 0);
+                _homeVM.AllNotes.TextEditor.Document.Replace(start, _homeVM.AllNotes.TextEditor.SelectionLength, link);
+                _homeVM.AllNotes.TextEditor.Focus();
+                _homeVM.AllNotes.TextEditor.Select(start + link.Length, 0);
             };
 
             _homeVM.InvokeShowDialog(dialog);
         }
 
-        public void HorizontalLineExec(TextEditor tbNote)
+        public void HorizontalLineExec()
         {
-            if (tbNote.SelectionLength == 0)
+            if (_homeVM.AllNotes.TextEditor.SelectionLength == 0)
             {
-                InsertContentInLineBreaks(tbNote, tbNote.SelectionStart, "----------");
+                InsertContentInLineBreaks(_homeVM.AllNotes.TextEditor, _homeVM.AllNotes.TextEditor.SelectionStart, "----------");
             }
             else
             {
-                var start = GetPreviousLineBreakPosition(tbNote);
-                InsertContentInLineBreaks(tbNote, start, "----------");
+                var start = GetPreviousLineBreakPosition(_homeVM.AllNotes.TextEditor);
+                InsertContentInLineBreaks(_homeVM.AllNotes.TextEditor, start, "----------");
             }
         }
 
-        public void EnterExec(TextEditor tbNote)
+        public void EnterExec()
         {
-            var line = tbNote.Document.GetLineByNumber(tbNote.TextArea.Caret.Line - 1);
-            var lineText = tbNote.Document.GetText(line.Offset, line.Length);
+            var line = _homeVM.AllNotes.TextEditor.Document.GetLineByNumber(_homeVM.AllNotes.TextEditor.TextArea.Caret.Line - 1);
+            var lineText = _homeVM.AllNotes.TextEditor.Document.GetText(line.Offset, line.Length);
 
             var bulletMatch = Regex.Match(lineText, @"^((\s+)?\-\ )");
 
@@ -222,9 +223,9 @@ namespace NotedUI.UI.ViewModels
                 string bulletMatchText = bulletMatch.Groups[1].Value;
 
                 if (lineText.Length == bulletMatch.Length)   // Empty line on bullet list, end list
-                    tbNote.Document.Replace(tbNote.SelectionStart - bulletMatchText.Length - 2, bulletMatchText.Length + 2, "\r\n");
+                    _homeVM.AllNotes.TextEditor.Document.Replace(_homeVM.AllNotes.TextEditor.SelectionStart - bulletMatchText.Length - 2, bulletMatchText.Length + 2, "\r\n");
                 else
-                    tbNote.Document.Insert(tbNote.SelectionStart, "- ");
+                    _homeVM.AllNotes.TextEditor.Document.Insert(_homeVM.AllNotes.TextEditor.SelectionStart, "- ");
             }
             else if (Regex.IsMatch(lineText, @"^\d+\.\ "))  // Numbered List
             {
@@ -233,22 +234,22 @@ namespace NotedUI.UI.ViewModels
                 int currentNumStringLength = currentNum.ToString().Length;
 
                 if (lineText.Length == currentNumStringLength + 2)   // Empty line on numbered list, end list
-                    tbNote.Document.Replace(tbNote.SelectionStart - (4 + currentNumStringLength), 4 + currentNumStringLength, "\r\n");
+                    _homeVM.AllNotes.TextEditor.Document.Replace(_homeVM.AllNotes.TextEditor.SelectionStart - (4 + currentNumStringLength), 4 + currentNumStringLength, "\r\n");
                 else
-                    tbNote.Document.Insert(tbNote.SelectionStart, (currentNum + 1).ToString() + ". ");
+                    _homeVM.AllNotes.TextEditor.Document.Insert(_homeVM.AllNotes.TextEditor.SelectionStart, (currentNum + 1).ToString() + ". ");
             }
         }
 
-        public void LineBreakExec(TextEditor tbNote)
+        public void LineBreakExec()
         {
-            if (tbNote.SelectionLength == 0)
+            if (_homeVM.AllNotes.TextEditor.SelectionLength == 0)
             {
-                InsertContentInLineBreaks(tbNote, tbNote.SelectionStart, "<br></br>");
+                InsertContentInLineBreaks(_homeVM.AllNotes.TextEditor, _homeVM.AllNotes.TextEditor.SelectionStart, "<br></br>");
             }
             else
             {
-                var start = GetPreviousLineBreakPosition(tbNote);
-                InsertContentInLineBreaks(tbNote, start, "<br></br>");
+                var start = GetPreviousLineBreakPosition(_homeVM.AllNotes.TextEditor);
+                InsertContentInLineBreaks(_homeVM.AllNotes.TextEditor, start, "<br></br>");
             }
         }
 
@@ -409,12 +410,12 @@ namespace NotedUI.UI.ViewModels
             ShowReplaceDialog = false;
         }
         
-        private void CopyMarkupToClipboardExec(TextEditor editor)
+        private void CopyMarkupToClipboardExec()
         {
-            if (editor.SelectionLength == 0)
-                Clipboard.SetText(MarkdownParser.Parse(editor.Text));
+            if (_homeVM.AllNotes.TextEditor.SelectionLength == 0)
+                Clipboard.SetText(MarkdownParser.Parse(_homeVM.AllNotes.TextEditor.Text));
             else
-                Clipboard.SetText(MarkdownParser.Parse(editor.SelectedText));
+                Clipboard.SetText(MarkdownParser.Parse(_homeVM.AllNotes.TextEditor.SelectedText));
         }
     }
 }
