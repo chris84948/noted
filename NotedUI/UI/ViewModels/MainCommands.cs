@@ -27,20 +27,8 @@ namespace NotedUI.UI.ViewModels
         public ICommand ExportDocCommand { get { return new RelayCommand(ExportDocExec); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand(ShowSettingsExec); } }
 
-        public ICommand TogglePreviewCommand { get { return new RelayCommand(TogglePreviewExec); } }
         public ICommand ToggleFormattingCommand { get { return new RelayCommand(ToggleFormattingExec); } }
         public ICommand ToggleSearchCommand { get { return new RelayCommand(ToggleSearchExec); } }
-                
-        private bool _showPreview;
-        public bool ShowPreview
-        {
-            get { return _showPreview; }
-            set
-            {
-                _showPreview = value;
-                OnPropertyChanged();
-            }
-        }
 
         private bool _showFormatting;
         public bool ShowFormatting
@@ -178,7 +166,16 @@ namespace NotedUI.UI.ViewModels
         
         public void ExportTextExec()
         {
-            TextExporter.Export(@"c:\github\notedui\testExport.txt", _allNotesVM.SelectedNote.Content);
+            var dialog = new FileSaveDialogViewModel();
+
+            dialog.DialogClosed += () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                    TextExporter.Export(@"c:\github\notedui\testExport.txt", _allNotesVM.SelectedNote.Content);
+            };
+
+            _homeVM.InvokeShowDialog(dialog);
+
         }
 
         public void ExportHTMLExec()
@@ -204,16 +201,10 @@ namespace NotedUI.UI.ViewModels
 
         public void ShowSettingsExec()
         {
-            if (_homeVM.MainCommands.ShowPreview)
-                _homeVM.FixAirspace = true;
+            _homeVM.FixAirspace = true;
 
             var settings = new SettingsViewModel(_homeVM);
             _homeVM.InvokeChangeScreen(settings);
-        }
-
-        private void TogglePreviewExec()
-        {
-            ShowPreview = !ShowPreview;
         }
 
         private void ToggleFormattingExec()
@@ -225,6 +216,5 @@ namespace NotedUI.UI.ViewModels
         {
             ShowSearch = !ShowSearch;
         }
-
     }
 }

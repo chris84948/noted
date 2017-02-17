@@ -1,0 +1,1139 @@
+
+<!DOCTYPE html PUBLIC " -//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+  <title> My first styled page</title>
+  <style type = "text/css">/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #262626;
+  background-color: #f8f8f8;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #262626;
+}
+
+h2 {
+  font-size: 24px;
+  color: #262626;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+	</style>
+</head>
+
+<body>
+
+<h1>Cardinal WPF Guide (v1.0)</h1>
+<hr />
+<h2>Contents</h2>
+<ul>
+<li><p><a href="#MVVMLibrary">MVVM Library</a></p>
+<ul>
+<li><a href="#PropertyChangedBase">PrpertyChangedBase</a>
+<ul>
+<li><a href="#INotifyPropertyChanged">INotifyPropertyChanged</a></li>
+<li><a href="#IDataErrorInfo">IDataErrorInfo</a></li>
+</ul>
+</li>
+<li><a href="#RelayCommand">RelayCommand</a></li>
+<li><a href="#Mesisenger">Messenger</a></li>
+</ul>
+</li>
+<li><p><a href="#WPFStyleLibrary">WPF Style Library</a></p>
+<ul>
+<li><a href="#QuickStart">Quick Start</a></li>
+<li><a href="#MainWindowViewModel">Main Window ViewModel</a></li>
+<li><a href="#Dialogs">Dialogs</a>
+<ul>
+<li><a href="#StandardDialogs">Standard Dialogs</a>
+<ul>
+<li><a href="#DialogOK">OK Dialog</a></li>
+<li><a href="#DialogOKCancel">OK / Cancel Dialog</a></li>
+<li><a href="#DialogYesNoCancel">Yes / No / Cancel Dialog</a></li>
+<li><a href="#DialogProgress">Progress Dialog</a></li>
+</ul>
+</li>
+<li><a href="#CustomDialogs">Custom Dialogs</a></li>
+</ul>
+</li>
+<li><a href="#Notifications">Notifications</a></li>
+<li><a href="#Flyouts">Flyouts</a></li>
+<li><a href="#Controls">Controls</a>
+<ul>
+<li><a href="#Buttons">Buttons</a></li>
+<li><a href="#CheckBox">CheckBox</a></li>
+<li><a href="#ComboBox">ComboBox</a></li>
+<li><a href="#RadioButtons">Radio Buttons</a></li>
+<li><a href="#ProgressBar">Progress Bar</a></li>
+<li><a href="#Slider">Slider</a></li>
+<li><a href="#ProgressRing">Progress Ring</a></li>
+<li><a href="#ListView">ListView</a></li>
+<li><a href="#TreeView">TreeView</a></li>
+<li><a href="#TextBox">TextBox</a></li>
+<li><a href="#PasswordBox">PasswordBox</a></li>
+<li><a href="#NumberTextBox">Number TextBox</a></li>
+<li><a href="#DatePicker">Date Picker</a></li>
+<li><a href="#TimePicker">Time Picker</a></li>
+<li><a href="#ColorPicker">Color Picker</a></li>
+</ul>
+</li>
+<li><a href="#OverridingAccent">Overriding Accents</a></li>
+<li><a href="#FocusAndKeyInput">Focus And Key Input</a></li>
+</ul>
+</li>
+</ul>
+<h2>Revisions</h2>
+<ul>
+<li>v1.0 - Initial release.</li>
+<li>Is this</li>
+</ul>
+<p><br></br>
+<br></br></p>
+<p>Do I think it matters that this is happening?</p>
+<p><a name="MVVMLibrary"></a></p>
+<h2>MVVM Library</h2>
+<p>The MVVM Library provides a few classes to easily use the MVVM design pattern when using WPF. This section provides a simple overview of its function. In the <a href="#WPFStyleLibrary">WPF Style Library</a> below we'll run through implementing the library.</p>
+<p>To see an example application of these classes, there is a project named <code>MVVMLibraryExample</code> in source control.</p>
+<p><a name="PropertyChangedBase"></a></p>
+<h3>PropertyChangedBase</h3>
+<p><a name="INotifyPropertyChanged"></a></p>
+<h4>INotifyPropertyChanged</h4>
+<p>This class should be the base class for all ViewModels created in your application. This base class provides an implementation of <a href="https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx">INotifyPropertyChanged</a>. To update the binding on your property using this Base class call the following code.</p>
+<pre><code>class MainWindowViewModel : PropertyChangedBase
+{
+    private string _content;
+    public string Content
+    {
+        get { return _content; }
+        set
+        {
+            _content = value;
+            OnPropertyChanged();                // OR
+            OnPropertyChanged(() =&gt; Content);   // OR
+            OnPropertyChanged(&quot;Content&quot;);
+        }
+    }
+}
+</code></pre>
+<p>There are three ways to implement the <code>OnPropertyChanged</code> function. Implicit name (using CallerMemberFunction), function passing name or string passing.</p>
+<p><a name="IDataErrorInfo"></a></p>
+<h4>IDataErrorInfo</h4>
+<p>This base class also implements the <a href="https://msdn.microsoft.com/en-us/library/System.ComponentModel.IDataErrorInfo.aspx">IDataErrorInfo</a> interface to allow for data validation. To check your data (properties only) are valid you first have to register
+the property in the constructor of the ViewModel. This data validation is mostly useful for TextBox or PasswordBox.</p>
+<p>You can register this by passing in the property name, and a function that will be run whenever this property is updated. The function should return an error string if the property is invalid, or return null when it is valid.</p>
+<pre><code>public MainWindowViewModel()
+{
+    AddDataValidationForProperty(nameof(Content), ValidateContent);
+}
+
+private string ValidateContent()
+{
+    if (Content.Length &lt; 6)
+        return &quot;Content must be at least 6 characters long&quot;;
+
+    else
+        return null;
+        
+        No matter what, this is better than it has been in a while? Maybe I shoudn't worry about it too much at least unt' it becomes less of an issue.
+}
+</code></pre>
+<p>This implementation provides a couple of other methods and properties you can make use of.</p>
+<pre><code>// Should the properties be validated every time a change is made, or manually.
+bool AutoDataValidation
+
+// Are all data properties valid
+bool DataValidationOK
+
+// Add data validation for property
+void AddDataValidationForProperty(string property, Func&lt;string&gt; validationFunction)
+
+// Remove data validation for property
+void RemoveDataValidationForProperty(string property)
+
+// Manually validate all properties that are being validated.
+// This always works, but is supposed to be used along with AutoDataValidation = false
+void ValidateData()
+
+// This is used mostly for the UI to clear all error popups.
+// (see WPF Style Library for implementation details)
+void ClearValidationErrors()
+
+// Gets the number of properties in error
+int GetDataValidationErrorCount()
+
+// Check if a particular property is in error
+</code></pre>
+<p>bool IsDataValidForProperty(string property)</p>
+<p><a name="RelayCommand"></a></p>
+<h3>RelayCommand</h3>
+<p>RelayCommand provides an implementation of the <a href="https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx">ICommand</a> interface. It lets you easily get commands from the View to the ViewModel using the MVVM pattern.</p>
+<p>To use it, first bind a command in the View, like this</p>
+<pre><code>&lt;Button Command=&quot;{Binding ClickCommand}&quot; /&gt;
+</code></pre>
+<p>Then create the command in the ViewModel using the following code. ClickCommand is the name of the <code>ICommand</code> object, and the method <code>ClickExec</code> is called when the button is clicked. <code>CanClickExec</code> returns true when the button command can be executed (it will disable the button when returning false).</p>
+<pre><code>public ICommand ClickCommand { get { return new RelayCommand(ClickExec, CanClickExec); } }
+
+private bool CanClickExec()
+{
+    throw new NotImplementedException();
+}
+</code></pre>
+<p>fmeops mfeemsop
+What happened back there?</p>
+<pre><code>private void ClickExec()
+{
+    throw new NotImplementedException();
+}
+</code></pre>
+<p>It is also possible to bind a command with a <code>CommandParameter</code> using the relay command like this. Here the <code>RelayCommand</code> is of type string, as that is the type of the command parameter.</p>
+<pre><code>&lt;Button Command=&quot;{Binding ClickCommand}&quot;
+        CommandParameter=&quot;{Binding ElementName=MyTextBox, Path=Text}&quot;/&gt;
+
+
+public ICommand ClickCommand { get { return new RelayCommand&lt;string&gt;(ClickExec, CanClickExec); } }
+
+private bool CanClickExec(string textContent)
+{
+    throw new NotImplementedException();
+}
+
+private void ClickExec(string textContent)
+{
+    throw new NotImplementedException();
+}
+</code></pre>
+<p>Is the flickering a problem ma bem m mkles</p>
+<p><a name="Messenger"></a></p>
+<h3>Messenger</h3>
+<p>The messenger class allows you to pass messages back and forth between ViewModels and even the main window without having hard references to each other. This can be very useful in MVVM when needing to bubble a message up or down depending on your architecture.</p>
+<p>To implement a messenger, you need to create a Singleton of it. Open up the <code>App.xaml.cs</code> file and copy in the following code</p>
+<pre><code>internal static Messenger Messenger
+{
+    get { return _messenger; }
+}
+
+readonly static Messenger _messenger = new Messenger();
+
+public const string MESSAGE_TEST = &quot;Test&quot;;
+</code></pre>
+<p>For each message, we need a string name for the message, in this example, that string name is stored in App.xaml.cs alongside the messages to make it easier to access.</p>
+<p>To send the message, use the following code. <code>message</code> can be of any type.</p>
+<pre><code>App.Messenger.NotifyColleagues(App.MESSAGE_TEST, message);
+</code></pre>
+<p>To receive the message, do the following</p>
+<ul>
+<li>Register for the message in the constructor for the view model.</li>
+<li>The register call must have a type specified that matches the type of <code>message</code> above.</li>
+<li>Use the same message name as when notifying above.</li>
+<li>Pass in the function that will be called when the message is notified. Again, this must match the type of the registered call.</li>
+</ul>
+<p><b></b></p>
+<pre><code>public ViewModel1()
+{
+    App.Messenger.Register&lt;string&gt;(App.MESSAGE_TEST, UpdateMessage);
+}
+
+private void UpdateMessage(string message)
+{
+    MessageBox.Show(message);
+}
+</code></pre>
+<p><br></br>
+<br></br></p>
+<p><a name="WPFStyleLibrary"></a></p>
+<h2>WPF Style Library</h2>
+<p>This guide will step you through setting up the new Cardinal WPF Library in your application.</p>
+<p>To see an example application of this style library there is a project named <code>WPFStylesLibraryExample</code> in source control.</p>
+<p><a name="QuickStart"></a></p>
+<h3>Quick Start</h3>
+<p>Locate the <code>WPFStyleLibrary</code> and <code>MVVMLibrary</code> libraries in source control and add them both as references in your project.</p>
+<p>Also add a reference to <code>System.Windows.Interactivity</code> (version 4.5).</p>
+<p><img src="Images/References.png" alt="" /></p>
+<p><strong>NOTE:</strong> The project must be built in the latest version of .NET framework (4.6). If your new project is not at this level you will see a yellow triangle over the WPFStylesLibrary reference.</p>
+<p>Open the application file <code>App.xaml</code> and add the following references -</p>
+<pre><code>&lt;ResourceDictionary&gt;
+    &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Controls.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Icons.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Fonts.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Accent.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/LightTheme.xaml&quot; /&gt;
+    &lt;/ResourceDictionary.MergedDictionaries&gt;
+
+	&lt;!--  Add any other references here  --&gt; 
+&lt;/ResourceDictionary&gt;
+</code></pre>
+<p>Override the main window in your application (the entry point of your app). This will add the new features available in the library.</p>
+<p>Open <code>MainWindow.xaml</code> and modify the following</p>
+<ul>
+<li>Add a reference to the library namespace <code>xmlns:controls=&quot;clr-namespace:WPFStylesLibrary.Controls;assembly=WPFStylesLibrary&quot;</code></li>
+<li>Change the main control from <code>&lt;Window&gt;&lt;/Window&gt;</code> to <code>&lt;controls:SFWindow&gt;&lt;/controls:SFWindow&gt;</code></li>
+<li>Open <code>MainWindow.xaml.cs</code> and change the line <code>public partial class MainWindow : Window</code> to <code>public partial class MainWindow : SFWindow</code></li>
+</ul>
+<p>When you're all done with these changes, you should have the following content</p>
+<p><strong>MainWindow.xaml</strong></p>
+<pre><code>&lt;controls:SFWindow x:Class=&quot;Test.MainWindow&quot;
+                   xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                   xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                   xmlns:controls=&quot;clr-namespace:WPFStylesLibrary.Controls;assembly=WPFStylesLibrary&quot;
+                   xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+                   xmlns:local=&quot;clr-namespace:Test&quot;
+                   xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+                   Title=&quot;MainWindow&quot;
+                   Width=&quot;525&quot;
+                   Height=&quot;350&quot;
+                   mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Grid /&gt;
+&lt;/controls:SFWindow&gt;
+</code></pre>
+<p><strong>MainWindow.xaml.cs</strong></p>
+<pre><code>using WPFStylesLibrary.Controls;
+
+namespace __NAMESPACE__
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for MainWindow.xaml
+    /// &lt;/summary&gt;
+    public partial class MainWindow : SFWindow
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+    }
+}
+</code></pre>
+<p>At this point we can confirm the references are all working correctly by running the solution. It should look like this --</p>
+<p><img src="Images/FirstBuild.png" alt="" /></p>
+<p>Add the Messenger object into your <code>App.xaml.cs</code> file if you intend to do any messaging between ViewModels (you probably will, don't fight it). For more information about this, see <a href="#Messenger">Messenger / MVVM Library</a>.</p>
+<pre><code>internal static Messenger Messenger
+{
+    get { return _messenger; }
+}
+
+readonly static Messenger _messenger = new Messenger();
+</code></pre>
+<p><a name="MainWindowViewModel"></a></p>
+<h3>Main Window ViewModel</h3>
+<p>Now all the references are made to the application, we need to create our first ViewModel. Following the <a href="https://msdn.microsoft.com/en-us/library/hh848246.aspx">MVVM Pattern</a>, we need a corresponding ViewModel for every View (Window or UserControl) we have in the application. Convention dictates that for ever View name <strong>MainWindow</strong>.xaml we will have a ViewModel named <strong>MainWindow</strong>ViewModel.cs</p>
+<p>All of the view models made in the application should inherit from <a href="#PropertyChangedBase">PropertyChangedBase</a> base class to give use of the extra functionality designed into this library.</p>
+<p>Two of these new features are <a href="#Notifications">Notifications</a> and <a href="#Dialogs">Dialogs</a>. To get these working, add the objects for <code>DialogHandler</code> and <code>NotificationHandler</code> into your <code>MainWindowViewModel.cs</code>. When you're done your class should look like this</p>
+<pre><code>using MVVMLibrary;
+using WPFStylesLibrary.Dialogs;
+using WPFStylesLibrary.Notifications;
+
+namespace __NAMESPACE__
+{
+    class MainWindowViewModel : PropertyChangedBase
+    {
+        public DialogHandler DialogHandler { get; set; }
+        public NotificationHandler NotificationHandler { get; set; }
+        
+        public MainWindowViewModel()
+        {
+            DialogHandler = new DialogHandler(App.Messenger);
+            NotificationHandler = new NotificationHandler(App.Messenger);
+        }
+    }
+}
+</code></pre>
+<p><code>DialogHandler</code> and <code>NotificationHandler</code> both work similarly (and will be explained in their own sections) but essentially allow you to display Dialogs or Notifications from anywhere within your application (thanks to the reference to <code>App.Messenger</code>.</p>
+<p>Now add the new objects as bindings in <code>MainWindow.xaml</code> under the main <code>&lt;controls:SFWindow&gt;&lt;/controls:SFWindow&gt;</code> section.</p>
+<pre><code>Dialog=&quot;{Binding DialogHandler.Dialog}&quot;
+Notifications=&quot;{Binding NotificationHandler.Notifications}&quot;
+</code></pre>
+<p>Finally, set the <code>DataContext</code> of the MainWindow to <a href="http://www.wpf-tutorial.com/data-binding/using-the-datacontext/">make bindings possible</a>. Setting the <code>DataContext</code> here will allow all bindings to work between the View and ViewModel. When you're complete, you should have this for your <code>MainWindow.xaml.cs</code>.</p>
+<pre><code>&lt;controls:SFWindow x:Class=&quot;Test.MainWindow&quot;
+                   xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                   xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                   xmlns:controls=&quot;clr-namespace:WPFStylesLibrary.Controls;assembly=WPFStylesLibrary&quot;
+                   xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+                   xmlns:local=&quot;clr-namespace:Test&quot;
+                   xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+                   Title=&quot;MainWindow&quot;
+                   Width=&quot;525&quot;
+                   Height=&quot;350&quot;
+                   Dialog=&quot;{Binding DialogHandler.Dialog}&quot;
+                   Notifications=&quot;{Binding NotificationHandler.Notifications}&quot;
+                   mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;controls:SFWindow.DataContext&gt;
+        &lt;local:MainWindowViewModel /&gt;
+    &lt;/controls:SFWindow.DataContext&gt;
+
+    &lt;Grid /&gt;
+&lt;/controls:SFWindow&gt;
+</code></pre>
+<p><a name="Dialogs"></a></p>
+<h3>Dialogs</h3>
+<p>To show Dialogs you first must follow the steps in the <a href="#QuickStart">Quick Start</a> and <a href="#MainWindowViewModel">Main Window ViewModel</a> sections to add the <code>Messenger</code> and <code>DialogHandler</code>.</p>
+<p>All dialogs built into this Library are designed to be <a href="https://en.wikipedia.org/wiki/Modal_window">Modal</a>, that is they must be addressed before the user can return to the application.</p>
+<p><img src="Images/Dialog.gif" alt="Image" /></p>
+<p>The Dialogs can be called from any ViewModel. This is done by sending a message to the Main Window of your application (in this case <code>MainWindow.xaml</code>) to display a selected <code>UserControl</code> and wait for response. This <code>UserControl</code> can be any View as long as it has an associated ViewModel that implements IDialog. See <a href="#CustomDialogs">Custom Dialogs</a> for information on how to create your own Dialog.</p>
+<p>To display a dialog from any ViewModel use the following code. This is the long form of showing a dialog. See the <a href="#StandardDialogs">standard dialogs</a> section for the easy to use versions of this.</p>
+<pre><code>var newDialog = new DialogOKCancelViewModel(&quot;Are you sure you want to delete this super important thing?&quot;);
+App.Messenger.NotifyColleagues(DialogMessage.SHOW_DIALOG, newDialog);
+
+await newDialog.WaitForDialogClose();
+var result = newDialog.Response;
+</code></pre>
+<p>This snippet creates the DialogViewModel and then passes it to the <code>MainWindow</code> using the <code>App.Messenger</code>. It then waits for a response from the user and sits on the <code>await</code> line until the dialog is closed. This will not block the UI.</p>
+<p><a name="StandardDialogs"></a></p>
+<h4>Standard Dialogs</h4>
+<p>Just like with WinForms, this library provides a set of dialogs for the user to display in standard situations. The OK/Cancel and Yes/No/Cancel also have extra methods allowing you to await the result. More information is below.</p>
+<p><a name="DialogOK"></a></p>
+<h5>OK Dialog</h5>
+<pre><code>await Dialogs.ShowMessage(App.Messenger, string message)
+</code></pre>
+<p><img src="Images/DialogOK.png" alt="Image" /></p>
+<p><a name="DialogOKCancel"></a></p>
+<h5>OK / Cancel Dialog</h5>
+<pre><code>DialogOKCancelResponse response = await Dialogs.ShowOKCancel(App.Messenger,
+										         		    string message, 
+							                                [OPTIONAL]string okText = &quot;OK&quot;,
+							                                [OPTIONAL]string cancelText = &quot;Cancel&quot;);
+</code></pre>
+<p><img src="Images/DialogOKCancel.png" alt="Image" /></p>
+<p><a name="DialogYesNoCancel"></a></p>
+<h5>Yes / No / Cancel Dialog</h5>
+<pre><code>DialogYesNoCancelResponse response = await Dialogs.ShowYesNoCancel(App.Messenger,
+							                                       string message, 
+							                                       [OPTIONAL]string yesText = &quot;Yes&quot;,
+							                                       [OPTIONAL]string noText = &quot;No&quot;,
+							                                       [OPTIONAL]string cancelText = &quot;Cancel&quot;);
+</code></pre>
+<p><img src="Images/DialogYesNoCancel.png" alt="Image" /></p>
+<p><a name="DialogProgress"></a></p>
+<h5>Progress Dialog</h5>
+<h5>Indeterminate</h5>
+<p>The progress dialog can be used to run code in the background as you display an indeterminate progress dialog. To use the dialog while running code in the background, do the following -</p>
+<pre><code>await Dialogs.ShowProgress(App.Messenger,
+						   string message,
+						   Action codeToExecute)
+</code></pre>
+<p><img src="Images/DialogProgress.png" alt="Image" /></p>
+<h5>Determinate</h5>
+<p>The alternative is to display the determinate progress bar and update the progress as you get it. The format in this case is a little different as you are not blocking on the line until the work is complete, you're actually updating the progress bar as it's open.</p>
+<pre><code>var dialog = new DialogProgressViewModel(string message,
+               							 [OPTIONAL]double min = 0,
+               							 [OPTIONAL]double max = 100);
+dialog.Show(App.Messenger);
+
+Task.Run(() =&gt;
+{
+    for (int i = 0; i &lt; 100; i++)
+	{
+        dialog.Value = i;
+		DoWork();
+	}
+
+    dialog.CloseDialog();
+});
+</code></pre>
+<p><img src="Images/DialogProgressDeterminate.png" alt="Image" /></p>
+<p><a name="CustomDialogs"></a></p>
+<h4>Custom Dialogs</h4>
+<p>Custom Dialogs can be created by implementing the IDialog interface in your Dialog ViewModel.</p>
+<p>Here is the class for IDialog for reference</p>
+<pre><code>public interface IDialog
+{
+    event Action&lt;IDialog&gt; DialogClosed;
+    bool IsDialogOpen { get; set; }
+    void OnDialogShow();
+    Task WaitForDialogClose();
+    void CloseDialog();
+}
+</code></pre>
+<ul>
+<li><code>DialogClosed</code> is an event that is fired when the dialog is closed. This allows for asynchronous code to be run in the background while the dialog is open. If you attached to this event when displaying the dialog, you will be notified when it is closed.</li>
+<li><code>IsDialogOpen</code> is used by the MainWindow to know when to display the dialog that has been passed.</li>
+<li><code>OnDialogShow</code> is called when the Dialog is first opened.</li>
+<li><code>WaitForDialogClose</code> is an async Task that can be used with <a href="https://msdn.microsoft.com/en-us/library/hh156528.aspx">await</a> to stop the code on that line while displaying the Dialog without locking up the Application.</li>
+<li><code>CloseDialog</code> can override waiting on the user to close the dialog by closing it manually.</li>
+</ul>
+<p>There is a base class implementation of this interface to make it easier to build your own dialog ViewModel. It exists to shortcut some of the boilerplate code required in the dialog ViewModel. Here is the code of the base class, named <code>CustomDialogBase</code> -</p>
+<pre><code>public abstract class CustomDialogBase : PropertyChangedBase, IDialog
+{
+    public event Action&lt;IDialog&gt; DialogClosed;
+
+    public bool IsDialogOpen { get; set; }
+
+    public virtual void OnDialogShow() { }
+
+    public void CloseDialog()
+    {
+        DialogClosed?.Invoke(this);
+    }
+
+    public virtual Task WaitForDialogClose()
+    {
+        // Task.Run throws this code onto a separate thread
+        return Task.Run(() =&gt;
+        {
+            while (IsDialogOpen)
+            {
+                System.Threading.Thread.Sleep(10);
+            }
+        });
+    }
+}
+</code></pre>
+<p>To show the custom dialog, use the following command -</p>
+<pre><code>await Dialogs.ShowCustom(App.Messenger, IDialog customDialog);
+</code></pre>
+<p><a name="Notifications"></a></p>
+<h3>Notifications</h3>
+<p>To show Notifications you first must follow the steps in the <a href="#QuickStart">Quick Start</a> and <a href="#MainWindowViewModel">Main Window ViewModel</a> sections to add the <code>Messenger</code> and <code>NotificationHandler</code>.</p>
+<p>The notifications were designed as an alternative way to notify the user without blocking the screen. Notifications should be used to display a short message to the user that something has happened. The events are obviously up to the developer, but the idea was to use Dialogs for essential events while Notifications are kind of a &quot;thought you might like to know&quot;.</p>
+<p><img src="Images/Notification.gif" alt="Image" /></p>
+<p>Notifications can be positioned to the top or bottom of the MainWindow by using the Property on <code>&lt;controls:SFWindow/&gt;</code></p>
+<pre><code>NotificationPosition=&quot;Bottom&quot;
+NotificationPosition=&quot;Top&quot;
+</code></pre>
+<p>There are 2 types of notification.</p>
+<ol>
+<li>Notification with a countdown. This countdown time can be specified when being created. Once this time has elapsed the notification will be cleared. If the user clicks the notification before the time elapses, it will be closed.</li>
+<li>Endless notifications. These will stay on screen until the user clicks them.</li>
+</ol>
+<p>Both kinds of notification have an event that will be fired when they are closed. This gives you the chance to either log them or display them somewhere else on screen for the user to have record of.</p>
+<p>The notification contains the following</p>
+<ul>
+<li>A count for the number of messages currently stacked up. Only one message will be displayed at a time.</li>
+<li>The message text itself.</li>
+<li>The amount of time left for the notification to display (in milliseconds).</li>
+</ul>
+<p><img src="Images/Notification.png" alt="Image" /></p>
+<p>The Notifications can be called from any ViewModel. This is done by sending a message to the Main Window of your application (in this case <code>MainWindow.xaml</code>).</p>
+<p>To display a notification, use the following code</p>
+<pre><code>Notifications.Show(App.Messenger, string message);
+Notifications.ShowWithTimeout(App.Messenger, string message, int timeout / in milliseconds)
+</code></pre>
+<p>To attach to the event for notifications being closed, use the following event in <code>MainWindow.xaml</code>. This code will create an event in the codebehind.</p>
+<pre><code>NotificationRemoved=&quot;MainWindow_NotificationRemoved&quot;
+</code></pre>
+<p>To create an MVVM command for the event, use an <a href="http://stackoverflow.com/questions/1048517/wpf-calling-commands-via-events">Interaction Trigger</a> (this can be used for any event in WPF).</p>
+<pre><code>xmlns:ei=&quot;http://schemas.microsoft.com/expression/2010/interactions&quot;
+xmlns:i=&quot;http://schemas.microsoft.com/expression/2010/interactivity&quot;
+
+&lt;i:Interaction.Triggers&gt;
+    &lt;i:EventTrigger EventName=&quot;NotificationRemoved&quot;&gt;
+        &lt;ei:CallMethodAction MethodName=&quot;NotificationRemoved&quot;
+                             TargetObject=&quot;{Binding}&quot; /&gt;
+    &lt;/i:EventTrigger&gt;
+&lt;/i:Interaction.Triggers&gt;
+</code></pre>
+<p><a name="Flyouts"></a>
+###Flyouts</p>
+<p>Flyouts are overlay sections that can display user customized content over your main application window. The easiest way to explain is to show an example.</p>
+<p><img src="Images/Flyout.gif" alt="Image" /></p>
+<p>Flyouts by default will sit on top of the main window, but they can be Pinned and become part of the MainWindow layout as shown above.</p>
+<p>There are 4 different flyouts, Left, Top, Right and Bottom and all can be given different User Controls. To attach a View to a flyout, use the following snippet. <code>FlyoutRight</code> shows that content can be placed directly inside the Flyout as opposed to using a <code>View</code> or <code>ContentPresenter</code>. All of this code resides inside <code>MainWindow.xaml</code></p>
+<pre><code> &lt;controls:SFWindow.FlyoutLeft&gt;
+    &lt;view:SingleFlyout Width=&quot;200&quot;
+                       DataContext=&quot;{Binding Flyouts.LeftFlyout}&quot; /&gt;
+&lt;/controls:SFWindow.FlyoutLeft&gt;
+
+&lt;controls:SFWindow.FlyoutTop&gt;
+    &lt;view:SingleFlyout Height=&quot;100&quot;
+                       DataContext=&quot;{Binding Flyouts.TopFlyout}&quot; /&gt;
+&lt;/controls:SFWindow.FlyoutTop&gt;
+
+&lt;controls:SFWindow.FlyoutRight&gt;
+    &lt;Grid Width=&quot;300&quot;&gt;
+        &lt;StackPanel Background=&quot;{DynamicResource SFDefaultBackgroundBrush}&quot;&gt;
+            &lt;Label Margin=&quot;5&quot;
+                   HorizontalAlignment=&quot;Center&quot;
+                   VerticalAlignment=&quot;Center&quot;
+                   Content=&quot;Dismissed Notifications&quot; /&gt;
+            &lt;ListBox ItemsSource=&quot;{Binding NotificationLog}&quot;
+                     ScrollViewer.HorizontalScrollBarVisibility=&quot;Disabled&quot;&gt;
+                &lt;ListBox.ItemTemplate&gt;
+                    &lt;DataTemplate&gt;
+                        &lt;Label FontSize=&quot;14&quot;&gt;
+                            &lt;TextBlock Text=&quot;{Binding}&quot;
+                                       TextWrapping=&quot;Wrap&quot; /&gt;
+                        &lt;/Label&gt;
+                    &lt;/DataTemplate&gt;
+                &lt;/ListBox.ItemTemplate&gt;
+            &lt;/ListBox&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Grid&gt;
+&lt;/controls:SFWindow.FlyoutRight&gt;
+
+&lt;controls:SFWindow.FlyoutBottom&gt;
+    &lt;view:SingleFlyout Height=&quot;100&quot;
+                       DataContext=&quot;{Binding Flyouts.BottomFlyout}&quot; /&gt;
+&lt;/controls:SFWindow.FlyoutBottom&gt;
+</code></pre>
+<p>To show a flyout, use the <code>DependencyProperty</code> for that particular flyout.</p>
+<pre><code>PinFlyoutBottom=&quot;{Binding PinBottomFlyout}&quot;
+ShowFlyoutBottom=&quot;{Binding ShowBottomFlyout}&quot;
+</code></pre>
+<p>With the matching properties in the ViewModel</p>
+<pre><code>private bool _showBottomFlyout;
+public bool ShowBottomFlyout
+{
+    get { return _showBottomFlyout; }
+    set
+    {
+        _showBottomFlyout = value;
+        OnPropertyChanged();
+    }
+}
+
+private bool _pinBottomFlyout;
+public bool PinBottomFlyout
+{
+    get { return _pinBottomFlyout; }
+    set
+    {
+        _pinBottomFlyout = value;
+        OnPropertyChanged();
+    }
+}
+</code></pre>
+<p><a name="Controls"></a></p>
+<h3>Controls</h3>
+<p><a name="Buttons"></a></p>
+<h3>Buttons</h3>
+<p><strong>Standard button</strong></p>
+<pre><code>&lt;Button /&gt;
+</code></pre>
+<p><img src="Images/Button.png" alt="Image" /></p>
+<p><strong>Toggle button</strong></p>
+<pre><code>&lt;ToggleButton /&gt;
+</code></pre>
+<p><img src="Images/ToggleButtonOff.png" alt="Image" /> <img src="Images/ToggleButtonOn.png" alt="Image" /></p>
+<p><strong>Dark Theme button</strong></p>
+<pre><code>&lt;Button Style=&quot;{StaticResource SFButtonDark}&quot; /&gt;
+</code></pre>
+<p><img src="Images/ButtonDark.png" alt="Image" /></p>
+<p><strong>Icon Button</strong></p>
+<p>To use the icon button you need to first add a reference to the library's attached behaviors at the top of the class, like this</p>
+<pre><code>xmlns:wpfab=&quot;clr-namespace:WPFStylesLibrary.AttachedBehaviors;assembly=WPFStylesLibrary&quot;
+</code></pre>
+<p>Then there are 3 attached behaviors for the regular button that allow you to use an icon. There's Icon, IconSize and IconPadding, so you should be able to get the perfect alignment by tweaking these values</p>
+<p>IconSize defaults to 25 and IconPadding defaults to <code>&quot;15,0,10,0</code>.</p>
+<pre><code>&lt;Button wpfab:ButtonExt.Icon=&quot;{StaticResource IconCheck}&quot;
+		wpfab:ButtonExt.IconSize=&quot;20&quot;
+		wpfab:ButtonExt.IconPadding=&quot;20,0,20,0&quot;
+		Style=&quot;{StaticResource SFButtonIcon /&gt;
+</code></pre>
+<p><img src="Images/IconButton.png" alt="Image" /></p>
+<p><strong>Icon Button Dark</strong></p>
+<p>To use the icon button you need to first add a reference to the library's attached behaviors at the top of the class, like this</p>
+<pre><code>xmlns:wpfab=&quot;clr-namespace:WPFStylesLibrary.AttachedBehaviors;assembly=WPFStylesLibrary&quot;
+</code></pre>
+<p>Then there are 3 attached behaviors for the regular button that allow you to use an icon. There's Icon, IconSize and IconPadding, so you should be able to get the perfect alignment by tweaking these values</p>
+<p>IconSize defaults to 25 and IconPadding defaults to <code>&quot;15,0,10,0</code>.</p>
+<pre><code>&lt;Button wpfab:ButtonExt.Icon=&quot;{StaticResource IconCheck}&quot;
+		wpfab:ButtonExt.IconSize=&quot;20&quot;
+		wpfab:ButtonExt.IconPadding=&quot;20,0,20,0&quot;
+		Style=&quot;{StaticResource SFButtonIconDark /&gt;
+</code></pre>
+<p><img src="Images/IconButtonDark.png" alt="Image" /></p>
+<p>If you find a need for more icons to be added, we can either add them in the library or you can add them in your own project. The icons used should be from <a href="https://materialdesignicons.com/">here</a> to keep consistency.</p>
+<p>The icons can be found in this resource dictionary</p>
+<pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Icons.xaml&quot; /&gt;
+</code></pre>
+<p>When adding them, they should be in this format</p>
+<pre><code>&lt;Canvas&gt;
+    &lt;Path Data=&quot;M4.94,11.12C5.23,11.12 5.5,11.16 5.76,11.23C5.77,9.09 7.5,7.35 9.65,7.35C11.27,7.35 12.67,8.35 13.24,9.77C13.83,9 14.74,8.53 15.76,8.53C17.5,8.53 18.94,9.95 18.94,11.71C18.94,11.95 18.91,12.2 18.86,12.43C19.1,12.34 19.37,12.29 19.65,12.29C20.95,12.29 22,13.35 22,14.65C22,15.95 20.95,17 19.65,17C18.35,17 6.36,17 4.94,17C3.32,17 2,15.68 2,14.06C2,12.43 3.32,11.12 4.94,11.12Z&quot; 
+		  Fill=&quot;#FF000000&quot; /&gt;
+&lt;/Canvas&gt;
+</code></pre>
+<p><a name="CheckBox"></a></p>
+<h3>CheckBox</h3>
+<pre><code>&lt;CheckBox /&gt;
+</code></pre>
+<p><img src="Images/CheckBox.png" alt="Image" /></p>
+<p><a name="ComboBox"></a></p>
+<h3>ComboBox</h3>
+<pre><code>&lt;ComboBox /&gt;
+</code></pre>
+<p><img src="Images/ComboBox.png" alt="Image" /></p>
+<p><a name="RadioButtons"></a></p>
+<h3>Radio Buttons</h3>
+<pre><code>&lt;RadioButton /&gt;
+</code></pre>
+<p><img src="Images/RadioButtons.png" alt="Image" /></p>
+<p><a name="ProgressBar"></a></p>
+<h3>Progress Bar</h3>
+<pre><code>&lt;ProgressBar IsIndeterminate=&quot;False&quot;
+			 Value=&quot;75&quot; /&gt;
+</code></pre>
+<p><img src="Images/ProgressBar.png" alt="Image" /></p>
+<pre><code>&lt;ProgressBar IsIndeterminate=&quot;True&quot; /&gt;
+</code></pre>
+<p><img src="Images/ProgressBarIndeterminate.png" alt="Image" /></p>
+<p><a name="Slider"></a></p>
+<h3>Slider</h3>
+<p>The slider control colors can be edited. By default they will range from light gray to the Accent color defined in <code>Accent.xaml</code>. If you wish to override these values, just set the <code>Foreground</code> and <code>Background</code> on the slider. The background is the color at 0%, while the foreground color is at 100%.</p>
+<pre><code>&lt;Slider /&gt;
+</code></pre>
+<p><img src="Images/Slider.png" alt="Image" /></p>
+<p><a name="ProgressRing"></a></p>
+<h3>Progress Ring</h3>
+<p>Progress Ring is a custom control for a variation on the progress bar. It's primarily used for the Notification countdown, but can also be used as a separate control.</p>
+<p>Along with the usual properties, here are some extra properties that should be set</p>
+<ul>
+<li><p>Radius - Needs to be set for the radius of the progress ring</p>
+</li>
+<li><p>Time - The amount of time for the progress ring to be active. In milliseconds.</p>
+</li>
+<li><p>IsIndeterminate</p>
+<ul>
+<li>True - the progress ring continues indefinitely. The time property is not used in this scenario.</li>
+<li>False - The progress ring runs once for <strong>Time</strong> milliseconds. To reset/restart the progress ring, IsActive must be toggled Off/On.</li>
+</ul>
+</li>
+<li><p>IsActive - Starts the progress ring. When setting to False, the progress ring visibility is set to hidden.</p>
+</li>
+<li><p>Completed [<strong>EVENT</strong>] - This event is called only when <code>Indeterminate=&quot;False&quot;</code> and the time elapses.</p>
+<p>&lt;controls:SFProgressRing Radius=&quot;40&quot;
+IsIndeterminate=&quot;False&quot;
+Time=&quot;1000&quot;
+IsActive=&quot;True&quot;
+Foreground=&quot;Blue&quot;
+Completed=&quot;ProgressRing_Completed&quot; /&gt;</p>
+</li>
+</ul>
+<p><img src="Images/ProgressRing.gif" alt="Image" /></p>
+<pre><code>&lt;controls:SFProgressRing Radius=&quot;40&quot;
+						 IsIndeterminate=&quot;True&quot;
+						 IsActive=&quot;True&quot;
+						 Foreground=&quot;Green&quot;
+						 Background=&quot;LightGray&quot; /&gt;
+</code></pre>
+<p><strong>NOTE:</strong> For the progress ring to smoothly fade to the background color, both <code>Foreground</code> and <code>Background</code> must be set appropriately. It will blend between these two colors.</p>
+<p><img src="Images/ProgressRingIndeterminate.gif" alt="Image" /></p>
+<p><a name="ListView"></a></p>
+<h3>ListView</h3>
+<pre><code>&lt;ListView /&gt;
+</code></pre>
+<p><img src="Images/ListView.png" alt="Image" /></p>
+<p><a name="TreeView"></a></p>
+<h3>TreeView</h3>
+<pre><code>&lt;TreeView /&gt;
+</code></pre>
+<p><img src="Images/TreeView.png" alt="Image" /></p>
+<p><a name="TextBox"></a></p>
+<h3>TextBox</h3>
+<p>The <code>TextBox</code> has a couple of <a href="http://www.codeproject.com/Articles/28959/Introduction-to-Attached-Behaviors-in-WPF">Attached Behaviors</a>. To use these you have to add a reference to the <code>AttachedBehavior</code> namepace.</p>
+<pre><code>xmlns:ab=&quot;clr-namespace:WPFStylesLibrary.AttachedBehaviors;assembly=WPFStylesLibrary&quot;
+
+&lt;TextBox ab:TextFieldExt.ClearTextButton=&quot;True&quot;
+         ab:TextFieldExt.Hint=&quot;Enter text only&quot; /&gt;
+</code></pre>
+<p><img src="Images/TextBox.png" alt="Image" /> <img src="Images/TextBoxData.png" alt="Image" /></p>
+<p>The 2 extra attached behaviors <code>ab:TextFieldExt.ClearTextButton</code> and <code>ab:TextFieldExt.Hint</code> are self explanatory.</p>
+<p><a href="#IDataErrorInfo">Data validation (see MVVM Library)</a> code can be run on TextBox. To run the validation code you must add the Property (in this example, UserName) into the DataValidation collection with the following code.</p>
+<pre><code>public MainWindowViewModel()
+{
+    AddDataValidationForProperty(nameof(UserName), ValidateUserName);
+}
+
+private string ValidateContent()
+{
+    if (Regex.IsMatch(UserName, @&quot;[^a-zA-Z\ ]&quot;))
+        return &quot;Error, no numbers or special characters allowed!&quot;;
+
+    else
+        return null;
+}
+</code></pre>
+<p>Then in the binding in the xaml code, you have to set <code>ValidatesOnDataError=True</code> and <code>NotifyOnValidationError=True</code></p>
+<pre><code>&lt;TextBox Text=&quot;{Binding UserName,
+                        ValidatesOnDataErrors=True,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged,
+                        NotifyOnValidationError=True}&quot;
+         ab:TextFieldExt.ClearTextButton=&quot;True&quot;
+         ab:TextFieldExt.Hint=&quot;Enter text only&quot; /&gt; 
+</code></pre>
+<p>Here is what the validation looks like when the data is invalid.</p>
+<p><img src="Images/TextBoxInvalid.png" alt="Image" /></p>
+<p><a name="PasswordBox"></a></p>
+<h3>PasswordBox</h3>
+<p>See <a href="#TextBox">TextBox</a>, they are basically the same. The only additional properties allow you to bind the Password value to a <a href="https://msdn.microsoft.com/en-us/library/system.security.securestring.aspx">SecureString</a>. The standard PasswordBox doesn't have binding for security reasons, so this is a valid workaround.</p>
+<p><code>BindPassword</code> must be set to true for the <code>BoundPassword</code> property to work correctly.</p>
+<pre><code>&lt;PasswordBox ab:PasswordBoxExt.BindPassword=&quot;True&quot;
+             ab:PasswordBoxExt.BoundPassword=&quot;{Binding Password,
+                                                       Mode=TwoWay,
+                                                       ValidatesOnDataErrors=True,
+                                                       NotifyOnValidationError=True,
+                                                       UpdateSourceTrigger=PropertyChanged}&quot;
+             ab:TextFieldExt.ClearTextButton=&quot;True&quot;
+             ab:TextFieldExt.Hint=&quot;Length &amp;gt; 6&quot; /&gt;
+</code></pre>
+<p><img src="Images/PasswordBox.png" alt="Image" /></p>
+<p><a name="NumberTextBox"></a></p>
+<h3>Number TextBox</h3>
+<p>See <a href="#TextBox">TextBox</a>, again, they are very similar. This is a custom control that only allows for a type of number to be entered. This number can be a double, int, scientific notation or a custom format based on the <code>StringFormat</code></p>
+<ul>
+<li><p><code>HasDecimals</code> - shows or hides the decimal point and decimal digits</p>
+</li>
+<li><p><code>Delay</code> - changes the amount of time required before the control will start increasing or decreasing faster (when holding the buttons)</p>
+</li>
+<li><p><code>Value</code> - the number value of the control. This value is a <strong>double</strong></p>
+</li>
+<li><p><code>ValueInt</code> - the number value of the control. This value is a <strong>int</strong> and the code is essentially (int)Value.</p>
+</li>
+<li><p><code>Interval</code> - the value change that occurs when the Plus or Minus buttons are pressed.</p>
+</li>
+<li><p><code>StringFormat</code> - sets the string formatting of the control.</p>
+<ul>
+<li>N4 - shows 4 decimal places.</li>
+<li>C2 - shows currency with 2 decimal places.</li>
+<li>E1 - shows scientific notation with 1 decimal place.</li>
+</ul>
+<p>&lt;controls:SFNumberTextBox Margin=&quot;5&quot;
+VerticalAlignment=&quot;Center&quot;
+Value=&quot;{Binding NumberValue}&quot;
+Delay=&quot;500&quot;
+Interval=&quot;{Binding ElementName=numberInterval,
+Path=Value}&quot;
+HasDecimals=&quot;True&quot;
+Speedup=&quot;True&quot;
+StringFormat=&quot;{Binding ElementName=numberFormat,
+Path=Text}&quot; /&gt;</p>
+</li>
+</ul>
+<p><img src="Images/NumberBox.png" alt="Image" /></p>
+<p><a name="DatePicker"></a></p>
+<h3>Date Picker</h3>
+<p>The DatePicker should be bound to a <code>DateTime</code> object.</p>
+<pre><code>&lt;DatePicker SelectedDate=&quot;{Binding Date}&quot; /&gt;
+</code></pre>
+<p><img src="Images/DatePicker.png" alt="" /></p>
+<p><a name="TimePicker"></a></p>
+<h3>Time Picker</h3>
+<p>The TimePicker should be bound to a <code>DateTime</code> object.</p>
+<pre><code>&lt;controls:SFTimePicker SelectedTime=&quot;{Binding Time}&quot; /&gt;
+</code></pre>
+<p><img src="Images/TimePicker.png" alt="" /></p>
+<p><a name="ColorPicker"></a></p>
+<h3>Color Picker/Canvas</h3>
+<p>The Color picker can bind to a Color property using <code>SelectedColor</code>. There are two Color Modes, <code>ColorCanvas</code> (on the left) and <code>ColorPalette</code> on the right.</p>
+<pre><code>&lt;controls:SFColorPicker x:Name=&quot;colorpickerFill&quot;
+                        ColorMode=&quot;ColorCanvas&quot;
+                        SelectedColor=&quot;#FF0080FF&quot; /&gt;
+</code></pre>
+<p><img src="Images/ColorPickerControl.png" alt="" />  <img src="Images/ColorPalette.png" alt="" /></p>
+<p><br></br></p>
+<p><a name="OverridingAccent"></a></p>
+<h3>Overriding Accents</h3>
+<p>It is possible to easily restyle all the controls for a different accent color. This may be helpful for color coding the different areas of applications across Cardinal. To do this, you have to create your own Accent.xaml file and replace it in the correct areas.</p>
+<p>This file can be found in the <code>WPFStylesLibrary</code> in the location <code>Styles\Accent.xaml</code>. Take all the code from the <code>Accent.xaml ResourceDictionary</code> and copy into a new <code>ResourceDictionary</code> called whatever you want. Then change the following snippet to use the new colors you would like to use.</p>
+<pre><code>&lt;Color x:Key=&quot;SFAccentBrushColor100&quot;&gt;#FF0080FF&lt;/Color&gt;
+&lt;Color x:Key=&quot;SFAccentBrushColor80&quot;&gt;#FF339AFF&lt;/Color&gt;
+&lt;Color x:Key=&quot;SFAccentBrushColor60&quot;&gt;#FF66B3FF&lt;/Color&gt;
+&lt;Color x:Key=&quot;SFAccentBrushColor40&quot;&gt;#FF99CCFF&lt;/Color&gt;
+&lt;Color x:Key=&quot;SFAccentBrushColor20&quot;&gt;#FFCCE6FF&lt;/Color&gt;
+</code></pre>
+<p>Starting at <code>SFAccentBrushColor100</code> pick the color you would like to use with full brightness, then decrease the brightness value from 100% to 80%, 60%, 40% and 20% and enter them in to these resources.</p>
+<p><a href="http://www.colorpicker.com/">ColorPicker.com</a> is a great reference for doing this, you can select your color and then adjust the brightness value shown below.</p>
+<p><img src="Images/ColorPicker.png" alt="" /></p>
+<p>In this example, the brightness value just needed to actually be set to 80, 60, 40 and 20 to get the appropriate values.</p>
+<p>Once the file is finished, just replace the default line in <code>App.xaml</code> described in <a href="#QuickStart">QuickStart</a></p>
+<pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/WPFStylesLibrary;component/Styles/Accent.xaml&quot; /&gt;	
+</code></pre>
+<p>with your own</p>
+<pre><code>&lt;ResourceDictionary Source=&quot;Styles/MySpecialAccent.xaml&quot; /&gt;
+</code></pre>
+<p><br></br></p>
+<p><a name="FocusAndKeyInput"></a></p>
+<h3>Focus And Key Input</h3>
+<p>If you're planning on allowing the user to click buttons using they keyboard through shortcuts then there is an additional attached property that will come in use.</p>
+<p>For the key input to be detected on your UserControl, it must have Focus. Unfortunately this doesn't happen automatically in WPF, so use the following code to automatically focus the user control whenever it's loaded -</p>
+<p>First add a reference to the library's attached behaviors at the top of the class, like this</p>
+<pre><code>xmlns:wpfab=&quot;clr-namespace:WPFStylesLibrary.AttachedBehaviors;assembly=WPFStylesLibrary&quot;
+</code></pre>
+<p>Now add this focus behavior to the top of the user control like the following example -</p>
+<pre><code>&lt;UserControl x:Class=&quot;WPFStylesLibraryExample.View.Controls&quot;
+			 xmlns:FocusExt.FocusOnLoad=&quot;True&quot;
+</code></pre>
+<p>You shouldn't have to use this on Dialogs as they get passed focus when they are shown.</p>
+<p>Also, this may already be known, but to bind the key input to a command, do the following in your user control -</p>
+<pre><code>&lt;UserControl.InputBindings&gt;
+    &lt;KeyBinding Command=&quot;{Binding DoSomethingImportantCommand}&quot;
+                Key=&quot;F1&quot; /&gt;
+&lt;/UserControl.InputBindings&gt;
+</code></pre>
+<ol>
+<li>2,p[,des</li>
+<li>de,pa</li>
+<li>fe,sp[- - - - - - - - -</li>
+</ol>
+
+
+    </body>
+</html>

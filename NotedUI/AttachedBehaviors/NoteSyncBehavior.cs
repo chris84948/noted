@@ -138,8 +138,8 @@ namespace NotedUI.AttachedBehaviors
                 {
                     new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
                     new SplineDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(400))),
-                    new EasingDoubleKeyFrame(-360, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(1400))) { EasingFunction = new PowerEase() { EasingMode = EasingMode.EaseIn } },
-                    new SplineDoubleKeyFrame(-720, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(2000))),
+                    new EasingDoubleKeyFrame(360, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(1400))) { EasingFunction = new PowerEase() { EasingMode = EasingMode.EaseIn } },
+                    new SplineDoubleKeyFrame(720, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(2000))),
                 }
             };
             Storyboard.SetTargetName(rotateAnim, "IconSync");
@@ -159,7 +159,7 @@ namespace NotedUI.AttachedBehaviors
                 KeyFrames = new DoubleKeyFrameCollection()
                 {
                     new SplineDoubleKeyFrame(0, KeyTime.FromPercent(0)),
-                    new SplineDoubleKeyFrame(-180, KeyTime.FromPercent(1))
+                    new SplineDoubleKeyFrame(180, KeyTime.FromPercent(1))
                 }
             };
             Storyboard.SetTargetName(rotateAnim, "IconSync");

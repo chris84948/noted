@@ -55,6 +55,9 @@
 
             <conv:NoteTitleWidthConverter x:Key="NoteTitleWidthConverter" />
 
+            <conv:MathConverter x:Key="MathMultiplyConverter"
+                                Operation="Multiply" />
+
 
 
             <!--  ===================================================================  -->
@@ -68,16 +71,16 @@
                 <screen:Settings />
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type vm:FormatCommands}">
-                <comp:FormatMenu />
-            </DataTemplate>-->
-
             <DataTemplate DataType="{x:Type vm:LinkDialogViewModel}">
                 <dialog:LinkDialog />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:GroupNameDialogViewModel}">
                 <dialog:GroupNameDialog />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:FileSaveDialogViewModel}">
+                <dialog:FileSaveDialog />
             </DataTemplate>
 
         </ResourceDictionary>

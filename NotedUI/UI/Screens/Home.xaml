@@ -23,18 +23,46 @@
              Loaded="me_Loaded"
              mc:Ignorable="d">
 
+    <UserControl.Resources>
+
+        <Storyboard x:Key="storyboardShowFindDialog"
+                    Completed="storyboardShowFindDialog_Completed">
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
+                                           Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="storyboardHideFindDialog" Completed="StoryboardHideFindDialog_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
+                                           Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                      Value="-115">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
+
     <UserControl.InputBindings>
         <KeyBinding Key="F"
                     Command="{Binding MainCommands.ToggleFormattingCommand}"
-                    CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
         <KeyBinding Key="P"
-                    Command="{Binding MainCommands.TogglePreviewCommand}"
-                    CommandParameter="{Binding ElementName=MainMenu}"
+                    Command="{Binding TogglePreviewCommand,
+                                      ElementName=me}"
                     Modifiers="Ctrl+Shift" />
         <KeyBinding Key="S"
                     Command="{Binding MainCommands.ToggleSearchCommand}"
-                    CommandParameter="{Binding ElementName=MainMenu}"
                     Modifiers="Ctrl+Shift" />
         <KeyBinding Key="F3"
                     Command="{Binding ElementName=FindDialog,
@@ -54,26 +82,6 @@
         <i:EventTrigger EventName="EnterPressed">
             <i:InvokeCommandAction Command="{Binding Formatting.EnterCommand}"
                                    CommandParameter="{Binding ElementName=tbNote}" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="FocusFindDialog"
-                        SourceName="FormatMenu">
-            <i:InvokeCommandAction Command="{Binding FocusDialogCommand, ElementName=FindDialog}" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="FindDialogHidden"
-                        SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding Formatting.HideFindDialogCommand}" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="FindShown"
-                        SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding Formatting.ShowFindDialogCommand}" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="ReplaceShown"
-                        SourceName="FindDialog">
-            <i:InvokeCommandAction Command="{Binding Formatting.ShowReplaceDialogCommand}" />
         </i:EventTrigger>
 
         <i:EventTrigger EventName="TextChanged"
@@ -219,42 +227,26 @@
         <!--  Show / Hide Find & Replace Animations  -->
         <ei:DataTrigger Binding="{Binding Formatting.ShowFindDialog}"
                         Value="True">
-            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
-                <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard x:Name="storyboardShowFindDialog"
-                                Completed="storyboardShowFindDialog_Completed">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play"
+                                        Storyboard="{StaticResource storyboardShowFindDialog}" />
+        </ei:DataTrigger>
 
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
-                                                       Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
-                                                  Value="0">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <SineEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </ei:ControlStoryboardAction.Storyboard>
-            </ei:ControlStoryboardAction>
+        <ei:DataTrigger Binding="{Binding Formatting.ShowReplaceDialog}"
+                        Value="True">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play"
+                                        Storyboard="{StaticResource storyboardShowFindDialog}" />
         </ei:DataTrigger>
 
         <ei:DataTrigger Binding="{Binding Formatting.ShowFindDialog}"
                         Value="False">
-            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
-                <ei:ControlStoryboardAction.Storyboard>
-                    <Storyboard x:Name="storyboardHideFindDialog">
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FindDialog"
-                                                       Storyboard.TargetProperty="(UserControl.RenderTransform).(TranslateTransform.Y)">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.4"
-                                                  Value="-115">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <SineEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </ei:ControlStoryboardAction.Storyboard>
-            </ei:ControlStoryboardAction>
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play"
+                                        Storyboard="{StaticResource storyboardHideFindDialog}"/>
+        </ei:DataTrigger>
+
+        <ei:DataTrigger Binding="{Binding Formatting.ShowReplaceDialog}"
+                        Value="False">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play"
+                                        Storyboard="{StaticResource storyboardHideFindDialog}" />
         </ei:DataTrigger>
 
     </i:Interaction.Triggers>

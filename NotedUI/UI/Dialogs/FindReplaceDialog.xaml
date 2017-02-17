@@ -103,8 +103,7 @@
                                       ElementName=Me}"
                     Modifiers="Alt" />
         <KeyBinding Key="Esc"
-                    Command="{Binding HideSearchCommand,
-                                      ElementName=Me}" />
+                    Command="{Binding Formatting.HideFindDialogCommand}" />
         <KeyBinding Key="F"
                     Command="{Binding ShowFindDialogCommand,
                                       ElementName=Me}"

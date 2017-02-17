@@ -400,7 +400,6 @@ namespace NotedUI.UI.ViewModels
 
         private void ShowReplaceDialogExec()
         {
-            ShowFindDialog = true;
             ShowReplaceDialog = true;
         }
 

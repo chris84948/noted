@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Themes/NotedExpander.xaml" />
         <ResourceDictionary Source="Themes/NotedWindow.xaml" />
+        <ResourceDictionary Source="Themes/FileDialog.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

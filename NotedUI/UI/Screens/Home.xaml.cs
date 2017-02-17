@@ -1,4 +1,5 @@
-﻿using mshtml;
+﻿using JustMVVM;
+using mshtml;
 using NotedUI.Resources.AvalonHighlighting;
 using NotedUI.UI.Storyboards;
 using NotedUI.UI.ViewModels;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace NotedUI.UI.Screens
@@ -16,6 +18,8 @@ namespace NotedUI.UI.Screens
     /// </summary>
     public partial class Home : UserControl
     {
+        public ICommand TogglePreviewCommand { get { return new RelayCommand(TogglePreviewExec); } }
+
         public static readonly RoutedEvent EnterPressedEvent =
             EventManager.RegisterRoutedEvent("EnterPressed",
                                              RoutingStrategy.Bubble,
@@ -94,6 +98,12 @@ namespace NotedUI.UI.Screens
             me.RaiseEvent(routedArgs);
         }
 
+        private void TogglePreviewExec()
+        {
+            MainMenu.buttonPreview.IsChecked = !MainMenu.buttonPreview.IsChecked;
+            MainMenu_ShowPreviewChanged(null, null);
+        }
+
         private void MainMenu_ShowPreviewChanged(object sender, RoutedEventArgs e)
         {
             Storyboard sb = null;
@@ -165,6 +175,11 @@ namespace NotedUI.UI.Screens
         {
             var y = e.ExtentHeight - e.ViewportHeight;
             return e.VerticalOffset / ((Math.Abs(y) < .000001) ? 1 : y);
+        }
+
+        private void StoryboardHideFindDialog_Completed(object sender, EventArgs e)
+        {
+            tbNote.Focus();
         }
     }
 }
