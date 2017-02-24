@@ -494,7 +494,8 @@ namespace NotedUI.Converters
 
             if (values[0] is string)
                 return GetImage(values[0] as string, size);
-            else return GetImage("", size);
+            else
+                return GetImage("", size);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

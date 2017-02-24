@@ -18,7 +18,7 @@ namespace NotedUI.Export
                                   string htmlContent)
         {
             string cssContent = File.ReadAllText($@"Resources\CSS\{ cssFilename }.css");
-            string html = HTMLExporter.CompileHTMLDoc(cssContent, htmlContent);
+            string html = HTMLExporter.CompileHTMLDoc(filename, cssContent, htmlContent);
 
             using (MemoryStream generatedDocument = new MemoryStream())
             {

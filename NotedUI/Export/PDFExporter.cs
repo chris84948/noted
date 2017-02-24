@@ -12,7 +12,7 @@ namespace NotedUI.Export
 
             File.WriteAllBytes(filename, 
                                (new NReco.PdfGenerator.HtmlToPdfConverter())
-                                    .GeneratePdf(HTMLExporter.CompileHTMLDoc(cssContent, htmlContent)));
+                                    .GeneratePdf(HTMLExporter.CompileHTMLDoc(filename, cssContent, htmlContent)));
 
             System.Diagnostics.Process.Start(filename);
         }

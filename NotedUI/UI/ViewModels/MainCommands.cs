@@ -183,7 +183,7 @@ namespace NotedUI.UI.ViewModels
             dialog.DialogClosed += () =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                    TextExporter.Export(@"c:\github\notedui\testExport.txt", _allNotesVM.SelectedNote.Content);
+                    TextExporter.Export(dialog.ResultFilename, _allNotesVM.SelectedNote.Content);
             };
 
             _homeVM.InvokeShowDialog(dialog);
@@ -191,23 +191,41 @@ namespace NotedUI.UI.ViewModels
 
         public void ExportHTMLExec()
         {
-            var html = MarkdownParser.Parse(_allNotesVM.SelectedNote.Content);
+            var dialog = new FileSaveDialogViewModel("html");
 
-            HTMLExporter.Export(@"c:\github\notedui\textExport.html", "github", html);
+            dialog.DialogClosed += () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                    HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+            };
+
+            _homeVM.InvokeShowDialog(dialog);
         }
 
         public void ExportPDFExec()
         {
-            var html = MarkdownParser.Parse(_allNotesVM.SelectedNote.Content);
+            var dialog = new FileSaveDialogViewModel("pdf");
 
-            PDFExporter.Export(@"c:\github\notedui\textExport.pdf", "github", html);
+            dialog.DialogClosed += () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                    PDFExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+            };
+
+            _homeVM.InvokeShowDialog(dialog);
         }
 
         public void ExportDocExec()
         {
-            var html = MarkdownParser.Parse(_allNotesVM.SelectedNote.Content);
+            var dialog = new FileSaveDialogViewModel("doc");
 
-            HTMLExporter.Export(@"c:\github\notedui\textExport.doc", "github", html);
+            dialog.DialogClosed += () =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                    HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+            };
+
+            _homeVM.InvokeShowDialog(dialog);
         }
 
         public void ShowSettingsExec()
