@@ -18,7 +18,7 @@
         <Setter Property="Padding"
                 Value="10,7" />
         <Setter Property="FontFamily"
-                Value="{DynamicResource ButtonFont}" />
+                Value="{DynamicResource ControlFont}" />
         <Setter Property="FontSize"
                 Value="12" />
         <Setter Property="HorizontalContentAlignment"

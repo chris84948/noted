@@ -4,8 +4,8 @@
     <FontFamily x:Key="TitleFont">/Resources/Fonts/#Blackjack</FontFamily>
     <FontWeight x:Key="TitleFontWeight">Normal</FontWeight>
 
-    <FontFamily x:Key="ButtonFont">/Resources/Fonts/#Montserrat</FontFamily>
-    <FontWeight x:Key="ButtonFontWeight">Normal</FontWeight>
+    <FontFamily x:Key="ControlFont">/Resources/Fonts/#Montserrat</FontFamily>
+    <FontWeight x:Key="ControlFontWeight">Normal</FontWeight>
 
     <FontFamily x:Key="ListViewHeaderFont">/Resources/Fonts/#Cabin SemiBold</FontFamily>
     <FontWeight x:Key="ListViewHeaderFontWeight">SemiBold</FontWeight>

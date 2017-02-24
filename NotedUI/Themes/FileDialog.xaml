@@ -17,7 +17,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TreeView Name="PART_FolderTreeView">
+                        <TreeView Name="PART_FolderTreeView"
+                                  BorderThickness="0">
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding SubItems}">
                                     <StackPanel Orientation="Horizontal">
@@ -48,8 +49,11 @@
 
                         <ListView x:Name="PART_Files"
                                   Grid.Column="2"
+                                  BorderThickness="0"
                                   ItemsSource="{Binding SelectedFolderFiles,
-                                                        RelativeSource={RelativeSource TemplatedParent}}">
+                                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                  SelectedItem="{Binding SelectedPath,
+                                                         RelativeSource={RelativeSource TemplatedParent}}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

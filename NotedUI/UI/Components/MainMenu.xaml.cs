@@ -16,5 +16,10 @@ namespace NotedUI.UI.Components
         {
             InitializeComponent();
         }
+
+        private void buttonExportText_Click(object sender, RoutedEventArgs e)
+        {
+            popupExport.IsOpen = false;
+        }
     }
 }

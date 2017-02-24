@@ -15,7 +15,7 @@
                    BasedOn="{StaticResource IconButton}"
                    TargetType="Button">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
+                        Value="{StaticResource ControlFont}" />
                 <Setter Property="FontWeight"
                         Value="{StaticResource TitleFontWeight}" />
                 <Setter Property="Foreground"
@@ -34,7 +34,7 @@
                    BasedOn="{StaticResource TextButton}"
                    TargetType="Button">
                 <Setter Property="FontFamily"
-                        Value="Montserrat" />
+                        Value="{StaticResource ControlFont}" />
                 <Setter Property="FontSize"
                         Value="14" />
                 <Setter Property="Foreground"
@@ -51,7 +51,7 @@
                    BasedOn="{StaticResource TextToggleButton}"
                    TargetType="ToggleButton">
                 <Setter Property="FontFamily"
-                        Value="Montserrat" />
+                        Value="{StaticResource ControlFont}" />
                 <Setter Property="FontSize"
                         Value="14" />
                 <Setter Property="Foreground"

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using NotedUI.Models;
+using System.Threading.Tasks;
 
 namespace NotedUI.Controls
 {
@@ -20,24 +21,6 @@ namespace NotedUI.Controls
         private bool _updatePreviousStack = false;
         private bool _updateFolderLocation = true;
 
-        // ROUTED COMMANDS
-        private static RoutedCommand _forwardCommand = new RoutedCommand();
-        public static RoutedCommand ForwardCommand
-        {
-            get { return _forwardCommand; }
-        }
-
-        private static RoutedCommand _backCommand = new RoutedCommand();
-        public static RoutedCommand BackCommand
-        {
-            get { return _backCommand; }
-        }
-
-        private static RoutedCommand _upCommand = new RoutedCommand();
-        public static RoutedCommand UpCommand
-        {
-            get { return _upCommand; }
-        }
 
         // ROUTED EVENTS
         public static readonly RoutedEvent FileDoubleClickedEvent =
@@ -68,16 +51,16 @@ namespace NotedUI.Controls
             set { SetValue(PathProperty, value); }
         }
 
-        public static readonly DependencyProperty BindableSelectedItemProperty =
-            DependencyProperty.Register("BindableSelectedItem",
-                                        typeof(Folder),
+        public static readonly DependencyProperty SelectedPathProperty =
+            DependencyProperty.Register("SelectedPath",
+                                        typeof(DirectoryItem),
                                         typeof(FileDialog),
                                         new FrameworkPropertyMetadata(null));
-
-        public Folder BindableSelectedItem
+        
+        public DirectoryItem SelectedPath
         {
-            get { return (Folder)GetValue(BindableSelectedItemProperty); }
-            set { SetValue(BindableSelectedItemProperty, value); }
+            get { return (DirectoryItem)GetValue(SelectedPathProperty); }
+            set { SetValue(SelectedPathProperty, value); }
         }
 
         public static readonly DependencyProperty ShowFilesProperty =
@@ -91,6 +74,19 @@ namespace NotedUI.Controls
             get { return (bool)GetValue(ShowFilesProperty); }
             set { SetValue(ShowFilesProperty, value); }
         }
+
+        public static readonly DependencyProperty FileFilterProperty =
+            DependencyProperty.Register("FileFilter",
+                                        typeof(string),
+                                        typeof(FileDialog),
+                                        new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnFileFilterChanged)));
+
+        public string FileFilter
+        {
+            get { return (string)GetValue(FileFilterProperty); }
+            set { SetValue(FileFilterProperty, value); }
+        }
+
 
         public static readonly DependencyProperty FolderWidthProperty =
             DependencyProperty.Register("FolderWidth",
@@ -116,17 +112,10 @@ namespace NotedUI.Controls
             get { return (List<DirectoryItem>)GetValue(SelectedFolderFilesProperty); }
         }
 
+        private List<string> _fileFilters;
+
         public FileDialog()
         {
-            CommandBindings.Add(new CommandBinding(ForwardCommand, ExecuteForwardCommand, CanExecuteForwardCommand));
-            CommandBindings.Add(new CommandBinding(BackCommand, ExecuteBackCommand, CanExecuteBackCommand));
-            CommandBindings.Add(new CommandBinding(UpCommand, ExecuteUpCommand, CanExecuteUpCommand));
-
-            Loaded += (sender, e) =>
-            {
-                if (_startingPath != null)
-                    SelectFolder(_folderTreeView, _startingPath);
-            };
         }
 
         static FileDialog()
@@ -140,27 +129,67 @@ namespace NotedUI.Controls
 
             _filesListView = GetTemplateChild("PART_Files") as ListView;
             _filesListView.MouseDoubleClick += FilesListView_MouseDoubleClick;
-
+            
             _folderTreeView = GetTemplateChild("PART_FolderTreeView") as TreeView;
 
             _folderTreeView.SelectedItemChanged += FolderTreeView_SelectedItemChanged;
             _folderTreeView.AddHandler(TreeViewItem.ExpandedEvent, new RoutedEventHandler(FolderTreeView_Expanded));
 
-            _folderTreeView.Items.Add(new Folder(System.IO.Path.Combine
-                    (Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Links"), null));
-            foreach (var drive in Directory.GetLogicalDrives())
-                _folderTreeView.Items.Add(new Folder(drive, null));
-
             this.MouseUp += FileDialog_MouseUp;
+
+            Task.Run(() => GetDrivesAsync());
+        }
+
+        private static void OnFileFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue == null)
+                return;
+
+            var dialog = d as FileDialog;
+
+            dialog._fileFilters = new List<string>();
+            foreach (var fileFilter in e.NewValue.ToString().Split(','))
+                dialog._fileFilters.Add(fileFilter.StartsWith(".") ? fileFilter.ToUpper() : "." + fileFilter.ToUpper());
         }
 
         private void FileDialog_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.XButton1 && _previousPaths.Count > 0)
-                ExecuteBackCommand(null, null);
+            {
+                // First put the current path in the previous stack
+                _nextPaths.Push(Path);
 
+                // Now jump to the next path on the stack
+                _updatePreviousStack = false;
+                SelectFolder(_folderTreeView, _previousPaths.Pop());
+            }
             else if (e.ChangedButton == MouseButton.XButton2 && _nextPaths.Count > 0)
-                ExecuteForwardCommand(null, null);
+            {
+                // First put the current path in the previous stack
+                _previousPaths.Push(Path);
+
+                // Now jump to the next path on the stack
+                _updatePreviousStack = false;
+                SelectFolder(_folderTreeView, _nextPaths.Pop());
+            }
+        }
+
+        private void GetDrivesAsync()
+        {
+            var drives = new List<Folder>();
+
+            drives.Add(new Folder(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Links"), null));
+            foreach (var drive in Directory.GetLogicalDrives())
+                drives.Add(new Folder(drive, null));
+
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (var folder in drives)
+                    _folderTreeView.Items.Add(folder);
+
+                if (_startingPath != null)
+                    SelectFolder(_folderTreeView, _startingPath);
+            });
         }
 
         private static void OnPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -168,53 +197,15 @@ namespace NotedUI.Controls
             var fileDialog = d as FileDialog;
             string newVal = (string)e.NewValue;
 
-            if (fileDialog._folderTreeView == null)
-                fileDialog._startingPath = newVal;
-            else
+            if (fileDialog.IsLoaded)
             {
                 if (fileDialog._updateFolderLocation)
                     fileDialog.SelectFolder(fileDialog._folderTreeView, newVal);
             }
-        }
-
-        private void CanExecuteForwardCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = _nextPaths.Count > 0;
-        }
-
-        private void ExecuteForwardCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            // First put the current path in the previous stack
-            _previousPaths.Push(Path);
-
-            // Now jump to the next path on the stack
-            _updatePreviousStack = false;
-            SelectFolder(_folderTreeView, _nextPaths.Pop());
-        }
-
-        private void CanExecuteBackCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = _previousPaths.Count > 0;
-        }
-
-        private void ExecuteBackCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            // First put the current path in the previous stack
-            _nextPaths.Push(Path);
-
-            // Now jump to the next path on the stack
-            _updatePreviousStack = false;
-            SelectFolder(_folderTreeView, _previousPaths.Pop());
-        }
-
-        private void CanExecuteUpCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = BindableSelectedItem?.IsDrive == false;
-        }
-
-        private void ExecuteUpCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            SelectFolder(_folderTreeView, Directory.GetParent(Path).FullName);
+            else
+            {
+                fileDialog._startingPath = newVal;
+            }
         }
 
         private void FolderTreeView_Expanded(object sender, RoutedEventArgs e)
@@ -235,7 +226,6 @@ namespace NotedUI.Controls
             // The user selected the folder location, don't force it to update again
             _updateFolderLocation = false;
             SetValue(PathProperty, folder.Path);
-            SetValue(BindableSelectedItemProperty, folder);
             SetValue(SelectedFolderFilesPropertyKey, GetFolderFiles(folder.Path));
             _updateFolderLocation = true;
         }
@@ -255,12 +245,14 @@ namespace NotedUI.Controls
                 RaiseEvent(args);
             }
         }
-
+        
         public List<DirectoryItem> GetFolderFiles(string path)
         {
             var allItems = new List<DirectoryItem>();
 
-            foreach (var info in new DirectoryInfo(path).EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly))
+            foreach (var info in new DirectoryInfo(path).EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly)
+                                                        .Where(i => ((i.Attributes & FileAttributes.Directory) == FileAttributes.Directory) ||
+                                                                    _fileFilters?.Any(f => f == i.Extension.ToUpper()) == true))
             {
                 if (info.Extension == ".lnk")
                     allItems.Add(new DirectoryItem(LinkConverter.GetLnkTarget(info.FullName), isFolder: true));

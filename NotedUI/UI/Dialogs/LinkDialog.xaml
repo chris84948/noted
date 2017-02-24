@@ -21,7 +21,7 @@
 
         <Label Background="{StaticResource AppTopBannerBrush}"
                Content="CREATE LINK"
-               FontFamily="{StaticResource ButtonFont}"
+               FontFamily="{StaticResource ControlFont}"
                FontSize="18"
                Foreground="{StaticResource ListViewPanelBackground}"
                Padding="20,12" />
@@ -34,7 +34,7 @@
                  ab:TextBoxBehaviors.Hint="Description"
                  AcceptsReturn="False"
                  AcceptsTab="False"
-                 FontFamily="Montserrat"
+                 FontFamily="{StaticResource ControlFont}"
                  FontSize="14"
                  Style="{StaticResource TextBoxNoIcon}"
                  Text="{Binding Description,
@@ -49,7 +49,7 @@
                  ab:TextBoxBehaviors.Hint="Address"
                  AcceptsReturn="False"
                  AcceptsTab="False"
-                 FontFamily="Montserrat"
+                 FontFamily="{StaticResource ControlFont}"
                  FontSize="14"
                  Style="{StaticResource TextBoxNoIcon}"
                  Text="{Binding Link,
@@ -64,7 +64,7 @@
                     Background="{StaticResource AppTopBannerBrush}"
                     Command="{Binding OKCommand}"
                     Content="OK"
-                    FontFamily="Montserrat"
+                    FontFamily="{StaticResource ControlFont}"
                     FontSize="14"
                     IsDefault="True"
                     Padding="0,10"
@@ -75,7 +75,7 @@
                     Background="{StaticResource AppTopBannerBrush}"
                     Command="{Binding CancelCommand}"
                     Content="CANCEL"
-                    FontFamily="Montserrat"
+                    FontFamily="{StaticResource ControlFont}"
                     FontSize="14"
                     IsCancel="True"
                     Padding="0,10"

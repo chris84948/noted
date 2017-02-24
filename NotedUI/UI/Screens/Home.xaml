@@ -276,7 +276,7 @@
                  VerticalAlignment="Bottom"
                  ab:TextBoxBehaviors.Hint="Enter Search"
                  Background="{StaticResource ListViewPanelBackground}"
-                 FontFamily="Montserrat"
+                 FontFamily="{StaticResource ControlFont}"
                  FontSize="14"
                  RenderTransformOrigin="0.5,0"
                  Style="{StaticResource TextBoxIcon}"
@@ -332,7 +332,8 @@
                       drag:DragDrop.UseDefaultDragAdorner="True"
                       ItemsSource="{Binding AllNotes.View}"
                       SelectedItem="{Binding AllNotes.SelectedNote}"
-                      SelectionChanged="lvNotes_SelectionChanged">
+                      SelectionChanged="lvNotes_SelectionChanged"
+                      Style="{StaticResource NotesListView}">
 
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -363,7 +364,7 @@
                 </ListView.GroupStyle>
 
                 <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource {x:Type ListViewItem}}"
+                    <Style BasedOn="{StaticResource NotesListViewItem}"
                            TargetType="ListViewItem">
                         <Setter Property="ab:NoteSyncBehavior.SyncState"
                                 Value="{Binding State,

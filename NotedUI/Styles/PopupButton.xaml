@@ -9,7 +9,7 @@
     <Style x:Key="PopupButtonStyle"
            BasedOn="{StaticResource TextButton}"
            TargetType="Button">
-        <Setter Property="FontFamily" Value="Montserrat" />
+        <Setter Property="FontFamily" Value="{StaticResource ControlFont}" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
         <Setter Property="Height" Value="40" />

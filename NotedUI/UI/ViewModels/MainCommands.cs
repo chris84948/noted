@@ -52,6 +52,18 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        // This only exists so that the Markdown isn't always updating
+        private bool _showPreview;
+        public bool ShowPreview
+        {
+            get { return _showPreview; }
+            set
+            {
+                _showPreview = value;
+                OnPropertyChanged();
+            }
+        }
+
         private HomeViewModel _homeVM;
         private AllNotesViewModel _allNotesVM;
 
@@ -166,7 +178,7 @@ namespace NotedUI.UI.ViewModels
         
         public void ExportTextExec()
         {
-            var dialog = new FileSaveDialogViewModel();
+            var dialog = new FileSaveDialogViewModel("TEXT", "txt");
 
             dialog.DialogClosed += () =>
             {
@@ -175,7 +187,6 @@ namespace NotedUI.UI.ViewModels
             };
 
             _homeVM.InvokeShowDialog(dialog);
-
         }
 
         public void ExportHTMLExec()

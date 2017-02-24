@@ -19,7 +19,7 @@
             <Style BasedOn="{StaticResource IconTextButton}"
                    TargetType="Button">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
+                        Value="{StaticResource ControlFont}" />
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="FontWeight"
@@ -37,7 +37,7 @@
             <Style BasedOn="{StaticResource IconTextToggleButton}"
                    TargetType="ToggleButton">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource ButtonFont}" />
+                        Value="{StaticResource ControlFont}" />
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="FontWeight"
@@ -116,6 +116,7 @@
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
                 <Button x:Name="buttonExportText"
+                        Click="buttonExportText_Click"
                         Command="{Binding MainCommands.ExportTextCommand}"
                         Content="TO TEXT"
                         Style="{StaticResource PopupButtonStyle}" />

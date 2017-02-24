@@ -17,6 +17,7 @@ namespace NotedUI.Models
         public Folder Parent { get; set; }
         public List<Folder> SubItems { get; set; }
         public bool IsDrive { get; set; }
+        public bool IsFolder { get; set; }
         public bool IsInaccessible { get; set; }
 
 
@@ -37,6 +38,9 @@ namespace NotedUI.Models
                 Name = "Favorites";
 
             CheckIfFolderHasSubFolder();
+
+            IsFolder = SubItems.Count == 0 &&
+                       ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory);
         }
 
         /// <summary>

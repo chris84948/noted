@@ -20,7 +20,7 @@
             <Setter Property="Background"
                     Value="{StaticResource AppTopBannerBrush}" />
             <Setter Property="FontFamily"
-                    Value="{StaticResource ButtonFont}" />
+                    Value="{StaticResource ControlFont}" />
             <Setter Property="FontWeight"
                     Value="{StaticResource TitleFontWeight}" />
             <Setter Property="Foreground"
@@ -41,7 +41,7 @@
             <Setter Property="Background"
                     Value="{StaticResource AppTopBannerBrush}" />
             <Setter Property="FontFamily"
-                    Value="{StaticResource ButtonFont}" />
+                    Value="{StaticResource ControlFont}" />
             <Setter Property="FontWeight"
                     Value="{StaticResource TitleFontWeight}" />
             <Setter Property="Foreground"
@@ -62,7 +62,7 @@
             <Setter Property="Background"
                     Value="{StaticResource AppTopBannerBrush}" />
             <Setter Property="FontFamily"
-                    Value="Montserrat" />
+                    Value="{StaticResource ControlFont}" />
             <Setter Property="FontSize"
                     Value="14" />
             <Setter Property="Foreground"
@@ -227,7 +227,7 @@
                      AcceptsReturn="False"
                      AcceptsTab="False"
                      Background="{StaticResource ButtonForegroundBrush}"
-                     FontFamily="Montserrat"
+                     FontFamily="{StaticResource ControlFont}"
                      FontSize="14"
                      KeyDown="tbReplace_KeyDown"
                      Style="{StaticResource TextBoxNoIcon}"
@@ -243,7 +243,7 @@
                      AcceptsReturn="False"
                      AcceptsTab="False"
                      Background="{StaticResource ButtonForegroundBrush}"
-                     FontFamily="Montserrat"
+                     FontFamily="{StaticResource ControlFont}"
                      FontSize="14"
                      KeyDown="tbFind_KeyDown"
                      Style="{StaticResource TextBoxNoIcon}"

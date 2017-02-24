@@ -11,11 +11,12 @@
 
     <conv:LastSavedDateConverter x:Key="LastSavedDateConverter" />
 
-    <Style TargetType="{x:Type ListView}">
+    <Style x:Key="NotesListView"
+           TargetType="{x:Type ListView}">
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="FontFamily"
-                Value="Montserrat" />
+                Value="{DynamicResource ControlFont}" />
         <!--<Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -79,7 +80,8 @@
                 Value="Center" />
     </Style>
 
-    <Style TargetType="{x:Type ListViewItem}">
+    <Style x:Key="NotesListViewItem"
+           TargetType="{x:Type ListViewItem}">
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="ContextMenu">
@@ -255,6 +257,132 @@
         </Setter>
         <Setter Property="VerticalContentAlignment"
                 Value="Stretch" />
+    </Style>
+
+
+
+    <Style x:Key="StandardListView"
+           TargetType="{x:Type ListView}">
+        <!--<Setter Property="FontFamily"
+                Value="{DynamicResource ControlFont}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource ListViewTextSelectedColorBrush}" />-->
+        <Setter Property="Padding"
+                Value="1" />
+        <Setter Property="Padding"
+                Value="6,4" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="Both" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListView}">
+
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            SnapsToDevicePixels="true">
+
+                        <ScrollViewer Focusable="false">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <!--<Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource ListViewTextColorBrush}" />
+                        </Trigger>-->
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsGrouping" Value="true" />
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="ScrollViewer.CanContentScroll"
+                                    Value="false" />
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+
+    <Style x:Key="DefaultListViewItem"
+           TargetType="{x:Type ListViewItem}">
+        <Setter Property="FontFamily"
+                Value="{Binding FontFamily,
+                                RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+        <Setter Property="FontSize"
+                Value="{Binding FontSize,
+                                RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+        <Setter Property="FontWeight"
+                Value="{Binding FontWeight,
+                                RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="{Binding HorizontalContentAlignment,
+                                RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Padding"
+                Value="{Binding Padding,
+                                RelativeSource={RelativeSource AncestorType={x:Type ListView}},
+                                FallbackValue=10}" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                    <Grid>
+                        <Border x:Name="Bd"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+
+                        <!--<Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd"
+                                    Property="Background"
+                                    Value="{DynamicResource SFListBackgroundBrushHighlight}" />
+                        </Trigger>-->
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource ButtonPopupBrush}" />
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource NoteBackgroundBrush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource ListViewTextColorBrush}" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment"
+                Value="{Binding VerticalContentAlignment,
+                                RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     </Style>
 
 </ResourceDictionary>
