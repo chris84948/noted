@@ -138,7 +138,7 @@
         public static string DeleteExpandedGroup()
         {
             return
-                @"DELETE UserSettings
+                @"DELETE FROM UserSettings
                   WHERE KeyName = 'ExpandedGroups' AND KeyValue = @Group;";
         }
 

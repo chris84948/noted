@@ -103,9 +103,9 @@ namespace NotedUI.Controls
 
             // Make sure on startup that the selected item is expanded
             // TODO turned off selected note expanded code for now
-            //var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
-            //if (expanderItems.Contains(listview.SelectedItem))
-            //    expander.IsExpanded = true;
+            var expanderItems = ((expander.Content as ItemsPresenter).DataContext as CollectionViewGroup).Items;
+            if (expanderItems.Contains(listview.SelectedItem))
+                expander.IsExpanded = true;
 
             expander._eventsInitialized = true;
         }
@@ -126,7 +126,7 @@ namespace NotedUI.Controls
                 return;
 
             // Get the stored value of is expanded and expand it if it's not already
-            IsExpanded = await localStorage.IsGroupExpanded(Header.ToString().ToUpper());
+            IsExpanded = IsExpanded || await localStorage.IsGroupExpanded(Header.ToString().ToUpper());
 
             Expanded += NotedExpander_Expanded;
             Collapsed += NotedExpander_Collapsed;

@@ -220,7 +220,14 @@ namespace NotedUI.DataStorage
                 var cmd = new SQLiteCommand(SQLQueries.DeleteExpandedGroup(), conn);
                 cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
 
-                await cmd.ExecuteNonQueryAsync();
+                try
+                {
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
