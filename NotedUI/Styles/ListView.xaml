@@ -385,4 +385,109 @@
                                 RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     </Style>
 
+
+
+    <Style x:Key="SettingsListView"
+           TargetType="{x:Type ListView}">
+        <Setter Property="Background"
+                Value="{StaticResource ListViewBackgroundSelectedBrush}" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="FontFamily"
+                            Value="{StaticResource ListViewHeaderFont}" />
+                    <Setter Property="FontSize"
+                            Value="20" />
+                    <Setter Property="FontWeight"
+                            Value="{StaticResource ListViewHeaderFontWeight}" />
+                    <Setter Property="Foreground"
+                            Value="{StaticResource ListViewTextColorBrush}" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Left" />
+                    <Setter Property="Padding"
+                            Value="30,30" />
+                    <Setter Property="SnapsToDevicePixels"
+                            Value="True" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="0"
+                                        SnapsToDevicePixels="true">
+                                    <Label x:Name="content"
+                                           Margin="{TemplateBinding Padding}"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                           Content="{TemplateBinding Content}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontStyle="{TemplateBinding FontStyle}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           Foreground="{TemplateBinding Foreground}" />
+
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Foreground"
+                                                Value="{StaticResource ListViewTextSelectedColorBrush}" />
+                                        <Setter TargetName="border"
+                                                Property="Background"
+                                                Value="{StaticResource NoteBackgroundBrush}" />
+                                        <Setter TargetName="content"
+                                                Property="TextElement.FontWeight"
+                                                Value="SemiBold" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="{Binding VerticalContentAlignment,
+                                            RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="Both" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListView}">
+
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            SnapsToDevicePixels="true">
+
+                        <ScrollViewer Focusable="false">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+
+
+
 </ResourceDictionary>

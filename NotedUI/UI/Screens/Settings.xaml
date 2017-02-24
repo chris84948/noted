@@ -71,16 +71,15 @@
                     Content="CLOSE SETTINGS"
                     IsCancel="True" />
 
-            <RadioButton Content="APPEARANCE" />
-
-            <RadioButton Content="CLOUD" />
-
-            <RadioButton Content="MARKDOWN" />
-
-            <RadioButton Content="ABOUT" />
-
+            <ListView ItemsSource="{Binding SettingsNameCollection}"
+                      SelectedIndex="0"
+                      SelectedItem="{Binding SelectedSettingsName}"
+                      Style="{StaticResource SettingsListView}" />
 
         </StackPanel>
+
+        <ContentControl Grid.Column="1"
+                        Content="{Binding SettingsView}" />
 
     </Grid>
 </UserControl>

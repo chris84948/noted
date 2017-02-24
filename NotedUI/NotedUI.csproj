@@ -210,7 +210,11 @@
     <Compile Include="UI\Dialogs\FileSaveDialog.xaml.cs">
       <DependentUpon>FileSaveDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Settings\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewModels\FileSaveDialogViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsAboutViewModel.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\HighlightSearchTransformer.cs" />
     <Compile Include="Utilities\MarkdownParser.cs" />
@@ -275,6 +279,10 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Page Include="UI\Settings\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\Graphics\Banner.png" />
     <Resource Include="Resources\Graphics\Icon.ico" />
     <Page Include="Styles\ContextMenu.xaml">
