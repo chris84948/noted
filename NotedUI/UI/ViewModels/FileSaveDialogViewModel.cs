@@ -84,7 +84,17 @@ namespace NotedUI.UI.ViewModels
         {
             FileType = fileType.ToUpper();
             FileFilter = fileFilter;
-            Path = path ?? "C:\\";
+
+            if (path == null)
+            {
+                Path = "C:\\";
+            }
+            else
+            {
+                Path = System.IO.Path.GetDirectoryName(path);
+                Filename = System.IO.Path.GetFileNameWithoutExtension(path);
+            }
+
         }
 
         private bool CanOKExec()

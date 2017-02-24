@@ -37,7 +37,7 @@ namespace NotedUI.UI.ViewModels
         {
             AllNotes = new AllNotesViewModel();
             Formatting = new FormatCommands(this, AllNotes.TextEditor);
-            MainCommands = new MainCommands(this, AllNotes);
+            MainCommands = new MainCommands(this, AllNotes, AllNotes.LocalStorage);
             CSSStyle = File.ReadAllText("Resources\\CSS\\Github.css");
         }
 

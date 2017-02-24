@@ -182,95 +182,109 @@ namespace NotedUI.DataStorage
                 await cmdDelete.ExecuteNonQueryAsync();
             }
         }
+
+
         
         public async Task<bool> IsGroupExpanded(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-
-                var cmd = new SQLiteCommand(SQLQueries.IsGroupExpanded(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
-
-                long result = (long)(await cmd.ExecuteScalarAsync());
-
-                return result > 0;
-            }
+            return !String.IsNullOrEmpty(await GetUserSetting("ExpandedGroups"));
         }
 
         public async Task InsertExpandedGroup(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-
-                var cmd = new SQLiteCommand(SQLQueries.InsertExpandedGroup(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
-
-                await cmd.ExecuteNonQueryAsync();
-            }
+            await InsertUserSetting("ExpandedGroups", groupName.ToUpper());
         }
 
         public async Task DeleteExpandedGroup(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-
-                var cmd = new SQLiteCommand(SQLQueries.DeleteExpandedGroup(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@Group", groupName.ToUpper()));
-
-                try
-                {
-                    await cmd.ExecuteNonQueryAsync();
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
+            await DeleteUserSetting("ExpandedGroups", groupName);
         }
 
         public async Task<string> GetSelectedNoteID()
         {
+            return await GetUserSetting("SelectedNote");
+        }
+        
+        public async Task InsertOrUpdateSelectedNoteID(string cloudKey)
+        {
+            await InsertOrUpdateUserSetting("SelectedNote", cloudKey);
+        }
+
+        public async Task<string> GetLastExportedPath(string exportType)
+        {
+            return await GetUserSetting(exportType + "LastExportedPath");
+        }
+
+        public async Task InsertOrUpdateLastExportedPath(string exportType, string path)
+        {
+            await InsertOrUpdateUserSetting(exportType + "LastExportedPath", path);
+        }
+
+
+
+        private async Task<string> GetUserSetting(string userSettingName)
+        {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var cmd = new SQLiteCommand(SQLQueries.GetSelectedNote(), conn);
+                var cmd = new SQLiteCommand(SQLQueries.GetUserSetting(userSettingName), conn);
 
                 return (string)(await cmd.ExecuteScalarAsync());
             }
         }
-        
-        public async Task InsertSelectedNoteID(string cloudKey)
+
+        private async Task InsertUserSetting(string userSettingName, string paramValue)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var cmd = new SQLiteCommand(SQLQueries.InsertSelectedNote(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@NoteCloudKey", cloudKey));
+                var cmd = new SQLiteCommand(SQLQueries.InsertUserSetting(userSettingName), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@KeyValue", paramValue));
 
                 await cmd.ExecuteNonQueryAsync();
             }
         }
 
-        public async Task UpdateSelectedNoteID(string cloudKey)
+        private async Task InsertOrUpdateUserSetting(string userSettingName, string paramValue)
         {
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
-                var cmd = new SQLiteCommand(SQLQueries.UpdateSelectedNote(), conn);
-                cmd.Parameters.Add(new SQLiteParameter("@NoteCloudKey", cloudKey));
+                var getCmd = new SQLiteCommand(SQLQueries.GetUserSetting(userSettingName), conn);
+                var response = (string)(await getCmd.ExecuteScalarAsync());
+
+                if (String.IsNullOrWhiteSpace(response))
+                {
+                    var cmd = new SQLiteCommand(SQLQueries.InsertUserSetting(userSettingName), conn);
+                    cmd.Parameters.Add(new SQLiteParameter("@KeyValue", paramValue));
+
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                else
+                {
+                    var cmd = new SQLiteCommand(SQLQueries.UpdateUserSetting(userSettingName), conn);
+                    cmd.Parameters.Add(new SQLiteParameter("@KeyValue", paramValue));
+
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task DeleteUserSetting(string userSettingName, string paramValue)
+        {
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = new SQLiteCommand(SQLQueries.DeleteUserSetting(userSettingName), conn);
+                cmd.Parameters.Add(new SQLiteParameter("@KeyValue", paramValue));
 
                 await cmd.ExecuteNonQueryAsync();
             }
         }
-
-
-
 
         private async Task<Group> GetGroupWithConnection(SQLiteConnection conn, string groupName)
         {

@@ -286,11 +286,14 @@ namespace NotedUI.Controls
                 }
                 else if (folder.Name == "Favorites")
                 {
+                    TreeViewItem item = treeView.ItemContainerGenerator.ContainerFromItem(folder) as TreeViewItem;
+                    item.IsExpanded = true;
+                    item.UpdateLayout();
+
                     foreach (var subFolder in folder.SubItems.Where(f => f != null))
                     {
                         if (targetFolder.StartsWith(subFolder.Path))
                         {
-                            TreeViewItem item = treeView.ItemContainerGenerator.ContainerFromItem(folder) as TreeViewItem;
                             TreeViewItem subItem = item.ItemContainerGenerator.ContainerFromItem(subFolder) as TreeViewItem;
                             RecursivelySelectFolder(treeView, targetFolder + "\\", subItem);
                             return;
@@ -316,6 +319,7 @@ namespace NotedUI.Controls
             {
                 tvItem.IsSelected = true;
                 tvItem.BringIntoView();
+                treeView.Focus();
             }
             // We're on the right path, keep moving down a level
             else if (targetPath.StartsWith(thisFolder.Path + (thisFolder.IsDrive ? "" : "\\"), StringComparison.CurrentCultureIgnoreCase))

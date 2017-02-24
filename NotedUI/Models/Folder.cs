@@ -92,5 +92,10 @@ namespace NotedUI.Models
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return Path;
+        }
     }
 }

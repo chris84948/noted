@@ -1,4 +1,5 @@
 ﻿using JustMVVM;
+using NotedUI.DataStorage;
 using NotedUI.Export;
 using NotedUI.Models;
 using NotedUI.UI.Components;
@@ -66,11 +67,13 @@ namespace NotedUI.UI.ViewModels
 
         private HomeViewModel _homeVM;
         private AllNotesViewModel _allNotesVM;
+        private ILocalStorage _localStorage;
 
-        public MainCommands(HomeViewModel homeVM, AllNotesViewModel allNotesVM)
+        public MainCommands(HomeViewModel homeVM, AllNotesViewModel allNotesVM, ILocalStorage localStorage)
         {
             _homeVM = homeVM;
             _allNotesVM = allNotesVM;
+            _localStorage = localStorage;
         }
         
         public async void AddNoteExec(string groupName)
@@ -176,53 +179,65 @@ namespace NotedUI.UI.ViewModels
             _allNotesVM.DeleteGroup(groupName);
         }
         
-        public void ExportTextExec()
+        public async void ExportTextExec()
         {
-            var dialog = new FileSaveDialogViewModel("TEXT", "txt");
+            var dialog = new FileSaveDialogViewModel("TEXT", "txt", await _localStorage.GetLastExportedPath("Txt"));
 
-            dialog.DialogClosed += () =>
+            dialog.DialogClosed += async () =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                {
                     TextExporter.Export(dialog.ResultFilename, _allNotesVM.SelectedNote.Content);
+                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                }
             };
 
             _homeVM.InvokeShowDialog(dialog);
         }
 
-        public void ExportHTMLExec()
+        public async void ExportHTMLExec()
         {
-            var dialog = new FileSaveDialogViewModel("html");
+            var dialog = new FileSaveDialogViewModel("html", await _localStorage.GetLastExportedPath("Html"));
 
-            dialog.DialogClosed += () =>
+            dialog.DialogClosed += async () =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                {
                     HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                }
             };
 
             _homeVM.InvokeShowDialog(dialog);
         }
 
-        public void ExportPDFExec()
+        public async void ExportPDFExec()
         {
-            var dialog = new FileSaveDialogViewModel("pdf");
+            var dialog = new FileSaveDialogViewModel("pdf", await _localStorage.GetLastExportedPath("Pdf"));
 
-            dialog.DialogClosed += () =>
+            dialog.DialogClosed += async () =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                {
                     PDFExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                }
             };
 
             _homeVM.InvokeShowDialog(dialog);
         }
 
-        public void ExportDocExec()
+        public async void ExportDocExec()
         {
-            var dialog = new FileSaveDialogViewModel("doc");
+            var dialog = new FileSaveDialogViewModel("doc", await _localStorage.GetLastExportedPath("Doc"));
 
-            dialog.DialogClosed += () =>
+            dialog.DialogClosed += async () =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                {
                     HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
+                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                }
             };
 
             _homeVM.InvokeShowDialog(dialog);

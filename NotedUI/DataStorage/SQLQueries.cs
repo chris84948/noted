@@ -128,41 +128,35 @@
                 );";
         }
 
-        public static string InsertExpandedGroup()
-        {
-            return
-                @"INSERT INTO UserSettings (KeyName, KeyValue) 
-                  VALUES ('ExpandedGroups', @Group);";
-        }
 
-        public static string DeleteExpandedGroup()
+        public static string GetUserSetting(string keyName)
         {
             return
-                @"DELETE FROM UserSettings
-                  WHERE KeyName = 'ExpandedGroups' AND KeyValue = @Group;";
-        }
-
-        public static string GetSelectedNote()
-        {
-            return
-                @"  Select KeyValue 
+                $@" Select KeyValue 
                     FROM UserSettings 
-                    WHERE KeyName = 'SelectedNote';";
+                    WHERE KeyName = '{ keyName }';";
         }
 
-        public static string InsertSelectedNote()
+        public static string InsertUserSetting(string keyName)
         {
             return
-                @"  INSERT INTO UserSettings (KeyName, KeyValue)
-                    Values ('SelectedNote', @NoteCloudKey);";
+                $@" INSERT INTO UserSettings (KeyName, KeyValue)
+                    Values ('{ keyName }', @KeyValue);";
         }
 
-        public static string UpdateSelectedNote()
+        public static string UpdateUserSetting(string keyName)
         {
             return
-                @"  UPDATE UserSettings 
-                    SET KeyValue = @NoteCloudKey
-                    WHERE KeyName = 'SelectedNote';";
+                $@" UPDATE UserSettings
+                    SET KeyValue = @KeyValue
+                    WHERE KeyName = '{ keyName }';";
+        }
+
+        public static string DeleteUserSetting(string keyName)
+        {
+            return
+                $@" DELETE FROM UserSettings
+                    WHERE KeyName = '{ keyName }' AND KeyValue = @KeyValue;";
         }
     }
 }

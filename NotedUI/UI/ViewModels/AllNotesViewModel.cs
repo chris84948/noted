@@ -147,12 +147,7 @@ namespace NotedUI.UI.ViewModels
             if (SelectedNote == null)
                 return;
 
-            string storedCloudKey = await LocalStorage.GetSelectedNoteID();
-
-            if (String.IsNullOrEmpty(storedCloudKey))
-                await LocalStorage.InsertSelectedNoteID(SelectedNote.CloudKey);
-            else
-                await LocalStorage.UpdateSelectedNoteID(SelectedNote.CloudKey);
+            await LocalStorage.InsertOrUpdateSelectedNoteID(SelectedNote.CloudKey);
         }
 
         public void AddGroup(GroupViewModel group)

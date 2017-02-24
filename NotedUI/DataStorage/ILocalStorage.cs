@@ -25,7 +25,9 @@ namespace NotedUI.DataStorage
         Task DeleteExpandedGroup(string groupName);
 
         Task<string> GetSelectedNoteID();
-        Task InsertSelectedNoteID(string noteCloudKey);
-        Task UpdateSelectedNoteID(string noteCloudKey);
+        Task InsertOrUpdateSelectedNoteID(string noteCloudKey);
+
+        Task<string> GetLastExportedPath(string exportType);
+        Task InsertOrUpdateLastExportedPath(string exportType, string path);
     }
 }
