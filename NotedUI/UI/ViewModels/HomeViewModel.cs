@@ -9,6 +9,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
+using NotedUI.Utilities;
 
 namespace NotedUI.UI.ViewModels
 {

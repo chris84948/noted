@@ -21,5 +21,7 @@ namespace NotedUI.DataStorage
 
         Task<Dictionary<string, InstallFile>> GetFilesForLatestVersion();
         Task<bool> DownloadFile(string cloudID, string filename);
+
+        Task<string> GetFileContent(string fileID);
     }
 }

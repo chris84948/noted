@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotedUI", "NotedUI\NotedUI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deployer", "Deployer\Deployer.csproj", "{681DB8A5-6B80-4ACB-9B27-460EA833B566}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Licenser", "Licenser\Licenser.csproj", "{45F1FFE5-8234-4BC2-BDEF-055697F616BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,26 @@ Global
 		{681DB8A5-6B80-4ACB-9B27-460EA833B566}.Release|WithNRefactory.Build.0 = Release|Any CPU
 		{681DB8A5-6B80-4ACB-9B27-460EA833B566}.Release|x86.ActiveCfg = Release|Any CPU
 		{681DB8A5-6B80-4ACB-9B27-460EA833B566}.Release|x86.Build.0 = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Net35.ActiveCfg = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Net35.Build.0 = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Net40.ActiveCfg = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|Net40.Build.0 = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|WithNRefactory.ActiveCfg = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|WithNRefactory.Build.0 = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Net35.ActiveCfg = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Net35.Build.0 = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Net40.ActiveCfg = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|Net40.Build.0 = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|WithNRefactory.ActiveCfg = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|WithNRefactory.Build.0 = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{45F1FFE5-8234-4BC2-BDEF-055697F616BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,11 +2,16 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define AppName "Noted"
-#define AppVersion "0.1.0.1"
 #define Publisher "chrisbjohnson development"
 #define ExeFilename "Noted.exe"
-#define InstallerDirectory "C:\NotedTest"
-#define LicenseFile "C:\Github\notedui\License\license.lic"
+;#define LicenseFile "C:\Github\notedui\License\license.lic"
+
+#ifndef AppVersion
+	#define AppVersion "0.1.0.1"
+#endif
+#ifndef InstallerDirectory
+	#define InstallerDirectory "C:\NotedTest"
+#endif
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -22,7 +27,7 @@ DefaultDirName={localappdata}\{#AppName}
 DisableDirPage=yes
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
-LicenseFile={#LicenseFile}
+;LicenseFile={#LicenseFile}
 OutputDir={#InstallerDirectory}
 OutputBaseFilename={#AppName}
 SetupIconFile=C:\GitHub\notedui\NotedUI\Resources\Graphics\Icon.ico

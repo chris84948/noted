@@ -25,7 +25,11 @@ namespace NotedUI.DataStorage
         /// <summary>
         /// This permission only allows viewing of files I have created or opened with this app
         /// </summary>
-        private string[] _scopes = { DriveService.Scope.DriveFile };
+        private string[] _scopes = 
+        {
+            DriveService.Scope.DriveFile,
+            DriveService.Scope.DriveReadonly,
+        };
         private string _appName = "Noted";
         private UserCredential _credentials;
         private DriveService _service;
@@ -59,7 +63,7 @@ namespace NotedUI.DataStorage
         public async Task<Dictionary<string, Note>> GetAllNotes()
         {
             var notes = new Dictionary<string, Note>();
-            var files = await GetFiles(null, GROUP_DIRECTORY);
+            var files = await GetFiles(_directory.Id, null, GROUP_DIRECTORY);
 
             foreach (var file in files)
                 notes.Add(file.Id, new Note(file.Id, file.ModifiedTime));
@@ -106,7 +110,7 @@ namespace NotedUI.DataStorage
 
         public async Task<bool> DoGroupsNeedToBeUpdated(GroupCollection groups)
         {
-            var files = await GetFiles(GROUP_DIRECTORY);
+            var files = await GetFiles(_directory.Id, GROUP_DIRECTORY);
 
             if (files.Count == 0)
                 return false;
@@ -175,7 +179,7 @@ namespace NotedUI.DataStorage
         private File GetRootDirectory()
         {
             var request = _service.Files.List();
-            request.Q = "mimeType='application/vnd.google-apps.folder' and trashed = false";
+            request.Q = "mimeType='application/vnd.google-apps.folder' and trashed = false and 'root' in parents";
             FileList folders = request.Execute();
 
             foreach (var folder in folders.Files)
@@ -221,19 +225,28 @@ namespace NotedUI.DataStorage
             return DateTime.Now >= credential.Token.Issued.AddSeconds((double)credential.Token.ExpiresInSeconds);
         }
 
-        private File GetFile(string fileID)
+        public File GetFile(string fileID)
         {
             var request = _service.Files.Get(fileID);
             request.Fields = "id,modifiedTime,name,version";
-            File file = request.Execute();
 
+            try
+            {
+            File file = request.Execute();
             return file;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return null;
         }
 
-        private async Task<IList<File>> GetFiles(string nameEqual = null, string nameNotEqual = null)
+        private async Task<IList<File>> GetFiles(string folderId, string nameEqual = null, string nameNotEqual = null)
         {
             FilesResource.ListRequest request = _service.Files.List();
-            request.Q = "mimeType != 'application/vnd.google-apps.folder' and trashed = false";
+            request.Q = $"mimeType != 'application/vnd.google-apps.folder' and trashed = false and '{folderId}' in parents";
             if (nameEqual != null)
                 request.Q += $" and name = '{nameEqual}'";
             if (nameNotEqual != null)
@@ -244,7 +257,7 @@ namespace NotedUI.DataStorage
             return files.Files;
         }
 
-        private async Task<string> GetFileContent(string fileID)
+        public async Task<string> GetFileContent(string fileID)
         {
             int numRetries = 0;
 
@@ -353,14 +366,14 @@ namespace NotedUI.DataStorage
 
         public async Task<Dictionary<string, InstallFile>> GetFilesForLatestVersion()
         {
-            var files = await GetFilesRecursively(_service, "0B6J4GdPPuCf4VGdJNnVqWlR2dTA", "", new List<InstallFile>());
+            var files = await GetFilesRecursively(_service, "0B6J4GdPPuCf4NTNUSlI5RkQxY2s", "", new List<InstallFile>());
 
             return files.ToDictionary(f => f.Filename, f => f);
         }
 
         private async Task<List<InstallFile>> GetFilesRecursively(DriveService service, string folderID, string path, List<InstallFile> currentFiles)
         {
-            var newFiles = await GetFilesInFolderID(service, folderID);
+            var newFiles = await GetFiles(folderID);
 
             foreach (var item in newFiles)
             {
@@ -381,16 +394,6 @@ namespace NotedUI.DataStorage
             }
 
             return currentFiles;
-        }
-
-        private async Task<IList<File>> GetFilesInFolderID(DriveService service, string folderID)
-        {
-            var request = service.Files.List();
-            request.Q = $"'{ folderID }' in parents";
-            request.Fields = "files(mimeType,id,modifiedTime,name,version,originalFilename)";
-            request.PageSize = 1000;
-
-            return (await request.ExecuteAsync()).Files;
         }
 
         public async Task<bool> DownloadFile(string cloudID, string filename)

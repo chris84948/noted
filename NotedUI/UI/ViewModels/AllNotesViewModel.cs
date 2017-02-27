@@ -214,6 +214,9 @@ namespace NotedUI.UI.ViewModels
         {
             await CloudStorage.Connect();
 
+            // TODO turn this on when ready
+            Updater.CheckForUpdates(CloudStorage);
+
             if (await CloudStorage.DoGroupsNeedToBeUpdated(AllGroups))
                 AllGroups = await CloudStorage.GetAllGroups();
 
