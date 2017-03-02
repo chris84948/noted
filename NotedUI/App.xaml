@@ -8,8 +8,8 @@
              xmlns:screen="clr-namespace:NotedUI.UI.Screens"
              xmlns:settings="clr-namespace:NotedUI.UI.Settings"
              xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
-             Startup="Application_Startup"
-             StartupUri="UI/MainWindow.xaml">
+             ShutdownMode="OnExplicitShutdown"
+             Startup="Application_Startup">
 
     <Application.Resources>
         <ResourceDictionary>

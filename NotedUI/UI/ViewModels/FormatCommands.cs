@@ -180,7 +180,7 @@ namespace NotedUI.UI.ViewModels
         {
             var dialog = new LinkDialogViewModel(_homeVM.AllNotes.TextEditor.SelectedText);
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 await Task.Delay(300);
                 _homeVM.FixAirspace = false;

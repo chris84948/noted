@@ -29,5 +29,8 @@ namespace NotedUI.DataStorage
 
         Task<string> GetLastExportedPath(string exportType);
         Task InsertOrUpdateLastExportedPath(string exportType, string path);
+
+        Task<string> GetUsername();
+        Task InsertUsername(string username);
     }
 }

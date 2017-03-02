@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
                     xmlns:controls="clr-namespace:NotedUI.Controls"
+                    xmlns:conv="clr-namespace:NotedUI.Converters"
                     xmlns:local="clr-namespace:NotedUI.Themes"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
@@ -54,7 +55,8 @@
                                             </Style>
                                         </StackPanel.Resources>
 
-                                        <Button ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
+                                        <Button x:Name="buttonMin"
+                                                ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
                                                 Padding="0,8,0,0"
                                                 Style="{StaticResource TitleButton}" />
@@ -70,7 +72,8 @@
                                                 Style="{StaticResource TitleButton}"
                                                 Visibility="Collapsed" />
 
-                                        <Button Width="50"
+                                        <Button x:Name="buttonClose"
+                                                Width="50"
                                                 Height="30"
                                                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                                                 ab:ButtonBehaviors.IconSize="12"
@@ -96,6 +99,23 @@
                                     Property="Visibility"
                                     Value="Visible" />
                         </Trigger>
+
+                        <DataTrigger Binding="{Binding HideTitleButtons,
+                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                     Value="True">
+                            <Setter TargetName="buttonClose"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="buttonMax"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="buttonMin"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="buttonRestore"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                        </DataTrigger>
 
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

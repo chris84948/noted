@@ -47,4 +47,8 @@
                      options:Freeze="true"
                      Color="#FFC3D5E6" />
 
+    <SolidColorBrush x:Key="ErrorBrush"
+                     options:Freeze="true"
+                     Color="#FFE81123" />
+
 </ResourceDictionary>

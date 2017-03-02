@@ -53,7 +53,7 @@
             </Style>
         </StackPanel.Resources>
 
-        <Image Margin="10,10,10,7"
+        <Image Margin="11,9,11,7"
                RenderOptions.BitmapScalingMode="HighQuality"
                Source="..\..\Resources\Graphics\Banner.png" />
 

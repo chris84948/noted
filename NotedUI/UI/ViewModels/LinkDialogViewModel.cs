@@ -6,7 +6,7 @@ namespace NotedUI.UI.ViewModels
 {
     public class LinkDialogViewModel : MVVMBase, IDialog
     {
-        public event Action DialogClosed;
+        public event Action<IDialog> DialogClosed;
         public ICommand OKCommand { get { return new RelayCommand(OKExec); } }
         public ICommand CancelCommand { get { return new RelayCommand(CancelExec); } }
 
@@ -43,13 +43,13 @@ namespace NotedUI.UI.ViewModels
         private void OKExec()
         {
             Result = System.Windows.Forms.DialogResult.OK;
-            DialogClosed?.Invoke();
+            DialogClosed?.Invoke(this);
         }
 
         private void CancelExec()
         {
             Result = System.Windows.Forms.DialogResult.Cancel;
-            DialogClosed?.Invoke();
+            DialogClosed?.Invoke(this);
         }
     }
 }

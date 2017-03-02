@@ -6,7 +6,7 @@ namespace NotedUI.DataStorage
 {
     public interface ICloudStorage
     {
-        Task Connect();
+        Task<bool> Connect(string username);
         bool IsConnected();
 
         Task<Dictionary<string, Note>> GetAllNotes();

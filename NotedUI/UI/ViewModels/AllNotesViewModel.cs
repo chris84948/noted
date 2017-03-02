@@ -108,14 +108,9 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        public ILocalStorage LocalStorage { get; set; }
-        public ICloudStorage CloudStorage { get; set; }
-
         public AllNotesViewModel()
         {
             _notes = new AsyncObservableCollection<NoteViewModel>();
-            LocalStorage = new SQLiteStorage();
-            CloudStorage = new GoogleDriveStorage();
 
             InitializeNotes();
 
@@ -147,25 +142,25 @@ namespace NotedUI.UI.ViewModels
             if (SelectedNote == null)
                 return;
 
-            await LocalStorage.InsertOrUpdateSelectedNoteID(SelectedNote.CloudKey);
+            await App.Local.InsertOrUpdateSelectedNoteID(SelectedNote.CloudKey);
         }
 
         public void AddGroup(GroupViewModel group)
         {
             AllGroups.Add(_view, group);
-            CloudStorage.UpdateAllGroups(AllGroups);
+            App.Cloud.UpdateAllGroups(AllGroups);
         }
 
         public void UpdateGroup(string oldGroupName, string newGroupName)
         {
             AllGroups.Update(_view, oldGroupName, newGroupName);
-            CloudStorage.UpdateAllGroups(AllGroups);
+            App.Cloud.UpdateAllGroups(AllGroups);
         }
 
         public void DeleteGroup(string groupName)
         {
             AllGroups.Delete(_view, groupName);
-            CloudStorage.UpdateAllGroups(AllGroups);
+            App.Cloud.UpdateAllGroups(AllGroups);
         }
 
         private void FilterTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -194,11 +189,11 @@ namespace NotedUI.UI.ViewModels
         private async void InitializeNotes()
         {
             // Get local files first
-            await LocalStorage.Initialize();
-            AllGroups = new GroupCollection((await LocalStorage.GetAllGroups()).Select(x => new GroupViewModel(x)));
-            _notes = new AsyncObservableCollection<NoteViewModel>((await LocalStorage.GetAllNotes()).Select(x => new NoteViewModel(x)));
+            await App.Local.Initialize();
+            AllGroups = new GroupCollection((await App.Local.GetAllGroups()).Select(x => new GroupViewModel(x)));
+            _notes = new AsyncObservableCollection<NoteViewModel>((await App.Local.GetAllNotes()).Select(x => new NoteViewModel(x)));
 
-            string storedCloudKey = await LocalStorage.GetSelectedNoteID();
+            string storedCloudKey = await App.Local.GetSelectedNoteID();
             if (!string.IsNullOrEmpty(storedCloudKey))
                 SelectedNote = _notes.Where(n => n.CloudKey == storedCloudKey).FirstOrDefault();
 
@@ -207,30 +202,28 @@ namespace NotedUI.UI.ViewModels
             AllGroups.UpdateViewGroupDescription(_view);
             _view.Filter = NoteFilter;
 
-            await Task.Run(() => InitializeCloudStorage());
+            await Task.Run(() => CheckForCloudUpdates());
         }
 
-        private async void InitializeCloudStorage()
+        private async void CheckForCloudUpdates()
         {
-            await CloudStorage.Connect();
-
             // TODO turn this on when ready
-            Updater.CheckForUpdates(CloudStorage);
+            Updater.CheckForUpdates(App.Cloud);
 
-            if (await CloudStorage.DoGroupsNeedToBeUpdated(AllGroups))
-                AllGroups = await CloudStorage.GetAllGroups();
+            if (await App.Cloud.DoGroupsNeedToBeUpdated(AllGroups))
+                AllGroups = await App.Cloud.GetAllGroups();
 
             await GetAllNotesAndUpdate();
         }
 
         private async Task GetAllNotesAndUpdate()
         {
-            if (!CloudStorage.IsConnected())
+            if (!App.Cloud.IsConnected())
                 return;
 
             GettingLatestNotes = true;
 
-            var notes = await CloudStorage.GetAllNotes();
+            var notes = await App.Cloud.GetAllNotes();
 
             string cloudKey = SelectedNote?.CloudKey;
 
@@ -242,8 +235,8 @@ namespace NotedUI.UI.ViewModels
                 {
                     if (notes[_notes[i].CloudKey].LastModified != _notes[i].LastModified)
                     {
-                        await CloudStorage.GetNoteWithContent(_notes[i].NoteData);
-                        await LocalStorage.UpdateNote(_notes[i].NoteData);
+                        await App.Cloud.GetNoteWithContent(_notes[i].NoteData);
+                        await App.Local.UpdateNote(_notes[i].NoteData);
                     }
 
                     notes.Remove(_notes[i].CloudKey);
@@ -251,7 +244,7 @@ namespace NotedUI.UI.ViewModels
                 // Note no longer exists in cloud, delete locally and in localDB
                 else if (!notes.ContainsKey(_notes[i]?.CloudKey ?? ""))
                 {
-                    await LocalStorage.DeleteNote(_notes[i].NoteData);
+                    await App.Local.DeleteNote(_notes[i].NoteData);
                     _notes.RemoveAt(i);
                 }
             }
@@ -259,9 +252,9 @@ namespace NotedUI.UI.ViewModels
             // These are the new notes coming from the cloud
             foreach (Note note in notes.Values)
             {
-                await CloudStorage.GetNoteWithContent(note);
+                await App.Cloud.GetNoteWithContent(note);
                 _notes.Add(new NoteViewModel(note));
-                await LocalStorage.AddNote(note);
+                await App.Local.AddNote(note);
             }
 
             if (String.IsNullOrEmpty(cloudKey) && _notes.Count > 0)
@@ -283,8 +276,8 @@ namespace NotedUI.UI.ViewModels
 
             // Make sure to update the note in the cloud first - that's where the update date comes from
             note.State = eNoteState.Syncing;
-            await CloudStorage.UpdateNote(note.NoteData);
-            await LocalStorage.UpdateNote(note.NoteData);
+            await App.Cloud.UpdateNote(note.NoteData);
+            await App.Local.UpdateNote(note.NoteData);
             note.State = eNoteState.SyncComplete;
         }
 

@@ -175,12 +175,12 @@
 
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background"
-                                    Value="#FFE81123" />
+                                    Value="{StaticResource ErrorBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background"
-                                    Value="#FFE81123" />
+                                    Value="{StaticResource ErrorBrush}" />
                             <Setter Property="Foreground"
                                     Value="White" />
                             <Setter TargetName="MouseOverRect"

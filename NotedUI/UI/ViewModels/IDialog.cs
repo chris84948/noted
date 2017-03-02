@@ -4,6 +4,6 @@ namespace NotedUI.UI.ViewModels
 {
     public interface IDialog
     {
-        event Action DialogClosed;
+        event Action<IDialog> DialogClosed;
     }
 }

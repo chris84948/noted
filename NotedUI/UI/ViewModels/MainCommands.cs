@@ -67,20 +67,18 @@ namespace NotedUI.UI.ViewModels
 
         private HomeViewModel _homeVM;
         private AllNotesViewModel _allNotesVM;
-        private ILocalStorage _localStorage;
 
-        public MainCommands(HomeViewModel homeVM, AllNotesViewModel allNotesVM, ILocalStorage localStorage)
+        public MainCommands(HomeViewModel homeVM, AllNotesViewModel allNotesVM)
         {
             _homeVM = homeVM;
             _allNotesVM = allNotesVM;
-            _localStorage = localStorage;
         }
         
         public async void AddNoteExec(string groupName)
         {
             // Little complicated here
             // First add the note to local storage to get the ID
-            int id = (int)await _allNotesVM.LocalStorage.AddNote(groupName);
+            int id = (int)await App.Local.AddNote(groupName);
             var newNote = new NoteViewModel(id, DateTime.Now, "", groupName);
 
             // Add the note to the screen now so there's no delay
@@ -90,8 +88,8 @@ namespace NotedUI.UI.ViewModels
             await Task.Run(async () =>
             {
                 // Finally add to the cloud, update the local DB with the cloud key and modified date and update the SelectedNote
-                await _allNotesVM.CloudStorage.AddNote(_allNotesVM.SelectedNote.NoteData);
-                await _allNotesVM.LocalStorage.UpdateNote(_allNotesVM.SelectedNote.NoteData);
+                await App.Cloud.AddNote(_allNotesVM.SelectedNote.NoteData);
+                await App.Local.UpdateNote(_allNotesVM.SelectedNote.NoteData);
             });
         }
 
@@ -100,8 +98,8 @@ namespace NotedUI.UI.ViewModels
             var noteList = _allNotesVM.View.SourceCollection as ObservableCollection<NoteViewModel>;
             noteList.Remove(noteToDelete);
 
-            await _allNotesVM.LocalStorage.DeleteNote(noteToDelete.NoteData);
-            await _allNotesVM.CloudStorage.DeleteNote(noteToDelete.NoteData);
+            await App.Local.DeleteNote(noteToDelete.NoteData);
+            await App.Cloud.DeleteNote(noteToDelete.NoteData);
 
             if (noteList.Count == 0)
                 return;
@@ -114,7 +112,7 @@ namespace NotedUI.UI.ViewModels
         {
             var dialog = new GroupNameDialogViewModel(_allNotesVM.AllGroups, String.Empty, "Add New Group");
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 await Task.Delay(300);
                 _homeVM.FixAirspace = false;
@@ -123,7 +121,7 @@ namespace NotedUI.UI.ViewModels
                     return;
 
                 // Get ID, add group to local storage
-                var id = await _allNotesVM.LocalStorage.AddGroup(dialog.GroupName);
+                var id = await App.Local.AddGroup(dialog.GroupName);
                 _allNotesVM.AddGroup(new GroupViewModel(id, dialog.GroupName));
             };
 
@@ -134,7 +132,7 @@ namespace NotedUI.UI.ViewModels
         {
             var dialog = new GroupNameDialogViewModel(_allNotesVM.AllGroups, groupName, "Rename Group");
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 await Task.Delay(300);
                 _homeVM.FixAirspace = false;
@@ -143,7 +141,7 @@ namespace NotedUI.UI.ViewModels
                     return;
 
                 // Update the group name in the DB then update the notes in the VM
-                await _allNotesVM.LocalStorage.UpdateGroup(groupName, dialog.GroupName);
+                await App.Local.UpdateGroup(groupName, dialog.GroupName);
 
                 // Update the notes with this group name
                 foreach (var note in (_allNotesVM.View.SourceCollection as ObservableCollection<NoteViewModel>))
@@ -174,21 +172,21 @@ namespace NotedUI.UI.ViewModels
 
         private async void DeleteGroupExec(string groupName)
         {
-            await _allNotesVM.LocalStorage.DeleteGroup(groupName);
+            await App.Local.DeleteGroup(groupName);
 
             _allNotesVM.DeleteGroup(groupName);
         }
         
         public async void ExportTextExec()
         {
-            var dialog = new FileSaveDialogViewModel("TEXT", "txt", await _localStorage.GetLastExportedPath("Txt"));
+            var dialog = new FileSaveDialogViewModel("TEXT", "txt", await App.Local.GetLastExportedPath("Txt"));
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
                 {
                     TextExporter.Export(dialog.ResultFilename, _allNotesVM.SelectedNote.Content);
-                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
                 }
             };
 
@@ -197,14 +195,14 @@ namespace NotedUI.UI.ViewModels
 
         public async void ExportHTMLExec()
         {
-            var dialog = new FileSaveDialogViewModel("html", await _localStorage.GetLastExportedPath("Html"));
+            var dialog = new FileSaveDialogViewModel("html", await App.Local.GetLastExportedPath("Html"));
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
                 {
                     HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
                 }
             };
 
@@ -213,14 +211,14 @@ namespace NotedUI.UI.ViewModels
 
         public async void ExportPDFExec()
         {
-            var dialog = new FileSaveDialogViewModel("pdf", await _localStorage.GetLastExportedPath("Pdf"));
+            var dialog = new FileSaveDialogViewModel("pdf", await App.Local.GetLastExportedPath("Pdf"));
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
                 {
                     PDFExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
                 }
             };
 
@@ -229,14 +227,14 @@ namespace NotedUI.UI.ViewModels
 
         public async void ExportDocExec()
         {
-            var dialog = new FileSaveDialogViewModel("doc", await _localStorage.GetLastExportedPath("Doc"));
+            var dialog = new FileSaveDialogViewModel("doc", await App.Local.GetLastExportedPath("Doc"));
 
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 if (dialog.Result == System.Windows.Forms.DialogResult.OK)
                 {
                     HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await _localStorage.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
+                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
                 }
             };
 

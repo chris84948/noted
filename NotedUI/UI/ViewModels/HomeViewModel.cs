@@ -38,7 +38,7 @@ namespace NotedUI.UI.ViewModels
         {
             AllNotes = new AllNotesViewModel();
             Formatting = new FormatCommands(this, AllNotes.TextEditor);
-            MainCommands = new MainCommands(this, AllNotes, AllNotes.LocalStorage);
+            MainCommands = new MainCommands(this, AllNotes);
             CSSStyle = File.ReadAllText("Resources\\CSS\\Github.css");
         }
 
@@ -50,7 +50,7 @@ namespace NotedUI.UI.ViewModels
         public void InvokeShowDialog(IDialog dialog)
         {
             FixAirspace = true;
-            dialog.DialogClosed += async () =>
+            dialog.DialogClosed += async (d) =>
             {
                 await Task.Delay(300);
                 FixAirspace = false;
@@ -84,7 +84,7 @@ namespace NotedUI.UI.ViewModels
             }
 
             // Update databases
-            AllNotes.LocalStorage.UpdateNote(sourceItem.NoteData);
+            App.Local.UpdateNote(sourceItem.NoteData);
 
             // Select the moved note
             AllNotes.SelectedNote = sourceItem;

@@ -15,16 +15,16 @@ namespace NotedUI.Utilities
     {
         public static void CheckForUpdates(ICloudStorage cloudStorage)
         {
-            Task.Run(async () =>
-            {
-                //string saltKey = "0B6J4GdPPuCf4Vnc2MUw3d2dqM2s";
-                //var salt = await cloudStorage.GetFileContent(saltKey);
+            //Task.Run(async () =>
+            //{
+            //    string saltKey = "0B6J4GdPPuCf4Vnc2MUw3d2dqM2s";
+            //    var salt = await cloudStorage.GetFileContent(saltKey);
 
-                //var fileChanges = await GetFileChanges(cloudStorage);
+            //    var fileChanges = await GetFileChanges(cloudStorage);
 
-                //foreach (var file in fileChanges.Where(f => f.UpdateType == eUpdateType.Add || f.UpdateType == eUpdateType.Update))
-                //    await cloudStorage.DownloadFile(file.CloudID, System.IO.Path.Combine("Update", file.Filename));
-            });
+            //    foreach (var file in fileChanges.Where(f => f.UpdateType == eUpdateType.Add || f.UpdateType == eUpdateType.Update))
+            //        await cloudStorage.DownloadFile(file.CloudID, System.IO.Path.Combine("Update", file.Filename));
+            //});
         }
 
         public async static Task<List<InstallFile>> GetFileChanges(ICloudStorage cloudStorage)

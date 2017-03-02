@@ -10,12 +10,12 @@
                              RelativeSource={RelativeSource AncestorType=Window},
                              Converter={StaticResource MathMultiplyConverter},
                              ConverterParameter=0.8,
-                             FallbackValue=400}"
+                             FallbackValue=600}"
              Height="{Binding Path=ActualHeight,
                               RelativeSource={RelativeSource AncestorType=Window},
                               Converter={StaticResource MathMultiplyConverter},
                               ConverterParameter=0.8,
-                              FallbackValue=300}"
+                              FallbackValue=400}"
              HorizontalAlignment="Center"
              VerticalAlignment="Center"
              Background="White"
@@ -73,6 +73,7 @@
             <TextBox x:Name="tbFilename"
                      Grid.Column="1"
                      Height="35"
+                     MinWidth="100"
                      Margin="10,5,10,5"
                      AcceptsReturn="False"
                      AcceptsTab="False"

@@ -7,6 +7,29 @@ namespace NotedUI.Controls
 {
     public class NotedWindow : Window
     {
+        public static readonly DependencyProperty HideTitleButtonsProperty =
+            DependencyProperty.RegisterAttached("HideTitleButtons",
+                                                typeof(bool),
+                                                typeof(NotedWindow),
+                                                new PropertyMetadata(false));
+
+        public static bool GetHideTitleButtons(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(HideTitleButtonsProperty);
+        }
+
+        public static void SetHideTitleButtons(DependencyObject obj, bool value)
+        {
+            obj.SetValue(HideTitleButtonsProperty, value);
+        }
+
+        private static void HideTitleButtonsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            FrameworkElement HideTitleButtons = (FrameworkElement)d;
+            bool newVal = (bool)e.NewValue;
+        }
+
+
         static NotedWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NotedWindow), new FrameworkPropertyMetadata(typeof(NotedWindow)));

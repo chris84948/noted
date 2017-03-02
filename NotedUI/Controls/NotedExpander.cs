@@ -44,28 +44,6 @@ namespace NotedUI.Controls
             obj.SetValue(ShowHighlightProperty, value);
         }
 
-        public static readonly DependencyProperty LocalStorageProperty =
-            DependencyProperty.RegisterAttached("LocalStorage",
-                                                typeof(ILocalStorage),
-                                                typeof(NotedExpander),
-                                                new PropertyMetadata(null));
-
-        public static ILocalStorage GetLocalStorage(DependencyObject obj)
-        {
-            return (ILocalStorage)obj.GetValue(LocalStorageProperty);
-        }
-
-        public static void SetLocalStorage(DependencyObject obj, ILocalStorage value)
-        {
-            obj.SetValue(LocalStorageProperty, value);
-        }
-
-        private static void LocalStorageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            FrameworkElement LocalStorage = (FrameworkElement)d;
-            double newVal = (double)e.NewValue;
-        }
-
 
         static NotedExpander()
         {
@@ -120,13 +98,11 @@ namespace NotedUI.Controls
 
         private async void NotedExpander_Loaded(object sender, RoutedEventArgs e)
         {
-            ILocalStorage localStorage = GetLocalStorage(this);
-
-            if (localStorage == null)
+            if (App.Local == null)
                 return;
 
             // Get the stored value of is expanded and expand it if it's not already
-            IsExpanded = IsExpanded || await localStorage.IsGroupExpanded(Header.ToString().ToUpper());
+            IsExpanded = IsExpanded || await App.Local?.IsGroupExpanded(Header.ToString().ToUpper());
 
             Expanded += NotedExpander_Expanded;
             Collapsed += NotedExpander_Collapsed;
@@ -134,14 +110,12 @@ namespace NotedUI.Controls
 
         private void NotedExpander_Expanded(object sender, RoutedEventArgs e)
         {
-            ILocalStorage localStorage = GetLocalStorage(this);
-            localStorage?.InsertExpandedGroup(Header.ToString().ToUpper());
+            App.Local?.InsertExpandedGroup(Header.ToString().ToUpper());
         }
 
         private void NotedExpander_Collapsed(object sender, RoutedEventArgs e)
         {
-            ILocalStorage localStorage = GetLocalStorage(this);
-            localStorage?.DeleteExpandedGroup(Header.ToString().ToUpper());
+            App.Local?.DeleteExpandedGroup(Header.ToString().ToUpper());
         }
 
         private static void ExpandNowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

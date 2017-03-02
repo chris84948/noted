@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Download;
 using Google.Apis.Drive.v3;
@@ -40,9 +41,12 @@ namespace NotedUI.DataStorage
         public GoogleDriveStorage()
         { }
 
-        public async Task Connect()
+        public async Task<bool> Connect(string username)
         {
-            _credentials = await GetCredentials();
+            _credentials = await GetCredentials(username);
+
+            if (_credentials == null)
+                return false;
 
             _service = new DriveService(new BaseClientService.Initializer()
             {
@@ -51,8 +55,9 @@ namespace NotedUI.DataStorage
             });
 
             _isConnected = true;
-
             _directory = InitializeAndGetDirectory();
+
+            return true;
         }
 
         public bool IsConnected()
@@ -136,31 +141,35 @@ namespace NotedUI.DataStorage
         }
 
 
-        private async Task<UserCredential> GetCredentials()
+        private async Task<UserCredential> GetCredentials(string username)
         {
             string credPath = AppDomain.CurrentDomain.BaseDirectory + _appName;
 
             try
             {
+                // TODO figure out the cancellation source - it's not working right now
+                var authTimeout = new CancellationTokenSource(30000);
                 UserCredential userCredential;
                 using (var stream = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ClientID)))
                 {
                     userCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(stream,
                                                                                  _scopes,
-                                                                                 "chris84948",
-                                                                                 CancellationToken.None,
+                                                                                 username,
+                                                                                 authTimeout.Token,
                                                                                  new FileDataStore(credPath, true)).Result;
                 }
 
                 if (IsCredentialExpired(userCredential))
-                    await userCredential.RefreshTokenAsync(CancellationToken.None);
+                    await userCredential.RefreshTokenAsync(authTimeout.Token);
 
                 return userCredential;
             }
             catch (AggregateException ae)
             {
-                var googleEx = ae.InnerException as TokenResponseException;
-                Debug.WriteLine("Message: " + googleEx.Message);
+                if (ae.InnerException.GetType() == typeof(TokenResponseException))
+                {
+                    Debug.WriteLine("Message: " + ae.InnerException.Message);
+                }
             }
 
             return null;
@@ -230,17 +239,7 @@ namespace NotedUI.DataStorage
             var request = _service.Files.Get(fileID);
             request.Fields = "id,modifiedTime,name,version";
 
-            try
-            {
-            File file = request.Execute();
-            return file;
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return null;
+            return request.Execute();
         }
 
         private async Task<IList<File>> GetFiles(string folderId, string nameEqual = null, string nameNotEqual = null)

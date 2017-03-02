@@ -210,10 +210,14 @@
     <Compile Include="UI\Dialogs\FileSaveDialog.xaml.cs">
       <DependentUpon>FileSaveDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ViewModels\FileSaveDialogViewModel.cs" />
+    <Compile Include="UI\ViewModels\LoginDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsAboutViewModel.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\HighlightSearchTransformer.cs" />
@@ -279,6 +283,10 @@
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Page Include="UI\Dialogs\LoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Settings\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

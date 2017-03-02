@@ -74,7 +74,7 @@ namespace NotedUI.UI.ViewModels
         private void CurrentViewModel_ShowDialog(IDialog dialog)
         {
             Dialog = dialog;
-            Dialog.DialogClosed += () =>
+            Dialog.DialogClosed += (d) =>
             {
                 ShowDialog = false;
                 Dialog = null;

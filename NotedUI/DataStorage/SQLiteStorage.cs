@@ -10,14 +10,14 @@ namespace NotedUI.DataStorage
 {
     public class SQLiteStorage : ILocalStorage
     {
-        private string connectionString;
+        private string _connectionString;
         private string _dbLocation;
 
         public async Task Initialize()
         {
             _dbLocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Noted.db";
 
-            connectionString = $"Data Source={ _dbLocation };Version=3;";
+            _connectionString = $"Data Source={ _dbLocation };Version=3;";
 
             if (!File.Exists(_dbLocation))
                 SQLiteConnection.CreateFile(_dbLocation);
@@ -27,7 +27,7 @@ namespace NotedUI.DataStorage
         
         private async Task CreateTables()
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -37,7 +37,7 @@ namespace NotedUI.DataStorage
 
         public async Task<List<Note>> GetAllNotes()
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -64,7 +64,7 @@ namespace NotedUI.DataStorage
 
         public async Task<long> AddNote(Note note)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -93,7 +93,7 @@ namespace NotedUI.DataStorage
 
         public Task UpdateNote(Note note)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -111,7 +111,7 @@ namespace NotedUI.DataStorage
 
         public Task DeleteNote(Note note)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -126,7 +126,7 @@ namespace NotedUI.DataStorage
 
         public async Task<Group> GetGroup(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -136,7 +136,7 @@ namespace NotedUI.DataStorage
 
         public async Task<List<Group>> GetAllGroups()
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -146,7 +146,7 @@ namespace NotedUI.DataStorage
 
         public async Task<long> AddGroup(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -156,7 +156,7 @@ namespace NotedUI.DataStorage
 
         public async Task UpdateGroup(string oldGroupName, string newGroupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -172,7 +172,7 @@ namespace NotedUI.DataStorage
 
         public async Task DeleteGroup(string groupName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -220,11 +220,20 @@ namespace NotedUI.DataStorage
             await InsertOrUpdateUserSetting(exportType + "LastExportedPath", path);
         }
 
+        public async Task<string> GetUsername()
+        {
+            return await GetUserSetting("Username");
+        }
+
+        public async Task InsertUsername(string username)
+        {
+            await InsertUserSetting("Username", username);
+        }
 
 
         private async Task<string> GetUserSetting(string userSettingName)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -236,7 +245,7 @@ namespace NotedUI.DataStorage
 
         private async Task InsertUserSetting(string userSettingName, string paramValue)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -249,7 +258,7 @@ namespace NotedUI.DataStorage
 
         private async Task InsertOrUpdateUserSetting(string userSettingName, string paramValue)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
@@ -275,7 +284,7 @@ namespace NotedUI.DataStorage
 
         public async Task DeleteUserSetting(string userSettingName, string paramValue)
         {
-            using (var conn = new SQLiteConnection(connectionString))
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
