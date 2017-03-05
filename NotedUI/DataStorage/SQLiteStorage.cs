@@ -371,5 +371,10 @@ namespace NotedUI.DataStorage
                 }
             }
         }
+
+        public void DeleteDatabase()
+        {
+            File.Delete(_dbLocation);
+        }
     }
 }

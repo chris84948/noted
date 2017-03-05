@@ -44,6 +44,8 @@ namespace NotedUI.UI.ViewModels
             {
                 _errorMessage = value;
                 OnPropertyChanged();
+
+                ShowError = true;
             }
         }
 
@@ -79,7 +81,6 @@ namespace NotedUI.UI.ViewModels
             else
             {
                 ErrorMessage = $"Google Drive authorization failed for { Username }.";
-                ShowError = true;
             }
 
             IsAuthorizing = false;

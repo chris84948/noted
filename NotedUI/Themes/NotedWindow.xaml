@@ -58,19 +58,60 @@
                                         <Button x:Name="buttonMin"
                                                 ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
-                                                Padding="0,8,0,0"
-                                                Style="{StaticResource TitleButton}" />
+                                                Padding="0,8,0,0">
+                                            <Button.Style>
+                                                <Style BasedOn="{StaticResource TitleButton}"
+                                                       TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding HideTitleButtons,
+                                                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                                                     Value="True">
+                                                            <Setter Property="Visibility"
+                                                                    Value="Hidden" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
                                         <Button x:Name="buttonMax"
                                                 ab:ButtonBehaviors.Icon="{StaticResource MaximizeIcon}"
-                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
-                                                Style="{StaticResource TitleButton}" />
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}">
+                                            <Button.Style>
+                                                <Style BasedOn="{StaticResource TitleButton}"
+                                                       TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding HideTitleButtons,
+                                                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                                                     Value="True">
+                                                            <Setter Property="Visibility"
+                                                                    Value="Hidden" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
                                         <Button x:Name="buttonRestore"
                                                 ab:ButtonBehaviors.Icon="{StaticResource RestoreIcon}"
                                                 Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
-                                                Style="{StaticResource TitleButton}"
-                                                Visibility="Collapsed" />
+                                                Visibility="Collapsed">
+                                            <Button.Style>
+                                                <Style BasedOn="{StaticResource TitleButton}"
+                                                       TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding HideTitleButtons,
+                                                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                                                     Value="True">
+                                                            <Setter Property="Visibility"
+                                                                    Value="Hidden" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                    <Setter Property="Visibility"
+                                                            Value="Collapsed" />
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
                                         <Button x:Name="buttonClose"
                                                 Width="50"
@@ -78,8 +119,21 @@
                                                 ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                                                 ab:ButtonBehaviors.IconSize="12"
                                                 Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
-                                                Style="{StaticResource IconCloseButton}"
-                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                                WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Button.Style>
+                                                <Style BasedOn="{StaticResource IconCloseButton}"
+                                                       TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding HideTitleButtons,
+                                                                                       RelativeSource={RelativeSource TemplatedParent}}"
+                                                                     Value="True">
+                                                            <Setter Property="Visibility"
+                                                                    Value="Hidden" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
                                     </StackPanel>
                                 </Grid>

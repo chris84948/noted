@@ -158,17 +158,18 @@
         <Grid Grid.Row="2">
 
             <Label x:Name="Message"
-                   Height="28"
                    HorizontalAlignment="Center"
-                   Content="Google Drive authorization failed."
                    FontFamily="{StaticResource ControlFont}"
                    FontSize="14"
                    Foreground="{StaticResource ErrorBrush}"
                    Opacity="0"
-                   Padding="0,0,0,10">
+                   Padding="25,0,25,10">
                 <Label.LayoutTransform>
                     <ScaleTransform ScaleY="0" />
                 </Label.LayoutTransform>
+                <Label.Content>
+                    <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" TextAlignment="Center" />
+                </Label.Content>
             </Label>
 
             <Grid x:Name="MessageGridBackground"

@@ -32,5 +32,7 @@ namespace NotedUI.DataStorage
 
         Task<string> GetUsername();
         Task InsertUsername(string username);
+
+        void DeleteDatabase();
     }
 }

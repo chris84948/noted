@@ -8,7 +8,7 @@
              xmlns:screen="clr-namespace:NotedUI.UI.Screens"
              xmlns:settings="clr-namespace:NotedUI.UI.Settings"
              xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
-             ShutdownMode="OnExplicitShutdown"
+             ShutdownMode="OnLastWindowClose"
              Startup="Application_Startup">
 
     <Application.Resources>
@@ -74,6 +74,10 @@
 
             <DataTemplate DataType="{x:Type vm:SettingsAboutViewModel}">
                 <settings:About />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:SettingsCloudViewModel}">
+                <settings:Cloud />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:LinkDialogViewModel}">

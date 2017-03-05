@@ -216,9 +216,13 @@
     <Compile Include="UI\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Settings\Cloud.xaml.cs">
+      <DependentUpon>Cloud.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewModels\FileSaveDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\LoginDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsAboutViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsCloudViewModel.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\HighlightSearchTransformer.cs" />
     <Compile Include="Utilities\MarkdownParser.cs" />
@@ -288,6 +292,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Settings\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\Cloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

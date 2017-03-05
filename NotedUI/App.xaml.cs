@@ -4,6 +4,8 @@ using NotedUI.UI.Dialogs;
 using NotedUI.UI.ViewModels;
 using NotedUI.Utilities;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace NotedUI
@@ -33,33 +35,44 @@ namespace NotedUI
             }
             else
             {
-                Cloud.Connect(username);
-                ShowMainWindow();
+                Task.Run(async () =>
+                {
+                    if (await Cloud.Connect(username))
+                        App.Current.Dispatcher.Invoke(() => ShowMainWindow());
+                    else
+                        App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));
+                });
             }
         }
 
-        private void ShowLoginDialog()
+        private static void ShowLoginDialog(string errorMessage = null)
         {
-            LoginDialog dialog = new LoginDialog();
+            LoginDialog dialog = new LoginDialog(errorMessage);
             dialog.Show();
             dialog.Activate();
 
             (dialog.DataContext as LoginDialogViewModel).DialogClosed += (d) => 
             {
-                App.Current.Dispatcher.Invoke(() =>
-                {
-                    dialog.Close();
-                    ShowMainWindow();
-                });
+                App.Current.Dispatcher.Invoke(() => ShowMainWindow(dialog));
             };
         }
 
-        private void ShowMainWindow()
+        private static void ShowMainWindow(Window currentWindow = null)
         {
             MainWindow window = new MainWindow();
-            window.Closed += (s, e) => App.Current.Shutdown();
             window.Show();
             window.Activate();
+
+            currentWindow?.Close();
+        }
+
+        public static void RestartApplication()
+        {
+            var mainWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+
+            ShowLoginDialog();
+
+            mainWindow?.Close();
         }
     }
 }
