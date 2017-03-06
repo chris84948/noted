@@ -168,7 +168,9 @@
                     <ScaleTransform ScaleY="0" />
                 </Label.LayoutTransform>
                 <Label.Content>
-                    <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" TextAlignment="Center" />
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
                 </Label.Content>
             </Label>
 

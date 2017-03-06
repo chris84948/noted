@@ -59,7 +59,7 @@ namespace NotedUI.UI.ViewModels
             _settingsScreens = new Dictionary<string, MVVMBase>()
             {
                 { "ABOUT", new SettingsAboutViewModel() },
-                { "CLOUD", new SettingsCloudViewModel() }
+                { "CLOUD", new SettingsCloudViewModel(_homeVM) }
             };
 
             SettingsNameCollection = _settingsScreens.Keys.ToList();
@@ -80,6 +80,11 @@ namespace NotedUI.UI.ViewModels
                 await Task.Delay(500);
                 _homeVM.FixAirspace = false;
             });
+        }
+
+        private void Close()
+        {
+
         }
     }
 }

@@ -45,7 +45,7 @@ namespace NotedUI.DataStorage
         public async Task<bool> Connect(string username)
         {
             var task = GetCredentials(username);
-            if (await Task.WhenAny(task, Task.Delay(30000)) == task)
+            if (await Task.WhenAny(task, Task.Delay(60000)) == task)
                 _credentials = task.Result;
             else
                 return false;
@@ -147,8 +147,6 @@ namespace NotedUI.DataStorage
         {
             try
             {
-                // TODO figure out the cancellation source - it's not working right now
-                //var authTimeout = new CancellationTokenSource(30000);
                 UserCredential userCredential;
                 using (var stream = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.ClientID)))
                 {
@@ -420,17 +418,6 @@ namespace NotedUI.DataStorage
             request.Download(stream);
 
             return await tcs.Task;
-        }
-
-        public void DeleteCredentials(string username)
-        {
-            string credPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "chrisbjohnsondev.noted");
-
-            foreach (var file in System.IO.Directory.GetFiles(credPath))
-            {
-                if (file.EndsWith(username, StringComparison.CurrentCultureIgnoreCase))
-                    System.IO.File.Delete(file);
-            }
         }
     }
 }

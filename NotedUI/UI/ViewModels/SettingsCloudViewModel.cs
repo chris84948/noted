@@ -23,16 +23,18 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
-        public SettingsCloudViewModel()
+        private HomeViewModel _homeVM;
+
+        public SettingsCloudViewModel(HomeViewModel homeVM)
         {
             Username = App.Local.GetUsername().Result;
+            _homeVM = homeVM;
         }
 
         public void ChangeUserExec()
         {
             App.Local.DeleteDatabase();
-            App.Cloud.DeleteCredentials(Username);
-
+            _homeVM.Close();
             App.RestartApplication();
         }
     }

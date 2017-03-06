@@ -23,7 +23,5 @@ namespace NotedUI.DataStorage
         Task<bool> DownloadFile(string cloudID, string filename);
 
         Task<string> GetFileContent(string fileID);
-
-        void DeleteCredentials(string username);
     }
 }

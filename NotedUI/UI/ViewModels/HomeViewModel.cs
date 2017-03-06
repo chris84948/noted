@@ -59,6 +59,11 @@ namespace NotedUI.UI.ViewModels
             ShowDialog?.Invoke(dialog);
         }
 
+        public void Close()
+        {
+            AllNotes?.Close();
+        }
+
         public void DragOver(IDropInfo dropInfo)
         {
             NoteViewModel sourceItem = dropInfo.Data as NoteViewModel;

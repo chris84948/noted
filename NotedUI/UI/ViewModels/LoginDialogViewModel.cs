@@ -45,7 +45,8 @@ namespace NotedUI.UI.ViewModels
                 _errorMessage = value;
                 OnPropertyChanged();
 
-                ShowError = true;
+                if (_errorMessage != null)
+                    ShowError = true;
             }
         }
 
@@ -75,6 +76,7 @@ namespace NotedUI.UI.ViewModels
 
             if (await App.Cloud.Connect(Username))
             {
+                await App.Local.Initialize();
                 await App.Local.InsertUsername(Username);
                 DialogClosed?.Invoke(this);
             }

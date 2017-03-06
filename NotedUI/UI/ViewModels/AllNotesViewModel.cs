@@ -130,6 +130,16 @@ namespace NotedUI.UI.ViewModels
             App.Current.Exit += ApplicationClosing_Exit;
         }
 
+        public void Close()
+        {
+            _filterTimer.Stop();
+            _updateNoteTimer.Stop();
+            _pollAllNotesTimer.Stop();
+            _filterTimer.Dispose();
+            _updateNoteTimer.Dispose();
+            _pollAllNotesTimer.Dispose();
+        }
+
         private async void ApplicationClosing_Exit(object sender, System.Windows.ExitEventArgs e)
         {
             UpdateNote(SelectedNote);
