@@ -439,7 +439,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="Resources\Fonts\SourceCodePro-Regular.otf" />
-    <Resource Include="Resources\Fonts\black_jack.ttf" />
     <Resource Include="Resources\Fonts\Cabin-Medium.ttf" />
     <Resource Include="Resources\Fonts\Cabin-SemiBold.ttf" />
     <Resource Include="Resources\Fonts\Montserrat-Regular.ttf" />

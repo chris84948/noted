@@ -12,33 +12,35 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label HorizontalAlignment="Center"
-               Content="CLOUD SETTINGS"
-               FontSize="18" />
-
-        <Label Grid.Row="1"
+        <Label Grid.Row="0"
                Margin="10,0"
-               Content="Google Drive Username" />
+               Content="Google Drive Username"
+               FontFamily="{StaticResource ControlFont}"
+               FontSize="14" />
 
-        <TextBox Grid.Row="2"
+        <TextBox Grid.Row="1"
                  Width="200"
-                 Height="24"
                  Margin="30,0"
                  HorizontalAlignment="Left"
                  VerticalContentAlignment="Center"
+                 FontFamily="{StaticResource ControlFont}"
+                 FontSize="14"
                  IsReadOnly="True"
+                 Padding="4"
                  Text="{Binding Username}" />
 
-        <Button Grid.Row="3"
-                Height="30"
+        <Button Grid.Row="2"
+                Width="200"
+                Height="35"
                 Margin="20"
-                Width="200" HorizontalAlignment="Left"
+                HorizontalAlignment="Left"
                 Background="{StaticResource AppTopBannerBrush}"
                 Command="{Binding ChangeUserCommand}"
                 Content="CHANGE USERNAME"
+                FontFamily="{StaticResource ControlFont}"
+                FontSize="14"
                 Style="{StaticResource TextButton}" />
     </Grid>
 </UserControl>

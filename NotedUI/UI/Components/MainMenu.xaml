@@ -63,6 +63,7 @@
 
         <ToggleButton x:Name="buttonAdd"
                       ab:ButtonBehaviors.Icon="{StaticResource AddIcon}"
+                      Checked="buttonAdd_Checked"
                       Content="NOTE"
                       IsHitTestVisible="{Binding ElementName=popupAddNote,
                                                  Path=IsOpen,

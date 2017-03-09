@@ -21,5 +21,20 @@ namespace NotedUI.UI.Components
         {
             popupExport.IsOpen = false;
         }
+
+        private async void buttonAdd_Checked(object sender, RoutedEventArgs e)
+        {
+            var homeVM = DataContext as HomeViewModel;
+
+            if (homeVM == null)
+                return;
+
+            if (homeVM.AllNotes.AllGroups.Groups.Count == 0)
+            {
+                buttonAdd.IsChecked = false;
+                await homeVM.MainCommands.AddGroupToDatabase("NOTES");
+                homeVM.MainCommands.AddNoteCommand.Execute("NOTES");
+            }
+        }
     }
 }

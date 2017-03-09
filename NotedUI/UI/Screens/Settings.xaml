@@ -72,14 +72,37 @@
                     IsCancel="True" />
 
             <ListView ItemsSource="{Binding SettingsNameCollection}"
-                      SelectedIndex="0"
-                      SelectedItem="{Binding SelectedSettingsName}"
+                      SelectedItem="{Binding SelectedSettingsName,
+                                             Mode=TwoWay}"
                       Style="{StaticResource SettingsListView}" />
 
         </StackPanel>
 
-        <ContentControl Grid.Column="1"
-                        Content="{Binding SettingsView}" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding SelectedSettingsName,
+                                     FallbackValue=CLOUD SETTINGS}"
+                   FontFamily="{StaticResource ControlFont}"
+                   FontSize="30"
+                   Foreground="{StaticResource AppTopBannerBrush}" />
+
+            <Rectangle Grid.Row="1"
+                       Height="3"
+                       Margin="30,0"
+                       HorizontalAlignment="Stretch"
+                       Fill="#FFDDDDDD" />
+
+            <ContentControl Grid.Row="2"
+                            Margin="30,10"
+                            Content="{Binding SettingsView}" />
+        </Grid>
 
     </Grid>
 </UserControl>

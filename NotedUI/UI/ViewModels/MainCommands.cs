@@ -120,12 +120,17 @@ namespace NotedUI.UI.ViewModels
                 if (dialog.Result == System.Windows.Forms.DialogResult.Cancel)
                     return;
 
-                // Get ID, add group to local storage
-                var id = await App.Local.AddGroup(dialog.GroupName);
-                _allNotesVM.AddGroup(new GroupViewModel(id, dialog.GroupName));
+                await AddGroupToDatabase(dialog.GroupName);
             };
 
             _homeVM.InvokeShowDialog(dialog);
+        }
+
+        public async Task AddGroupToDatabase(string groupName)
+        {
+            // Get ID, add group to local storage
+            var id = await App.Local.AddGroup(groupName);
+            _allNotesVM.AddGroup(new GroupViewModel(id, groupName));
         }
 
         private void RenameGroupExec(string groupName)

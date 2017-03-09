@@ -58,9 +58,11 @@ namespace NotedUI.UI.ViewModels
 
             _settingsScreens = new Dictionary<string, MVVMBase>()
             {
-                { "ABOUT", new SettingsAboutViewModel() },
-                { "CLOUD", new SettingsCloudViewModel(_homeVM) }
+                { "CLOUD SETTINGS", new SettingsCloudViewModel(_homeVM) },
+                { "ABOUT NOTED", new SettingsAboutViewModel() },
             };
+
+            SelectedSettingsName = "CLOUD SETTINGS";
 
             SettingsNameCollection = _settingsScreens.Keys.ToList();
         }
