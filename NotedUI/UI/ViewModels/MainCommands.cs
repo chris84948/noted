@@ -22,10 +22,13 @@ namespace NotedUI.UI.ViewModels
         public ICommand RenameGroupCommand { get { return new RelayCommand<string>(RenameGroupExec); } }
         public ICommand DeleteGroupCommand { get { return new RelayCommand<string>(DeleteGroupExec); } }
 
-        public ICommand ExportTextCommand { get { return new RelayCommand(ExportTextExec); } }
-        public ICommand ExportHTMLCommand { get { return new RelayCommand(ExportHTMLExec); } }
-        public ICommand ExportPDFCommand { get { return new RelayCommand(ExportPDFExec); } }
-        public ICommand ExportDocCommand { get { return new RelayCommand(ExportDocExec); } }
+        public ICommand ExportTextCommand { get { return new RelayCommand(() => ExportToFormat("txt", TextExporter.Export)); } }
+        public ICommand ExportHTMLCommand { get { return new RelayCommand(() => ExportToFormat("html", HTMLExporter.Export)); } }
+        public ICommand ExportPDFCommand { get { return new RelayCommand(() => ExportToFormat("pdf", PDFExporter.Export)); } }
+        public ICommand ExportDocCommand { get { return new RelayCommand(() => ExportToFormat("docx", (x, y, z) => GenericExporter.Export("docx", x, y, z))); } }
+        public ICommand ExportOdtCommand { get { return new RelayCommand(() => ExportToFormat("odt", (x, y, z) => GenericExporter.Export("odt", x, y, z))); } }
+        public ICommand ExportRtfCommand { get { return new RelayCommand(() => ExportToFormat("rtf", (x, y, z) => GenericExporter.Export("rtf", x, y, z))); } }
+        public ICommand ExportEpubCommand { get { return new RelayCommand(() => ExportToFormat("epub", (x, y, z) => GenericExporter.Export("epub3", x, y, z))); } }
         public ICommand ShowSettingsCommand { get { return new RelayCommand(ShowSettingsExec); } }
 
         public ICommand ToggleFormattingCommand { get { return new RelayCommand(ToggleFormattingExec); } }
@@ -181,71 +184,23 @@ namespace NotedUI.UI.ViewModels
 
             _allNotesVM.DeleteGroup(groupName);
         }
+
+        private async void ExportToFormat(string fileType, Action<string, string, string> exportFunction)
+        {
+            var dialog = new FileSaveDialogViewModel(fileType, await App.Local.GetLastExportedPath(fileType));
+
+            dialog.DialogClosed += async (d) =>
+            {
+                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
+                {
+                    exportFunction(dialog.ResultFilename, "github", _allNotesVM.SelectedNote.Content);
+                    await App.Local.InsertOrUpdateLastExportedPath(fileType, dialog.ResultFilename);
+                }
+            };
+
+            _homeVM.InvokeShowDialog(dialog);
+        }
         
-        public async void ExportTextExec()
-        {
-            var dialog = new FileSaveDialogViewModel("TEXT", "txt", await App.Local.GetLastExportedPath("Txt"));
-
-            dialog.DialogClosed += async (d) =>
-            {
-                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                {
-                    TextExporter.Export(dialog.ResultFilename, _allNotesVM.SelectedNote.Content);
-                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
-                }
-            };
-
-            _homeVM.InvokeShowDialog(dialog);
-        }
-
-        public async void ExportHTMLExec()
-        {
-            var dialog = new FileSaveDialogViewModel("html", await App.Local.GetLastExportedPath("Html"));
-
-            dialog.DialogClosed += async (d) =>
-            {
-                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                {
-                    HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
-                }
-            };
-
-            _homeVM.InvokeShowDialog(dialog);
-        }
-
-        public async void ExportPDFExec()
-        {
-            var dialog = new FileSaveDialogViewModel("pdf", await App.Local.GetLastExportedPath("Pdf"));
-
-            dialog.DialogClosed += async (d) =>
-            {
-                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                {
-                    PDFExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
-                }
-            };
-
-            _homeVM.InvokeShowDialog(dialog);
-        }
-
-        public async void ExportDocExec()
-        {
-            var dialog = new FileSaveDialogViewModel("doc", await App.Local.GetLastExportedPath("Doc"));
-
-            dialog.DialogClosed += async (d) =>
-            {
-                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                {
-                    HTMLExporter.Export(dialog.ResultFilename, "github", MarkdownParser.Parse(_allNotesVM.SelectedNote.Content));
-                    await App.Local.InsertOrUpdateLastExportedPath("Txt", dialog.ResultFilename);
-                }
-            };
-
-            _homeVM.InvokeShowDialog(dialog);
-        }
-
         public void ShowSettingsExec()
         {
             _homeVM.FixAirspace = true;

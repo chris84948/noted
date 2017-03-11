@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using NotedUI.Utilities;
 
 namespace NotedUI.Export
 {
@@ -10,7 +11,6 @@ namespace NotedUI.Export
 <!DOCTYPE html PUBLIC "" -//W3C//DTD HTML 4.01//EN"">
 <html>
 <head>
-  <title>{ Path.GetFileNameWithoutExtension(filename) }</title>
   <style type = ""text/css"">";
         }
 
@@ -34,14 +34,14 @@ namespace NotedUI.Export
             string cssContent = File.ReadAllText($@"Resources\CSS\{ cssFilename }.css");
 
             File.WriteAllText(filename,
-                              GetHtmlHeader(filename) + cssContent + htmlPostCss + htmlContent + htmlFooter);
+                              CompileHTMLDoc(filename, cssContent, htmlContent));
 
             System.Diagnostics.Process.Start(filename);
         }
 
         public static string CompileHTMLDoc(string filename, string css, string html)
         {
-            return GetHtmlHeader(filename) + css + htmlPostCss + html + htmlFooter;
+            return GetHtmlHeader(filename) + css + htmlPostCss + MarkdownParser.Parse(html) + htmlFooter;
         }
     }
 }

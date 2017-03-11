@@ -229,7 +229,7 @@ namespace NotedUI.DataStorage
 
         private bool IsCredentialExpired(UserCredential credential)
         {
-            return DateTime.Now >= credential.Token.Issued.AddSeconds((double)credential.Token.ExpiresInSeconds);
+            return DateTime.Now >= credential.Token.IssuedUtc.AddSeconds((double)credential.Token.ExpiresInSeconds);
         }
 
         public File GetFile(string fileID)

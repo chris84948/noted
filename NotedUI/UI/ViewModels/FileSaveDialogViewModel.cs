@@ -77,12 +77,8 @@ namespace NotedUI.UI.ViewModels
         public string ResultFilename { get; set; }
 
         public FileSaveDialogViewModel(string fileFilter, string path = null)
-            : this(fileFilter.ToUpper(), fileFilter, path)
-        { }
-
-        public FileSaveDialogViewModel(string fileType, string fileFilter, string path = null)
         {
-            FileType = fileType.ToUpper();
+            FileType = fileFilter.ToUpper();
             FileFilter = fileFilter;
 
             if (path == null)
@@ -106,8 +102,8 @@ namespace NotedUI.UI.ViewModels
         {
             ResultFilename = System.IO.Path.Combine(Path, Filename);
 
-            if (!ResultFilename.EndsWith(FileType))
-                ResultFilename = ResultFilename + "." + FileType.ToLower();
+            if (!ResultFilename.EndsWith("." + FileFilter))
+                ResultFilename = ResultFilename + "." + FileFilter.ToLower();
 
             Result = System.Windows.Forms.DialogResult.OK;
             DialogClosed?.Invoke(this);

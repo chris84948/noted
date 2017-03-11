@@ -212,12 +212,12 @@ namespace NotedUI.DataStorage
 
         public async Task<string> GetLastExportedPath(string exportType)
         {
-            return await GetUserSetting(exportType + "LastExportedPath");
+            return await GetUserSetting(exportType.ToUpper() + "LastExportedPath");
         }
 
         public async Task InsertOrUpdateLastExportedPath(string exportType, string path)
         {
-            await InsertOrUpdateUserSetting(exportType + "LastExportedPath", path);
+            await InsertOrUpdateUserSetting(exportType.ToUpper() + "LastExportedPath", path);
         }
 
         public async Task<string> GetUsername()

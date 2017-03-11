@@ -116,26 +116,31 @@
 
             <StackPanel Background="{StaticResource ButtonPopupBrush}"
                         Orientation="Vertical">
-                <Button x:Name="buttonExportText"
-                        Click="buttonExport_Click"
+                <StackPanel.Resources>
+                    <Style BasedOn="{StaticResource PopupButtonStyle}"
+                           TargetType="Button" />
+                </StackPanel.Resources>
+                <Button Click="buttonExport_Click"
                         Command="{Binding MainCommands.ExportTextCommand}"
-                        Content="TO TEXT"
-                        Style="{StaticResource PopupButtonStyle}" />
-                <Button x:Name="buttonExportHTML"
-                        Click="buttonExport_Click"
+                        Content="TO TEXT" />
+                <Button Click="buttonExport_Click"
                         Command="{Binding MainCommands.ExportHTMLCommand}"
-                        Content="TO HTML"
-                        Style="{StaticResource PopupButtonStyle}" />
-                <Button x:Name="buttonExportPDF"
-                        Click="buttonExport_Click"
+                        Content="TO HTML" />
+                <Button Click="buttonExport_Click"
                         Command="{Binding MainCommands.ExportPDFCommand}"
-                        Content="TO PDF"
-                        Style="{StaticResource PopupButtonStyle}" />
-                <Button x:Name="buttonExportDoc"
-                        Click="buttonExport_Click"
+                        Content="TO PDF" />
+                <Button Click="buttonExport_Click"
                         Command="{Binding MainCommands.ExportDocCommand}"
-                        Content="TO DOC"
-                        Style="{StaticResource PopupButtonStyle}" />
+                        Content="TO DOC" />
+                <Button Click="buttonExport_Click"
+                        Command="{Binding MainCommands.ExportOdtCommand}"
+                        Content="TO ODT" />
+                <Button Click="buttonExport_Click"
+                        Command="{Binding MainCommands.ExportRtfCommand}"
+                        Content="TO RTF" />
+                <Button Click="buttonExport_Click"
+                        Command="{Binding MainCommands.ExportEpubCommand}"
+                        Content="TO EPUB" />
             </StackPanel>
         </Popup>
 

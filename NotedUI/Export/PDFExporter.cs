@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Pechkin;
+using System.IO;
 
 namespace NotedUI.Export
 {
@@ -9,10 +10,9 @@ namespace NotedUI.Export
                                   string htmlContent)
         {
             string cssContent = File.ReadAllText($@"Resources\CSS\{ cssFilename }.css");
+            string html = HTMLExporter.CompileHTMLDoc(filename, cssContent, htmlContent);
 
-            File.WriteAllBytes(filename, 
-                               (new NReco.PdfGenerator.HtmlToPdfConverter())
-                                    .GeneratePdf(HTMLExporter.CompileHTMLDoc(filename, cssContent, htmlContent)));
+            File.WriteAllBytes(filename, new SimplePechkin(new GlobalConfig()).Convert(html));
 
             System.Diagnostics.Process.Start(filename);
         }
