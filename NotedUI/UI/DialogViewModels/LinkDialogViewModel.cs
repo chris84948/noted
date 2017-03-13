@@ -1,8 +1,9 @@
 ﻿using JustMVVM;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Windows.Input;
 
-namespace NotedUI.UI.ViewModels
+namespace NotedUI.UI.DialogViewModels
 {
     public class LinkDialogViewModel : MVVMBase, IDialog
     {

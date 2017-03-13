@@ -4,113 +4,290 @@
              xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
              xmlns:controls="clr-namespace:NotedUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:NotedUI.UI.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Width="{Binding Path=ActualWidth,
                              RelativeSource={RelativeSource AncestorType=Window},
                              Converter={StaticResource MathMultiplyConverter},
                              ConverterParameter=0.8,
-                             FallbackValue=600}"
+                             FallbackValue=1000}"
              Height="{Binding Path=ActualHeight,
                               RelativeSource={RelativeSource AncestorType=Window},
                               Converter={StaticResource MathMultiplyConverter},
                               ConverterParameter=0.8,
-                              FallbackValue=400}"
+                              FallbackValue=600}"
+             MaxWidth="1000"
+             MaxHeight="600"
              HorizontalAlignment="Center"
              VerticalAlignment="Center"
              Background="White"
              mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="FileDoubleClicked"
+                        SourceName="FileDialog">
+            <i:InvokeCommandAction Command="{Binding OKCommand}" />
+        </i:EventTrigger>
+
+
+        <ei:DataTrigger Binding="{Binding ShowDialog}"
+                        Value="True">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+
+                    <Storyboard>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridDialog"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                    Value="{x:Static Visibility.Visible}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridDialogBackground"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0.56">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+        <ei:DataTrigger Binding="{Binding ShowDialog}"
+                        Value="False">
+            <ei:ControlStoryboardAction ControlStoryboardOption="Play">
+                <ei:ControlStoryboardAction.Storyboard>
+
+                    <Storyboard>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridDialogBackground"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="0.56" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="Opacity">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <!--<EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />-->
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Dialog"
+                                                       Storyboard.TargetProperty="(ContentPresenter.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="1" />
+                            <!--<EasingDoubleKeyFrame KeyTime="0:0:0.18"
+                                                  Value="1" />-->
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                                  Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridDialog"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                    Value="{x:Static Visibility.Visible}" />
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.3"
+                                                    Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                    </Storyboard>
+
+                </ei:ControlStoryboardAction.Storyboard>
+            </ei:ControlStoryboardAction>
+        </ei:DataTrigger>
+
+    </i:Interaction.Triggers>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <StackPanel Background="{StaticResource AppTopBannerBrush}"
-                    Orientation="Horizontal">
-            <Label Content="SAVE AS "
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="18"
-                   Foreground="{StaticResource ListViewPanelBackground}"
-                   Padding="20,12,0,12" />
-            <Label Content="{Binding FileType}"
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="18"
-                   Foreground="{StaticResource ListViewPanelBackground}"
-                   Padding="0,12" />
-            <Label Content=" FILE"
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="18"
-                   Foreground="{StaticResource ListViewPanelBackground}"
-                   Padding="0,12" />
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Border Grid.Row="1"
-                BorderBrush="#FFF0F0F0"
-                BorderThickness="0,0,0,1">
-            <controls:FileDialog x:Name="FileDialog"
-                                 FileFilter="{Binding FileFilter}"
-                                 FolderWidth="300"
-                                 Path="{Binding Path}"
-                                 SelectedPath="{Binding SelectedFile,
-                                                        Mode=OneWayToSource}" />
-        </Border>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Label Margin="40,10,0,10"
-                   VerticalAlignment="Center"
-                   Content="FILENAME "
-                   FontFamily="{StaticResource ControlFont}" />
-
-            <TextBox x:Name="tbFilename"
-                     Grid.Column="1"
-                     Height="35"
-                     MinWidth="100"
-                     Margin="10,5,10,5"
-                     AcceptsReturn="False"
-                     AcceptsTab="False"
-                     Background="White"
-                     FontFamily="{StaticResource ControlFont}"
-                     Style="{StaticResource TextBoxNoIcon}"
-                     Text="{Binding Filename,
-                                    UpdateSourceTrigger=PropertyChanged,
-                                    Mode=TwoWay}" />
-
-            <StackPanel Grid.Column="2"
-                        HorizontalAlignment="Right"
+            <StackPanel Background="{StaticResource AppTopBannerBrush}"
                         Orientation="Horizontal">
-                <Button Width="90"
-                        Margin="5,10,10,10"
-                        Background="{StaticResource AppTopBannerBrush}"
-                        Command="{Binding OKCommand}"
-                        Content="SAVE"
-                        FontFamily="{StaticResource ControlFont}"
-                        FontSize="14"
-                        IsDefault="True"
-                        Padding="0,10"
-                        Style="{StaticResource TextButton}" />
-
-                <Button Width="90"
-                        Margin="5,10,25,10"
-                        Background="{StaticResource AppTopBannerBrush}"
-                        Command="{Binding CancelCommand}"
-                        Content="CANCEL"
-                        FontFamily="{StaticResource ControlFont}"
-                        FontSize="14"
-                        IsCancel="True"
-                        Padding="0,10"
-                        Style="{StaticResource TextButton}" />
+                <Label Content="SAVE AS "
+                       FontFamily="{StaticResource ControlFont}"
+                       FontSize="18"
+                       Foreground="{StaticResource ListViewPanelBackground}"
+                       Padding="20,12,0,12" />
+                <Label Content="{Binding FileType}"
+                       FontFamily="{StaticResource ControlFont}"
+                       FontSize="18"
+                       Foreground="{StaticResource ListViewPanelBackground}"
+                       Padding="0,12" />
+                <Label Content=" FILE"
+                       FontFamily="{StaticResource ControlFont}"
+                       FontSize="18"
+                       Foreground="{StaticResource ListViewPanelBackground}"
+                       Padding="0,12" />
             </StackPanel>
+
+            <Border Grid.Row="1"
+                    BorderBrush="#FFF0F0F0"
+                    BorderThickness="0,0,0,1">
+                <controls:FileDialog x:Name="FileDialog"
+                                     FileFilter="{Binding FileFilter}"
+                                     FolderWidth="300"
+                                     Path="{Binding Path}"
+                                     SelectedPath="{Binding SelectedFile,
+                                                            Mode=OneWayToSource}" />
+            </Border>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="40,10,0,10"
+                       VerticalAlignment="Center"
+                       Content="FILENAME "
+                       FontFamily="{StaticResource ControlFont}" />
+
+                <TextBox x:Name="tbFilename"
+                         Grid.Column="1"
+                         Height="35"
+                         MinWidth="100"
+                         Margin="10,5,10,5"
+                         AcceptsReturn="False"
+                         AcceptsTab="False"
+                         Background="White"
+                         FontFamily="{StaticResource ControlFont}"
+                         Style="{StaticResource TextBoxNoIcon}"
+                         Text="{Binding Filename,
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        Mode=TwoWay}" />
+
+                <StackPanel Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button Width="90"
+                            Margin="5,10,10,10"
+                            Background="{StaticResource AppTopBannerBrush}"
+                            Command="{Binding OKCommand}"
+                            Content="SAVE"
+                            FontFamily="{StaticResource ControlFont}"
+                            FontSize="14"
+                            IsDefault="True"
+                            Padding="0,10"
+                            Style="{StaticResource TextButton}" />
+
+                    <Button Width="90"
+                            Margin="5,10,25,10"
+                            Background="{StaticResource AppTopBannerBrush}"
+                            Command="{Binding CancelCommand}"
+                            Content="CANCEL"
+                            FontFamily="{StaticResource ControlFont}"
+                            FontSize="14"
+                            IsCancel="True"
+                            Padding="0,10"
+                            Style="{StaticResource TextButton}" />
+                </StackPanel>
+            </Grid>
+
         </Grid>
 
+        <Grid x:Name="GridDialog"
+              Visibility="Collapsed">
+
+            <Grid x:Name="GridDialogBackground"
+                  Background="#FF111111"
+                  Opacity="0" />
+
+            <ContentPresenter x:Name="Dialog"
+                              Content="{Binding Dialog}"
+                              RenderTransformOrigin="0.5,0.5">
+                <ContentPresenter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="DialogScaleTransform"
+                                        ScaleX="0"
+                                        ScaleY="0" />
+                    </TransformGroup>
+                </ContentPresenter.RenderTransform>
+            </ContentPresenter>
+        </Grid>
     </Grid>
 
 </UserControl>

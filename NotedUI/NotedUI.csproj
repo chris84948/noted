@@ -203,6 +203,9 @@
     <Compile Include="UI\Dialogs\FileSaveDialog.xaml.cs">
       <DependentUpon>FileSaveDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\YesNoDialog.xaml.cs">
+      <DependentUpon>YesNoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
@@ -212,8 +215,9 @@
     <Compile Include="UI\Settings\Cloud.xaml.cs">
       <DependentUpon>Cloud.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ViewModels\FileSaveDialogViewModel.cs" />
-    <Compile Include="UI\ViewModels\LoginDialogViewModel.cs" />
+    <Compile Include="UI\DialogViewModels\FileSaveDialogViewModel.cs" />
+    <Compile Include="UI\DialogViewModels\YesNoDialogViewModel.cs" />
+    <Compile Include="UI\DialogViewModels\LoginDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsAboutViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsCloudViewModel.cs" />
     <Compile Include="Utilities\Extensions.cs" />
@@ -229,9 +233,9 @@
     <Content Include="mingwm10.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\CSS\Github.css">
+    <None Include="Resources\CSS\Github.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Compile Include="DataStorage\GoogleDriveStorage.cs" />
     <Compile Include="DataStorage\ICloudStorage.cs" />
     <Compile Include="DataStorage\ILocalStorage.cs" />
@@ -265,8 +269,8 @@
     <Compile Include="UI\ViewModels\AllNotesViewModel.cs" />
     <Compile Include="UI\ViewModels\GroupViewModel.cs" />
     <Compile Include="UI\ViewModels\IDialog.cs" />
-    <Compile Include="UI\ViewModels\GroupNameDialogViewModel.cs" />
-    <Compile Include="UI\ViewModels\LinkDialogViewModel.cs" />
+    <Compile Include="UI\DialogViewModels\GroupNameDialogViewModel.cs" />
+    <Compile Include="UI\DialogViewModels\LinkDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="UI\Components\FormatMenu.xaml.cs">
       <DependentUpon>FormatMenu.xaml</DependentUpon>
@@ -298,6 +302,10 @@
     <Content Include="wkhtmltox0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="UI\Dialogs\YesNoDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Dialogs\LoginDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

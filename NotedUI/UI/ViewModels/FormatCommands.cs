@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit;
 using JustMVVM;
 using NotedUI.Models;
+using NotedUI.UI.DialogViewModels;
 using NotedUI.Utilities;
 using System;
 using System.Linq;

@@ -3,7 +3,6 @@
                     xmlns:ab="clr-namespace:NotedUI.AttachedBehaviors"
                     xmlns:controls="clr-namespace:NotedUI.Controls"
                     xmlns:conv="clr-namespace:NotedUI.Converters"
-                    xmlns:local="clr-namespace:NotedUI.Themes"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>

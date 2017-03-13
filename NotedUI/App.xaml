@@ -4,6 +4,7 @@
              xmlns:comp="clr-namespace:NotedUI.UI.Components"
              xmlns:conv="clr-namespace:NotedUI.Converters"
              xmlns:dialog="clr-namespace:NotedUI.UI.Dialogs"
+             xmlns:dialogvm="clr-namespace:NotedUI.UI.DialogViewModels"
              xmlns:local="clr-namespace:NotedUI"
              xmlns:screen="clr-namespace:NotedUI.UI.Screens"
              xmlns:settings="clr-namespace:NotedUI.UI.Settings"
@@ -80,16 +81,20 @@
                 <settings:Cloud />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:LinkDialogViewModel}">
+            <DataTemplate DataType="{x:Type dialogvm:LinkDialogViewModel}">
                 <dialog:LinkDialog />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:GroupNameDialogViewModel}">
+            <DataTemplate DataType="{x:Type dialogvm:GroupNameDialogViewModel}">
                 <dialog:GroupNameDialog />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:FileSaveDialogViewModel}">
+            <DataTemplate DataType="{x:Type dialogvm:FileSaveDialogViewModel}">
                 <dialog:FileSaveDialog />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type dialogvm:YesNoDialogViewModel}">
+                <dialog:YesNoDialog />
             </DataTemplate>
 
         </ResourceDictionary>

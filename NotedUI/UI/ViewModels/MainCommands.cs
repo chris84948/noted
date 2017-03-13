@@ -3,6 +3,7 @@ using NotedUI.DataStorage;
 using NotedUI.Export;
 using NotedUI.Models;
 using NotedUI.UI.Components;
+using NotedUI.UI.DialogViewModels;
 using NotedUI.Utilities;
 using System;
 using System.Collections.Generic;

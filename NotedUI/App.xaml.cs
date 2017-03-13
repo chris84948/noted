@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit;
 using NotedUI.DataStorage;
 using NotedUI.UI.Dialogs;
+using NotedUI.UI.DialogViewModels;
 using NotedUI.UI.ViewModels;
 using NotedUI.Utilities;
 using System;

@@ -1,5 +1,6 @@
 ﻿using JustMVVM;
 using NotedUI.Models;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace NotedUI.UI.ViewModels
+namespace NotedUI.UI.DialogViewModels
 {
     public class FileSaveDialogViewModel : MVVMBase, IDialog
     {
@@ -73,6 +74,28 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        private IDialog _dialog;
+        public IDialog Dialog
+        {
+            get { return _dialog; }
+            set
+            {
+                _dialog = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _showDialog;
+        public bool ShowDialog
+        {
+            get { return _showDialog; }
+            set
+            {
+                _showDialog = value;
+                OnPropertyChanged();
+            }
+        }
+
         public System.Windows.Forms.DialogResult Result { get; set; }
         public string ResultFilename { get; set; }
 
@@ -102,6 +125,30 @@ namespace NotedUI.UI.ViewModels
         {
             ResultFilename = System.IO.Path.Combine(Path, Filename);
 
+            if (System.IO.File.Exists(ResultFilename))
+            {
+                var dialog = new YesNoDialogViewModel("Do you want to overwrite this file?");
+                dialog.DialogClosed += (d) =>
+                {
+                    if (dialog.Result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        ShowDialog = false;
+                        Dialog = null;
+                        GetResultAndCloseDialog();
+                    }
+                };
+
+                Dialog = dialog;
+                ShowDialog = true;
+            }
+            else
+            {
+                GetResultAndCloseDialog();
+            }
+        }
+
+        private void GetResultAndCloseDialog()
+        {
             if (!ResultFilename.EndsWith("." + FileFilter))
                 ResultFilename = ResultFilename + "." + FileFilter.ToLower();
 

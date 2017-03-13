@@ -1,11 +1,12 @@
 ﻿using JustMVVM;
 using NotedUI.Models;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
-namespace NotedUI.UI.ViewModels
+namespace NotedUI.UI.DialogViewModels
 {
     public class GroupNameDialogViewModel : MVVMBase, IDialog
     {

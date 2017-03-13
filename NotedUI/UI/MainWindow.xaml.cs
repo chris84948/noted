@@ -11,10 +11,5 @@ namespace NotedUI
         {
             InitializeComponent();
         }
-
-        private void Storyboard_Completed(object sender, System.EventArgs e)
-        {
-
-        }
     }
 }

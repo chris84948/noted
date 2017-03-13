@@ -1,4 +1,5 @@
 ﻿using NotedUI.Controls;
+using NotedUI.UI.DialogViewModels;
 using NotedUI.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
