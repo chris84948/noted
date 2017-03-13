@@ -218,8 +218,8 @@
     <Compile Include="UI\DialogViewModels\FileSaveDialogViewModel.cs" />
     <Compile Include="UI\DialogViewModels\YesNoDialogViewModel.cs" />
     <Compile Include="UI\DialogViewModels\LoginDialogViewModel.cs" />
-    <Compile Include="UI\ViewModels\SettingsAboutViewModel.cs" />
-    <Compile Include="UI\ViewModels\SettingsCloudViewModel.cs" />
+    <Compile Include="UI\SettingsViewModels\SettingsAboutViewModel.cs" />
+    <Compile Include="UI\SettingsViewModels\SettingsCloudViewModel.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\HighlightSearchTransformer.cs" />
     <Compile Include="Utilities\MarkdownParser.cs" />
@@ -292,7 +292,7 @@
     <Compile Include="UI\ViewModels\MainCommands.cs" />
     <Compile Include="UI\ViewModels\IScreen.cs" />
     <Compile Include="UI\ViewModels\NoteViewModel.cs" />
-    <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UI\SettingsViewModels\SettingsViewModel.cs" />
     <Content Include="Resources\pandoc.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

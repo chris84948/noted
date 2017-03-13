@@ -8,23 +8,80 @@
              Background="{StaticResource NoteBackgroundBrush}"
              mc:Ignorable="d">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <Style TargetType="Hyperlink">
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ControlFont}" />
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource AppTopBannerBrush}" />
+        </Style>
 
-        <Border HorizontalAlignment="Center" CornerRadius="70" Margin="0,20,0,0"
-              Background="{StaticResource AppTopBannerBrush}">
-            <Image Width="300"
-                   Margin="35,20,25,20"
-                   RenderOptions.BitmapScalingMode="HighQuality"
-                   Source="..\..\Resources\Graphics\Banner.png" />
-        </Border>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily"
+                    Value="{StaticResource ControlFont}" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+    </UserControl.Resources>
 
-        <UniformGrid Grid.Row="2"
-                     Columns="1" />
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <Label Content="Noted was built using these projects -"
+               FontFamily="{StaticResource ControlFont}"
+               FontSize="16" />
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/lunet-io/markdig">
+                Markdig Markdown Processor
+            </Hyperlink>
+            <TextBlock Text=" using " />
+            <Hyperlink NavigateUri="https://github.com/lunet-io/markdig/blob/master/license.txt">
+                this License
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/punker76/gong-wpf-dragdrop">
+                Gong WPF Drag Drop
+            </Hyperlink>
+            <TextBlock Text=" using " />
+            <Hyperlink NavigateUri="https://github.com/punker76/gong-wpf-dragdrop#license">
+                this License
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="http://www.newtonsoft.com/json">
+                Json.NET JSON Framework
+            </Hyperlink>
+            <TextBlock Text=" using " />
+            <Hyperlink NavigateUri="https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md">
+                this License
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/gmanny/Pechkin">
+                Pechkin HTML to PDF Converter
+            </Hyperlink>
+            <TextBlock Text=" using " />
+            <Hyperlink NavigateUri="https://creativecommons.org/licenses/by/3.0/">
+                this License
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/chris84948/JustMVVM">
+                JustMVVM MVVM Framework
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="20,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/chris84948/AirspaceFixer">
+                Airspace Fixer UI bug fixing project
+            </Hyperlink>
+        </TextBlock>
+    </StackPanel>
 
 </UserControl>

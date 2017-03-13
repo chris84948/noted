@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NotedUI.UI.ViewModels
+namespace NotedUI.UI.SettingsViewModels
 {
     public class SettingsAboutViewModel : MVVMBase
     {

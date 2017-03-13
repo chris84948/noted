@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:NotedUI"
              xmlns:screen="clr-namespace:NotedUI.UI.Screens"
              xmlns:settings="clr-namespace:NotedUI.UI.Settings"
+             xmlns:settingsvm="clr-namespace:NotedUI.UI.SettingsViewModels"
              xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
              ShutdownMode="OnLastWindowClose"
              Startup="Application_Startup">
@@ -69,15 +70,15 @@
                 <screen:Home />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <DataTemplate DataType="{x:Type settingsvm:SettingsViewModel}">
                 <screen:Settings />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:SettingsAboutViewModel}">
+            <DataTemplate DataType="{x:Type settingsvm:SettingsAboutViewModel}">
                 <settings:About />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:SettingsCloudViewModel}">
+            <DataTemplate DataType="{x:Type settingsvm:SettingsCloudViewModel}">
                 <settings:Cloud />
             </DataTemplate>
 

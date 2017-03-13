@@ -1,12 +1,13 @@
 ﻿using JustMVVM;
 using NotedUI.Controls;
+using NotedUI.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace NotedUI.UI.ViewModels
+namespace NotedUI.UI.SettingsViewModels
 {
     class SettingsViewModel : MVVMBase, IScreen
     {

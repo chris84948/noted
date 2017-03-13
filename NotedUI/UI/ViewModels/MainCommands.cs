@@ -4,6 +4,7 @@ using NotedUI.Export;
 using NotedUI.Models;
 using NotedUI.UI.Components;
 using NotedUI.UI.DialogViewModels;
+using NotedUI.UI.SettingsViewModels;
 using NotedUI.Utilities;
 using System;
 using System.Collections.Generic;
