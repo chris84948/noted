@@ -40,11 +40,12 @@ namespace NotedUI.UI.ViewModels
                 if (_selectedNote != null)
                     UpdateNote(_selectedNote);
 
+                bool noteChanging = _selectedNote?.CloudKey != value?.CloudKey;
+
                 _selectedNote = value;
                 OnPropertyChanged();
 
-                if (_selectedNote != null && TextEditor != null)
-                    App.Current.Dispatcher.Invoke(() => TextEditor.Text = _selectedNote.Content);
+                ChangeNoteAndUpdatePosition(noteChanging);
             }
         }
 
@@ -344,6 +345,19 @@ namespace NotedUI.UI.ViewModels
                 return true;
             else
                 return note.Content.ToUpper().Contains(_filter.ToUpper());
+        }
+
+        private void ChangeNoteAndUpdatePosition(bool changingNote)
+        {
+            if (_selectedNote != null && TextEditor != null)
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    int offset = TextEditor.CaretOffset;
+                    TextEditor.Text = _selectedNote.Content;
+                    TextEditor.CaretOffset = changingNote ? 0 : offset;
+                });
+            }
         }
     }
 }
