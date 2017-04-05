@@ -89,6 +89,12 @@ namespace NotedUI.DataStorage
             var notes = new Dictionary<string, Note>();
             var files = await GetFiles(_directory.Id, null, GROUP_DIRECTORY);
 
+            if (files == null)
+            {
+                _isConnected = false;
+                return null;
+            }
+
             foreach (var file in files)
                 notes.Add(file.Id, new Note(file.Id, file.ModifiedTime));
 
@@ -291,9 +297,17 @@ namespace NotedUI.DataStorage
             if (nameNotEqual != null)
                 request.Q += $" and name != '{nameNotEqual}'";
             request.Fields = "files(id,modifiedTime,name,version)";
-            FileList files = await request.ExecuteAsync();
 
-            return files.Files;
+            try
+            {
+                FileList files = await request.ExecuteAsync();
+
+                return files.Files;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<string> GetFileContent(string fileID)
@@ -376,9 +390,11 @@ namespace NotedUI.DataStorage
                 var request = _service.Files.Update(body, fileID, stream, String.Empty);
                 request.Fields = "id,modifiedTime,name,version";
 
-                var cancellationToken = new CancellationTokenSource(5000);
-                await request.UploadAsync(cancellationToken.Token);
-                return request.ResponseBody;
+                Task task = request.UploadAsync();
+                if (await Task.WhenAny(task, Task.Delay(5000)) == task)
+                    return request.ResponseBody;
+                else
+                    return null;
             }
             catch (Exception e)
             {

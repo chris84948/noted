@@ -122,7 +122,7 @@ namespace NotedUI.UI.ViewModels
             _updateNoteTimer.AutoReset = false;
             _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
 
-            _pollAllNotesTimer = new Timer(120000);
+            _pollAllNotesTimer = new Timer(10000);
             _pollAllNotesTimer.AutoReset = true;
             _pollAllNotesTimer.Elapsed += async (ss, ee) => await GetAllNotesAndUpdate();
             _pollAllNotesTimer.Start();
@@ -243,6 +243,8 @@ namespace NotedUI.UI.ViewModels
             GettingLatestNotes = true;
 
             var notes = await App.Cloud.GetAllNotes();
+            if (notes == null) // null if we time out trying to connect
+                return;
 
             string cloudKey = SelectedNote?.CloudKey;
 
