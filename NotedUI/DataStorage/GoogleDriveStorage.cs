@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,14 +38,19 @@ namespace NotedUI.DataStorage
         private File _directory;
         private bool _isConnected;
         private string _groupFileID = null;
+        private string _username;
 
-        public GoogleDriveStorage()
+        public event Action InternetConnected;
+
+        public GoogleDriveStorage(string username)
         {
+            _username = username;
         }
 
-        public async Task<bool> Connect(string username)
+        public async Task<bool> Connect()
         {
-            var task = GetCredentials(username);
+            var task = GetCredentials(_username);
+
             if (await Task.WhenAny(task, Task.Delay(60000)) == task)
                 _credentials = task.Result;
             else
@@ -64,11 +70,22 @@ namespace NotedUI.DataStorage
 
         public bool IsConnected()
         {
+            // Attempt to reconnect regularly
+            if (!_isConnected && IsInternetConnected())
+                Task.Run(async () =>
+                {
+                    if (await Connect())
+                        InternetConnected?.Invoke();
+                });
+
             return _isConnected;
         }
 
         public async Task<Dictionary<string, Note>> GetAllNotes()
         {
+            if (!_isConnected)
+                return new Dictionary<string, Note>();
+
             var notes = new Dictionary<string, Note>();
             var files = await GetFiles(_directory.Id, null, GROUP_DIRECTORY);
 
@@ -102,8 +119,17 @@ namespace NotedUI.DataStorage
 
         public async Task UpdateNote(Note note)
         {
+            if (!_isConnected)
+                return;
+
             // Update note and get the last modified date from the return data
             var file = await UpdateFile($"{ note.CloudKey }.txt", note.CloudKey, note.ToJSON());
+
+            if (file == null)
+            {
+                _isConnected = false;
+                return;
+            }
 
             note.LastModified = file.ModifiedTime;
         }
@@ -117,6 +143,9 @@ namespace NotedUI.DataStorage
 
         public async Task<bool> DoGroupsNeedToBeUpdated(GroupCollection groups)
         {
+            if (!_isConnected)
+                return false;
+
             var files = await GetFiles(_directory.Id, GROUP_DIRECTORY);
 
             if (files.Count == 0)
@@ -142,6 +171,19 @@ namespace NotedUI.DataStorage
             await UpdateFile(GROUP_DIRECTORY, _groupFileID, allGroups.ToJSON());
         }
 
+        public bool IsInternetConnected()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                    using (var stream = client.OpenRead("http://drive.google.com"))
+                        return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         private async Task<UserCredential> GetCredentials(string username)
         {
@@ -333,7 +375,9 @@ namespace NotedUI.DataStorage
             {
                 var request = _service.Files.Update(body, fileID, stream, String.Empty);
                 request.Fields = "id,modifiedTime,name,version";
-                await request.UploadAsync();
+
+                var cancellationToken = new CancellationTokenSource(5000);
+                await request.UploadAsync(cancellationToken.Token);
                 return request.ResponseBody;
             }
             catch (Exception e)

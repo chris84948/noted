@@ -26,9 +26,9 @@ namespace NotedUI
 
             Local = new SQLiteStorage();
             Local.Initialize();
-            Cloud = new GoogleDriveStorage();
 
             string username = Local.GetUsername().Result;
+            Cloud = new GoogleDriveStorage(username);
 
             if (String.IsNullOrWhiteSpace(username))
             {
@@ -38,7 +38,7 @@ namespace NotedUI
             {
                 Task.Run(async () =>
                 {
-                    if (await Cloud.Connect(username))
+                    if (!Cloud.IsInternetConnected() || await Cloud.Connect())
                         App.Current.Dispatcher.Invoke(() => ShowMainWindow());
                     else
                         App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));

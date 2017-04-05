@@ -1,4 +1,5 @@
 ﻿using JustMVVM;
+using NotedUI.DataStorage;
 using NotedUI.UI.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -75,7 +76,8 @@ namespace NotedUI.UI.DialogViewModels
         {
             IsAuthorizing = true;
 
-            if (await App.Cloud.Connect(Username))
+            App.Cloud = new GoogleDriveStorage(Username);
+            if (await App.Cloud.Connect())
             {
                 await App.Local.Initialize();
                 await App.Local.InsertUsername(Username);

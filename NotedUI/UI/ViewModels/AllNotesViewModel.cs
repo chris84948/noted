@@ -122,12 +122,21 @@ namespace NotedUI.UI.ViewModels
             _updateNoteTimer.AutoReset = false;
             _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
 
-            _pollAllNotesTimer = new Timer(60000);
+            _pollAllNotesTimer = new Timer(120000);
             _pollAllNotesTimer.AutoReset = true;
             _pollAllNotesTimer.Elapsed += async (ss, ee) => await GetAllNotesAndUpdate();
             _pollAllNotesTimer.Start();
 
             App.Current.Exit += ApplicationClosing_Exit;
+            App.Cloud.InternetConnected += Cloud_InternetConnected;
+        }
+
+        private void Cloud_InternetConnected()
+        {
+            foreach (var note in _notes)
+            {
+                UpdateNote(note);
+            }
         }
 
         public void Close()
@@ -243,10 +252,14 @@ namespace NotedUI.UI.ViewModels
                 // Note exists in cloud - update if necessary
                 if (notes.ContainsKey(_notes[i]?.CloudKey ?? ""))
                 {
-                    if (notes[_notes[i].CloudKey].LastModified != _notes[i].LastModified)
+                    if (notes[_notes[i].CloudKey].LastModified > _notes[i].LastModified) // Cloud note is newer
                     {
                         await App.Cloud.GetNoteWithContent(_notes[i].NoteData);
                         await App.Local.UpdateNote(_notes[i].NoteData);
+                    }
+                    else if (notes[_notes[i].CloudKey].LastModified < _notes[i].LastModified) // Local note is newer
+                    {
+                        await App.Cloud.UpdateNote(_notes[i].NoteData);
                     }
 
                     notes.Remove(_notes[i].CloudKey);
@@ -287,6 +300,12 @@ namespace NotedUI.UI.ViewModels
             // Make sure to update the note in the cloud first - that's where the update date comes from
             note.State = eNoteState.Syncing;
             await App.Cloud.UpdateNote(note.NoteData);
+
+            // Only update last modified date when the cloud isn't connected.
+            // If the internet is there, we'll get the last modified date from the cloud file
+            if (!App.Cloud.IsConnected())
+                note.LastModified = DateTime.Now;
+
             await App.Local.UpdateNote(note.NoteData);
             note.State = eNoteState.SyncComplete;
         }

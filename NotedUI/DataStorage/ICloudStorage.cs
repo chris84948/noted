@@ -1,4 +1,5 @@
 ﻿using NotedUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,10 @@ namespace NotedUI.DataStorage
 {
     public interface ICloudStorage
     {
-        Task<bool> Connect(string username);
+        bool IsInternetConnected();
+        event Action InternetConnected;
+
+        Task<bool> Connect();
         bool IsConnected();
 
         Task<Dictionary<string, Note>> GetAllNotes();
