@@ -108,6 +108,17 @@ namespace NotedUI.UI.ViewModels
             }
         }
 
+        private bool _offline;
+        public bool Offline
+        {
+            get { return _offline; }
+            set
+            {
+                _offline = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AllNotesViewModel()
         {
             _notes = new AsyncObservableCollection<NoteViewModel>();
@@ -122,7 +133,7 @@ namespace NotedUI.UI.ViewModels
             _updateNoteTimer.AutoReset = false;
             _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
 
-            _pollAllNotesTimer = new Timer(10000);
+            _pollAllNotesTimer = new Timer(30000);
             _pollAllNotesTimer.AutoReset = true;
             _pollAllNotesTimer.Elapsed += async (ss, ee) => await GetAllNotesAndUpdate();
             _pollAllNotesTimer.Start();
@@ -237,7 +248,8 @@ namespace NotedUI.UI.ViewModels
 
         private async Task GetAllNotesAndUpdate()
         {
-            if (!App.Cloud.IsConnected())
+            Offline = !App.Cloud.IsConnected();
+            if (Offline)
                 return;
 
             GettingLatestNotes = true;

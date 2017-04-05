@@ -313,6 +313,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid x:Name="SearchGrid"
@@ -370,6 +371,16 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
+
+            <Label Grid.Row="2"
+                   HorizontalAlignment="Stretch"
+                   HorizontalContentAlignment="Center"
+                   Background="{StaticResource AppTopBannerBrush}"
+                   Content="OFFLINE"
+                   FontFamily="{StaticResource ControlFont}"
+                   Foreground="White"
+                   Visibility="{Binding AllNotes.Offline,
+                                        Converter={StaticResource CollapsedVisibilityConverter}}" />
         </Grid>
 
         <GridSplitter Grid.Row="1"
