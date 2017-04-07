@@ -23,7 +23,7 @@
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="FontWeight"
-                        Value="{StaticResource TitleFontWeight}" />
+                        Value="{StaticResource ControlFontWeight}" />
                 <Setter Property="Foreground"
                         Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="VerticalAlignment"
@@ -41,7 +41,7 @@
                 <Setter Property="FontSize"
                         Value="12" />
                 <Setter Property="FontWeight"
-                        Value="{StaticResource TitleFontWeight}" />
+                        Value="{StaticResource ControlFontWeight}" />
                 <Setter Property="Foreground"
                         Value="{StaticResource ButtonForegroundBrush}" />
                 <Setter Property="VerticalAlignment"
@@ -82,7 +82,8 @@
                           ItemsSource="{Binding AllNotes.AllGroups.Groups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Command="{Binding ElementName=buttonAdd,
+                        <Button Click="ButtonAdd_Click"
+                                Command="{Binding ElementName=buttonAdd,
                                                   Path=DataContext.MainCommands.AddNoteCommand}"
                                 CommandParameter="{Binding Name}"
                                 Content="{Binding Name,

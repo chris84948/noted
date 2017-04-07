@@ -22,7 +22,7 @@
             <Setter Property="FontFamily"
                     Value="{StaticResource ControlFont}" />
             <Setter Property="FontWeight"
-                    Value="{StaticResource TitleFontWeight}" />
+                    Value="{StaticResource ControlFontWeight}" />
             <Setter Property="Foreground"
                     Value="{StaticResource ButtonForegroundBrush}" />
             <Setter Property="Height"
@@ -43,7 +43,7 @@
             <Setter Property="FontFamily"
                     Value="{StaticResource ControlFont}" />
             <Setter Property="FontWeight"
-                    Value="{StaticResource TitleFontWeight}" />
+                    Value="{StaticResource ControlFontWeight}" />
             <Setter Property="Foreground"
                     Value="{StaticResource ButtonForegroundBrush}" />
             <Setter Property="Height"

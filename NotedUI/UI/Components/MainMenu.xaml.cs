@@ -36,5 +36,10 @@ namespace NotedUI.UI.Components
                 homeVM.MainCommands.AddNoteCommand.Execute("NOTES");
             }
         }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            popupAddNote.IsOpen = false;
+        }
     }
 }
