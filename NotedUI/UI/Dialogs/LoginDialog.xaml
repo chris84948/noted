@@ -16,6 +16,7 @@
                       Background="{StaticResource NoteBackgroundBrush}"
                       HideTitleButtons="True"
                       Loaded="UserControl_Loaded"
+                      ResizeMode="NoResize"
                       SizeToContent="Height"
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">

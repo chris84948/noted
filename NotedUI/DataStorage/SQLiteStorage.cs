@@ -15,7 +15,7 @@ namespace NotedUI.DataStorage
 
         public async Task Initialize()
         {
-            _dbLocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Noted.db";
+            _dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Noted.db");
 
             _connectionString = $"Data Source={ _dbLocation };Version=3;";
 

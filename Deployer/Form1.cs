@@ -21,7 +21,7 @@ namespace Deployer
             InitializeComponent();
 
             // HACK do this for now
-            tbVersion.Text = "0.1.0.1";
+            tbVersion.Text = "0.1.0.0";
         }
         
         private void buttonDeploy_Click(object sender, EventArgs e)

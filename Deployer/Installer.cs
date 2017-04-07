@@ -15,8 +15,6 @@ namespace Deployer
         public static void Build(string installDir, Version version)
         {
             CreateInstallerExe(installDir, version);
-
-            CopyInstallerExeToAllInstallsFolder(installDir, version);
         }
 
         private static void CreateInstallerExe(string installDir, Version version)
@@ -33,11 +31,8 @@ namespace Deployer
 
             if (process.ExitCode != 0)
                 throw new Exception("Inno Installer file creation failed.");
-        }
 
-        private static void CopyInstallerExeToAllInstallsFolder(string installDir, Version version)
-        {
-            File.Copy(installDir + "\\Noted.exe", Path.Combine(installDir, "Installs") + $"\\Noted_{ version.ToString() }.exe");
+            File.Move(Path.Combine(installDir, "Noted.exe"), Path.Combine(installDir, $"Noted_{ version.ToString() }.exe"));
         }
     }
 }
