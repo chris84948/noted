@@ -158,11 +158,11 @@
                 Command="{Binding Formatting.ListCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="NUMBERED LIST" />
-        <Button x:Name="Image"
+        <!--<Button x:Name="Image"
                 ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}"
                 Command="{Binding Formatting.ImageCommand}"
                 Style="{StaticResource Icon}"
-                ToolTip="IMAGE" />
+                ToolTip="IMAGE" />-->
         <Button x:Name="Link"
                 ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}"
                 Command="{Binding Formatting.LinkCommand}"

@@ -502,9 +502,9 @@
                     <KeyBinding Key="D0"
                                 Command="{Binding Formatting.ListCommand}"
                                 Modifiers="Ctrl" />
-                    <KeyBinding Key="M"
+                    <!--<KeyBinding Key="P"
                                 Command="{Binding Formatting.ImageCommand}"
-                                Modifiers="Ctrl" />
+                                Modifiers="Ctrl" />-->
                     <KeyBinding Key="OemMinus"
                                 Command="{Binding Formatting.HorizontalLineCommand}"
                                 Modifiers="Ctrl" />
