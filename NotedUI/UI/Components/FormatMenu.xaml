@@ -168,18 +168,11 @@
                 Command="{Binding Formatting.LinkCommand}"
                 Style="{StaticResource Icon}"
                 ToolTip="LINK" />
-        <Grid>
-            <Button x:Name="HorizontalLine"
-                    Command="{Binding Formatting.HorizontalLineCommand}"
-                    Style="{StaticResource Text}"
-                    ToolTip="HORIZONTAL DIVIDER" />
-            <Rectangle Width="16"
-                       Height="2"
-                       Margin="0,1,0,0"
-                       HorizontalAlignment="Center"
-                       Fill="{StaticResource ButtonForegroundBrush}"
-                       Stretch="Fill" />
-        </Grid>
+        <Button x:Name="HorizontalLine"
+                ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
+                Command="{Binding Formatting.HorizontalLineCommand}"
+                Style="{StaticResource Icon}"
+                ToolTip="HORIZONTAL DIVIDER" />
         <Button x:Name="LineBreak"
                 ab:ButtonBehaviors.Icon="{StaticResource ReturnIcon}"
                 Command="{Binding Formatting.LineBreakCommand}"
