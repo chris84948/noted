@@ -63,7 +63,7 @@ namespace NotedUI.UI.ViewModels
                 OnPropertyChanged();
 
                 Title = GetTitle();
-                SetNoteState();
+                State = eNoteState.Changed;
                 _markdownTimer.Reset();
             }
         }
@@ -146,13 +146,6 @@ namespace NotedUI.UI.ViewModels
             }
 
             return text;
-        }
-
-        private void SetNoteState()
-        {
-            // Only change the note if it's in a Normal state
-            if (State == eNoteState.Normal)
-                State = eNoteState.Changed;
         }
     }
 }

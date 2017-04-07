@@ -130,7 +130,7 @@ namespace NotedUI.UI.ViewModels
             _filterTimer.AutoReset = false;
             _filterTimer.Elapsed += FilterTimer_Elapsed;
 
-            _updateNoteTimer = new Timer(2000);
+            _updateNoteTimer = new Timer(1500);
             _updateNoteTimer.AutoReset = false;
             _updateNoteTimer.Elapsed += (s, e) => UpdateNote(SelectedNote);
 
@@ -332,7 +332,7 @@ namespace NotedUI.UI.ViewModels
                 SelectedNote.Content = TextEditor.Text;
 
             // Reset the update timer every time the text changes
-            // This stops it from being updated to the cloud constantly, just after typing has stopped for > 3 seconds
+            // This stops it from being updated to the cloud constantly, just after typing has stopped for update time
             _updateNoteTimer.Stop();
             _updateNoteTimer.Start();
         }
