@@ -39,8 +39,9 @@ namespace NotedUI.Models
 
             CheckIfFolderHasSubFolder();
 
-            IsFolder = SubItems.Count == 0 &&
-                       ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory);
+            if (System.IO.Directory.Exists(path))
+                IsFolder = SubItems.Count == 0 &&
+                            ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory);
         }
 
         /// <summary>

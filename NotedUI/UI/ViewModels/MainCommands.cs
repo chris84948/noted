@@ -107,10 +107,14 @@ namespace NotedUI.UI.ViewModels
             await App.Cloud.DeleteNote(noteToDelete.NoteData);
 
             if (noteList.Count == 0)
-                return;
-
-            // TODO For now, just unselect all notes when it's deleted
-            _allNotesVM.SelectedNote = null;
+            {
+                _allNotesVM.TextEditor.Text = "";
+                _allNotesVM.SelectedNote = null;
+            }
+            else
+            {
+                _allNotesVM.SelectedNote = noteList[0];
+            }
         }
 
         public void AddGroupExec()
