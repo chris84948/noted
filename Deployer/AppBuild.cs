@@ -17,7 +17,8 @@ namespace Deployer
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = $@"""{ MSBUILD_LOCATION }""";
             startInfo.Arguments = $@"""{ @"C:\GitHub\notedui\NotedUI\NotedUI.csproj" }"" /target:clean,rebuild ";
-            startInfo.Arguments += $@"/p:Configuration=Release;ApplicationRevision={ version.ToString() }";
+            startInfo.Arguments += $@"/p:Configuration=Release;";
+            startInfo.Arguments += $@"VersionNumber={ version.ToString() };ApplicationVersion={ version.ToString() }";
 
             process.StartInfo = startInfo;
             process.Start();

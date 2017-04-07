@@ -19,20 +19,26 @@ namespace Deployer
 
         private static void CreateInstallerExe(string installDir, Version version)
         {
-            Process process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = $@"""{ INNO_INSTALLER }""";
-            startInfo.Arguments = $@"""/DAppVersion={ version.ToString() }"" ""/DInstallerDirectory={ installDir }"" ""Install.iss""";
+            StringBuilder batch = new StringBuilder();
 
-            process.StartInfo = startInfo;
-            process.Start();
+            batch.Append($@"""{ INNO_INSTALLER }"" ");
+            batch.Append($@"""/DAppVersion={ version.ToString() }"" ");
+            batch.Append($@"""/DInstallerDirectory={ installDir }"" ");
+            batch.Append($@"""/DExeFilename={ $"Noted_{ version.ToString() }.exe" }"" ");
+            batch.Append(@"""Install.iss""");
+            batch.AppendLine();
+            batch.AppendLine("PAUSE");
 
+            string deployBatchFilename = Path.GetTempPath() + "Deploy.bat";
+            File.WriteAllText(deployBatchFilename, batch.ToString());
+
+            var process = Process.Start(deployBatchFilename);
             process.WaitForExit();
+
+            File.Delete(deployBatchFilename);
 
             if (process.ExitCode != 0)
                 throw new Exception("Inno Installer file creation failed.");
-
-            File.Move(Path.Combine(installDir, "Noted.exe"), Path.Combine(installDir, $"Noted_{ version.ToString() }.exe"));
         }
     }
 }

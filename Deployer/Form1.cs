@@ -21,7 +21,7 @@ namespace Deployer
             InitializeComponent();
 
             // HACK do this for now
-            tbVersion.Text = "0.1.0.0";
+            tbVersion.Text = "0.1";
         }
         
         private void buttonDeploy_Click(object sender, EventArgs e)
@@ -35,14 +35,16 @@ namespace Deployer
 
             Installer.Build(DEPLOY_FOLDER, version);
 
-            CopyReleaseFilesToLatestFolder(Path.Combine(DEPLOY_FOLDER, "Latest"));
+            //CopyReleaseFilesToLatestFolder(Path.Combine(DEPLOY_FOLDER, "Latest"));
+
+            Application.Exit();
         }
 
         private Version GetVersion()
         {
             try
             {
-                return new Version(tbVersion.Text);
+                return new Version(tbVersion.Text + ".0.0");
             }
             catch (Exception)
             {

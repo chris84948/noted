@@ -3,14 +3,16 @@
 
 #define AppName "Noted"
 #define Publisher "chrisbjohnson development"
-#define ExeFilename "Noted.exe"
 ;#define LicenseFile "C:\Github\notedui\License\license.lic"
 
 #ifndef AppVersion
-	#define AppVersion "0.1.0.1"
+	#define AppVersion "0.1.0.0"
 #endif
 #ifndef InstallerDirectory
 	#define InstallerDirectory "C:\NotedTest"
+#endif
+#ifndef ExeFilename
+	#define ExeFilename "Noted.exe"
 #endif
 
 [Setup]
