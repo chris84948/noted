@@ -223,6 +223,9 @@ namespace NotedUI.UI.ViewModels
         private void ToggleSearchExec()
         {
             ShowSearch = !ShowSearch;
+
+            if (!ShowSearch)
+                _allNotesVM.Filter = "";
         }
     }
 }
