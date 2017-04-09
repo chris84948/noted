@@ -170,7 +170,27 @@
         <controls:TransitionPresenter HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
                                       Content="{Binding CurrentViewModel}"
-                                      Transition="{Binding Transition}" />
+                                      Transition="{Binding Transition}">
+            <controls:TransitionPresenter.Style>
+                <Style TargetType="{x:Type controls:TransitionPresenter}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowDialog}"
+                                     Value="True">
+                            <Setter Property="Focusable"
+                                    Value="False" />
+                            <Setter Property="KeyboardNavigation.ControlTabNavigation"
+                                    Value="None" />
+                            <Setter Property="KeyboardNavigation.DirectionalNavigation"
+                                    Value="None" />
+                            <Setter Property="KeyboardNavigation.IsTabStop"
+                                    Value="False" />
+                            <Setter Property="KeyboardNavigation.TabNavigation"
+                                    Value="None" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:TransitionPresenter.Style>
+        </controls:TransitionPresenter>
 
         <Grid x:Name="GridDialog"
               Visibility="Collapsed">

@@ -145,6 +145,11 @@ namespace NotedUI.UI.ViewModels
                 text = NoteData.Content.Substring(currentPos, lineBreakIndex - currentPos);
             }
 
+            text = text.Trim();
+
+            if (text.StartsWith("#"))
+                text = text.Replace("#", "");
+
             return text;
         }
     }

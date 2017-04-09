@@ -14,6 +14,11 @@ namespace Deployer
 
         public static void Build(string installDir, Version version)
         {
+            string installExe = Path.Combine(installDir + @"\Latest", "Noted.exe");
+
+            if (File.Exists(installExe))
+                File.Delete(installExe);
+
             CreateInstallerExe(installDir, version);
         }
 
@@ -23,11 +28,10 @@ namespace Deployer
 
             batch.Append($@"""{ INNO_INSTALLER }"" ");
             batch.Append($@"""/DAppVersion={ version.ToString() }"" ");
-            batch.Append($@"""/DInstallerDirectory={ installDir }"" ");
-            batch.Append($@"""/DExeFilename={ $"Noted_{ version.ToString() }.exe" }"" ");
+            batch.Append($@"""/DInstallerDirectory={ installDir }\Latest"" ");
             batch.Append(@"""Install.iss""");
             batch.AppendLine();
-            batch.AppendLine("PAUSE");
+            batch.AppendLine("PING 127.0.0.1 -n 6 > nul");
 
             string deployBatchFilename = Path.GetTempPath() + "Deploy.bat";
             File.WriteAllText(deployBatchFilename, batch.ToString());
@@ -39,6 +43,8 @@ namespace Deployer
 
             if (process.ExitCode != 0)
                 throw new Exception("Inno Installer file creation failed.");
+
+            File.Copy(Path.Combine(installDir + @"\Latest", "Noted.exe"), Path.Combine(installDir, $"Noted_{ version.Major }.{ version.Minor }.exe"));
         }
     }
 }
