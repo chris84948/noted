@@ -4,7 +4,10 @@ using NotedUI.UI.Dialogs;
 using NotedUI.UI.DialogViewModels;
 using NotedUI.UI.ViewModels;
 using NotedUI.Utilities;
+using Squirrel;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,6 +47,9 @@ namespace NotedUI
                         App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));
                 });
             }
+
+            if (!Debugger.IsAttached)
+                Task.Run(() => CheckForUpdates());
         }
 
         private static void ShowLoginDialog(string errorMessage = null)
@@ -74,6 +80,15 @@ namespace NotedUI
             ShowLoginDialog();
 
             mainWindow?.Close();
+        }
+
+        private async void CheckForUpdates()
+        {
+            if (Directory.Exists(@"C:\Github\NotedUI\Nuget_Builds\Releases"))
+            {
+                using (var mgr = new UpdateManager(@"C:\Github\NotedUI\Nuget_Builds\Releases"))
+                    await mgr.UpdateApp();
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace NotedUI.UI.ViewModels
 
         public ICommand ExportTextCommand { get { return new RelayCommand(() => ExportToFormat("txt", TextExporter.Export)); } }
         public ICommand ExportHTMLCommand { get { return new RelayCommand(() => ExportToFormat("html", HTMLExporter.Export)); } }
-        public ICommand ExportPDFCommand { get { return new RelayCommand(() => ExportToFormat("pdf", PDFExporter.Export)); } }
+        public ICommand ExportPdfCommand { get { return new RelayCommand(() => ExportToFormat("pdf", PDFExporter.Export)); } }
         public ICommand ExportDocCommand { get { return new RelayCommand(() => ExportToFormat("docx", (x, y, z) => GenericExporter.Export("docx", x, y, z))); } }
         public ICommand ExportOdtCommand { get { return new RelayCommand(() => ExportToFormat("odt", (x, y, z) => GenericExporter.Export("odt", x, y, z))); } }
         public ICommand ExportRtfCommand { get { return new RelayCommand(() => ExportToFormat("rtf", (x, y, z) => GenericExporter.Export("rtf", x, y, z))); } }

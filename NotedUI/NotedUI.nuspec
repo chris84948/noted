@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Noted</id>
+    <title>Noted</title>
+	<version>0.0.1</version>
+    <authors>Chris B Johnson Development</authors>
+    <owners>Chris B Johnson Development</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Note taking application with cloud backup and markdown output.</description>
+    <copyright>Copyright © Chris B Johnson 2016</copyright>
+  </metadata>
+  <files>
+	<file src="bin\release\**\*.*" target="lib\net461\" exclude="bin\release\**\*.pdb;bin\release\**\*.nupkg;bin\release\**\*.vshost.*"/>
+  </files>
+</package>

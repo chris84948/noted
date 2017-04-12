@@ -128,7 +128,7 @@
                         Command="{Binding MainCommands.ExportHTMLCommand}"
                         Content="TO HTML" />
                 <Button Click="buttonExport_Click"
-                        Command="{Binding MainCommands.ExportPDFCommand}"
+                        Command="{Binding MainCommands.ExportPdfCommand}"
                         Content="TO PDF" />
                 <Button Click="buttonExport_Click"
                         Command="{Binding MainCommands.ExportDocCommand}"
