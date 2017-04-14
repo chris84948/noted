@@ -18,5 +18,31 @@ namespace NotedUI.UI.Components
         {
             InitializeComponent();
         }
+
+        private void buttonFind_Checked(object sender, RoutedEventArgs e)
+        {
+            if (buttonReplace.IsChecked == true)
+                buttonReplace.IsChecked = false;
+
+            (DataContext as HomeViewModel)?.Formatting?.FindDialogCommand?.Execute(true);
+        }
+
+        private void buttonFind_Unchecked(object sender, RoutedEventArgs e)
+        {
+            (DataContext as HomeViewModel)?.Formatting?.FindDialogCommand?.Execute(false);
+        }
+
+        private void buttonReplace_Checked(object sender, RoutedEventArgs e)
+        {
+            if (buttonFind.IsChecked == true)
+                buttonFind.IsChecked = false;
+
+            (DataContext as HomeViewModel)?.Formatting?.ReplaceDialogCommand?.Execute(true);
+        }
+
+        private void buttonReplace_Unchecked(object sender, RoutedEventArgs e)
+        {
+            (DataContext as HomeViewModel)?.Formatting?.ReplaceDialogCommand?.Execute(false);
+        }
     }
 }

@@ -68,66 +68,133 @@
         <Button x:Name="Header1"
                 Command="{Binding Formatting.Header1Command}"
                 Content="H1"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 1" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 1
+                    <LineBreak />
+                    [CTRL+1]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Header2"
                 Command="{Binding Formatting.Header2Command}"
                 Content="H2"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 2" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 2
+                    <LineBreak />
+                    [CTRL+2]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Header3"
                 Command="{Binding Formatting.Header3Command}"
                 Content="H3"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 3" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 3
+                    <LineBreak />
+                    [CTRL+3]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Header4"
                 Command="{Binding Formatting.Header4Command}"
                 Content="H4"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 4" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 4
+                    <LineBreak />
+                    [CTRL+4]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Header5"
                 Command="{Binding Formatting.Header5Command}"
                 Content="H5"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 5" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 5
+                    <LineBreak />
+                    [CTRL+5]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Header6"
                 Command="{Binding Formatting.Header6Command}"
                 Content="H6"
-                Style="{StaticResource Text}"
-                ToolTip="HEADER 6" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    HEADER 6
+                    <LineBreak />
+                    [CTRL+6]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Bold"
                 Command="{Binding Formatting.BoldCommand}"
                 Content="B"
                 FontWeight="Bold"
-                Style="{StaticResource Text}"
-                ToolTip="BOLD" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    BOLD
+                    <LineBreak />
+                    [CTRL+B]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Italic"
                 Command="{Binding Formatting.ItalicCommand}"
                 Content="I"
                 FontStyle="Italic"
-                Style="{StaticResource Text}"
-                ToolTip="ITALIC" />
-
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    ITALIC
+                    <LineBreak />
+                    [CTRL+I]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Underline"
                 Command="{Binding Formatting.UnderlineCommand}"
-                Style="{StaticResource Text}"
-                ToolTip="UNDERLINE">
+                Style="{StaticResource Text}">
             <Button.Resources>
                 <Style x:Key="Underlined">
                     <Setter Property="TextBlock.TextDecorations"
                             Value="Underline" />
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <TextBlock>
+                    UNDERLINE
+                    <LineBreak />
+                    [CTRL+U]
+                </TextBlock>
+            </Button.ToolTip>
             <TextBlock Style="{StaticResource Underlined}"
                        Text="U" />
         </Button>
-
         <Grid>
             <Button x:Name="Strikethrough"
                     Command="{Binding Formatting.StrikethroughCommand}"
                     Content="S"
-                    Style="{StaticResource Text}"
-                    ToolTip="STRIKETHROUGH" />
+                    Style="{StaticResource Text}">
+                <Button.ToolTip>
+                    <TextBlock>
+                        STRIKETHROUGH
+                        <LineBreak />
+                        [CTRL+S]
+                    </TextBlock>
+                </Button.ToolTip>
+            </Button>
             <Rectangle Width="10"
                        Height="1"
                        Margin="0,1,0,0"
@@ -140,24 +207,52 @@
                 Content="&quot;&quot;"
                 FontSize="20"
                 Padding="0,4,0,0"
-                Style="{StaticResource Text}"
-                ToolTip="QUOTATION" />
+                Style="{StaticResource Text}">
+            <Button.ToolTip>
+                <TextBlock>
+                    QUOTATION
+                    <LineBreak />
+                    [CTRL+Q]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="Code"
                 ab:ButtonBehaviors.Icon="{StaticResource CodeIcon}"
                 ab:ButtonBehaviors.IconSize="14"
                 Command="{Binding Formatting.CodeCommand}"
-                Style="{StaticResource Icon}"
-                ToolTip="CODE BLOCK" />
+                Style="{StaticResource Icon}">
+            <Button.ToolTip>
+                <TextBlock>
+                    CODE
+                    <LineBreak />
+                    [CTRL+K]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="BulletPoint"
                 ab:ButtonBehaviors.Icon="{StaticResource BulletIcon}"
                 Command="{Binding Formatting.BulletPointCommand}"
-                Style="{StaticResource Icon}"
-                ToolTip="BULLETPOINTS" />
+                Style="{StaticResource Icon}">
+            <Button.ToolTip>
+                <TextBlock>
+                    BULLETPOINT
+                    <LineBreak />
+                    [CTRL+.]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="List"
                 ab:ButtonBehaviors.Icon="{StaticResource ListIcon}"
                 Command="{Binding Formatting.ListCommand}"
-                Style="{StaticResource Icon}"
-                ToolTip="NUMBERED LIST" />
+                Style="{StaticResource Icon}">
+            <Button.ToolTip>
+                <TextBlock>
+                    NUMBERED LIST
+                    <LineBreak />
+                    [CTRL+0]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <!--<Button x:Name="Image"
                 ab:ButtonBehaviors.Icon="{StaticResource ImageIcon}"
                 Command="{Binding Formatting.ImageCommand}"
@@ -166,8 +261,15 @@
         <Button x:Name="Link"
                 ab:ButtonBehaviors.Icon="{StaticResource LinkIcon}"
                 Command="{Binding Formatting.LinkCommand}"
-                Style="{StaticResource Icon}"
-                ToolTip="LINK" />
+                Style="{StaticResource Icon}">
+            <Button.ToolTip>
+                <TextBlock>
+                    LINK
+                    <LineBreak />
+                    [CTRL+L]
+                </TextBlock>
+            </Button.ToolTip>
+        </Button>
         <Button x:Name="HorizontalLine"
                 ab:ButtonBehaviors.Icon="{StaticResource MinimizeIcon}"
                 Command="{Binding Formatting.HorizontalLineCommand}"
@@ -180,16 +282,23 @@
                 ToolTip="LINE BREAK" />
         <ToggleButton x:Name="buttonFind"
                       Width="55"
+                      Checked="buttonFind_Checked"
                       Content="FIND"
                       IsChecked="{Binding Formatting.ShowFindDialog,
-                                          Mode=TwoWay}"
-                      Style="{StaticResource TextToggle}" />
+                                          Mode=OneWay}"
+                      Style="{StaticResource TextToggle}"
+                      Unchecked="buttonFind_Unchecked" />
         <ToggleButton x:Name="buttonReplace"
                       Width="85"
+                      Checked="buttonReplace_Checked"
+                      Command="{Binding Formatting.ReplaceDialogCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                                 Path=IsChecked}"
                       Content="REPLACE"
                       IsChecked="{Binding Formatting.ShowReplaceDialog,
-                                          Mode=TwoWay}"
-                      Style="{StaticResource TextToggle}" />
+                                          Mode=OneWay}"
+                      Style="{StaticResource TextToggle}"
+                      Unchecked="buttonReplace_Unchecked" />
 
     </StackPanel>
 

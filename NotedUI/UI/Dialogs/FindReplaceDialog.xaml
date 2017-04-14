@@ -7,6 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:NotedUI.UI.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="Me"
              Width="300"
              Margin="5,0,0,5"
@@ -105,13 +106,19 @@
         <KeyBinding Key="Esc"
                     Command="{Binding Formatting.HideFindDialogCommand}" />
         <KeyBinding Key="F"
-                    Command="{Binding ShowFindDialogCommand,
-                                      ElementName=Me}"
-                    Modifiers="Ctrl" />
+                    Command="{Binding Formatting.FindDialogCommand}"
+                    Modifiers="Ctrl">
+            <KeyBinding.CommandParameter>
+                <sys:Boolean>True</sys:Boolean>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
         <KeyBinding Key="R"
-                    Command="{Binding ShowReplaceDialogCommand,
-                                      ElementName=Me}"
-                    Modifiers="Ctrl" />
+                    Command="{Binding Formatting.ReplaceDialogCommand}"
+                    Modifiers="Ctrl">
+            <KeyBinding.CommandParameter>
+                <sys:Boolean>True</sys:Boolean>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
     </UserControl.InputBindings>
 
     <i:Interaction.Triggers>

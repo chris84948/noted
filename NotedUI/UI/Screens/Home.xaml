@@ -509,11 +509,19 @@
                                 Command="{Binding Formatting.HorizontalLineCommand}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="F"
-                                Command="{Binding Formatting.ShowFindDialogCommand}"
-                                Modifiers="Ctrl" />
+                                Command="{Binding Formatting.FindDialogCommand}"
+                                Modifiers="Ctrl">
+                        <KeyBinding.CommandParameter>
+                            <sys:Boolean>True</sys:Boolean>
+                        </KeyBinding.CommandParameter>
+                    </KeyBinding>
                     <KeyBinding Key="R"
-                                Command="{Binding Formatting.ShowReplaceDialogCommand}"
-                                Modifiers="Ctrl" />
+                                Command="{Binding Formatting.ReplaceDialogCommand}"
+                                Modifiers="Ctrl">
+                        <KeyBinding.CommandParameter>
+                            <sys:Boolean>True</sys:Boolean>
+                        </KeyBinding.CommandParameter>
+                    </KeyBinding>
                     <KeyBinding Key="Esc"
                                 Command="{Binding Formatting.HideFindDialogCommand}" />
 

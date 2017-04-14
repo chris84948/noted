@@ -36,12 +36,12 @@ namespace NotedUI.UI.ViewModels
 
         public ICommand EnterCommand { get { return new RelayCommand(EnterExec); } }
 
-        public ICommand ShowFindDialogCommand { get { return new RelayCommand(ShowFindDialogExec); } }
-        public ICommand ShowReplaceDialogCommand { get { return new RelayCommand(ShowReplaceDialogExec); } }
+        public ICommand FindDialogCommand { get { return new RelayCommand<bool>(FindDialogExec); } }
+        public ICommand ReplaceDialogCommand { get { return new RelayCommand<bool>(ReplaceDialogExec); } }
         public ICommand HideFindDialogCommand { get { return new RelayCommand(HideFindDialogExec); } }
 
         public ICommand CopyMarkupToClipboard { get { return new RelayCommand(CopyMarkupToClipboardExec); } }
-
+        
         private bool _showFindDialog;
         public bool ShowFindDialog
         {
@@ -395,14 +395,30 @@ namespace NotedUI.UI.ViewModels
             return numLines;
         }
 
-        private void ShowFindDialogExec()
+        private void FindDialogExec(bool show)
         {
-            ShowFindDialog = true;
+            if (show)
+            {
+                ShowReplaceDialog = false;
+                ShowFindDialog = true;
+            }
+            else
+            {
+                HideFindDialogExec();
+            }
         }
 
-        private void ShowReplaceDialogExec()
+        private void ReplaceDialogExec(bool show)
         {
-            ShowReplaceDialog = true;
+            if (show)
+            {
+                ShowFindDialog = false;
+                ShowReplaceDialog = true;
+            }
+            else
+            {
+                HideFindDialogExec();
+            }
         }
 
         private void HideFindDialogExec()
@@ -410,7 +426,7 @@ namespace NotedUI.UI.ViewModels
             ShowFindDialog = false;
             ShowReplaceDialog = false;
         }
-        
+
         private void CopyMarkupToClipboardExec()
         {
             if (_homeVM.AllNotes.TextEditor.SelectionLength == 0)

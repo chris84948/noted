@@ -21,9 +21,6 @@ namespace NotedUI.UI.Dialogs
         public ICommand MatchCaseToggleCommand { get { return new RelayCommand(MatchCaseToggleExec, () => Editor?.Text != null); } }
         public ICommand MatchWordToggleCommand { get { return new RelayCommand(MatchWordToggleExec, () => Editor?.Text != null); } }
         public ICommand RegexToggleCommand { get { return new RelayCommand(RegexToggleExec, () => Editor?.Text != null); } }
-        public ICommand HideSearchCommand { get { return new RelayCommand(HideSearchExec, () => Editor?.Text != null); } }
-        public ICommand ShowFindDialogCommand { get { return new RelayCommand(ShowFindDialogExec, () => Editor?.Text != null); } }
-        public ICommand ShowReplaceDialogCommand { get { return new RelayCommand(ShowReplaceDialogExec, () => Editor?.Text != null); } }
         public ICommand FocusDialogCommand { get { return new RelayCommand(DialogShownExec); } }
 
         public ICommand DialogShownCommand { get { return new RelayCommand(DialogShownExec); } }
@@ -51,44 +48,7 @@ namespace NotedUI.UI.Dialogs
             get { return (bool)GetValue(ShowReplaceDialogProperty); }
             set { SetValue(ShowReplaceDialogProperty, value); }
         }
-
-        public static readonly RoutedEvent FindDialogHiddenEvent =
-            EventManager.RegisterRoutedEvent("FindDialogHidden",
-                                             RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler),
-                                             typeof(FindReplaceDialog));
-
-        public event RoutedEventHandler FindDialogHidden
-        {
-            add { AddHandler(FindDialogHiddenEvent, value); }
-            remove { RemoveHandler(FindDialogHiddenEvent, value); }
-        }
-
-        public static readonly RoutedEvent FindShownEvent =
-            EventManager.RegisterRoutedEvent("FindShown",
-                                             RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler),
-                                             typeof(FindReplaceDialog));
-
-        public event RoutedEventHandler FindShown
-        {
-            add { AddHandler(FindShownEvent, value); }
-            remove { RemoveHandler(FindShownEvent, value); }
-        }
         
-        public static readonly RoutedEvent ReplaceShownEvent =
-            EventManager.RegisterRoutedEvent("ReplaceShown",
-                                             RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler),
-                                             typeof(FindReplaceDialog));
-
-        public event RoutedEventHandler ReplaceShown
-        {
-            add { AddHandler(ReplaceShownEvent, value); }
-            remove { RemoveHandler(ReplaceShownEvent, value); }
-        }
-
-
         private string regexMem = "";
         private MatchCollection allMatches;
         private int matchIndex;
@@ -174,24 +134,6 @@ namespace NotedUI.UI.Dialogs
         private void RegexToggleExec()
         {
             buttonRegex.IsChecked = !buttonRegex.IsChecked;
-        }
-
-        private void HideSearchExec()
-        {
-            RoutedEventArgs routedArgs = new RoutedEventArgs(FindDialogHiddenEvent);
-            RaiseEvent(routedArgs);
-        }
-
-        private void ShowFindDialogExec()
-        {
-            RoutedEventArgs routedArgs = new RoutedEventArgs(FindShownEvent);
-            RaiseEvent(routedArgs);
-        }
-
-        private void ShowReplaceDialogExec()
-        {
-            RoutedEventArgs routedArgs = new RoutedEventArgs(ReplaceShownEvent);
-            RaiseEvent(routedArgs);
         }
 
         private void DialogShownExec()
