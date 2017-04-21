@@ -1,4 +1,5 @@
 ﻿using JustMVVM;
+using Microsoft.Win32;
 using NotedUI.DataStorage;
 using NotedUI.Export;
 using NotedUI.Models;
@@ -9,9 +10,11 @@ using NotedUI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage.Pickers;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -193,18 +196,22 @@ namespace NotedUI.UI.ViewModels
 
         private async void ExportToFormat(string fileType, Action<string, string, string> exportFunction)
         {
-            var dialog = new FileSaveDialogViewModel(fileType, await App.Local.GetLastExportedPath(fileType));
+            var dialog = new SaveFileDialog();
 
-            dialog.DialogClosed += async (d) =>
+            string lastExportedPath = await App.Local.GetLastExportedPath(fileType);
+            dialog.InitialDirectory = String.IsNullOrWhiteSpace(lastExportedPath) ?
+                                               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) : 
+                                               Path.GetDirectoryName(lastExportedPath);
+            dialog.FileName = String.IsNullOrWhiteSpace(lastExportedPath) ? "" : Path.GetFileName(lastExportedPath);
+            dialog.Filter = $"{ fileType.ToUpper() } documents (.{ fileType })|*.{ fileType }";
+
+            var result = dialog.ShowDialog();
+
+            if (result == true)
             {
-                if (dialog.Result == System.Windows.Forms.DialogResult.OK)
-                {
-                    exportFunction(dialog.ResultFilename, "github", _allNotesVM.SelectedNote.Content);
-                    await App.Local.InsertOrUpdateLastExportedPath(fileType, dialog.ResultFilename);
-                }
-            };
-
-            _homeVM.InvokeShowDialog(dialog);
+                exportFunction(dialog.FileName, "github", _allNotesVM.SelectedNote.Content);
+                await App.Local.InsertOrUpdateLastExportedPath(fileType, dialog.FileName);
+            }
         }
         
         public void ShowSettingsExec()

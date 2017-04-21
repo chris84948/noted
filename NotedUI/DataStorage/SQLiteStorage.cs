@@ -15,9 +15,12 @@ namespace NotedUI.DataStorage
 
         public async Task Initialize()
         {
-            _dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "chrisbjohnsondev.noted", "Noted.db");
+            string dbFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "chrisbjohnsondev.noted");
+            _dbLocation = Path.Combine(dbFolderPath, "Noted.db");
 
             _connectionString = $"Data Source={ _dbLocation };Version=3;";
+
+            Directory.CreateDirectory(dbFolderPath); 
 
             if (!File.Exists(_dbLocation))
                 SQLiteConnection.CreateFile(_dbLocation);

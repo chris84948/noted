@@ -17,22 +17,6 @@
                 Value="Transparent" />
         <Setter Property="FontFamily"
                 Value="{DynamicResource ControlFont}" />
-        <!--<Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <StackPanel>
-                        <i:Interaction.Behaviors>
-                            <ei:FluidMoveBehavior AppliesTo="Children"
-                                                  Duration="0:0:0.3">
-                                <ei:FluidMoveBehavior.EaseY>
-                                    <PowerEase EasingMode="EaseInOut" />
-                                </ei:FluidMoveBehavior.EaseY>
-                            </ei:FluidMoveBehavior>
-                        </i:Interaction.Behaviors>
-                    </StackPanel>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>-->
         <Setter Property="Padding"
                 Value="1" />
         <Setter Property="ScrollViewer.CanContentScroll"
@@ -263,10 +247,6 @@
 
     <Style x:Key="StandardListView"
            TargetType="{x:Type ListView}">
-        <!--<Setter Property="FontFamily"
-                Value="{DynamicResource ControlFont}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource ListViewTextSelectedColorBrush}" />-->
         <Setter Property="Padding"
                 Value="1" />
         <Setter Property="Padding"
@@ -297,11 +277,6 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-
-                        <!--<Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource ListViewTextColorBrush}" />
-                        </Trigger>-->
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

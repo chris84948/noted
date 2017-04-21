@@ -9,6 +9,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,35 +22,40 @@ namespace NotedUI
     {
         public static ICloudStorage Cloud { get; set; }
         public static ILocalStorage Local { get; set; }
+        public static string AppPath { get; private set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            Task.Run(function: Application_StartupAsync);
+
+            //if (!Debugger.IsAttached)
+            //    Task.Run(() => CheckForUpdates());
+        }
+
+        private async Task Application_StartupAsync()
         {
             // This frees up the Ctrl-I input binding for italics
             AvalonEditCommands.IndentSelection.InputGestures.Clear();
 
+            AppPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
             Local = new SQLiteStorage();
-            Local.Initialize();
+            await Local.Initialize();
 
             string username = Local.GetUsername().Result;
             Cloud = new GoogleDriveStorage(username);
 
             if (String.IsNullOrWhiteSpace(username))
             {
-                ShowLoginDialog();
+                App.Current.Dispatcher.Invoke(() => ShowLoginDialog());
             }
             else
             {
-                Task.Run(async () =>
-                {
-                    if (!Cloud.IsInternetConnected() || await Cloud.Connect())
-                        App.Current.Dispatcher.Invoke(() => ShowMainWindow());
-                    else
-                        App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));
-                });
+                if (!Cloud.IsInternetConnected() || await Cloud.Connect())
+                    App.Current.Dispatcher.Invoke(() => ShowMainWindow());
+                else
+                    App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));
             }
-
-            if (!Debugger.IsAttached)
-                Task.Run(() => CheckForUpdates());
         }
 
         private static void ShowLoginDialog(string errorMessage = null)

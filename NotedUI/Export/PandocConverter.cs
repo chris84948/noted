@@ -14,7 +14,7 @@ namespace NotedUI.Export
         {
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = $@"Resources\Pandoc.exe";
+            startInfo.FileName = Path.Combine(App.AppPath, $@"Resources\Pandoc.exe");
             startInfo.Arguments = $@"""{ filename }"" -f { fromExt } -t { toExt } -o ""{ exportFilename }"" -s";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             process.StartInfo = startInfo;

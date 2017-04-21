@@ -12,8 +12,8 @@
                       xmlns:vm="clr-namespace:NotedUI.UI.ViewModels"
                       Width="1280"
                       Height="720"
-                      MinWidth="1024"
-                      MinHeight="600"
+                      MinWidth="960"
+                      MinHeight="500"
                       WindowStartupLocation="CenterScreen"
                       mc:Ignorable="d">
 

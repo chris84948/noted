@@ -9,7 +9,7 @@ namespace NotedUI.Export
                                   string cssFilename,
                                   string htmlContent)
         {
-            string cssContent = File.ReadAllText($@"Resources\CSS\{ cssFilename }.css");
+            string cssContent = File.ReadAllText(Path.Combine(App.AppPath, $@"Resources\CSS\{ cssFilename }.css"));
             string html = HTMLExporter.CompileHTMLDoc(filename, cssContent, htmlContent);
             
             File.WriteAllBytes(filename, new SimplePechkin(new GlobalConfig()).Convert(html));

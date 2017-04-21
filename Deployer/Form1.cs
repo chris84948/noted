@@ -16,6 +16,7 @@ namespace Deployer
     {
         private const string NOTED_SOLUTION_FOLDER = @"C:\Github\NotedUI";
         private const string DEPLOY_FOLDER = @"C:\Google Drive\Programming\Noted\Nuget_Builds";
+        private const string INSTALLER_FOLDER = @"C:\Google Drive\Programming\Noted\Installers";
         private const string NUGET_PATH = @"C:\Google Drive\Utilities\Nuget.exe";
         private const string SQUIRREL_PATH = @"C:\Google Drive\Utilities\Squirrel.Windows\Squirrel.exe";
 
@@ -40,6 +41,25 @@ namespace Deployer
 
             BuildNugetAndSquirrelPackage(version);
             
+            Application.Exit();
+        }
+
+        private void buttonInstaller_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LastVersion = tbVersion.Text;
+            Properties.Settings.Default.Save();
+
+            Version version = GetVersion();
+
+            if (version == null)
+                return;
+
+            AppBuild.BuildRelease(version);
+
+            Installer.Build(INSTALLER_FOLDER, version);
+
+            BuildAppX(version);            
+
             Application.Exit();
         }
 
@@ -87,6 +107,20 @@ namespace Deployer
 
             if (File.Exists($@"{ DEPLOY_FOLDER }\Releases\Setup.msi"))
                 File.Delete($@"{ DEPLOY_FOLDER }\Releases\Setup.msi");
+        }
+
+        private void BuildAppX(Version version)
+        {
+            if (Directory.Exists(Path.Combine(INSTALLER_FOLDER, "Noted_" + version.ToString())))
+                Directory.Delete(Path.Combine(INSTALLER_FOLDER, "Noted_" + version.ToString()), true);
+
+            ProcessStartInfo proc = new ProcessStartInfo();
+            proc.UseShellExecute = true;
+            proc.FileName = Path.Combine(INSTALLER_FOLDER, "MakeAppX.bat");
+            proc.Arguments = version.ToString();
+            proc.Verb = "runas";
+
+            Process.Start(proc);
         }
     }
 }

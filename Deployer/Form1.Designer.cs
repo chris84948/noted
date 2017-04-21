@@ -31,6 +31,7 @@
             this.buttonDeploy = new System.Windows.Forms.Button();
             this.tbVersion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonInstaller = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonDeploy
@@ -62,11 +63,23 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Version";
             // 
+            // buttonInstaller
+            // 
+            this.buttonInstaller.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInstaller.Location = new System.Drawing.Point(27, 139);
+            this.buttonInstaller.Name = "buttonInstaller";
+            this.buttonInstaller.Size = new System.Drawing.Size(224, 49);
+            this.buttonInstaller.TabIndex = 3;
+            this.buttonInstaller.Text = "Build AppX";
+            this.buttonInstaller.UseVisualStyleBackColor = true;
+            this.buttonInstaller.Click += new System.EventHandler(this.buttonInstaller_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 140);
+            this.ClientSize = new System.Drawing.Size(278, 211);
+            this.Controls.Add(this.buttonInstaller);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbVersion);
             this.Controls.Add(this.buttonDeploy);
@@ -83,6 +96,7 @@
         private System.Windows.Forms.Button buttonDeploy;
         private System.Windows.Forms.TextBox tbVersion;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonInstaller;
     }
 }
 

@@ -254,7 +254,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              MinWidth="200" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
@@ -306,7 +307,6 @@
         <!--  ListView / Search  -->
         <Grid Grid.Row="1"
               Grid.Column="0"
-              MinWidth="5"
               Panel.ZIndex="-1"
               Background="{StaticResource ListViewPanelBackground}">
 
@@ -326,7 +326,6 @@
 
             <ListView x:Name="lvNotes"
                       Grid.Row="1"
-                      MinWidth="200"
                       drag:DragDrop.DropHandler="{Binding}"
                       drag:DragDrop.IsDragSource="True"
                       drag:DragDrop.IsDropTarget="True"
