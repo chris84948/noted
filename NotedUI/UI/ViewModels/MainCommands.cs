@@ -13,8 +13,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using Windows.Storage.Pickers;
 
 namespace NotedUI.UI.ViewModels
 {
@@ -200,8 +200,8 @@ namespace NotedUI.UI.ViewModels
 
             string lastExportedPath = await App.Local.GetLastExportedPath(fileType);
             dialog.InitialDirectory = String.IsNullOrWhiteSpace(lastExportedPath) ?
-                                               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) : 
-                                               Path.GetDirectoryName(lastExportedPath);
+                                                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) :
+                                                Path.GetDirectoryName(lastExportedPath);
             dialog.FileName = String.IsNullOrWhiteSpace(lastExportedPath) ? "" : Path.GetFileName(lastExportedPath);
             dialog.Filter = $"{ fileType.ToUpper() } documents (.{ fileType })|*.{ fileType }";
 

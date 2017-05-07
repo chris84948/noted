@@ -4,7 +4,6 @@ using NotedUI.UI.Dialogs;
 using NotedUI.UI.DialogViewModels;
 using NotedUI.UI.ViewModels;
 using NotedUI.Utilities;
-using Squirrel;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -27,9 +26,6 @@ namespace NotedUI
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Task.Run(function: Application_StartupAsync);
-
-            //if (!Debugger.IsAttached)
-            //    Task.Run(() => CheckForUpdates());
         }
 
         private async Task Application_StartupAsync()
@@ -47,20 +43,20 @@ namespace NotedUI
 
             if (String.IsNullOrWhiteSpace(username))
             {
-                App.Current.Dispatcher.Invoke(() => ShowLoginDialog());
+                App.Current.Dispatcher.Invoke(() => ShowLoginDialog(true));
             }
             else
             {
                 if (!Cloud.IsInternetConnected() || await Cloud.Connect())
                     App.Current.Dispatcher.Invoke(() => ShowMainWindow());
                 else
-                    App.Current.Dispatcher.Invoke(() => ShowLoginDialog("Timeout attempting to login. Please try again."));
+                    App.Current.Dispatcher.Invoke(() => ShowLoginDialog(false, "Timeout attempting to login. Please try again."));
             }
         }
 
-        private static void ShowLoginDialog(string errorMessage = null)
+        private static void ShowLoginDialog(bool initialStartup, string errorMessage = null)
         {
-            LoginDialog dialog = new LoginDialog(errorMessage);
+            LoginDialog dialog = new LoginDialog(errorMessage, initialStartup);
             dialog.Show();
             dialog.Activate();
 
@@ -83,18 +79,9 @@ namespace NotedUI
         {
             var mainWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 
-            ShowLoginDialog();
+            ShowLoginDialog(false);
 
             mainWindow?.Close();
-        }
-
-        private async void CheckForUpdates()
-        {
-            if (Directory.Exists(@"C:\Github\NotedUI\Nuget_Builds\Releases"))
-            {
-                using (var mgr = new UpdateManager(@"C:\Github\NotedUI\Nuget_Builds\Releases"))
-                    await mgr.UpdateApp();
-            }
         }
     }
 }

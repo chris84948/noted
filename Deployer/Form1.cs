@@ -15,8 +15,9 @@ namespace Deployer
     public partial class Form1 : Form
     {
         private const string NOTED_SOLUTION_FOLDER = @"C:\Github\NotedUI";
-        private const string DEPLOY_FOLDER = @"C:\Google Drive\Programming\Noted\Nuget_Builds";
+        private const string DEPLOY_FOLDER = @"C:\Google Drive\Programming\Noted\Squirrel_Builds";
         private const string INSTALLER_FOLDER = @"C:\Google Drive\Programming\Noted\Installers";
+        private const string APPX_FOLDER = @"C:\Google Drive\Programming\Noted\AppX";
         private const string NUGET_PATH = @"C:\Google Drive\Utilities\Nuget.exe";
         private const string SQUIRREL_PATH = @"C:\Google Drive\Utilities\Squirrel.Windows\Squirrel.exe";
 
@@ -116,7 +117,7 @@ namespace Deployer
 
             ProcessStartInfo proc = new ProcessStartInfo();
             proc.UseShellExecute = true;
-            proc.FileName = Path.Combine(INSTALLER_FOLDER, "MakeAppX.bat");
+            proc.FileName = Path.Combine(APPX_FOLDER, "MakeAppX.bat");
             proc.Arguments = version.ToString();
             proc.Verb = "runas";
 

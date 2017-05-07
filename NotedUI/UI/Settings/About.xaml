@@ -14,8 +14,6 @@
                     Value="{StaticResource ControlFont}" />
             <Setter Property="FontSize"
                     Value="14" />
-            <Setter Property="Foreground"
-                    Value="{StaticResource AppTopBannerBrush}" />
             <EventSetter Event="RequestNavigate"
                          Handler="Hyperlink_RequestNavigate" />
         </Style>

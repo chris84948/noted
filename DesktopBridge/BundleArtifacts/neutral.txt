@@ -1,0 +1,6 @@
+MainPackage=C:\GitHub\notedui\DesktopBridge\bin\Debug\DesktopBridge_1.0.0.0_AnyCPU_Debug.appx
+SymbolPackage=C:\GitHub\notedui\DesktopBridge\AppPackages\DesktopBridge_1.0.0.0_Debug_Test\DesktopBridge_1.0.0.0_AnyCPU_Debug.appxsym
+ResourcePack=C:\GitHub\notedui\DesktopBridge\bin\Debug\DesktopBridge_1.0.0.0_scale-100.appx
+ResourcePack=C:\GitHub\notedui\DesktopBridge\bin\Debug\DesktopBridge_1.0.0.0_scale-125.appx
+ResourcePack=C:\GitHub\notedui\DesktopBridge\bin\Debug\DesktopBridge_1.0.0.0_scale-150.appx
+ResourcePack=C:\GitHub\notedui\DesktopBridge\bin\Debug\DesktopBridge_1.0.0.0_scale-400.appx

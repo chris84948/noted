@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
+  <Identity Name="2b42609d-15a0-4443-8fe3-b0f5e71f2cdc" Version="1.0.5.0" Publisher="CN=cbjohns" />
+  <mp:PhoneIdentity PhoneProductId="2b42609d-15a0-4443-8fe3-b0f5e71f2cdc" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Noted</DisplayName>
+    <PublisherDisplayName>Chris B Johnson Dev</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="Noted" Executable="win32\Noted.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="Noted" Description="Noted Cloud App" BackgroundColor="transparent" Square150x150Logo="images\Square150.png" Square44x44Logo="images\Square44.png">
+        <uap:LockScreen Notification="" BadgeLogo="images\BadgeLogo.png" />
+        <uap:DefaultTile Wide310x150Logo="images\Wide310.png" ShortName="images\AppLargeTile.png" Square310x310Logo="images\Square310.png" Square71x71Logo="images\Square71.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
+        <uap:SplashScreen Image="images\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="win32\Noted.exe" />
+      </Extensions>
+    </Application>
+  </Applications>
+</Package>

@@ -163,24 +163,12 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.5.2\lib\Net45\NuGet.Squirrel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Pechkin, Version=0.5.8.1, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\Pechkin.0.5.8.1\lib\net40\Pechkin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Portable.Licensing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.Licensing.1.1.0\lib\portable-net40+sl4+wp7+win8\Portable.Licensing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Splat, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.2.0.0\lib\Net45\Splat.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Squirrel, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.5.2\lib\Net45\Squirrel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -537,12 +525,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\UwpDesktop.10.0.14393.3\analyzers\dotnet\UwpDesktopAnalyzer.dll" />
+    <Resource Include="Assets\Noted Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>rd /s /q "de", "en", "es", "fr", "it", "ja", "ko", "ru", "zh-Hans", "zh-Hant"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -550,7 +537,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets'))" />
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.105.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.105.0\build\net46\System.Data.SQLite.Core.targets'))" />
-    <Error Condition="!Exists('..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets'))" />
   </Target>
   <Import Project="..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets')" />
   <Target Name="BeforeBuild">
@@ -561,6 +547,14 @@
     <Message Text="Writing to AssemblyInfo files in @(AssemblyInfoFiles)" />
     <AssemblyInfo AssemblyInfoFiles="@(AssemblyInfoFiles)" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
   </Target>
+  <Target Name="AfterBuild">
+    <PropertyGroup>
+      <TargetUWP>..\DesktopBridge\win32\</TargetUWP>
+    </PropertyGroup>
+    <ItemGroup>
+      <Win32Binaries Include="$(TargetDir)\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Win32Binaries)" DestinationFolder="$(TargetUWP)\%(RecursiveDir)" />
+  </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.0\build\net46\System.Data.SQLite.Core.targets')" />
-  <Import Project="..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets" Condition="Exists('..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets')" />
 </Project>

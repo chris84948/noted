@@ -29,10 +29,9 @@ namespace NotedUI.DataStorage
         /// </summary>
         private string[] _scopes = 
         {
-            DriveService.Scope.DriveFile,
-            DriveService.Scope.DriveReadonly,
+            DriveService.Scope.DriveFile
         };
-        private string _appName = "Noted";
+        private string _appName = "Noted_ChrisBJohnsonDev";
         private UserCredential _credentials;
         private DriveService _service;
         private File _directory;

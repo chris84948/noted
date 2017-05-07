@@ -10,7 +10,7 @@
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       xmlns:local="clr-namespace:NotedUI.UI.Dialogs"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      Width="350"
+                      Width="400"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Background="{StaticResource NoteBackgroundBrush}"
@@ -107,104 +107,126 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Background="{StaticResource AppTopBannerBrush}">
             <Image Width="250"
-                   Margin="30,20,30,40"
+                   Margin="30,20,30,20"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Source="..\..\Resources\Graphics\Banner.png" />
-
-            <Label Margin="0,0,0,10"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
-                   Content="CONNECT TO CLOUD TO GET STARTED"
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="14"
-                   Foreground="{StaticResource ButtonForegroundBrush}" />
         </Grid>
 
         <StackPanel Grid.Row="1"
-                    Margin="0,10"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
+                    Margin="0,5,0,0"
+                    Orientation="Vertical">
 
-            <Label Margin="0,0,5,-2"
-                   VerticalAlignment="Center"
-                   Content="Username"
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="14"
-                   Foreground="{StaticResource AppTopBannerBrush}" />
+            <Label Margin="20,0"
+                   x:Name="lblStartup"
+                   FontWeight="SemiBold"
+                   FontFamily="{StaticResource ListViewContentFont}"
+                   FontSize="13">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin"
+                                    Value="0,0,0,8" />
+                            <Setter Property="TextAlignment"
+                                    Value="Left" />
+                            <Setter Property="TextWrapping"
+                                    Value="Wrap" />
+                        </Style>
+                    </StackPanel.Resources>
 
-            <TextBox x:Name="tbUsername"
-                     Width="200"
-                     Height="35"
-                     Margin="0"
-                     AcceptsReturn="False"
-                     AcceptsTab="False"
-                     FontFamily="{StaticResource ControlFont}"
-                     FontSize="14"
-                     IsEnabled="{Binding IsAuthorizing,
-                                         Converter={StaticResource TrueFalseConverter}}"
-                     Style="{StaticResource TextBoxNoIcon}"
-                     Text="{Binding Username,
-                                    UpdateSourceTrigger=PropertyChanged,
-                                    Mode=TwoWay}" />
+                    <TextBlock Text="Noted is a note-taking application which uses your Google account to backup and sync your notes." />
+                    <TextBlock Text="Your notes will not be stored on our server. Nobody will be selling any of your data, or reading it to try and create some AI monster." />
+                    <TextBlock>
+                        To authorize your account, please enter your Gmail address below, and sign in using
+                        <Hyperlink NavigateUri="http://stackoverflow.com/questions/4727226/on-a-high-level-how-does-oauth-2-work" RequestNavigate="Hyperlink_RequestNavigate">Google's authentication.</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Text="Noted will never see your Google password and will only have access to files created in Noted." />
+                    <TextBlock Margin="0"
+                               Text="Thanks for buying Noted!" />
 
-        </StackPanel>
-
-        <Grid Grid.Row="2">
-
-            <Label x:Name="Message"
-                   HorizontalAlignment="Center"
-                   FontFamily="{StaticResource ControlFont}"
-                   FontSize="14"
-                   Foreground="{StaticResource ErrorBrush}"
-                   Opacity="0"
-                   Padding="25,0,25,10">
-                <Label.LayoutTransform>
-                    <ScaleTransform ScaleY="0" />
-                </Label.LayoutTransform>
-                <Label.Content>
-                    <TextBlock Text="{Binding ErrorMessage}"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
-                </Label.Content>
+                </StackPanel>
             </Label>
 
-            <Grid x:Name="MessageGridBackground"
-                  VerticalAlignment="Stretch">
-                <Grid.RenderTransform>
-                    <ScaleTransform ScaleY="0" />
-                </Grid.RenderTransform>
+            <StackPanel Margin="0,0,0,10"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+
+                <Label Margin="0,0,5,-2"
+                       VerticalAlignment="Center"
+                       Content="Username"
+                       FontFamily="{StaticResource ControlFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource AppTopBannerBrush}" />
+
+                <TextBox x:Name="tbUsername"
+                         Width="230"
+                         Height="35"
+                         Margin="0"
+                         AcceptsReturn="False"
+                         AcceptsTab="False"
+                         FontFamily="{StaticResource ControlFont}"
+                         FontSize="14"
+                         IsEnabled="{Binding IsAuthorizing,
+                                             Converter={StaticResource TrueFalseConverter}}"
+                         Style="{StaticResource TextBoxNoIcon}"
+                         Text="{Binding Username,
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        Mode=TwoWay}" />
+
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+
+                <Label x:Name="Message"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource ControlFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource ErrorBrush}"
+                       Opacity="0"
+                       Padding="25,0,25,10">
+                    <Label.LayoutTransform>
+                        <ScaleTransform ScaleY="0" />
+                    </Label.LayoutTransform>
+                    <Label.Content>
+                        <TextBlock Text="{Binding ErrorMessage}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Label.Content>
+                </Label>
+
+                <Grid x:Name="MessageGridBackground"
+                      VerticalAlignment="Stretch">
+                    <Grid.RenderTransform>
+                        <ScaleTransform ScaleY="0" />
+                    </Grid.RenderTransform>
+                </Grid>
             </Grid>
-        </Grid>
 
-        <Button Grid.Row="3"
-                Margin="25,0,25,15"
-                Background="{StaticResource AppTopBannerBrush}"
-                Command="{Binding OKCommand}"
-                Content="LOGIN WITH GOOGLE"
-                FontFamily="{StaticResource ControlFont}"
-                FontSize="14"
-                IsDefault="True"
-                IsEnabled="{Binding IsAuthorizing,
-                                    Converter={StaticResource TrueFalseConverter}}"
-                Padding="0,15"
-                Style="{StaticResource TextButton}" />
+            <Button Margin="20,0,20,15"
+                    Background="{StaticResource AppTopBannerBrush}"
+                    Command="{Binding OKCommand}"
+                    Content="LOGIN WITH GOOGLE"
+                    FontFamily="{StaticResource ControlFont}"
+                    FontSize="14"
+                    IsDefault="True"
+                    IsEnabled="{Binding IsAuthorizing,
+                                        Converter={StaticResource TrueFalseConverter}}"
+                    Padding="0,15"
+                    Style="{StaticResource TextButton}" />
 
-        <Button Grid.Row="4"
-                Margin="25,0,25,20"
-                Background="{StaticResource ErrorBrush}"
-                Command="{Binding CancelCommand}"
-                Content="QUIT"
-                FontFamily="{StaticResource ControlFont}"
-                FontSize="14"
-                IsCancel="True"
-                Padding="0,15"
-                Style="{StaticResource TextButton}" />
+            <Button Margin="20,0,20,20"
+                    Background="{StaticResource ErrorBrush}"
+                    Command="{Binding CancelCommand}"
+                    Content="QUIT"
+                    FontFamily="{StaticResource ControlFont}"
+                    FontSize="14"
+                    IsCancel="True"
+                    Padding="0,15"
+                    Style="{StaticResource TextButton}" />
+
+        </StackPanel>
     </Grid>
 </controls:NotedWindow>
