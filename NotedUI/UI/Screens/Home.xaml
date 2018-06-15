@@ -424,9 +424,9 @@
                                HorizontalScrollBarVisibility="Disabled"
                                Loaded="tbNote_Loaded"
                                Padding="10,10,10,10"
-                               ScrollPositionChanged="tbNote_ScrollPositionChanged"
                                ShowLineNumbers="False"
                                Tag="{Binding RelativeSource={RelativeSource Self}}">
+                               <!--ScrollPositionChanged="tbNote_ScrollPositionChanged"-->
 
                 <avalon:TextEditor.Options>
                     <avalon:TextEditorOptions AllowScrollBelowDocument="True" />
