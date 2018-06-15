@@ -14,12 +14,12 @@ namespace Deployer
 {
     public partial class Form1 : Form
     {
-        private const string NOTED_SOLUTION_FOLDER = @"C:\Github\NotedUI";
-        private const string DEPLOY_FOLDER = @"..\..\..\build\Squirrel_Builds";
-        private const string INSTALLER_FOLDER = @"..\..\..\build\Installers";
-        private const string APPX_FOLDER = @"..\..\..\build\AppX";
-        private const string NUGET_PATH = @"C:\Google Drive\Utilities\Nuget.exe";
-        private const string SQUIRREL_PATH = @"C:\Google Drive\Utilities\Squirrel.Windows\Squirrel.exe";
+        private const string NOTED_SOLUTION_FOLDER = @"C:\Github\notedui";
+        private const string DEPLOY_FOLDER = @"C:\Github\notedui\Build\Squirrel_Builds";
+        private const string INSTALLER_FOLDER = @"C:\Github\notedui\build\Installers";
+        private const string APPX_FOLDER = @"C:\Github\notedui\build\AppX";
+        private const string NUGET_PATH = @"C:\users\cbjohns\Google Drive\Utilities\Nuget.exe";
+        private const string SQUIRREL_PATH = @"C:\users\cbjohns\Google Drive\Utilities\Squirrel.Windows\Squirrel.exe";
 
         public Form1()
         {

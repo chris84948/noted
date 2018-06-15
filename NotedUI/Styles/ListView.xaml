@@ -49,8 +49,10 @@
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsGrouping" Value="true" />
-                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+                                <Condition Property="IsGrouping"
+                                           Value="true" />
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping"
+                                           Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter Property="ScrollViewer.CanContentScroll"
                                     Value="false" />
@@ -105,9 +107,9 @@
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
 
                     <Border x:Name="Bd"
+                            Padding="0"
                             Background="{TemplateBinding Background}"
                             BorderThickness="0"
-                            Padding="0"
                             SnapsToDevicePixels="true">
                         <Grid>
                             <Rectangle x:Name="MouseOverRect"
@@ -141,26 +143,26 @@
                                                 Width="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                                 Path=ActualWidth,
                                                                 Converter={StaticResource NoteTitleWidthConverter}}"
-                                                Margin="21,8,0,6"
+                                                Margin="11,8,0,6"
                                                 HorizontalAlignment="Left"
                                                 Orientation="Vertical">
                                         <Label Margin="0,0,0,2"
+                                               Padding="0"
                                                Content="{Binding DataContext.Title,
                                                                  RelativeSource={RelativeSource TemplatedParent}}"
                                                FontSize="14"
-                                               Foreground="{TemplateBinding Foreground}"
-                                               Padding="0" />
+                                               Foreground="{TemplateBinding Foreground}" />
                                         <Label Margin="0,0,0,2"
+                                               Padding="0"
                                                Content="{Binding DataContext.LastModified,
                                                                  RelativeSource={RelativeSource TemplatedParent},
                                                                  Converter={StaticResource LastSavedDateConverter}}"
                                                FontSize="11"
-                                               Foreground="{TemplateBinding Foreground}"
-                                               Padding="0" />
+                                               Foreground="{TemplateBinding Foreground}" />
                                     </StackPanel>
 
                                     <Grid Grid.Column="1"
-                                          Margin="10,0"
+                                          Margin="10,0,0,0"
                                           Background="Transparent">
 
                                         <Grid.Resources>
@@ -218,13 +220,15 @@
 
                     <ControlTemplate.Triggers>
 
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
                             <Setter TargetName="Bd"
                                     Property="Background"
                                     Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 
-                        <Trigger Property="IsSelected" Value="True">
+                        <Trigger Property="IsSelected"
+                                 Value="True">
                             <Setter Property="Foreground"
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
                             <Setter TargetName="Bd"
@@ -280,8 +284,10 @@
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsGrouping" Value="true" />
-                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+                                <Condition Property="IsGrouping"
+                                           Value="true" />
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping"
+                                           Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter Property="ScrollViewer.CanContentScroll"
                                     Value="false" />
@@ -321,9 +327,9 @@
 
                     <Grid>
                         <Border x:Name="Bd"
+                                Padding="{TemplateBinding Padding}"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Padding="{TemplateBinding Padding}"
                                 SnapsToDevicePixels="true">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -339,14 +345,16 @@
                                     Value="{DynamicResource SFListBackgroundBrushHighlight}" />
                         </Trigger>-->
 
-                        <Trigger Property="IsSelected" Value="True">
+                        <Trigger Property="IsSelected"
+                                 Value="True">
                             <Setter Property="Background"
                                     Value="{DynamicResource ButtonPopupBrush}" />
                             <Setter Property="Foreground"
                                     Value="{DynamicResource NoteBackgroundBrush}" />
                         </Trigger>
 
-                        <Trigger Property="IsEnabled" Value="False">
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource ListViewTextColorBrush}" />
                         </Trigger>
@@ -410,7 +418,8 @@
 
                                 <ControlTemplate.Triggers>
 
-                                    <Trigger Property="IsSelected" Value="True">
+                                    <Trigger Property="IsSelected"
+                                             Value="True">
                                         <Setter Property="Foreground"
                                                 Value="{StaticResource ListViewTextSelectedColorBrush}" />
                                         <Setter TargetName="border"
