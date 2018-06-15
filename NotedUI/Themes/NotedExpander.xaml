@@ -36,16 +36,15 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Rectangle x:Name="MouseOverRect"
-                                   Grid.ColumnSpan="2"
+                        <Rectangle Grid.ColumnSpan="2"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"
-                                   Fill="White"
-                                   Opacity="0" />
+                                   Fill="#77FFFFFF" />
+
 
                         <ContentPresenter x:Name="header"
                                           Grid.Column="0"
-                                          Margin="25,12,0,12"
+                                          Margin="15,10,0,14"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"
                                           RecognizesAccessKey="True"
@@ -58,7 +57,7 @@
                         <Path x:Name="pathChevron"
                               Grid.Column="1"
                               Height="9"
-                              Margin="0,0,25,0"
+                              Margin="0,0,15,0"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Center"
                               Data="F1 M 37.8516,39.5833L 52.1016,24.9375L 52.1016,35.2292L 37.8516,50.2708L 23.6016,35.2292L 23.6016,24.9375L 37.8516,39.5833 Z "
@@ -74,16 +73,11 @@
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
-
-                        <Rectangle Grid.ColumnSpan="2"
-                                   Height="1"
-                                   Margin="16,0"
-                                   VerticalAlignment="Bottom"
-                                   Fill="{StaticResource ListViewDividerColorBrush}" />
                     </Grid>
                     <ControlTemplate.Triggers>
 
-                        <Trigger Property="IsChecked" Value="true">
+                        <Trigger Property="IsChecked"
+                                 Value="true">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -121,13 +115,15 @@
                             </Trigger.ExitActions>
                         </Trigger>
 
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
                             <Setter TargetName="grid"
                                     Property="Background"
                                     Value="{StaticResource ListViewBackgroundMouseOverBrush}" />
                         </Trigger>
 
-                        <Trigger Property="IsChecked" Value="True">
+                        <Trigger Property="IsChecked"
+                                 Value="True">
                             <Setter TargetName="header"
                                     Property="TextElement.Foreground"
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
@@ -229,7 +225,8 @@
                     <ControlTemplate.Triggers>
 
                         <!--  Universal Triggers  -->
-                        <Trigger Property="IsExpanded" Value="True">
+                        <Trigger Property="IsExpanded"
+                                 Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -263,7 +260,8 @@
                             </Trigger.ExitActions>
                         </Trigger>
 
-                        <Trigger Property="ShowHighlight" Value="True">
+                        <Trigger Property="ShowHighlight"
+                                 Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>

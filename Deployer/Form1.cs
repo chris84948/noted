@@ -15,9 +15,9 @@ namespace Deployer
     public partial class Form1 : Form
     {
         private const string NOTED_SOLUTION_FOLDER = @"C:\Github\NotedUI";
-        private const string DEPLOY_FOLDER = @"C:\Google Drive\Programming\Noted\Squirrel_Builds";
-        private const string INSTALLER_FOLDER = @"C:\Google Drive\Programming\Noted\Installers";
-        private const string APPX_FOLDER = @"C:\Google Drive\Programming\Noted\AppX";
+        private const string DEPLOY_FOLDER = @"..\..\..\build\Squirrel_Builds";
+        private const string INSTALLER_FOLDER = @"..\..\..\build\Installers";
+        private const string APPX_FOLDER = @"..\..\..\build\AppX";
         private const string NUGET_PATH = @"C:\Google Drive\Utilities\Nuget.exe";
         private const string SQUIRREL_PATH = @"C:\Google Drive\Utilities\Squirrel.Windows\Squirrel.exe";
 
