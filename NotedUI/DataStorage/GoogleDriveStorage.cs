@@ -400,6 +400,10 @@ namespace NotedUI.DataStorage
                 Console.WriteLine("An error occurred: " + e.Message);
                 return null;
             }
+            finally
+            {
+                stream.Dispose();
+            }
         }
 
         private async Task<File> PatchFile(string filename, string fileID)

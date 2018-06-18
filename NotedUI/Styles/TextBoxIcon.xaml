@@ -97,10 +97,10 @@
                     <ControlTemplate.Resources>
 
                         <Storyboard x:Key="HideHintStoryboard">
-                            <DoubleAnimation Duration="0:0:0.1"
-                                             Storyboard.TargetName="Hint"
+                            <DoubleAnimation Storyboard.TargetName="Hint"
                                              Storyboard.TargetProperty="Opacity"
-                                             To="0">
+                                             To="0"
+                                             Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
@@ -108,10 +108,10 @@
                         </Storyboard>
 
                         <Storyboard x:Key="ShowHintStoryboard">
-                            <DoubleAnimation Duration="0:0:0.1"
-                                             Storyboard.TargetName="Hint"
+                            <DoubleAnimation Storyboard.TargetName="Hint"
                                              Storyboard.TargetProperty="Opacity"
-                                             To="0.4">
+                                             To="0.4"
+                                             Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
@@ -184,20 +184,21 @@
                             <Button x:Name="PART_CloseButton"
                                     Grid.Column="1"
                                     Margin="5,0,18,0"
+                                    Padding="5"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Stretch"
                                     ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                                     ab:ButtonBehaviors.IconSize="14"
                                     ab:TextBoxBehaviors.IsClearTextButtonBehaviorEnabled="True"
                                     Foreground="{StaticResource ListViewTextColorBrush}"
-                                    Padding="5"
                                     Style="{StaticResource TextBoxCloseButton}" />
 
                         </Grid>
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="ab:TextBoxBehaviors.IsNullOrEmpty" Value="False">
+                        <Trigger Property="ab:TextBoxBehaviors.IsNullOrEmpty"
+                                 Value="False">
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="HideHintStoryboard_BeginStoryboard"
                                                  Storyboard="{StaticResource HideHintStoryboard}" />
@@ -209,29 +210,36 @@
                             </Trigger.ExitActions>
                         </Trigger>
 
-                        <Trigger SourceName="PART_CloseButton" Property="IsMouseOver" Value="true">
+                        <Trigger SourceName="PART_CloseButton"
+                                 Property="IsMouseOver"
+                                 Value="true">
                             <Setter TargetName="PART_CloseButton"
                                     Property="Foreground"
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
-                        <Trigger SourceName="PART_CloseButton" Property="IsPressed" Value="true">
+                        <Trigger SourceName="PART_CloseButton"
+                                 Property="IsPressed"
+                                 Value="true">
                             <Setter TargetName="PART_CloseButton"
                                     Property="Foreground"
                                     Value="{StaticResource AppTopBannerBrush}" />
                         </Trigger>
 
-                        <Trigger Property="IsEnabled" Value="false">
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
                             <Setter TargetName="border"
                                     Property="Opacity"
                                     Value="0.56" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
                             <Setter TargetName="border"
                                     Property="BorderBrush"
                                     Value="{StaticResource TextBox.MouseOver.Border}" />
                         </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="true">
+                        <Trigger Property="IsKeyboardFocused"
+                                 Value="true">
                             <Setter TargetName="border"
                                     Property="BorderBrush"
                                     Value="{StaticResource TextBox.Focus.Border}" />
@@ -251,8 +259,10 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
-                    <Condition Property="IsSelectionActive" Value="false" />
+                    <Condition Property="IsInactiveSelectionHighlightEnabled"
+                               Value="true" />
+                    <Condition Property="IsSelectionActive"
+                               Value="false" />
                 </MultiTrigger.Conditions>
                 <Setter Property="SelectionBrush"
                         Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
@@ -288,10 +298,10 @@
                     <ControlTemplate.Resources>
 
                         <Storyboard x:Key="HideHintStoryboard">
-                            <DoubleAnimation Duration="0:0:0.1"
-                                             Storyboard.TargetName="Hint"
+                            <DoubleAnimation Storyboard.TargetName="Hint"
                                              Storyboard.TargetProperty="Opacity"
-                                             To="0">
+                                             To="0"
+                                             Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
@@ -299,10 +309,10 @@
                         </Storyboard>
 
                         <Storyboard x:Key="ShowHintStoryboard">
-                            <DoubleAnimation Duration="0:0:0.1"
-                                             Storyboard.TargetName="Hint"
+                            <DoubleAnimation Storyboard.TargetName="Hint"
                                              Storyboard.TargetProperty="Opacity"
-                                             To="0.4">
+                                             To="0.4"
+                                             Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseOut" />
                                 </DoubleAnimation.EasingFunction>
@@ -350,20 +360,21 @@
                             <Button x:Name="PART_CloseButton"
                                     Grid.Column="1"
                                     Margin="5,0,18,0"
+                                    Padding="5"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Stretch"
                                     ab:ButtonBehaviors.Icon="{StaticResource CloseIcon}"
                                     ab:ButtonBehaviors.IconSize="14"
                                     ab:TextBoxBehaviors.IsClearTextButtonBehaviorEnabled="True"
                                     Foreground="{StaticResource ListViewTextColorBrush}"
-                                    Padding="5"
                                     Style="{StaticResource TextBoxCloseButton}" />
 
                         </Grid>
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="ab:TextBoxBehaviors.IsNullOrEmpty" Value="False">
+                        <Trigger Property="ab:TextBoxBehaviors.IsNullOrEmpty"
+                                 Value="False">
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="HideHintStoryboard_BeginStoryboard"
                                                  Storyboard="{StaticResource HideHintStoryboard}" />
@@ -375,29 +386,36 @@
                             </Trigger.ExitActions>
                         </Trigger>
 
-                        <Trigger SourceName="PART_CloseButton" Property="IsMouseOver" Value="true">
+                        <Trigger SourceName="PART_CloseButton"
+                                 Property="IsMouseOver"
+                                 Value="true">
                             <Setter TargetName="PART_CloseButton"
                                     Property="Foreground"
                                     Value="{StaticResource ListViewTextSelectedColorBrush}" />
                         </Trigger>
 
-                        <Trigger SourceName="PART_CloseButton" Property="IsPressed" Value="true">
+                        <Trigger SourceName="PART_CloseButton"
+                                 Property="IsPressed"
+                                 Value="true">
                             <Setter TargetName="PART_CloseButton"
                                     Property="Foreground"
                                     Value="{StaticResource AppTopBannerBrush}" />
                         </Trigger>
 
-                        <Trigger Property="IsEnabled" Value="false">
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
                             <Setter TargetName="border"
                                     Property="Opacity"
                                     Value="0.56" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
                             <Setter TargetName="border"
                                     Property="BorderBrush"
                                     Value="{StaticResource TextBox.MouseOver.Border}" />
                         </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="true">
+                        <Trigger Property="IsKeyboardFocused"
+                                 Value="true">
                             <Setter TargetName="border"
                                     Property="BorderBrush"
                                     Value="{StaticResource TextBox.Focus.Border}" />
@@ -417,8 +435,10 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
-                    <Condition Property="IsSelectionActive" Value="false" />
+                    <Condition Property="IsInactiveSelectionHighlightEnabled"
+                               Value="true" />
+                    <Condition Property="IsSelectionActive"
+                               Value="false" />
                 </MultiTrigger.Conditions>
                 <Setter Property="SelectionBrush"
                         Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />

@@ -276,7 +276,7 @@
                  Height="35"
                  VerticalAlignment="Bottom"
                  ab:TextBoxBehaviors.Hint="Enter Search"
-                 Background="{StaticResource ListViewPanelBackground}"
+                 Background="#FFDFE9F2"
                  FontFamily="{StaticResource ControlFont}"
                  FontSize="14"
                  RenderTransformOrigin="0.5,0"
@@ -346,6 +346,7 @@
                                                                     ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                                                                         Path=DataContext.AllNotes.ExpandAllGroups,
                                                                                         Mode=TwoWay}"
+                                                                    GroupObject="{Binding}"
                                                                     Header="{Binding Name,
                                                                                      Converter={StaticResource ToUpperConverter}}"
                                                                     Tag="{Binding RelativeSource={RelativeSource AncestorType=ListView},
@@ -418,15 +419,15 @@
                                Grid.Row="1"
                                Grid.Column="0"
                                MinWidth="5"
+                               Padding="10,10,10,10"
                                Background="{StaticResource NoteBackgroundBrush}"
                                FontFamily="Consolas"
                                FontSize="13"
                                HorizontalScrollBarVisibility="Disabled"
                                Loaded="tbNote_Loaded"
-                               Padding="10,10,10,10"
                                ShowLineNumbers="False"
                                Tag="{Binding RelativeSource={RelativeSource Self}}">
-                               <!--ScrollPositionChanged="tbNote_ScrollPositionChanged"-->
+                <!--  ScrollPositionChanged="tbNote_ScrollPositionChanged"  -->
 
                 <avalon:TextEditor.Options>
                     <avalon:TextEditorOptions AllowScrollBelowDocument="True" />
@@ -493,7 +494,7 @@
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="L"
                                 Command="{Binding Formatting.LinkCommand}"
-                                CommandParameter="{Binding }"
+                                CommandParameter="{Binding}"
                                 Modifiers="Ctrl" />
                     <KeyBinding Key="OemPeriod"
                                 Command="{Binding Formatting.BulletPointCommand}"

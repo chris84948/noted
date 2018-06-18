@@ -39,7 +39,7 @@
                         <Rectangle Grid.ColumnSpan="2"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"
-                                   Fill="#77FFFFFF" />
+                                   Fill="#DFE9F2" />
 
 
                         <ContentPresenter x:Name="header"
