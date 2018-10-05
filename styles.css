@@ -1,0 +1,214 @@
+body {
+  margin: 0px;
+}
+
+/* 
+Navigation section
+*/
+#nav {
+  width: 100%;
+  background-color: #0064c1ff;
+  padding: 15px 0px;
+  position: fixed;
+  z-index: 10000;
+  top: 0px;
+}
+
+#nav-content {
+  width: 1080px;
+  margin: 0 auto;
+}
+
+#nav-content-right {
+  float: right;
+}
+
+#nav a {
+  color: #c3d5e6ff;
+  padding: 15px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#nav a:hover {
+  color: white;
+  background-color: #ffffff33;
+}
+
+#nav a:active {
+  color: white;
+  background-color: #003261ff;
+}
+
+/*
+Main section
+*/
+#main {
+  width: 100%;
+  background-color: #c3d5e6ff;
+}
+
+#main-content {
+  display: grid;
+  margin: 0 auto;
+  width: 1080px;
+  padding: 80px 0px;
+  grid-template-rows: 25% 25% 25% 25%;
+}
+
+.subtitle {
+  font-size: 40px;
+  margin: 20px 0px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #222222;
+}
+
+#main-content-title {
+  font-size: 80px;
+  color: #222222;
+  margin: 0px;
+}
+
+#device-image {
+  margin: 20px auto;
+}
+
+#download-btn-link {
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  display: table;
+  margin: 0 auto;
+  text-decoration: none;
+  padding: 15px 20px;
+  color: white;
+  background-color: #222222;
+  border-radius: 30px;
+}
+
+
+/*
+Features section
+*/
+#features {
+  width: 100%;
+  background-color: #222222;
+}
+
+#features-header {
+  margin: 0 auto;
+  grid-column-start: span 4;
+  color: white;
+  font-size: 40px;
+  padding: 0px 0px 40px;
+}
+
+#feature-content {
+  width: 1080px;
+  display: grid;
+  grid-template: 20% 40% 40% / 25% 25% 25% 25%;
+  margin: 0 auto;
+  padding: 60px;
+}
+
+.feature {
+  text-align: center;
+  margin: 15px 0px;
+}
+
+.icon {
+  font-size: 100px;
+  color: white;
+}
+
+.feature-text {
+  font-size: 20px;
+  margin: 20px;
+  color: white;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+/*
+Libraries Section
+*/
+#libraries {
+  width: 100%;
+  background-color: #666666;
+}
+
+#libraries-content {
+  width: 1080px;
+  margin: 0 auto;
+  padding: 60px;
+}
+
+#libraries-header {
+  margin: 0 auto;
+  grid-column-start: span 4;
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  padding: 0px 0px 40px;
+}
+
+.library-text {
+  font-size: 20px;
+  margin: 20px;
+  color: white;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+}
+
+li>a {
+  color: white;
+  text-decoration: underline;
+}
+
+#libraries-list {
+  margin: 0 auto;
+  display: table;
+}
+
+
+/*
+Contact Section
+*/
+#contact {
+  width: 100%;
+  background-color: #003261ff;
+}
+
+#contact-content {
+  width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+#contact-header {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
+
+.contact-btn {
+  margin: 0;
+}
+
+.contact-btn-link {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-weight: 800;
+  display: table;
+  text-decoration: none;
+  padding: 15px 40px;
+  margin-top: 8px;
+  color: #222222;
+  background-color: #c3d5e6ff;
+  border-radius: 30px;
+}
