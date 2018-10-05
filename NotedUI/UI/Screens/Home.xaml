@@ -346,7 +346,6 @@
                                                                     ExpandNow="{Binding RelativeSource={RelativeSource AncestorType=ListView},
                                                                                         Path=DataContext.AllNotes.ExpandAllGroups,
                                                                                         Mode=TwoWay}"
-                                                                    GroupObject="{Binding}"
                                                                     Header="{Binding Name,
                                                                                      Converter={StaticResource ToUpperConverter}}"
                                                                     Tag="{Binding RelativeSource={RelativeSource AncestorType=ListView},
